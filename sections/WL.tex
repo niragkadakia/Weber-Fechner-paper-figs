@@ -1,0 +1,28 @@
+% Weber-Law stuff
+
+\subsection*{An arbitrary activity distribution naturally preserves Weber-Law scaling} 
+
+
+Compressed sensing relies on both input vector sparsity and measurement matrix decoherence, the latter of which implies a degree of randomness in $\mathbf M$. Sensory receptor systems such as ORNs are known to adapt their gain levels to maximize sensitivity to quasi-static backgrounds, and it is suggestive that if ORNs are indeed decoding sparse odor signals, the linearized measurement matrix -- a joint function of free energies $\epsilon_{\text u}^\rho$, activated disassociation constants $K_*^{\rho i}$, and background signals $s_0$ -- is statistically distributed in such a way to optimally preserve sensitivity over a broad range of backgrounds. 
+
+On the one hand, we might assign a particular prior on the disassociation matrices $K_*^{\rho i}$. Alternatively, we may adopt the viewpoint that in response to fluctuating backgrounds, the sensory system adapts $\epsilon^\rho_0$ dynamically to maintain the output levels $\bar a^\rho$ to a set range, and that this range is inherently tuned to sparsity. This viewpoint may be more in line with previous studies and subsequent re-analyses of drosophila ORNs indicating that firing rates appear to follow a single distribution across ORN types and mean signal magnitudes. 
+
+Adopting this perspective, let us assume that the activity response of a given olfactory receptor $\rho$ to individual monomolecular odorants of a fixed concentration $s_0$ is approximately normally distributed (truncated outside of the closed interval [0, 1] in accordance with Eq.~\ref{eq:steady_state_activity}):
+\begin{align}
+\bar a^\rho([s_i] = s_0) \sim \mathcal N(\mu_\rho, \sigma_\rho)
+\label{eq:monomolecular_activity_levels}
+\end{align} 
+The assumption of Gaussian-distributed activity levels, however, imply non-normal statistics for the disassociation matrices. In the limit of disparate binding affinities for the activated and inactivated receptors, $K^{\rho i}_* \ll s_i \ll K^{\rho i}$, the probability density function for $K^{\rho i}$ for a given receptor $\rho$ is
+\begin{align}
+p_\rho(K_*^{\rho i} = x)  \sim \frac{e^{-\left[\mu_\rho - \frac{(x/C_\rho + 1)^{-1}}{\sqrt{2\pi \sigma^2}}\right]^2}}{(x/C_\rho + 1)^2}, 
+\label{eq:distribution_Kk2_normal_activity}
+\end{align}
+where $C_\rho = e^{-\epsilon_{\text u}^\rho}s_0$. 
+
+As the mean odorant concentration is modulated, activity levels respond dynamically to fast fluctuations. Simultaneously, $\epsilon_{\text u}^\rho$ adjusts, slowly driving activity levels back to a latent firing rate, around 30 Hz for typical ORNs. The implication of Eq.~\ref{eq:distribution_Kk2_normal_activity} is $\bar a^\rho$ cannot be independent of background signal, unless $C_\rho$ is fixed. Yet the constancy of $C_\rho$ is just the adaptive scaling
+\begin{align}
+\epsilon_{\text u}^\rho \sim \log(s_0),
+\end{align}
+which is Weber's Law itself. The implication is that log-sensing adaptation arises naturally and consistently from normally-distributed receptor response to monomolecular signals. {\color {blue} Same for any distribution really; however the interplay of mean and variance cold be meaningful.}
+
+To what extent is adaptive scaling necessary in maintaining coding fidelity? To probe this, 
