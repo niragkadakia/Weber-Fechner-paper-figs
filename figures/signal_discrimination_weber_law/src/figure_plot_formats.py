@@ -94,6 +94,7 @@ def signal_discrimination_weber_law_plot(Kk_split_idxs=None):
 		ax['signal_insert_%s' % Kk_split_idx].set_xticks([])
 		ax['signal_insert_%s' % Kk_split_idx].set_yticks([])
 		ax['signal_insert_%s' % Kk_split_idx].patch.set_alpha(0.75)
+		ax['signal_insert_%s' % Kk_split_idx].set_facecolor('0.96')
 		
 		# X-labels only on bottom / set xlim for all though
 		if Kk_split_idx == Kk_split_idxs - 1:
