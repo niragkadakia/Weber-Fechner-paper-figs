@@ -34,7 +34,7 @@ def signal_discrimination_weber_law_plot(Kk_split_idxs=None):
 
 	signal_plot_height = 9
 	decode_plot_size = signal_plot_height
-	signal_plot_width = int(decode_plot_size*4./3.)
+	signal_plot_width = int(decode_plot_size*5./3.)
 	
 	fig = plt.figure()
 	grid_width = decode_plot_size + 1 + signal_plot_width
@@ -75,11 +75,16 @@ def signal_discrimination_weber_law_plot(Kk_split_idxs=None):
 		ax['signal_%s' % Kk_split_idx] = \
 			plt.subplot(gs[plot_y1:plot_y2, plot_x1:plot_x2])
 		plt.yticks([])
-		plt.xticks([])
+		if Kk_split_idx == Kk_split_idxs - 1:
+			plt.xticks([20, 40, 60, 80], fontsize=20)
+			ax['signal_%s' % Kk_split_idx].tick_params(axis='x', pad=10)
+		else:
+			plt.xticks([])
+		plt.xlim(18, 70)
 		
 		# Signal insert (zoom-in) plots 
-		insert_xlims = [20, 50]
-		insert_ylims = [-0.085, 0.085]
+		insert_xlims = [30, 50]
+		insert_ylims = [-0.14, 0.14]
 		ax['signal_insert_%s' % Kk_split_idx] = \
 			zoomed_inset_axes(ax['signal_%s' % Kk_split_idx], 2.0, loc=2)
 		ax['signal_insert_%s' % Kk_split_idx].\
@@ -88,17 +93,18 @@ def signal_discrimination_weber_law_plot(Kk_split_idxs=None):
 			set_ylim(insert_ylims[0], insert_ylims[1])
 		ax['signal_insert_%s' % Kk_split_idx].set_xticks([])
 		ax['signal_insert_%s' % Kk_split_idx].set_yticks([])
+		ax['signal_insert_%s' % Kk_split_idx].patch.set_alpha(0.75)
 		
 		# X-labels only on bottom / set xlim for all though
 		if Kk_split_idx == Kk_split_idxs - 1:
 			ax['signal_%s' % Kk_split_idx].\
-				set_xlabel(r'Odorant identity', fontsize=22, labelpad=16)
+				set_xlabel(r'Odorant identity', fontsize=22)
 		
 		# All Y-labels: only in middle if odd number of Kk_split_idxs
 		if Kk_split_idxs % 2 == 0:
 			ax['successes_%s' % Kk_split_idx].\
 					set_ylabel(r'Correctly decoded signals (%)', 
-					labelpad=14, fontsize=18)
+					labelpad=14, fontsize=22)
 			ax['signal_%s' % Kk_split_idx].\
 				yaxis.set_label_position("right")
 			ax['signal_%s' % Kk_split_idx].\
@@ -113,7 +119,7 @@ def signal_discrimination_weber_law_plot(Kk_split_idxs=None):
 					yaxis.set_label_position("right")
 				ax['signal_%s' % Kk_split_idx].\
 					set_ylabel(r'Concentration', fontsize=22, rotation=270,
-					labelpad=28)
+					labelpad=30)
 		
 		
 	return fig, ax

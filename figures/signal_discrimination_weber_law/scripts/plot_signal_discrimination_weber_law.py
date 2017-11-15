@@ -42,23 +42,24 @@ def plot_signal_discrimination_weber_law(data_flags, axes_to_plot=[0, 1],
 	# Function to plot signal and inset; odor 2 is overlaid in darker color.
 	def signal_plot(ax):
 	
-		ax.plot(sp.arange(Nn), CS_object_array[mu_dSs_to_plot, 
+		ax.bar(sp.arange(Nn), CS_object_array[mu_dSs_to_plot, 
 			seed_Kk2_to_plot[Kk_split_idx]].dSs*(-1)**Weber_idx, 
-			lw=true_signal_lw, color=true_signal_color, zorder=100)
-		ax.fill_between(sp.arange(Nn), 0, CS_object_array[mu_dSs_to_plot, 
+			lw=true_signal_lw, edgecolor=true_signal_color,
+			zorder=100, width=1.0, fill=False)
+		ax.bar(sp.arange(Nn), CS_object_array[mu_dSs_to_plot, 
 			seed_Kk2_to_plot[Kk_split_idx]].dSs_est*(-1)**Weber_idx, 
-			facecolor=cmap(dual_odor_color_shades[0]), zorder=2)
-	
-		# Generate just odor 2 signal and plot
+			color=cmap(dual_odor_color_shades[0]), zorder=2, width=1.0)
+		
+		# Generate just odor 2 signal and plot over first plot
 		signal_2 = sp.zeros(Nn)
 		idxs_2 = CS_object_array[mu_dSs_to_plot, \
 				seed_Kk2_to_plot[Kk_split_idx]].idxs_2
 		for idx_2 in idxs_2:
 			signal_2[idx_2] = CS_object_array[mu_dSs_to_plot, 
 				seed_Kk2_to_plot[Kk_split_idx]].dSs_est[idx_2]
-		ax.fill_between(sp.arange(Nn), 0, signal_2*(-1)**Weber_idx, 
-			facecolor=cmap(dual_odor_color_shades[1]), zorder=3)
-	
+		ax.bar(sp.arange(Nn), signal_2*(-1)**Weber_idx, 
+			color=cmap(dual_odor_color_shades[1]), zorder=3, width=1.0)
+		
 		return ax	
 	
 	# Define the plot indices
@@ -74,8 +75,9 @@ def plot_signal_discrimination_weber_law(data_flags, axes_to_plot=[0, 1],
 	cmaps = [cm.Reds, cm.Blues]
 	cmaps_r = [cm.Reds_r, cm.Blues_r]
 	dual_odor_color_shades = [0.7, 0.3]
+	success_plots_lw = 3.0
 	true_signal_color = 'black'
-	true_signal_lw = 0.7
+	true_signal_lw = 0.8
 	mu_dSs_to_plot = 27
 	seed_Kk2_to_plot = [47, 66, 44]	
 	
@@ -114,10 +116,10 @@ def plot_signal_discrimination_weber_law(data_flags, axes_to_plot=[0, 1],
 		avg_successes_2 = sp.average(successes_2, axis=1)*100.0
 		ax['successes_%s' % Kk_split_idx].plot(iter_vars[iter_plot_var], 
 					avg_successes, color=cmap(dual_odor_color_shades[0]), 
-					zorder=2)
+					zorder=2, lw=success_plots_lw)
 		ax['successes_%s' % Kk_split_idx].plot(iter_vars[iter_plot_var], 
 					avg_successes_2, color=cmap(dual_odor_color_shades[1]),
-					zorder=1)
+					zorder=1, lw=success_plots_lw)
 		
 		# Load CS objects for single stimuli plotting
 		iter_vars_dims = []
