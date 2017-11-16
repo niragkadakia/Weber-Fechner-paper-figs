@@ -45,8 +45,8 @@ def plot_signal_decoding_weber_law(data_flags, axes_to_plot=[0, 1],
 	fig, ax = single_decoding_weber_law_plot(data_idxs=data_idxs)
 	cmaps = [cm.Reds, cm.Blues]
 	cmaps_r = [cm.Reds_r, cm.Blues_r]
-	color_cycle_errors = sp.linspace(0.2, 0.7, data_idxs/2)
-	linewidths_errors = sp.linspace(5.0, 3.0, data_idxs/2)
+	color_cycle_errors = sp.linspace(0.25, 0.7, data_idxs/2)
+	linewidths_errors = sp.linspace(6.0, 3.0, data_idxs/2)
 	
 	# Plot for each command line argument
 	for data_idx, data_flag in enumerate(data_flags):

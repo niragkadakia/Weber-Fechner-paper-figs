@@ -128,7 +128,7 @@ def single_decoding_weber_law_plot(data_idxs=2):
 		if data_idx == data_idxs - 2:
 			ax['gains_%s' % data_idx].yaxis.set_label_position('right')
 			ax['gains_%s' % data_idx].set_ylabel(
-						r'Receptor gain $\Delta r / \Delta s$', 
+						r'Receptor gain $\Delta a / \Delta s$', 
 						fontsize=axis_label_size, rotation=270)
 			ax['gains_%s' % data_idx].yaxis.set_label_coords(1.30, -0.1)
 				
