@@ -13,9 +13,11 @@ import scipy as sp
 import matplotlib
 from matplotlib import cm
 from matplotlib import rc
-matplotlib.rcParams['font.sans-serif'] = "Arial"
-matplotlib.rcParams['font.family'] = "sans-serif"
 import matplotlib.pyplot as plt
+plt.rcParams['text.latex.preamble'] = [
+		r'\usepackage{helvet}',
+		r'\usepackage{sansmath}', # math --> arial
+		r'\sansmath']             # <-- actually tell tex to use it!
 import matplotlib.gridspec as gridspec
 from mpl_toolkits.axes_grid1.inset_locator import zoomed_inset_axes
 from local_methods import def_data_dir
@@ -40,6 +42,16 @@ def signal_discrimination_weber_law_plot(Kk_split_idxs=None):
 	gs = gridspec.GridSpec(grid_height, grid_width)
 	gs.update(wspace=1, hspace=0.5)
 	fig.set_size_inches(12, 5*Kk_split_idxs)
+	
+	# Labels and tick sizes for later
+	success_x_tick_pad = 12
+	success_x_label_pad = 12
+	success_y_label_pad = 16
+	signal_x_label_pad = 15
+	signal_y_label_pad = 42
+	tick_label_size = 24
+	axis_label_size = 28
+	
 	ax = dict()
 	
 	for Kk_split_idx in range(Kk_split_idxs):
@@ -53,14 +65,18 @@ def signal_discrimination_weber_law_plot(Kk_split_idxs=None):
 		ax['successes_%s' % Kk_split_idx] = \
 			plt.subplot(gs[plot_y1:plot_y2, plot_x1:plot_x2])
 		plt.xscale('log')
-		plt.yticks([0, 50, 100], fontsize=20)
+		plt.yticks([0, 50, 100], fontsize=tick_label_size)
 		plt.xticks([])
 		
 		# X-labels only on bottom / set xlim for all though
 		if Kk_split_idx == Kk_split_idxs - 1:
 			ax['successes_%s' % Kk_split_idx].\
-				set_xlabel(r'Background odor strength', fontsize=22)
-			plt.xticks(10.**sp.arange(-5, 5),  fontsize=20)
+				set_xlabel(r'Background odor''\n''strength', 
+							fontsize=axis_label_size,
+							labelpad=success_x_label_pad)
+			plt.xticks(10.**sp.arange(-5, 5),  fontsize=tick_label_size)
+		ax['successes_%s' % Kk_split_idx].tick_params(axis='x', 
+							which='major', pad=success_x_tick_pad)
 		ax['successes_%s' % Kk_split_idx].set_xlim([1e-1, 1e1])
 		
 		# Signal plots		
@@ -74,7 +90,7 @@ def signal_discrimination_weber_law_plot(Kk_split_idxs=None):
 			plt.subplot(gs[plot_y1:plot_y2, plot_x1:plot_x2])
 		plt.yticks([])
 		if Kk_split_idx == Kk_split_idxs - 1:
-			plt.xticks([20, 40, 60, 80], fontsize=20)
+			plt.xticks([20, 40, 60, 80], fontsize=tick_label_size)
 			ax['signal_%s' % Kk_split_idx].tick_params(axis='x', pad=10)
 		else:
 			plt.xticks([])
@@ -97,28 +113,29 @@ def signal_discrimination_weber_law_plot(Kk_split_idxs=None):
 		# X-labels only on bottom / set xlim for all though
 		if Kk_split_idx == Kk_split_idxs - 1:
 			ax['signal_%s' % Kk_split_idx].\
-				set_xlabel(r'Odorant identity', fontsize=22)
+				set_xlabel(r'Odorant identity', fontsize=axis_label_size, 
+							labelpad=signal_x_label_pad)
 		
 		# All Y-labels: only in middle if odd number of Kk_split_idxs
 		if Kk_split_idxs % 2 == 0:
 			ax['successes_%s' % Kk_split_idx].\
 					set_ylabel(r'Correctly decoded signals (%)', 
-					labelpad=14, fontsize=22)
+					labelpad=success_y_label_pad, fontsize=axis_label_size)
 			ax['signal_%s' % Kk_split_idx].\
 				yaxis.set_label_position("right")
 			ax['signal_%s' % Kk_split_idx].\
-				set_ylabel(r'Concentration', fontsize=18, rotation=270,
-				labelpad=28)
+				set_ylabel(r'Concentration', fontsize=axis_label_size, 
+							rotation=270, labelpad=signal_y_label_pad)
 		else:
 			if Kk_split_idx == Kk_split_idxs / 2:
 				ax['successes_%s' % Kk_split_idx].\
 					set_ylabel(r'Correctly decoded signals (%)', 
-					labelpad=14, fontsize=22)
+					labelpad=success_y_label_pad, fontsize=axis_label_size)
 				ax['signal_%s' % Kk_split_idx].\
 					yaxis.set_label_position("right")
 				ax['signal_%s' % Kk_split_idx].\
-					set_ylabel(r'Concentration', fontsize=22, rotation=270,
-					labelpad=30)
+					set_ylabel(r'Concentration', fontsize=axis_label_size, 
+								rotation=270, labelpad=signal_y_label_pad)
 		
 		
 	return fig, ax

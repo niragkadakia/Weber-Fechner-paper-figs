@@ -75,9 +75,9 @@ def plot_signal_discrimination_weber_law(data_flags, axes_to_plot=[0, 1],
 	cmaps = [cm.Reds, cm.Blues]
 	cmaps_r = [cm.Reds_r, cm.Blues_r]
 	dual_odor_color_shades = [0.7, 0.3]
-	success_plots_lw = 3.0
+	success_plots_linewidths = [4.0, 6.0]
 	true_signal_color = 'black'
-	true_signal_lw = 0.8
+	true_signal_lw = 1.0
 	mu_dSs_to_plot = 27
 	seed_Kk2_to_plot = [47, 66, 44]	
 	
@@ -116,10 +116,10 @@ def plot_signal_discrimination_weber_law(data_flags, axes_to_plot=[0, 1],
 		avg_successes_2 = sp.average(successes_2, axis=1)*100.0
 		ax['successes_%s' % Kk_split_idx].plot(iter_vars[iter_plot_var], 
 					avg_successes, color=cmap(dual_odor_color_shades[0]), 
-					zorder=2, lw=success_plots_lw)
+					zorder=2, lw=success_plots_linewidths[0])
 		ax['successes_%s' % Kk_split_idx].plot(iter_vars[iter_plot_var], 
 					avg_successes_2, color=cmap(dual_odor_color_shades[1]),
-					zorder=1, lw=success_plots_lw)
+					zorder=1, lw=success_plots_linewidths[1])
 		
 		# Load CS objects for single stimuli plotting
 		iter_vars_dims = []
