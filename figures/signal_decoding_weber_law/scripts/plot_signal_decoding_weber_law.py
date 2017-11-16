@@ -8,8 +8,6 @@ Current plots generated with command line arguments:
 
 mu_dSs_lo_Kk2_lo_diverse_Kk=7_WL 
 mu_dSs_lo_Kk2_lo_diverse_Kk=7_no-WL 
-mu_dSs_lo_Kk2_med_diverse_Kk=7_WL 
-mu_dSs_lo_Kk2_med_diverse_Kk=7_no-WL 
 mu_dSs_lo_Kk2_vryhi_diverse_Kk=7_WL 
 mu_dSs_lo_Kk2_vryhi_diverse_Kk=7_no-WL 
 
@@ -48,7 +46,7 @@ def plot_signal_decoding_weber_law(data_flags, axes_to_plot=[0, 1],
 	cmaps = [cm.Reds, cm.Blues]
 	cmaps_r = [cm.Reds_r, cm.Blues_r]
 	color_cycle_errors = sp.linspace(0.2, 0.7, data_idxs/2)
-	linewidths_errors = sp.linspace(4, 2, data_idxs/2)
+	linewidths_errors = sp.linspace(5.0, 3.0, data_idxs/2)
 	
 	# Plot for each command line argument
 	for data_idx, data_flag in enumerate(data_flags):
@@ -60,6 +58,7 @@ def plot_signal_decoding_weber_law(data_flags, axes_to_plot=[0, 1],
 			
 		iter_plot_var = iter_vars.keys()[axes_to_plot[0]]
 		x_axis_var = iter_vars.keys()[axes_to_plot[1]]
+		Nn = list_dict['params']['Nn']
 		
 		data = load_signal_decoding_weber_law(data_flag)
 		successes = data['successes']
@@ -121,9 +120,11 @@ def plot_signal_decoding_weber_law(data_flags, axes_to_plot=[0, 1],
 										10.**bins, gains_data.T, cmap=cmaps_r[1], 
 										rasterized=True)
 			
+	save_signal_decoding_weber_law_fig(fig)	
+	
 	# Plot estimated signals
 	samples_to_plot = [0, 1]
-	bkgrnds_to_plot = [40, 75]
+	bkgrnds_to_plot = [40, 76]
 	stimuli_to_plot = [1, 2]
 	for data_idx, data_flag_idx in enumerate(samples_to_plot):
 		data_flag = data_flags[data_flag_idx]
@@ -139,17 +140,16 @@ def plot_signal_decoding_weber_law(data_flags, axes_to_plot=[0, 1],
 		color = cmap(color_cycle_errors[-1])
 		
 		for bkgrnd_idx, bkgrnd_val in enumerate(bkgrnds_to_plot):
-			ax['est_%s' % bkgrnd_idx].plot(CS_object_array[bkgrnd_val, \
-											stimuli_to_plot[bkgrnd_idx]].dSs, 
-											color='black', zorder=1, 
-											linewidth=2.5)
-			ax['est_%s' % bkgrnd_idx].plot(CS_object_array[bkgrnd_val, \
-											stimuli_to_plot[bkgrnd_idx]].dSs_est, 
-											color=color, zorder=2+data_idx, \
-											linewidth=2.0, linestyle='--')
+			ax['est_%s' % bkgrnd_idx].bar(
+				sp.arange(Nn), CS_object_array[bkgrnd_val, 
+				stimuli_to_plot[bkgrnd_idx]].dSs, edgecolor='black', 
+				zorder=100, width=1.0, lw=1.0, fill=False)
+			ax['est_%s' % bkgrnd_idx].bar(
+				sp.arange(Nn), CS_object_array[bkgrnd_val, 
+				stimuli_to_plot[bkgrnd_idx]].dSs_est, color=color, 
+				zorder=2+data_idx, width=1.0)
 		
-
-	save_signal_decoding_weber_law_fig(fig)	
+		save_signal_decoding_weber_law_fig(fig)	
 		
 if __name__ == '__main__':
 	data_flags = get_flags()

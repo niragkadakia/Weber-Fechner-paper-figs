@@ -15,8 +15,6 @@ from matplotlib import cm
 from matplotlib import rc
 matplotlib.rcParams['font.sans-serif'] = "Arial"
 matplotlib.rcParams['font.family'] = "sans-serif"
-#rc('font', **{'family': 'serif', 'serif': ['Computer Modern']})
-#rc('text', usetex=True)
 import matplotlib.pyplot as plt
 import matplotlib.gridspec as gridspec
 from mpl_toolkits.axes_grid1.inset_locator import zoomed_inset_axes
