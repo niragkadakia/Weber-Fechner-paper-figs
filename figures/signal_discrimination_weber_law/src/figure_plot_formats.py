@@ -124,7 +124,7 @@ def signal_discrimination_weber_law_plot(Kk_split_idxs=None):
 			ax['signal_%s' % Kk_split_idx].\
 				yaxis.set_label_position("right")
 			ax['signal_%s' % Kk_split_idx].\
-				set_ylabel(r'Concentration', fontsize=axis_label_size, 
+				set_ylabel(r'Odorant intensity', fontsize=axis_label_size, 
 							rotation=270, labelpad=signal_y_label_pad)
 		else:
 			if Kk_split_idx == Kk_split_idxs / 2:
@@ -134,7 +134,7 @@ def signal_discrimination_weber_law_plot(Kk_split_idxs=None):
 				ax['signal_%s' % Kk_split_idx].\
 					yaxis.set_label_position("right")
 				ax['signal_%s' % Kk_split_idx].\
-					set_ylabel(r'Concentration', fontsize=axis_label_size, 
+					set_ylabel(r'Odorant intensity', fontsize=axis_label_size, 
 								rotation=270, labelpad=signal_y_label_pad)
 		
 		
