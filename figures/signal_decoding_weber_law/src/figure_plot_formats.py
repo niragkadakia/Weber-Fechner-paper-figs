@@ -43,7 +43,7 @@ def single_decoding_weber_law_plot(data_idxs=2):
 	decode_plot_size = 8
 	num_gain_plots = data_idxs/2
 	gain_plot_size = 4
-	est_plot_upper_pad = 2
+	est_plot_upper_pad = 3
 	est_plot_height = 4
 	num_est_plots = 2
 	
@@ -53,14 +53,14 @@ def single_decoding_weber_law_plot(data_idxs=2):
 	grid_height = decode_plot_size + est_plot_upper_pad + \
 					est_plot_height*num_est_plots
 	gs = gridspec.GridSpec(grid_height, grid_width)
-	gs.update(wspace=4.5, hspace=1.0)
+	gs.update(wspace=6.5, hspace=3.0)
 	fig.set_size_inches(13, 12)
 	
 	# Some font and label sizes for later use
 	tick_label_size_small = 20
 	tick_label_size_large = 22
-	axis_label_size = 25
-	x_axis_label_pad = 12
+	axis_label_size = 28
+	x_axis_label_pad = 13
 	y_axis_successes_labelpad = 10
 	x_tick_label_pad = 11
 	
@@ -116,7 +116,7 @@ def single_decoding_weber_law_plot(data_idxs=2):
 		# Gaain axis label in center of range of plots
 		if num_gain_plots % 2 == 0:
 			if data_idx == data_idxs/2 - 1:
-				ax['gains_%s' % data_idx].xaxis.set_label_coords(1.1, -0.33)
+				ax['gains_%s' % data_idx].xaxis.set_label_coords(1.1, -0.38)
 				ax['gains_%s' % data_idx].set_xlabel(r'Background signal', 
 											fontsize=axis_label_size, 
 											labelpad=x_axis_label_pad)
@@ -128,9 +128,9 @@ def single_decoding_weber_law_plot(data_idxs=2):
 		if data_idx == data_idxs - 2:
 			ax['gains_%s' % data_idx].yaxis.set_label_position('right')
 			ax['gains_%s' % data_idx].set_ylabel(
-						r'Receptor gain $\Delta a / \Delta s$', 
+						r'Receptor gain''\n''$\Delta a / \Delta s$', 
 						fontsize=axis_label_size, rotation=270)
-			ax['gains_%s' % data_idx].yaxis.set_label_coords(1.30, -0.1)
+			ax['gains_%s' % data_idx].yaxis.set_label_coords(1.50, -0.1)
 				
 	# Sample estimation plot
 	for est_idx in range(num_est_plots):
