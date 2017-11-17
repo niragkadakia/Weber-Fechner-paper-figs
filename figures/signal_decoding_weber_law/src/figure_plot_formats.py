@@ -14,11 +14,7 @@ import matplotlib
 from matplotlib import cm
 from matplotlib import rc
 import matplotlib.pyplot as plt
-plt.rcParams['text.latex.preamble'] = [
-		r'\usepackage{helvet}', 
-		r'\usepackage{sansmath}', 
-		r'\sansmath']   
-seriffont={'fontname':'Times New Roman'}
+plt.rcParams["font.family"] = "Times New Roman"
 import matplotlib.gridspec as gridspec
 from mpl_toolkits.mplot3d import Axes3D
 from local_methods import def_data_dir
@@ -58,8 +54,8 @@ def single_decoding_weber_law_plot(data_idxs=2):
 	fig.set_size_inches(13, 16)
 	
 	# Some font and label sizes for later use
-	tick_label_size_small = 23
-	tick_label_size_large = 25
+	tick_label_size_small = 30
+	tick_label_size_large = 30
 	axis_label_size = 34
 	x_axis_label_pad = 15
 	y_axis_successes_labelpad = 8
@@ -74,11 +70,11 @@ def single_decoding_weber_law_plot(data_idxs=2):
 	plt.yticks([0, 50, 100], fontsize=tick_label_size_large)
 	ax['successes'].tick_params(axis='x', which='major', pad=x_tick_label_pad)
 	ax['successes'].set_xlabel(r'Background signal', fontsize=axis_label_size, 
-								labelpad=x_axis_label_pad, **seriffont)
+								labelpad=x_axis_label_pad)
 	ax['successes'].set_ylabel(r'Correctly decoded (%)', 
 								fontsize=axis_label_size, 
 								labelpad=y_axis_successes_labelpad, 
-								multialignment='center', **seriffont)
+								multialignment='center')
 	ax['successes'].set_xlim([1e-1, 1.5e2])
 	
 	# Gain plots
@@ -109,8 +105,10 @@ def single_decoding_weber_law_plot(data_idxs=2):
 		elif data_idx % 2 == 1:
 			ax['gains_%s' % data_idx].set_ylim(1.1e-2, 2e-1)
 			ax['gains_%s' % data_idx].set_xticks([1e-2, 1e-1, 1e0])	
-			ax['gains_%s' % data_idx].tick_params(axis='x', labelsize=tick_label_size_small)
-			ax['gains_%s' % data_idx].tick_params(axis='y', labelsize=tick_label_size_large)
+			ax['gains_%s' % data_idx].\
+					tick_params(axis='x', labelsize=tick_label_size_small)
+			ax['gains_%s' % data_idx].\
+					tick_params(axis='y', labelsize=tick_label_size_large)
 		ax['gains_%s' % data_idx].set_xlim(0.98e-2, 1.4e-1)
 		ax['gains_%s' % data_idx].tick_params(axis='x', which='major', 
 												pad=x_tick_label_pad)
@@ -118,22 +116,21 @@ def single_decoding_weber_law_plot(data_idxs=2):
 		# Gaain axis label in center of range of plots
 		if num_gain_plots % 2 == 0:
 			if data_idx == data_idxs/2 - 1:
-				ax['gains_%s' % data_idx].xaxis.set_label_coords(1.1, -0.38)
 				ax['gains_%s' % data_idx].set_xlabel(r'Background signal', 
 											fontsize=axis_label_size, 
-											labelpad=x_axis_label_pad, 
-											 **seriffont)
+											labelpad=x_axis_label_pad)
+				ax['gains_%s' % data_idx].xaxis.set_label_coords(1.1, -.455)
+				
 		elif num_gain_plots % 2 == 1:
 			if data_idx == data_idxs/2:
 				ax['gains_%s' % data_idx].set_xlabel(r'Background signal', 
 											fontsize=axis_label_size, 
-											labelpad=x_axis_label_pad, 
-											 **seriffont)
+											labelpad=x_axis_label_pad)
 		if data_idx == data_idxs - 2:
 			ax['gains_%s' % data_idx].yaxis.set_label_position('right')
 			ax['gains_%s' % data_idx].set_ylabel(
 						r'Receptor gain', fontsize=axis_label_size, 
-						rotation=270, **seriffont)
+						rotation=270)
 			ax['gains_%s' % data_idx].yaxis.set_label_coords(1.4, -0.1)
 				
 	# Sample estimation plot
@@ -151,11 +148,9 @@ def single_decoding_weber_law_plot(data_idxs=2):
 			ax['est_%s' % est_idx].yaxis.set_label_coords(-0.03, 1.1)
 			ax['est_%s' % est_idx].set_xlabel(r'Odorant identity', 
 												fontsize=axis_label_size,
-												labelpad=x_axis_label_pad, 
-												 **seriffont)
+												labelpad=x_axis_label_pad)
 			ax['est_%s' % est_idx].set_ylabel(r'Odorant intensity', 
-												fontsize=axis_label_size, 
-												 **seriffont)
+												fontsize=axis_label_size)
 			ax['est_%s' % est_idx].tick_params(labelsize=tick_label_size_large, 
 												pad=x_tick_label_pad)
 		else:
