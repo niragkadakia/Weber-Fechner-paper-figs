@@ -56,7 +56,7 @@ def read_specs_file(data_flag, data_dir = data_dir):
 	except:
 		print ("There is no input file %s/specs/%s.txt" 
 				% (data_dir, data_flag))
-		exit()
+		quit()
 	specs_file = open(filename, 'r')
 
 	fixed_vars = dict()

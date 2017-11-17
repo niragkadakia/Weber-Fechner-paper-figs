@@ -103,3 +103,5 @@ def save_signal_discrimination_weber_law_fig(fig):
 	plt.savefig(filename, bbox_inches = 'tight')
 	filename = '../signal_discrimination_weber_law.svg' 
 	plt.savefig(filename, bbox_inches = 'tight')
+	filename = '../signal_discrimination_weber_law.pdf' 
+	plt.savefig(filename, bbox_inches = 'tight')

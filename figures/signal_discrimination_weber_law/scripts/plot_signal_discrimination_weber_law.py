@@ -79,7 +79,7 @@ def plot_signal_discrimination_weber_law(data_flags, axes_to_plot=[0, 1],
 	true_signal_color = 'black'
 	true_signal_lw = 1.0
 	mu_dSs_to_plot = 27
-	seed_Kk2_to_plot = [47, 66, 44]	
+	seed_Kk2_to_plot = [9, 64, 25]	
 	
 	# Plot
 	for data_idx, data_flag in enumerate(data_flags):
@@ -100,12 +100,13 @@ def plot_signal_discrimination_weber_law(data_flags, axes_to_plot=[0, 1],
 		
 		nAxes = len(successes.shape)
 		if nAxes > 2:
-			successes = project_tensor(successes, 
-									iter_vars, projected_variable_components,
-									axes_to_plot)
-			successes_2 = project_tensor(successes_2, 
-									iter_vars, projected_variable_components,
-									axes_to_plot)
+			successes = project_tensor(successes, iter_vars, 
+										projected_variable_components,
+										axes_to_plot)
+			successes_2 = project_tensor(successes_2, iter_vars, 
+										projected_variable_components,
+										axes_to_plot)
+										
 		# Switch axes if necessary
 		if axes_to_plot[0] > axes_to_plot[1]:    
 			successes = successes.T
