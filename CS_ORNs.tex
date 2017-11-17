@@ -141,6 +141,13 @@ Adopting the viewpoint that the neural system can learn the mean background stim
 
 Compressed sensing relies on both input vector sparsity and measurement matrix decoherence, the latter of which implies a degree of randomness in $\mathbf M$. Sensory receptor systems such as ORNs are known to adapt their gain levels to maximize sensitivity to quasi-static backgrounds, and it is suggestive that if ORNs are indeed decoding sparse odor signals, the linearized measurement matrix -- a joint function of free energies $\epsilon_{\text u}^\rho$, activated disassociation constants $K_*^{\rho i}$, and background signals $s_0$ -- is statistically distributed in such a way to optimally preserve sensitivity over a broad range of backgrounds. 
 
+\begin{figure}%[tbhp]
+	\centering
+	\includegraphics[width=.85\linewidth]{figures/signal_discrimination_weber_law/signal_discrimination_weber_law}
+	\caption{test size.}
+	\label{fig:frog}
+\end{figure}
+
 On the one hand, we might assign a particular prior on the disassociation matrices $K_*^{\rho i}$. Alternatively, we may adopt the viewpoint that in response to fluctuating backgrounds, the sensory system adapts $\epsilon^\rho_0$ dynamically to maintain the output levels $\bar a^\rho$ to a set range, and that this range is inherently tuned to sparsity. This viewpoint may be more in line with previous studies and subsequent re-analyses of drosophila ORNs indicating that firing rates appear to follow a single distribution across ORN types and mean signal magnitudes. 
 
 Adopting this perspective, let us assume that the activity response of a given olfactory receptor $\rho$ to individual monomolecular odorants of a fixed concentration $s_0$ is approximately normally distributed (truncated outside of the closed interval [0, 1] in accordance with Eq.~\ref{eq:steady_state_activity}):

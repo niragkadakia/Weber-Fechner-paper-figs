@@ -15,9 +15,10 @@ from matplotlib import cm
 from matplotlib import rc
 import matplotlib.pyplot as plt
 plt.rcParams['text.latex.preamble'] = [
-		r'\usepackage{helvet}',
-		r'\usepackage{sansmath}', # math --> arial
-		r'\sansmath']             # <-- actually tell tex to use it!
+		r'\usepackage{helvet}', 
+		r'\usepackage{sansmath}', 
+		r'\sansmath']   
+seriffont={'fontname':'Times New Roman'}
 import matplotlib.gridspec as gridspec
 from mpl_toolkits.axes_grid1.inset_locator import zoomed_inset_axes
 from local_methods import def_data_dir
@@ -50,7 +51,7 @@ def signal_discrimination_weber_law_plot(Kk_split_idxs=None):
 	signal_x_label_pad = 15
 	signal_y_label_pad = 42
 	tick_label_size = 24
-	axis_label_size = 28
+	axis_label_size = 34
 	
 	ax = dict()
 	
@@ -73,7 +74,7 @@ def signal_discrimination_weber_law_plot(Kk_split_idxs=None):
 			ax['successes_%s' % Kk_split_idx].\
 				set_xlabel(r'Background odor''\n''strength', 
 							fontsize=axis_label_size,
-							labelpad=success_x_label_pad)
+							labelpad=success_x_label_pad, **seriffont)
 			plt.xticks(10.**sp.arange(-5, 5),  fontsize=tick_label_size)
 		ax['successes_%s' % Kk_split_idx].tick_params(axis='x', 
 							which='major', pad=success_x_tick_pad)
@@ -114,28 +115,32 @@ def signal_discrimination_weber_law_plot(Kk_split_idxs=None):
 		if Kk_split_idx == Kk_split_idxs - 1:
 			ax['signal_%s' % Kk_split_idx].\
 				set_xlabel(r'Odorant identity', fontsize=axis_label_size, 
-							labelpad=signal_x_label_pad)
+							labelpad=signal_x_label_pad, **seriffont)
 		
 		# All Y-labels: only in middle if odd number of Kk_split_idxs
 		if Kk_split_idxs % 2 == 0:
 			ax['successes_%s' % Kk_split_idx].\
 					set_ylabel(r'Correctly decoded signals (%)', 
-					labelpad=success_y_label_pad, fontsize=axis_label_size)
+					labelpad=success_y_label_pad, fontsize=axis_label_size,
+					**seriffont)
 			ax['signal_%s' % Kk_split_idx].\
 				yaxis.set_label_position("right")
 			ax['signal_%s' % Kk_split_idx].\
 				set_ylabel(r'Odorant intensity', fontsize=axis_label_size, 
-							rotation=270, labelpad=signal_y_label_pad)
+							rotation=270, labelpad=signal_y_label_pad,
+							**seriffont)
 		else:
 			if Kk_split_idx == Kk_split_idxs / 2:
 				ax['successes_%s' % Kk_split_idx].\
 					set_ylabel(r'Correctly decoded signals (%)', 
-					labelpad=success_y_label_pad, fontsize=axis_label_size)
+					labelpad=success_y_label_pad, fontsize=axis_label_size,
+					**seriffont)
 				ax['signal_%s' % Kk_split_idx].\
 					yaxis.set_label_position("right")
 				ax['signal_%s' % Kk_split_idx].\
 					set_ylabel(r'Odorant intensity', fontsize=axis_label_size, 
-								rotation=270, labelpad=signal_y_label_pad)
+								rotation=270, labelpad=signal_y_label_pad,
+								**seriffont)
 		
 		
 	return fig, ax
