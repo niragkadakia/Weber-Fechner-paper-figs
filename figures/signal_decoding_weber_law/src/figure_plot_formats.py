@@ -118,7 +118,7 @@ def single_decoding_weber_law_plot(data_idxs=2):
 		# Gaain axis label in center of range of plots
 		if num_gain_plots % 2 == 0:
 			if data_idx == data_idxs/2 - 1:
-				ax['gains_%s' % data_idx].xaxis.set_label_coords(1.1, -0.36)
+				ax['gains_%s' % data_idx].xaxis.set_label_coords(1.1, -0.38)
 				ax['gains_%s' % data_idx].set_xlabel(r'Background signal', 
 											fontsize=axis_label_size, 
 											labelpad=x_axis_label_pad, 
@@ -147,7 +147,7 @@ def single_decoding_weber_law_plot(data_idxs=2):
 		
 		# Sample estimation plots labels only on outside
 		if est_idx == num_est_plots/2:
-			ax['est_%s' % est_idx].set_xticks(sp.arange(10, 100, 20))
+			ax['est_%s' % est_idx].set_xticks(sp.arange(10, 100, 10))
 			ax['est_%s' % est_idx].yaxis.set_label_coords(-0.03, 1.1)
 			ax['est_%s' % est_idx].set_xlabel(r'Odorant identity', 
 												fontsize=axis_label_size,

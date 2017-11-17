@@ -122,6 +122,14 @@ Specifically, this estimate is the vector which minimizes the $L_1$ norm of the 
 \end{align}
 where $\mathbf M$ is an $M$x$N$ measurement matrix.
 
+
+\begin{figure}%[tbhp]
+	\centering
+	\includegraphics[width=.8\linewidth]{figures/signal_decoding_weber_law/signal_decoding_weber_law}
+	\caption{test size.}
+	\label{fig:frog}
+\end{figure}
+
 But odor binding and transduction are nonlinear processes: olfactory encoding cannot be described by the simple linear input-output relation $a^\rho = M^{\rho i} s_i$, rather a more general formulation such as the steady state expression Eq.~\ref{eq:steady_state_activity}. One could in principle carry out the optimization in Eq.~\ref{eq:compressed_sensing_formulation} with the replacement of the linear constraint,  but the recovery of $\mathbf s$ is not straightforward as nonlinear programming contains no guarantees on convexity, and may well converge to a local minimum. To incorporate the odor binding dynamics in a sensible way, we assume the activity levels relax to their steady state values, Eq.~\ref{eq:steady_state_activity}, but use only a first-order approximation of the full binding and activation process for decoding. 
 
 Adopting the viewpoint that the neural system can learn the mean background stimulus, we linearize fluctuations of the sparse odor signals around a known background $\bar{\mathbf s}$, estimating only the fluctuations $\Delta \mathbf s = \mathbf s - \bar{\mathbf s}$ via Eq.~\ref{eq:compressed_sensing_formulation}. In the limit $K_*^{\rho i} \ll s_i \ll K^{\rho i}$, this gives a measurement matrix $M^{\rho i} = (e^{\epsilon^\rho_{\text u}}/K_*^{\rho i})/(\sum_{i=1}^N s_i^0/K_*^{\rho i} + e^{\epsilon^\rho_{\text u}})^2$. 
