@@ -101,3 +101,5 @@ def save_signal_decoding_weber_law_fig(fig):
 	plt.savefig(filename, bbox_inches = 'tight')
 	filename = '../signal_decoding_weber_law.svg' 
 	plt.savefig(filename, bbox_inches = 'tight')
+	filename = '../signal_decoding_weber_law.pdf' 
+	plt.savefig(filename, bbox_inches = 'tight')
