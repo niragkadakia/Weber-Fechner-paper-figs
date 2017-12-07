@@ -55,18 +55,48 @@ def load_tuning_curve(data_flag):
 	return tuning_curve_data
 
 	
-def save_tuning_curve_fig(fig, data_flag):
+def save_tuning_curve_fig(fig, mu_dSs_idx, sigma_Kk2_idx, fig_num, data_flag):
 	"""
 	Save tuning curve figure.
 	"""
 	
-	out_dir = '%s/figures' % (ANALYSIS_DIR)
+	out_dir = '%s/figures/tuning_curves/%s' % (ANALYSIS_DIR, data_flag)
+	file_str = 'tuning_curve_mu_dSs_idx=%s,sigma_Kk2_idx=%s,fig_num=%s' \
+				% (mu_dSs_idx, sigma_Kk2_idx, fig_num)
 	if not os.path.exists(out_dir): 
 		os.makedirs(out_dir)
 	
-	filename = '%s/tuning_curves/%s.png' % (out_dir, data_flag)
+	filename = '%s/%s.png' % (out_dir, file_str)
 	plt.savefig(filename, bbox_inches = 'tight')
-	filename = '../%s.png' % data_flag
+	
+	out_dir = '../subfigures/%s' % data_flag
+	if not os.path.exists(out_dir): 
+		os.makedirs(out_dir)
+	
+	filename = '%s/%s.png' % (out_dir, file_str)
 	plt.savefig(filename, bbox_inches = 'tight')
-	filename = '../%s.svg' % data_flag
+	filename = '%s/%s.svg' % (out_dir, file_str)
+	plt.savefig(filename, bbox_inches = 'tight')
+	
+
+def save_Kk2_fig(fig, sigma_Kk2_idx, data_flag):
+	"""
+	Save tuning curve figure.
+	"""
+	
+	out_dir = '%s/figures/tuning_curves/%s' % (ANALYSIS_DIR, data_flag)
+	file_str = 'Kk2_sigma_Kk2_idx=%s' % sigma_Kk2_idx
+	if not os.path.exists(out_dir): 
+		os.makedirs(out_dir)
+	
+	filename = '%s/%s.png' % (out_dir, file_str)
+	plt.savefig(filename, bbox_inches = 'tight')
+	
+	out_dir = '../subfigures/%s' % data_flag
+	if not os.path.exists(out_dir): 
+		os.makedirs(out_dir)
+	
+	filename = '%s/%s.png' % (out_dir, file_str)
+	plt.savefig(filename, bbox_inches = 'tight')
+	filename = '%s/%s.svg' % (out_dir, file_str)
 	plt.savefig(filename, bbox_inches = 'tight')
