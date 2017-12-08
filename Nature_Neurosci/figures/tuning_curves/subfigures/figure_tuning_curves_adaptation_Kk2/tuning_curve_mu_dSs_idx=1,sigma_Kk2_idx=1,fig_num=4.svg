@@ -29,7 +29,7 @@ z
    <g id="matplotlib.axis_1"/>
    <g id="matplotlib.axis_2"/>
    <g id="line2d_1">
-    <path clip-path="url(#pa2bc54bf61)" d="M 15.772727 89.757174 
+    <path clip-path="url(#pccdd219e50)" d="M 15.772727 89.757174 
 L 16.285124 89.756319 
 L 16.797521 89.752112 
 L 17.309917 89.750188 
@@ -129,10 +129,10 @@ L 64.96281 85.098821
 L 65.475207 84.468296 
 L 65.987603 82.695375 
 L 66.5 76.910917 
-" style="fill:none;stroke:#888888;stroke-linecap:square;stroke-width:2;"/>
+" style="fill:none;stroke:#404040;stroke-linecap:square;stroke-width:2;"/>
    </g>
    <g id="line2d_2">
-    <path clip-path="url(#pa2bc54bf61)" d="M 66.5 76.910917 
+    <path clip-path="url(#pccdd219e50)" d="M 66.5 76.910917 
 L 67.012397 71.701288 
 L 67.524793 83.111113 
 L 68.03719 86.008526 
@@ -232,7 +232,7 @@ L 115.690083 89.751164
 L 116.202479 89.7525 
 L 116.714876 89.752912 
 L 117.227273 89.75849 
-" style="fill:none;stroke:#888888;stroke-linecap:square;stroke-width:2;"/>
+" style="fill:none;stroke:#404040;stroke-linecap:square;stroke-width:2;"/>
    </g>
    <g id="patch_3">
     <path d="M 10.7 93.86 
@@ -257,7 +257,7 @@ L 122.3 10.7
   </g>
  </g>
  <defs>
-  <clipPath id="pa2bc54bf61">
+  <clipPath id="pccdd219e50">
    <rect height="83.16" width="111.6" x="10.7" y="10.7"/>
   </clipPath>
  </defs>
