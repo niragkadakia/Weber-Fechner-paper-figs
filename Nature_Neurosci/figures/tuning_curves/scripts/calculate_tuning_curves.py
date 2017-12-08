@@ -42,9 +42,10 @@ def calculate_tuning_curves(data_flag):
 	tuning_curve = sp.zeros((iter_vars_dims[0], iter_vars_dims[1], 
 									params['Nn'], params['Mm']))
 	
-	# Set array to hold epsilons and Kk2
+	# Set array to hold epsilons, Kk2, and activities
 	epsilons = sp.zeros((iter_vars_dims[0], iter_vars_dims[1], params['Mm']))
 	Kk2s = sp.zeros((iter_vars_dims[0], iter_vars_dims[1], params['Mm'], params['Nn']))
+	activities = sp.zeros((iter_vars_dims[0], iter_vars_dims[1], params['Mm']))
 	
 	# Iterate tuning curve calculation over all iterable variables 
 	while not it.finished:
@@ -65,10 +66,12 @@ def calculate_tuning_curves(data_flag):
 		
 		epsilons[it.multi_index] = obj.eps
 		Kk2s[it.multi_index] = obj.Kk2
+		activities[it.multi_index] = obj.Yy
 		
 		it.iternext()
 	
-	save_tuning_curve(tuning_curve, epsilons, Kk2s, data_flag)
+	save_tuning_curve(tuning_curve, epsilons, Kk2s, activities, data_flag)
+	
 	
 if __name__ == '__main__':
 	data_flag = get_flag()

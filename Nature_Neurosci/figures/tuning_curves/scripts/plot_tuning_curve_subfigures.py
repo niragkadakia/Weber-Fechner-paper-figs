@@ -93,10 +93,11 @@ def plot_tuning_curve_subfigures(data_flag, plot_tuning_curves=True,
 	if plot_Kk2 == True:
 		
 		fig = Kk2_subfigure()
-		ax = fig.add_subplot(111)#, autoscale_on=False)
+		ax = fig.add_subplot(111)
 		plt.imshow(sp.log(Kk2s[mu_dSs_idx, sigma_Kk2_idx, :, :].T), aspect=0.2, 
 					cmap='bone', rasterized=True, vmin=-8.5, vmax=-3)
 		
+		# Draw arrows to indicate representative plots
 		highlight_idx = 0
 		for fig_num, iM in enumerate(iMs_to_plot):
 			if fig_num in highlight_figs:
@@ -114,12 +115,36 @@ def plot_tuning_curve_subfigures(data_flag, plot_tuning_curves=True,
 	
 	
 	#############################
-	###       Adaptive        ###
+	###      Adaptation       ###
 	#############################
 	
 	if plot_adaptation == True:
-		pass
-	
+		
+		for fig_num, iM in enumerate(iMs_to_plot):
+			if fig_num in highlight_figs:
+				fig = plt.figure()
+				# Plot activity of this neuron
+			
+			else:
+				continue
+			
+			
+			
+			colors = cmaps[data_idx][idx](sp.linspace(0.75, 0.3, params['Mm']))
+			
+			for iM in range(params['Mm']):
+				axes_tuning[idx, idy].plot(
+					sp.arange(params['Nn']/2), 
+					sp.sort(tuning_curve[idx_var, idy_var, ::2, iM]), 
+					color=colors[iM], linewidth = 0.7,
+					zorder = params['Mm'] - iM)
+				axes_tuning[idx, idy].plot(
+					sp.arange(params['Nn']/2 - 1, params['Nn']-1), 
+					sp.sort(tuning_curve[idx_var, idy_var, 1::2, iM])[::-1],
+					color=colors[iM], linewidth = 0.7,
+					zorder = params['Mm'] - iM)
+	plt.show()
+		
 	
 if __name__ == '__main__':
 	data_flag = get_flag()
