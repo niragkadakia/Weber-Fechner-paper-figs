@@ -139,13 +139,13 @@ def plot_tuning_curve_subfigures(data_flag, plot_tuning_curves=True,
 			
 				# Indicate receptors colored blue, orange, green; rest grey
 				if fig_num in highlight_figs:
-					color = highlight_colors[highlight_idx](0.9)
-					lw = 1.2
+					color = highlight_colors[highlight_idx](0.8)
+					lw = 2.0
 					highlight_idx += 1
 					zorder=iM
 				else:
-					color = '0.7'
-					lw = 1.5
+					color = ('0.8')
+					lw = 1.75
 					zorder=-iM
 
 				# Array to hold full time trace; mu_dSs incremented
@@ -185,7 +185,9 @@ def plot_tuning_curve_subfigures(data_flag, plot_tuning_curves=True,
 						
 					# Red region when odor is on; only call once per plot
 					if iM == 0:
-						plt.axvspan(stim_beg, stim_end, color=cm.Reds(0.15), zorder=-1000)
+						plt.axvspan(stim_beg, stim_end, color=
+									cm.Reds(0.25*(idSs + 1)/len(mu_dSs_idxs)),
+									zorder=-1000)
 				
 			
 				# Smooth edges to look more natural
