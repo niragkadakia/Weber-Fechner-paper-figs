@@ -41,7 +41,7 @@ def plot_tuning_curve_subfigures(data_flag, plot_tuning_curves=True,
 	adaptation_Kk = 10
 	
 	# What are the random number seeds for picking odor components?
-	odor_seeds = range(10)
+	odor_seeds = range(20)
 	
 	# Which receptors to highlight; choose these by ordering Kk2
 	highlight_figs = [2, 3, 7]
