@@ -55,3 +55,20 @@ def Kk2_subfigure():
 	plt.xticks([])
 	
 	return fig
+
+	
+def firing_rate_subfigure():
+	""" 
+	Generate the figure frame for tuning curve plots
+	
+	Returns:
+		fig: The figure object.
+	"""
+
+	fig = plt.figure()
+	fig.set_size_inches(5, 2.5)
+	plt.yticks([])
+	plt.xticks([])
+	plt.ylim(-0.025, 1.025)
+	
+	return fig
