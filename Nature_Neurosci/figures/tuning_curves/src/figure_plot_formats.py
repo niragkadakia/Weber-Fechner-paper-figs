@@ -67,8 +67,23 @@ def firing_rate_subfigure():
 
 	fig = plt.figure()
 	fig.set_size_inches(5, 2.5)
+	plt.xticks([])
+	plt.yticks([0, 1.0], fontsize=20)
+	plt.ylim(-0.025, 1.35)
+	
+	return fig
+	
+	
+def firing_rate_stimulus_subfigure():
+	""" 
+	Generate the figure frame for tuning curve plots
+	
+	Returns:
+		fig: The figure object.
+	"""
+
+	fig = plt.figure()
 	plt.yticks([])
 	plt.xticks([])
-	plt.ylim(-0.025, 1.025)
 	
 	return fig

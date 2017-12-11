@@ -58,7 +58,7 @@ def load_tuning_curve(data_flag):
 	
 def save_tuning_curve_fig(fig, mu_dSs_idx, sigma_Kk2_idx, fig_num, data_flag):
 	"""
-	Save tuning curve figure.
+	Save tuning curve subfigures.
 	
 	Args:
 		fig: figure object to save
@@ -90,7 +90,7 @@ def save_tuning_curve_fig(fig, mu_dSs_idx, sigma_Kk2_idx, fig_num, data_flag):
 
 def save_Kk2_fig(fig, sigma_Kk2_idx, data_flag):
 	"""
-	Save tuning curve figure.
+	Save Kk2 matrix subfigure.
 	
 	Args:
 		fig: figure object to save
@@ -121,7 +121,7 @@ def save_firing_rate_fig(fig, sigma_Kk2_idx, mu_dSs_idxs,
 							odor_seed, data_flag):
 
 	"""
-	Save tuning curve figure.
+	Save firing rate subfigures.
 	
 	Args:
 		fig: figure object to save
@@ -136,6 +136,41 @@ def save_firing_rate_fig(fig, sigma_Kk2_idx, mu_dSs_idxs,
 	out_dir = '%s/figures/tuning_curves/%s' % (ANALYSIS_DIR, data_flag)
 	file_str = 'firing_rate_sigma_Kk2_idx=%s,mu_dSs_idxs=%s,odor_seed=%s,' \
 				% (sigma_Kk2_idx, mu_dSs_idxs, odor_seed)
+	if not os.path.exists(out_dir): 
+		os.makedirs(out_dir)
+	
+	filename = '%s/%s.png' % (out_dir, file_str)
+	plt.savefig(filename, bbox_inches = 'tight')
+	
+	out_dir = '../subfigures/%s' % data_flag
+	if not os.path.exists(out_dir): 
+		os.makedirs(out_dir)
+	
+	filename = '%s/%s.png' % (out_dir, file_str)
+	plt.savefig(filename, bbox_inches = 'tight')
+	filename = '%s/%s.svg' % (out_dir, file_str)
+	plt.savefig(filename, bbox_inches = 'tight')
+	
+	
+def save_firing_rate_stimulus_fig(fig, sigma_Kk2_idx, mu_dSs_idxs, 
+							odor_seed, data_flag):
+
+	"""
+	Save firing rate stimuli figures.
+	
+	Args:
+		fig: figure object to save
+		sigma_Kk2_idx: index of Kk2 standard deviation (in range of second 
+						iter_var in specs)
+		mu_dSs_idxs: indices of mu_dSs for which stimulus is plotted 
+						(among range of first iter_var in specs)
+		odor_seed: random number seed for odor stimulus plotted in this figure
+		data_flag: data identifier
+	"""
+	
+	out_dir = '%s/figures/tuning_curves/%s' % (ANALYSIS_DIR, data_flag)
+	file_str = 'firing_rate_stimulus_sigma_Kk2_idx=%s,mu_dSs_idxs=%s,' \
+				'odor_seed=%s,' % (sigma_Kk2_idx, mu_dSs_idxs, odor_seed)
 	if not os.path.exists(out_dir): 
 		os.makedirs(out_dir)
 	

@@ -19,9 +19,11 @@ from load_specs import read_specs_file, parse_iterated_vars, \
 from utils import get_flags, merge_two_dicts
 from encode_CS import single_encode_CS
 from save_load_data import load_tuning_curve, save_tuning_curve_fig, \
-							save_Kk2_fig, save_firing_rate_fig
+							save_Kk2_fig, save_firing_rate_fig, \
+							save_firing_rate_stimulus_fig
 from figure_plot_formats import tuning_curve_subfigures, \
-								Kk2_subfigure, firing_rate_subfigure
+								Kk2_subfigure, firing_rate_subfigure, \
+								firing_rate_stimulus_subfigure
 import matplotlib.pyplot as plt
 from matplotlib import cm
 
@@ -38,10 +40,10 @@ def plot_tuning_curve_subfigures(data_flag, plot_tuning_curves=True,
 	mu_dSs_idxs = [0, 8, 13]
 	
 	# Which sparsity for adaptation plots?
-	adaptation_Kk = 10
+	adaptation_Kk = 6
 	
 	# What are the random number seeds for picking odor components?
-	odor_seeds = range(20)
+	odor_seeds = range(40)
 	
 	# Which receptors to highlight; choose these by ordering Kk2
 	highlight_figs = [2, 3, 7]
@@ -196,7 +198,15 @@ def plot_tuning_curve_subfigures(data_flag, plot_tuning_curves=True,
 				
 			save_firing_rate_fig(fig, sigma_Kk2_idx, mu_dSs_idxs, 
 									odor_seed, data_flag)
-
+			
+			# Plot stimulus vector as a heatmap; roll to double size of bar
+			fig = firing_rate_stimulus_subfigure()
+			shifted_dSs = obj.dSs + sp.roll(obj.dSs, 1)
+			plt.imshow([shifted_dSs], cmap=cm.Greys, aspect=20, 
+						vmin=-1, interpolation='nearest')
+			save_firing_rate_stimulus_fig(fig, sigma_Kk2_idx, mu_dSs_idxs,
+											odor_seed, data_flag)
+	
 	
 if __name__ == '__main__':
 	data_flag = get_flag()
