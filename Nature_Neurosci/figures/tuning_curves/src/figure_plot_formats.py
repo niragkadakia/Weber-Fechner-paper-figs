@@ -34,7 +34,7 @@ def tuning_curve_subfigures():
 
 	fig = plt.figure()
 	fig.set_size_inches(2, 1.5)
-	plt.ylim(-0.05, 1.0)
+	plt.ylim(-0.08, 1.0)
 	plt.yticks([])
 	plt.xticks([])
 
@@ -66,10 +66,10 @@ def firing_rate_subfigure():
 	"""
 
 	fig = plt.figure()
-	fig.set_size_inches(5, 2.5)
+	fig.set_size_inches(4, 1.5)
 	plt.xticks([])
 	plt.yticks([0, 1.0], fontsize=20)
-	plt.ylim(-0.025, 1.35)
+	plt.ylim(-0.025, 1.05)
 	
 	return fig
 	
