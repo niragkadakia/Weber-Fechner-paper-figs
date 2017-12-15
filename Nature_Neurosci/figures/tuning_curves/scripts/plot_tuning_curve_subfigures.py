@@ -3,7 +3,7 @@ Plot tuning curves for a particularr specs file
 
 spec files used to create data (data_flags):
 figure_tuning_curves_adaptation_Kk2.txt
-figure_tuning_curves_no_adaptation_Kk2.txt
+figure_tuning_curves_no_adaptation_Kk2
 
 Current figure (Figure_tuning_curves.svg) uses odor_seed 12 and 22
 
@@ -155,10 +155,6 @@ def plot_tuning_curve_subfigures(data_flag, plot_tuning_curves=True,
 					color = ('0.8')
 					lw = 1.75
 					zorder=-iM
-
-				# Array to hold full time trace; mu_dSs incremented
-				num_mu_dSs_to_plot = len(mu_dSs_idxs)
-				response = sp.zeros(2)
 				
 				# Loop over different background stimuli; plot at successive dt
 				for idSs, mu_dSs_idx in enumerate(mu_dSs_idxs):
@@ -185,13 +181,10 @@ def plot_tuning_curve_subfigures(data_flag, plot_tuning_curves=True,
 					stim_beg = (2*idSs + 1)*2
 					stim_end = (2*idSs + 2)*2
 					x_range = [stim_beg, stim_end]
-					response[:] = obj.Yy[iM]
+					response = [obj.Yy[iM]]*2
 					plt.plot(x_range, response, color=color, lw=lw, zorder=zorder)
-						
-				# Smooth edges to look more natural
-				plt.xlim(1, 13)
-				response = gaussian_filter(response, sigma=2)
 				
+			plt.xlim(1, 13)
 			save_firing_rate_fig(fig, sigma_Kk2_idx, mu_dSs_idxs, 
 									odor_seed, data_flag)
 			
