@@ -33,7 +33,7 @@ sys.path.append('../src')
 import matplotlib.pyplot as plt
 from matplotlib import cm
 from mpl_toolkits.axes_grid1.inset_locator import mark_inset
-from utils import get_flags, project_tensor, polygon_under_graph
+from utils import get_flags, project_tensor
 from load_specs import read_specs_file
 from save_load_data import save_discrimination_accuracy_fig, \
 							save_sample_estimation_fig, \
@@ -85,10 +85,19 @@ def plot_signal_discrimination_weber_law(data_flags, axes_to_plot=[0, 1],
 	true_signal_lw = 1.0
 	mu_dSs_to_plot = 27
 	
-	seed_Kk2_to_plot = [9, 64, 25]	
+	# Which particular Kk_2 to plot for each set of 2 data_flags (WL/no-WL)
+	seed_Kk2_to_plot = [9, 64, 25]
+	assert len(seed_Kk2_to_plot) == len(data_flags)/2, "seed_Kk2_to_plot must" \
+		" have as many entries as command line arguments / 2"
+	# Where plot inset values for each set of 2 data flags
 	inset_xlims = [[42, 49], [24, 32], [52, 58]] 
+	assert len(inset_xlims) == len(data_flags)/2, "inset_xlims must" \
+		" have as many entries as command line arguments / 2"
+	# Where to place inset, for each set of 2 plots
 	inset_locs = [1, 2, 1]
-	
+	assert len(inset_locs) == len(data_flags)/2, "inset_locs must" \
+		" have as many entries as command line arguments / 2"
+		
 	# Plot
 	for Kk_split_idx in range(Kk_split_idxs):
 		

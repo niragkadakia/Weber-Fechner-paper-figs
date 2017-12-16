@@ -13,10 +13,12 @@ import scipy as sp
 import matplotlib
 from matplotlib import cm
 from matplotlib import rc
-matplotlib.rcParams['font.sans-serif'] = "Helvetica"
-matplotlib.rcParams['font.family'] = "sans-serif"
-rc('text', usetex=True)
+#matplotlib.rcParams['font.sans-serif'] = "Helvetica"
+#matplotlib.rcParams['font.family'] = "sans-serif"
+#rc('text', usetex=True)
 import matplotlib.pyplot as plt
+params = {'text.usetex': False, 'mathtext.fontset': 'dejavusans'}
+plt.rcParams.update(params)
 from mpl_toolkits.axes_grid1.inset_locator import zoomed_inset_axes
 from local_methods import def_data_dir
 
