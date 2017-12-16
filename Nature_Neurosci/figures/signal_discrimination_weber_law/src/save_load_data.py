@@ -65,6 +65,7 @@ def save_signal_discrimination_weber_law(successes,  successes_2, data_flag):
 	sp.savez(filename, successes=successes, successes_2=successes_2)
 	print ('\nDecoding error data file saved to %s' % filename)
 
+	
 def load_signal_discrimination_weber_law(data_flag):
 	"""
 	Load list of successes, epsilons, and gains based on decoding 
@@ -84,24 +85,54 @@ def load_signal_discrimination_weber_law(data_flag):
 	
 	return data
 	
-def save_signal_discrimination_weber_law_fig(fig):
-	"""
-	Save signal discrimination figure for Weber Law.
 	
-	Args:
-		fig: matplotlib figure to be saved.
-		data_flag: Data identifier for loading and saving.
+def save_discrimination_accuracy_fig(fig, data_flag):
+
+	"""
+	Save firing rate subfigures.
+	
+	TODO
 	"""
 	
-	out_dir = '%s/figures' % (ANALYSIS_DIR)
+	out_dir = '%s/figures/signal_discrimination/%s' % (ANALYSIS_DIR, data_flag)
+	file_str = 'decoding_accuracy' 
 	if not os.path.exists(out_dir): 
 		os.makedirs(out_dir)
 	
-	filename = '%s/signal_discrimination_weber_law.png' % (out_dir)
+	filename = '%s/%s.png' % (out_dir, file_str)
 	plt.savefig(filename, bbox_inches = 'tight')
-	filename = '../signal_discrimination_weber_law.png' 
+	
+	out_dir = '../subfigures/%s' % data_flag
+	if not os.path.exists(out_dir): 
+		os.makedirs(out_dir)
+	
+	filename = '%s/%s.png' % (out_dir, file_str)
 	plt.savefig(filename, bbox_inches = 'tight')
-	filename = '../signal_discrimination_weber_law.svg' 
+	filename = '%s/%s.svg' % (out_dir, file_str)
 	plt.savefig(filename, bbox_inches = 'tight')
-	filename = '../signal_discrimination_weber_law.pdf' 
+	
+	
+def save_sample_estimation_fig(fig, data_flag):
+
+	"""
+	Save firing rate subfigures.
+	
+	TODO
+	"""
+	
+	out_dir = '%s/figures/signal_discrimination/%s' % (ANALYSIS_DIR, data_flag)
+	file_str = 'sample_estimation' 
+	if not os.path.exists(out_dir): 
+		os.makedirs(out_dir)
+	
+	filename = '%s/%s.png' % (out_dir, file_str)
+	plt.savefig(filename, bbox_inches = 'tight')
+	
+	out_dir = '../subfigures/%s' % data_flag
+	if not os.path.exists(out_dir): 
+		os.makedirs(out_dir)
+	
+	filename = '%s/%s.png' % (out_dir, file_str)
+	plt.savefig(filename, bbox_inches = 'tight')
+	filename = '%s/%s.svg' % (out_dir, file_str)
 	plt.savefig(filename, bbox_inches = 'tight')

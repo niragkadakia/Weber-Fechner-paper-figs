@@ -13,129 +13,70 @@ import scipy as sp
 import matplotlib
 from matplotlib import cm
 from matplotlib import rc
+matplotlib.rcParams['font.sans-serif'] = "Helvetica"
+matplotlib.rcParams['font.family'] = "sans-serif"
+rc('text', usetex=True)
 import matplotlib.pyplot as plt
-plt.rcParams["font.family"] = "Times New Roman"
-import matplotlib.gridspec as gridspec
 from mpl_toolkits.axes_grid1.inset_locator import zoomed_inset_axes
 from local_methods import def_data_dir
 
 
 DATA_DIR = def_data_dir()
-VAR_STRINGS = dict(mu_Ss0 = '$\langle s_0 \\rangle$')
 
 					
-def signal_discrimination_weber_law_plot(Kk_split_idxs=None):
+def decoding_accuracy_subfigures():
 	""" 
-	Generate the figure frame for discrimination task plots.
+	Generate the figure frame for the accuracy plots. Axis labels not 
+	included here; add in inkscape.
 	"""
 
-	signal_plot_height = 9
-	decode_plot_size = signal_plot_height
-	signal_plot_width = int(decode_plot_size*5./3.)
+	plot_size = 4
+	tick_label_size = 16
 	
 	fig = plt.figure()
-	grid_width = decode_plot_size + 1 + signal_plot_width
-	grid_height = (decode_plot_size+1)*(Kk_split_idxs)
-	gs = gridspec.GridSpec(grid_height, grid_width)
-	gs.update(wspace=1, hspace=0.5)
-	fig.set_size_inches(12, 5*Kk_split_idxs)
+	fig.set_size_inches(plot_size, plot_size)	
+	plt.xscale('log')
+	plt.xticks(10.**sp.arange(-5, 5), fontsize=tick_label_size)
+	plt.yticks([0, 50, 100], fontsize=tick_label_size)
+	plt.xlim(1e-1, 1e2)
 	
-	# Labels and tick sizes for later
-	success_x_tick_pad = 12
-	success_x_label_pad = 12
-	success_y_label_pad = 16
-	signal_x_label_pad = 15
-	signal_y_label_pad = 45
-	tick_label_size = 28
-	axis_label_size = 32
+	return fig
 	
-	inset_mag = 3.0
-	insert_xlims = [[42, 49], [24, 32], [52, 58]]
-	insert_ylims = [-0.14, 0.14]
-	insert_locs = [1, 2, 1]
-		
-	ax = dict()
 	
-	for Kk_split_idx in range(Kk_split_idxs):
-		
-		# Success error plots
-		plot_y1 = (decode_plot_size + 1)*Kk_split_idx 
-		plot_y2 = (decode_plot_size + 1)*Kk_split_idx  + decode_plot_size
-		plot_x1 = 0
-		plot_x2 = decode_plot_size
-		
-		ax['successes_%s' % Kk_split_idx] = \
-			plt.subplot(gs[plot_y1:plot_y2, plot_x1:plot_x2])
-		plt.xscale('log')
-		plt.yticks([0, 50, 100], fontsize=tick_label_size)
-		plt.xticks([])
-		
-		# X-labels only on bottom / set xlim for all though
-		if Kk_split_idx == Kk_split_idxs - 1:
-			ax['successes_%s' % Kk_split_idx].\
-				set_xlabel(r'Background odor''\n''strength', 
-							fontsize=axis_label_size,
-							labelpad=success_x_label_pad)
-			plt.xticks(10.**sp.arange(-5, 5),  fontsize=tick_label_size)
-		ax['successes_%s' % Kk_split_idx].tick_params(axis='x', 
-							which='major', pad=success_x_tick_pad)
-		ax['successes_%s' % Kk_split_idx].set_xlim([1e-1, 1e1])
-		
-		# Signal plots		
-		plot_y1 = (decode_plot_size + 1)*Kk_split_idx 
-		plot_y2 = (decode_plot_size + 1)*Kk_split_idx \
-					+ signal_plot_height
-		plot_x1 = decode_plot_size + 1
-		plot_x2 = decode_plot_size + signal_plot_width + 1
-		
-		ax['signal_%s' % Kk_split_idx] = \
-			plt.subplot(gs[plot_y1:plot_y2, plot_x1:plot_x2])
-		plt.yticks([])
-		if Kk_split_idx == Kk_split_idxs - 1:
-			plt.xticks([20, 40, 60, 80], fontsize=tick_label_size)
-			ax['signal_%s' % Kk_split_idx].tick_params(axis='x', pad=10)
-		else:
-			plt.xticks([])
-		plt.xlim(20, 60)
-		
-		# Signal insert (zoom-in) plots 
-		ax['signal_insert_%s' % Kk_split_idx] = \
-			zoomed_inset_axes(ax['signal_%s' % Kk_split_idx], inset_mag, 
-								loc=insert_locs[Kk_split_idx])
-		ax['signal_insert_%s' % Kk_split_idx].\
-			set_xlim(insert_xlims[Kk_split_idx][0], insert_xlims[Kk_split_idx][1])
-		ax['signal_insert_%s' % Kk_split_idx].\
-			set_ylim(insert_ylims[0], insert_ylims[1])
-		ax['signal_insert_%s' % Kk_split_idx].set_xticks([])
-		ax['signal_insert_%s' % Kk_split_idx].set_yticks([])
-		ax['signal_insert_%s' % Kk_split_idx].patch.set_alpha(0.80)
-		ax['signal_insert_%s' % Kk_split_idx].set_facecolor('0.97')
-		
-		# X-labels only on bottom / set xlim for all though
-		if Kk_split_idx == Kk_split_idxs - 1:
-			ax['signal_%s' % Kk_split_idx].\
-				set_xlabel(r'Odorant identity', fontsize=axis_label_size, 
-							labelpad=signal_x_label_pad)
-		
-		# All Y-labels: only in middle if odd number of Kk_split_idxs
-		if Kk_split_idxs % 2 == 0:
-			ax['successes_%s' % Kk_split_idx].\
-					set_ylabel(r'Correctly decoded signals (%)', 
-					labelpad=success_y_label_pad, fontsize=axis_label_size)
-			ax['signal_%s' % Kk_split_idx].\
-				yaxis.set_label_position("right")
-			ax['signal_%s' % Kk_split_idx].\
-				set_ylabel(r'Odorant intensity', fontsize=axis_label_size, 
-							rotation=270, labelpad=signal_y_label_pad)
-		else:
-			if Kk_split_idx == Kk_split_idxs / 2:
-				ax['successes_%s' % Kk_split_idx].\
-					set_ylabel(r'Correctly decoded signals (%)', 
-					labelpad=success_y_label_pad, fontsize=axis_label_size)
-				ax['signal_%s' % Kk_split_idx].\
-					yaxis.set_label_position("right")
-				ax['signal_%s' % Kk_split_idx].\
-					set_ylabel(r'Odorant intensity', fontsize=axis_label_size, 
-								rotation=270, labelpad=signal_y_label_pad)
-			
-	return fig, ax
+def sample_estimation_subfigures(plot_xlims=[20, 60], inset_xlims=[0, 100],
+									inset_ylims=[-0.14, 0.14], 
+									inset_loc=1, inset_mag=3.0):
+	""" 
+	Generate the figure frame for the accuracy plots. Axis labels not 
+	included here; add in inkscape.
+	
+	Args:
+		plot_xlims: 2-element list; lower and upper x-axis limits of main plot
+		inset_xlims: 2-element list; lower and upper x-axis limits of inset
+		inset_ylims: 2-element list; lower and upper y-axis limits of inset
+		inset_loc: integer 1-4; location of inset
+		inset_mag: float; magnification of inset
+	"""
+
+	plot_height = 3
+	plot_width = 5
+	tick_label_size = 16
+	
+	fig = plt.figure()
+	fig.set_size_inches(plot_width, plot_height)
+	ax = plt.subplot(111)
+	
+	plt.xticks([0, 20, 40, 60, 80, 100], fontsize=tick_label_size)
+	plt.yticks([])
+	plt.xlim(plot_xlims[0], plot_xlims[1])
+
+	# Signal insert (zoom-in) plots 
+	ax_insert = zoomed_inset_axes(ax, inset_mag, loc=inset_loc)
+	ax_insert.set_xlim(inset_xlims[0], inset_xlims[1])
+	ax_insert.set_ylim(inset_ylims[0], inset_ylims[1])
+	ax_insert.set_xticks([])
+	ax_insert.set_yticks([])
+	ax_insert.patch.set_alpha(0.80)
+	ax_insert.set_facecolor('0.97')
+	
+	return fig, ax, ax_insert
