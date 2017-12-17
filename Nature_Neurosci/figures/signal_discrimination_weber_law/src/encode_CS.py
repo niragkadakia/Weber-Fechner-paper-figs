@@ -36,7 +36,7 @@ def single_encode_CS(vars_to_pass=dict(), run_specs=dict()):
 			try:
 				str = 'a.encode_%s()' % val[0]
 				exec(str)
-			except:
+			except AttributeError:
 				print ('Run specification %s not recognized' % val[0])
 				quit()
 	else:

@@ -3951,9 +3951,9 @@
      borderopacity="1.0"
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
-     inkscape:zoom="1.33"
-     inkscape:cx="306.32273"
-     inkscape:cy="204.52321"
+     inkscape:zoom="0.94"
+     inkscape:cx="314.30031"
+     inkscape:cy="234.5984"
      inkscape:document-units="mm"
      inkscape:current-layer="layer1"
      showgrid="false"
@@ -3984,7 +3984,7 @@
      inkscape:groupmode="layer"
      id="layer7"
      inkscape:label="Labels"
-     style="stroke-linecap:butt;stroke-linejoin:round"
+     style="display:inline;stroke-linecap:butt;stroke-linejoin:round"
      transform="translate(0,7.62)"
      sodipodi:insensitive="true">
     <flowRoot
@@ -4095,7 +4095,8 @@
      id="layer1"
      inkscape:label="odor signals"
      style="stroke-linecap:butt;stroke-linejoin:round"
-     transform="translate(0,7.62)">
+     transform="translate(0,7.62)"
+     sodipodi:insensitive="true">
     <g
        id="figure_1-0"
        transform="matrix(0.10372727,0,0,0.10372727,60.058,6.9551156)"
