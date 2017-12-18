@@ -2,7 +2,7 @@
 Plot tuning curves for a particularr specs file
 
 spec files used to create data (data_flags):
-figure_tuning_curves_adaptation_Kk2.txt
+figure_tuning_curves_adaptation_Kk2
 figure_tuning_curves_no_adaptation_Kk2
 
 Current figure (Figure_tuning_curves.svg) uses odor_seed 12 and 22
@@ -19,6 +19,11 @@ import scipy as sp
 from scipy.ndimage.filters import gaussian_filter
 import sys
 sys.path.append('../src')
+import matplotlib.pyplot as plt
+params = {'text.usetex': False, 'mathtext.fontset': 'dejavusans'}
+plt.rcParams.update(params)
+from matplotlib import cm
+from mpl_toolkits.axes_grid1 import make_axes_locatable
 from utils import get_flag
 from load_specs import read_specs_file, parse_iterated_vars, \
 						parse_relative_vars
@@ -30,30 +35,27 @@ from save_load_data import load_tuning_curve, save_tuning_curve_fig, \
 from figure_plot_formats import tuning_curve_subfigures, \
 								Kk2_subfigure, firing_rate_subfigure, \
 								firing_rate_stimulus_subfigure
-import matplotlib.pyplot as plt
-from matplotlib import cm
 
 
 def plot_tuning_curve_subfigures(data_flag, plot_tuning_curves=True, 
 									plot_Kk2=True, plot_firing_rate=True):
 	
-	# Which level of background stimulus and diversity, and how many figures?
-	mu_dSs_idx = 3
+	# Which level of background stimulus and diversity?
+	mu_dSs_idx = 4
 	sigma_Kk2_idx = 1
-	num_figs = 9
 	
 	# Which background level indices to plot for adaptation plots?
 	mu_dSs_idxs = [0, 8, 13]
 	
-	# Which sparsity for adaptation plots?
+	# Choose the sparsity of the signal for the adaptation plots.
 	adaptation_Kk = 6
 	
 	# What are the random number seeds for picking odor components?
 	odor_seeds = range(40)
 	
-	# Which receptors to highlight; choose these by ordering Kk2
-	highlight_figs = [2, 3, 7]
-	highlight_colors = [cm.Blues, cm.Oranges, cm.Greens]
+	# Which of the (num_figs) to highlight, and with what colors?
+	highlight_figs = [1, 14, 32]
+	highlight_colors = [cm.Oranges, cm.Blues, cm.Greens]
 	
 	list_dict = read_specs_file(data_flag)
 	for key in list_dict:
@@ -62,11 +64,39 @@ def plot_tuning_curve_subfigures(data_flag, plot_tuning_curves=True,
 	tuning_curve_data = load_tuning_curve(data_flag)
 	tuning_curve = tuning_curve_data['tuning_curve']
 	Kk2s = tuning_curve_data['Kk2s']
+
+		
+	#############################
+	###          Kk2          ###
+	#############################
 	
-	# All receptors to plot
-	iMs_to_plot = sp.linspace(6, params['Mm'] - 1, num_figs, dtype='int')
-
-
+	if plot_Kk2 == True:
+		
+		fig = Kk2_subfigure()
+		ax = fig.add_subplot(111)
+		img1 = ax.imshow(sp.log(Kk2s[mu_dSs_idx, sigma_Kk2_idx, :, :].T), 
+				aspect=0.2, cmap='bone', rasterized=True, vmin=-8.5, vmax=-3)
+		
+		# Draw arrows to indicate representative plots
+		highlight_idx = 0
+		for fig_num, iM in enumerate(range(params['Mm'])):
+			if fig_num in highlight_figs:
+				color = highlight_colors[highlight_idx](0.5)
+				highlight_idx += 1
+				ax.annotate('', fontsize=20, xy=(iM, 2), xycoords='data', 
+					xytext=(0, 30), textcoords='offset points', 
+					arrowprops=dict(arrowstyle="->", lw=2.5, color=color))
+			else:
+				continue
+			
+		
+		# matplotlib weirdness in making colorbar correct size.
+		cb = fig.colorbar(img1, ax=ax, ticks=[-8, -6, -4])
+		ax.set_aspect('auto')
+		cb.ax.tick_params(labelsize=14)
+		save_Kk2_fig(fig, sigma_Kk2_idx, data_flag)
+		
+	
 	#############################
 	###     Tuning Curves     ###
 	#############################
@@ -75,17 +105,17 @@ def plot_tuning_curve_subfigures(data_flag, plot_tuning_curves=True,
 		
 		# Plot the given receptor idxs
 		highlight_idx = 0
-		for fig_num, iM in enumerate(iMs_to_plot):
+		for fig_num, iM in enumerate(range(params['Mm'])):
 			
 			fig = tuning_curve_subfigures()
 			
 			# Colors for highlighted figures versus non-highlighted figures
 			if fig_num in highlight_figs:
-				color = highlight_colors[highlight_idx](0.5)
+				color = highlight_colors[highlight_idx](0.8)
 				highlight_idx += 1
 				lw = 3.
 			else:
-				color = cm.Greys(0.8)
+				color = cm.Greys(0.9)
 				lw = 2.
 				
 			# Plot every even value on left; odd on right to show symmetry
@@ -97,42 +127,15 @@ def plot_tuning_curve_subfigures(data_flag, plot_tuning_curves=True,
 			# Connect right side and left side
 			RHS_curve = sp.hstack((LHS_curve[-1], sp.sort(RHS_curve)[::-1]))
 			
-			plt.plot(sp.arange(params['Nn']/2), LHS_curve, color=color, lw=lw)
-			plt.plot(sp.arange(params['Nn']/2 - 1, params['Nn'] - 1), 
-								RHS_curve, color=color, lw=lw)
+			plt.bar(sp.arange(params['Nn']/2), LHS_curve, color=color, 
+								width=1.2)
+			plt.bar(sp.arange(params['Nn']/2 - 1, params['Nn'] - 1), 
+								RHS_curve, color=color, width=1.2)
 			
 			save_tuning_curve_fig(fig, mu_dSs_idx, sigma_Kk2_idx, 
 									fig_num, data_flag)
 			
-		
-	#############################
-	###          Kk2          ###
-	#############################
-	
-	if plot_Kk2 == True:
-		
-		fig = Kk2_subfigure()
-		ax = fig.add_subplot(111)
-		plt.imshow(sp.log(Kk2s[mu_dSs_idx, sigma_Kk2_idx, :, :].T), aspect=0.2, 
-					cmap='bone', rasterized=True, vmin=-8.5, vmax=-3)
-		
-		# Draw arrows to indicate representative plots
-		highlight_idx = 0
-		for fig_num, iM in enumerate(iMs_to_plot):
-			if fig_num in highlight_figs:
-				color = highlight_colors[highlight_idx](0.5)
-				highlight_idx += 1
-				ax.annotate('', fontsize=20, xy=(iM, 2), xycoords='data', 
-					xytext=(0, 30), textcoords='offset points', 
-					arrowprops=dict(arrowstyle="->", lw=2.5, color=color))
-			else:
-				continue
-			
-		cb = plt.colorbar(ticks=[-8, -6, -4])
-		cb.ax.tick_params(labelsize=14)
-		save_Kk2_fig(fig, sigma_Kk2_idx, data_flag)
-	
-	
+
 	#############################
 	###     Firing rates      ###
 	#############################

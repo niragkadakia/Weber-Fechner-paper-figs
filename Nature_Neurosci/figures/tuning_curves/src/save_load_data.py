@@ -86,7 +86,8 @@ def save_tuning_curve_fig(fig, mu_dSs_idx, sigma_Kk2_idx, fig_num, data_flag):
 	plt.savefig(filename, bbox_inches = 'tight')
 	filename = '%s/%s.svg' % (out_dir, file_str)
 	plt.savefig(filename, bbox_inches = 'tight')
-	
+	plt.close()
+		
 
 def save_Kk2_fig(fig, sigma_Kk2_idx, data_flag):
 	"""
@@ -115,8 +116,9 @@ def save_Kk2_fig(fig, sigma_Kk2_idx, data_flag):
 	plt.savefig(filename, bbox_inches = 'tight')
 	filename = '%s/%s.svg' % (out_dir, file_str)
 	plt.savefig(filename, bbox_inches = 'tight')
+	plt.close()
 	
-
+	
 def save_firing_rate_fig(fig, sigma_Kk2_idx, mu_dSs_idxs, 
 							odor_seed, data_flag):
 
@@ -150,6 +152,7 @@ def save_firing_rate_fig(fig, sigma_Kk2_idx, mu_dSs_idxs,
 	plt.savefig(filename, bbox_inches = 'tight')
 	filename = '%s/%s.svg' % (out_dir, file_str)
 	plt.savefig(filename, bbox_inches = 'tight')
+	plt.close()
 	
 	
 def save_firing_rate_stimulus_fig(fig, sigma_Kk2_idx, mu_dSs_idxs, 
@@ -185,3 +188,5 @@ def save_firing_rate_stimulus_fig(fig, sigma_Kk2_idx, mu_dSs_idxs,
 	plt.savefig(filename, bbox_inches = 'tight')
 	filename = '%s/%s.svg' % (out_dir, file_str)
 	plt.savefig(filename, bbox_inches = 'tight')
+	plt.close()
+	

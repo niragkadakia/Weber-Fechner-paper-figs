@@ -13,10 +13,9 @@ import scipy as sp
 import matplotlib
 from matplotlib import cm
 from matplotlib import rc
-matplotlib.rcParams['font.sans-serif'] = "Helvetica"
-matplotlib.rcParams['font.family'] = "sans-serif"
-rc('text', usetex=True)
 import matplotlib.pyplot as plt
+params = {'text.usetex': False, 'mathtext.fontset': 'dejavusans'}
+plt.rcParams.update(params)
 from local_methods import def_data_dir
 
 
