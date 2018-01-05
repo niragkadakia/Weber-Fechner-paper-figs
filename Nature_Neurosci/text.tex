@@ -6,7 +6,13 @@ Here is a citation to a seminal work\cite{OKeeNade78a}. \lipsum[2-3]
 
 \subsection*{A model framework that preserves ORN tuning, diversity, and adaptive feedback}
 
-We propose a two-step model framework of odor sensing and discrimination. At the first stage, odor molecules individually bind and unbind to distinct olfactory receptor neurons (ORNs), which reside in either an active (firing) or inactive (quiescent) state. When bombarded by a naturalistic odor consisting of several volatile compounds, the likelihood that an ORN is active is dictated by two aspects. First, the probability it binds a constituent molecular odorant depends on both ORN and odorant identity. Second, the likelihood that this binding event then causes an action potential depends on ORN-specific activation energies required to open Na and Ca ion channels. 
+The theoretical framework of odor discrimination consists of two stages: a biophysical model of odor binding and subsequent ORN firing -- "encoding" -- and a computational paradigm for then inferring odor identity and intensity from this repertoire of ORN response, or "decoding." We model the first stage as follows. Odor molecules individually bind and unbind to distinct olfactory receptor neurons (ORNs), which are either active (firing) or inactive (quiescent) state. When bombarded by a naturalistic odor consisting of a few or more volatile compounds, the likelihood and rate of ORN spiking is dictated by two aspects. First, the probability that ORN binds a given molecular odorant depends on the identities of both the neuron and the odorant, as well as the neuron's state (active or inactive). Second, the likelihood that this binding event then incites an action potential depends on ORN-specific activation energies needed to open Na and Ca ion channels. Together, these comprise a stochastic process that translate odors of varying identities and concentrations into a repertoire of ORN response.
+
+To characterize the diversity of ORN response, w
+
+At the second stage, the ORN activity levels is incorporated into an optimization routine intended to mimic the neural computations that infer the identity and intensity of the odor signal. This is the decoding aspect, of which 
+
+
 
 We first show that the natural diversity of observed tuning curve response in \textit{Drosophila} response is 
 
