@@ -9,6 +9,20 @@ the second half for non-Weber law (plotted in blue).
 
 Current plots generated with command line arguments:
 
+mu_dSs_divisive_norm_inh_C=0.01_WL  
+mu_dSs_divisive_norm_inh_C=0.1_WL  
+mu_dSs_divisive_norm_inh_C=0.5_WL  
+mu_dSs_divisive_norm_inh_C=1.0_WL  
+mu_dSs_divisive_norm_inh_C=2.0_WL   
+mu_dSs_divisive_norm_inh_C=5.0_WL 
+mu_dSs_divisive_norm_inh_C=10.0_WL 
+mu_dSs_divisive_norm_inh_C=0.01_no-WL  
+mu_dSs_divisive_norm_inh_C=0.1_no-WL  
+mu_dSs_divisive_norm_inh_C=0.5_no-WL  
+mu_dSs_divisive_norm_inh_C=1.0_no-WL 
+ mu_dSs_divisive_norm_inh_C=2.0_no-WL  
+ mu_dSs_divisive_norm_inh_C=5.0_no-WL 
+ mu_dSs_divisive_norm_inh_C=10.0_no-WL
 
 Created by Nirag Kadakia at 21:42 01-07-2018
 This work is licensed under the 
@@ -37,7 +51,7 @@ def plot_divisive_normalization_weber_law(data_flags, axes_to_plot=[0, 1],
 	# Define the plot indices
 	assert len(data_flags) % 2 == 0, \
 		"Need command line arguments to be normalization_idxs*2, " \
-		"alternating Weber law and non-Weber law."
+		"first half Weber law and second half non-Weber law."
 	
 	# Ready the plotting window; colormaps; colors; signals to plot
 	cmaps = [cm.Reds, cm.Blues]

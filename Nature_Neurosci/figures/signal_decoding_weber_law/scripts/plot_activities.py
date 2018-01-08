@@ -2,7 +2,22 @@
 Plot receptor activity distributions for multiple estimations.
 
 Current plots generated with command line arguments:
-
+mu_dSs_divisive_norm_inh_C=0.0_WL  
+mu_dSs_divisive_norm_inh_C=0.0_no-WL  
+mu_dSs_divisive_norm_inh_C=0.01_WL  
+mu_dSs_divisive_norm_inh_C=0.01_no-WL  
+mu_dSs_divisive_norm_inh_C=0.1_WL  
+mu_dSs_divisive_norm_inh_C=0.1_no-WL  
+mu_dSs_divisive_norm_inh_C=0.5_WL  
+mu_dSs_divisive_norm_inh_C=0.5_no-WL  
+mu_dSs_divisive_norm_inh_C=1.0_WL  
+mu_dSs_divisive_norm_inh_C=1.0_no-WL  
+mu_dSs_divisive_norm_inh_C=2.0_WL   
+mu_dSs_divisive_norm_inh_C=2.0_no-WL  
+mu_dSs_divisive_norm_inh_C=5.0_WL 
+mu_dSs_divisive_norm_inh_C=5.0_no-WL 
+mu_dSs_divisive_norm_inh_C=10.0_WL 
+mu_dSs_divisive_norm_inh_C=10.0_no-WL
 
 Created by Nirag Kadakia at 21:42 01-07-2018
 This work is licensed under the 
