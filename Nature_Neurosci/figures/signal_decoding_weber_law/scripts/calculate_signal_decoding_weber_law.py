@@ -23,8 +23,8 @@ from save_load_data import load_aggregated_object_list, \
 def calculate_signal_decoding_weber_law(data_flags, 
 										nonzero_bounds=[0.5, 1.5], 
 										zero_bound=1./10., 
-										threshold_pct_nonzero=85.0, 
-										threshold_pct_zero=85.0):
+										threshold_pct_nonzero=75.0, 
+										threshold_pct_zero=75.0):
 	"""
 	"""
 	
