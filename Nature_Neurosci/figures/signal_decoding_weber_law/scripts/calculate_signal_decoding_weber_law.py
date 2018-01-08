@@ -47,6 +47,8 @@ def calculate_signal_decoding_weber_law(data_flags,
 		errors_zero = sp.zeros(iter_vars_dims)
 		epsilons = sp.zeros((iter_vars_dims[0], iter_vars_dims[1], 
 								params['Mm']))
+		activities = sp.zeros((iter_vars_dims[0], iter_vars_dims[1], 
+								params['Mm']))
 		gains = sp.zeros((iter_vars_dims[0], iter_vars_dims[1], 
 							params['Mm'], params['Nn']))
 		successes = sp.zeros(iter_vars_dims)
@@ -72,9 +74,11 @@ def calculate_signal_decoding_weber_law(data_flags,
 						threshold_pct_zero=threshold_pct_zero)
 			epsilons[it.multi_index] = CS_object_array[it.multi_index].eps
 			gains[it.multi_index] = CS_object_array[it.multi_index].Rr
+			activities[it.multi_index] = CS_object_array[it.multi_index].dYy
 			it.iternext()
 		
-		save_signal_decoding_weber_law(successes, gains, epsilons, data_flag)
+		save_signal_decoding_weber_law(successes, gains, epsilons, 
+										activities, data_flag)
 		
 if __name__ == '__main__':
 	data_flags = sys.argv[1:]

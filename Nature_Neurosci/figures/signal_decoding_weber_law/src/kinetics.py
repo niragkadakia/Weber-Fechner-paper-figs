@@ -16,17 +16,6 @@ import warnings
 import sys
 
 
-def bkgrnd_activity(Ss0, Kk1, Kk2, eps):
-	"""
-	Set background activity
-	"""
-	
-	Kk1_sum = sp.dot(Kk1**-1.0, Ss0)
-	Kk2_sum = sp.dot(Kk2**-1.0, Ss0)
-	A0 = (1. + sp.exp(eps)*(1 + Kk1_sum)/(1 + Kk2_sum))**-1.0
-	
-	return A0
-	
 def linear_gain(Ss0, Kk1, Kk2, eps):
 	"""
 	Set linearized binding and activation gain
@@ -183,7 +172,7 @@ def Kk2_eval_exponential_activity(shape, receptor_activity_mus,
 									Ss0, eps, seed):
 	"""
 	Generate K_d matrices, assuming known statistics of tuning curves for 
-	individual receptors, by sampling a, then changing variabels to Kk2.
+	individual receptors, by sampling a, then changing variables to Kk2.
 	"""
 	
 	Mm, Nn = shape
@@ -201,3 +190,35 @@ def Kk2_eval_exponential_activity(shape, receptor_activity_mus,
 		Kk2[iM, :] = (1./activity - 1.)*C
 	
 	return Kk2
+	
+def inhibitory_normalization(Yy, C, D, eta):
+	"""
+	Add inhibitory divisive normalization.
+	"""
+	
+	total_act = sp.sum(Yy)
+	Mm = len(Yy)
+	
+	return (Yy**eta)/(Yy**eta + 1.*C/Mm*total_act + D)
+	
+def inhibitory_normalization_linear_gain(Yy0, Rr, C, D, eta):
+	"""
+	Chain rule propagated via divisive normalization to the gain matrix.
+	"""
+	
+	Mm = len(Yy0)
+	df_da = sp.zeros((Mm, Mm))
+	total_act = sp.sum(Yy0)
+	
+	for iM in range(Mm):	
+		den = (Yy0[iM]**eta + 1.*C/Mm*total_act + D)**2.0
+		df_da[iM, :] = (-(Yy0[iM]**eta)*C/Mm)/den
+		df_da[iM, iM] += (eta*Yy0[iM]**(eta - 1.0)*(1.*C/Mm*total_act + D))/den
+	
+	df_da_dot_Rr = sp.dot(df_da, Rr)
+	
+	return df_da_dot_Rr
+	
+	
+	
+	

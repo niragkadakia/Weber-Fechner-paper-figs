@@ -62,3 +62,22 @@ def divisive_normalization_subfigures():
 	plt.ylim(-2, 102)
 	
 	return fig
+	
+def activities_subfigures():
+	"""
+	Generate figure to plot activity distributions.
+	"""
+	
+	plot_size = 6
+	tick_label_size = 20
+
+	fig = plt.figure()
+	fig.set_size_inches(plot_size, plot_size)	
+	plt.xscale('log')
+	plt.yscale('log')
+	plt.xticks([1e-2, 1e0, 1e2], fontsize=tick_label_size)
+	plt.yticks([1e-4, 1e-3, 1e-2, 1e-1, 1e0], fontsize=tick_label_size)
+	plt.ylim(1e-2, 1e0)
+
+	return fig
+	

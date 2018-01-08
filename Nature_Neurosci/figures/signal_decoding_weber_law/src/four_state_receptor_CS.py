@@ -23,10 +23,11 @@ import sys
 sys.path.append('../src')
 from lin_alg_structs import random_matrix, sparse_vector, \
 							sparse_vector_bkgrnd, manual_sparse_vector
-from kinetics import bkgrnd_activity, linear_gain, receptor_activity, \
-						free_energy, Kk2_samples, Kk2_eval_normal_activity, \
+from kinetics import linear_gain, receptor_activity, free_energy, \
+						Kk2_samples, Kk2_eval_normal_activity, \
 						Kk2_eval_exponential_activity, \
-						Kk2_eval_uniform_activity
+						Kk2_eval_uniform_activity, inhibitory_normalization,	 \
+						inhibitory_normalization_linear_gain
 from optimize import decode_CS, decode_nonlinear_CS
 from utils import clip_array
 
@@ -121,12 +122,13 @@ class four_state_receptor_CS:
 		self.sigma_Kk2_hyper_lo = 1e-4
 		self.sigma_Kk2_hyper_hi = 1e-4
 		
-		# Add inhibition by demanding what percentage of neurons are 
-		# inhibitory, and then setting their strengths to be equal such that
-		# the total activity adds up to a given constant
-		self.inhibitory_fraction = 0.0
-		self.inhibitory_total_activity = 0.0 
-				
+		# Divisive normalization constants. 
+		# a_DN = (a^\eta)/(a^\eta + C/M*sum(a) + D)
+		self.inh_C = 1.0
+		self.inh_D = 1e-9
+		self.inh_eta = 1.5
+		self.divisive_normalization = 0.0
+		
 		# Fixed activity distributions for adapted individual odorant response, 
 		# where each activity is chosen from mixture of 2 Gaussians
 		self.activity_p = 0.5
@@ -387,28 +389,8 @@ class four_state_receptor_CS:
 			array_dict = clip_array(dict(Kk1 = self.Kk1, Kk2 = self.Kk2))
 			self.Kk1 = array_dict['Kk1']
 			self.Kk2 = array_dict['Kk2']
-						
-	def add_inhibition(self):
-		"""
-		TODO
-		"""
-			
-		if self.inhibitory_fraction > 0:
-			
-			assert 0 < self.inhibitory_fraction <= 1., \
-				"Inhibitory neuron fraction must be between 0 and 1"
-			
-			num_inhibitory = int(1.0*self.Nn*self.inhibitory_fraction)
-			
-			sp.random.seed(self.seed_inhibition)
-			
-			for iM in range(self.Mm):
-				inhibitory_idxs = sp.random.choice(sp.arange(self.Nn), 
-									size=num_inhibitory, replace=False)
-				self.Kk1[iM, inhibitory_idxs], self.Kk2[iM, inhibitory_idxs] =\
-					self.Kk2[iM, inhibitory_idxs], self.Kk1[iM, inhibitory_idxs]
-
-						
+					
+					
 						
 	######################################################
 	########## 		Activity functions			##########
@@ -525,12 +507,20 @@ class four_state_receptor_CS:
 		self.Yy = receptor_activity(self.Ss, self.Kk1, self.Kk2, self.eps)
 		
 		# Learned background activity only utilizes average background signal 
-		self.Yy0 = bkgrnd_activity(self.Ss0, self.Kk1, self.Kk2, self.eps)
+		self.Yy0 = receptor_activity(self.Ss0, self.Kk1, self.Kk2, self.eps)
 		
 		# Measured response above background
 		self.dYy = self.Yy - self.Yy0
-
 	
+		# Add effects of divisive normalization if called.
+		if self.divisive_normalization == True:
+			self.Yy0 = inhibitory_normalization(self.Yy0, self.inh_C, 
+						self.inh_D, self.inh_eta)
+			self.Yy = inhibitory_normalization(self.Yy, self.inh_C, 
+						self.inh_D, self.inh_eta)
+			self.dYy = self.Yy - self.Yy0
+			
+			
 	
 	######################################################
 	##### 		Compressed sensing functions		 #####
@@ -545,7 +535,10 @@ class four_state_receptor_CS:
 		"""
 		
 		self.Rr = linear_gain(self.Ss0, self.Kk1, self.Kk2, self.eps)
-	
+		if self.divisive_normalization == True:
+			self.Rr = inhibitory_normalization_linear_gain(self.Yy0, self.Rr, 
+						self.inh_C, self.inh_D, self.inh_eta)
+			
 	def decode(self):
 		"""
 		Decode the response via CS.
@@ -573,7 +566,6 @@ class four_state_receptor_CS:
 		self.set_sparse_signals()
 		self.set_normal_free_energy()
 		self.set_Kk2_normal_activity(**kwargs)
-		self.add_inhibition()
 		self.set_measured_activity()
 		self.set_linearized_response()
 	
@@ -582,7 +574,6 @@ class four_state_receptor_CS:
 		self.set_sparse_signals()
 		self.set_normal_free_energy()
 		self.set_Kk2_uniform_activity()
-		self.add_inhibition()
 		self.set_measured_activity()
 		self.set_linearized_response()
 	
@@ -591,7 +582,6 @@ class four_state_receptor_CS:
 		self.set_sparse_signals()
 		self.set_normal_free_energy()
 		self.set_Kk2_normal_activity_mixture(**kwargs)
-		self.add_inhibition()
 		self.set_measured_activity()
 		self.set_linearized_response()
 	
@@ -600,7 +590,6 @@ class four_state_receptor_CS:
 		self.set_sparse_signals()
 		self.set_normal_free_energy()
 		self.set_normal_Kk()
-		self.add_inhibition()
 		self.set_measured_activity()
 		self.set_linearized_response()
 	
@@ -609,7 +598,6 @@ class four_state_receptor_CS:
 		self.set_sparse_signals()
 		self.set_normal_free_energy()
 		self.set_uniform_Kk()
-		self.add_inhibition()
 		self.set_measured_activity()
 		self.set_linearized_response()
 	
@@ -619,7 +607,6 @@ class four_state_receptor_CS:
 		self.set_sparse_signals()
 		self.set_normal_free_energy()
 		self.set_mixture_Kk()
-		self.add_inhibition()
 		self.set_measured_activity()
 		self.set_linearized_response()
 		
@@ -638,7 +625,6 @@ class four_state_receptor_CS:
 		self.set_manual_signals()
 		self.set_normal_Kk()
 		self.set_normal_free_energy()
-		self.add_inhibition()
 		self.set_measured_activity()
 		self.set_linearized_response()
 	
@@ -648,7 +634,6 @@ class four_state_receptor_CS:
 		self.set_manual_signals()
 		self.set_uniform_Kk()
 		self.set_normal_free_energy()
-		self.add_inhibition()
 		self.set_measured_activity()
 		self.set_linearized_response()
 	

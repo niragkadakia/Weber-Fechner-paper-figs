@@ -41,7 +41,8 @@ def load_aggregated_object_list(iter_vars_dims, data_flag):
 
 	return CS_object_array
 	
-def save_signal_decoding_weber_law(successes, gains, epsilons, data_flag):
+def save_signal_decoding_weber_law(successes, gains, epsilons, 
+									activities, data_flag):
 	"""
 	Save list of successes based on decoding error of CS
 	objects.
@@ -60,7 +61,8 @@ def save_signal_decoding_weber_law(successes, gains, epsilons, data_flag):
 		os.makedirs(out_dir)
 
 	filename = '%s/signal_decoding_weber_law.npz' % out_dir
-	sp.savez(filename, successes=successes, gains=gains, epsilons=epsilons)
+	sp.savez(filename, successes=successes, gains=gains, epsilons=epsilons, 
+				activities=activities)
 	print ('\nDecoding error data file saved to %s' % filename)
 
 def load_signal_decoding_weber_law(data_flag):
@@ -85,13 +87,34 @@ def load_signal_decoding_weber_law(data_flag):
 def save_decoding_accuracy_fig(fig, data_flag):
 
 	"""
-	Save firing rate subfigures.
-	
-	TODO
+	Save decoding accuracy subfigures.
 	"""
 	
 	out_dir = '%s/figures/signal_decoding/%s' % (ANALYSIS_DIR, data_flag)
 	file_str = 'decoding_accuracy' 
+	if not os.path.exists(out_dir): 
+		os.makedirs(out_dir)
+	
+	filename = '%s/%s.png' % (out_dir, file_str)
+	plt.savefig(filename, bbox_inches = 'tight')
+	
+	out_dir = '../subfigures/%s' % data_flag
+	if not os.path.exists(out_dir): 
+		os.makedirs(out_dir)
+	
+	filename = '%s/%s.png' % (out_dir, file_str)
+	plt.savefig(filename, bbox_inches = 'tight')
+	filename = '%s/%s.svg' % (out_dir, file_str)
+	plt.savefig(filename, bbox_inches = 'tight')
+	
+def save_activities_fig(fig, data_flag):
+
+	"""
+	Save activities subfigures.
+	"""
+	
+	out_dir = '%s/figures/signal_decoding/%s' % (ANALYSIS_DIR, data_flag)
+	file_str = 'activities' 
 	if not os.path.exists(out_dir): 
 		os.makedirs(out_dir)
 	

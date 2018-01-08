@@ -31,7 +31,7 @@ from save_load_data import save_decoding_accuracy_fig, \
 from figure_plot_formats import divisive_normalization_subfigures
 
 
-def plot_signal_decoding_weber_law(data_flags, axes_to_plot=[0, 1], 
+def plot_divisive_normalization_weber_law(data_flags, axes_to_plot=[0, 1], 
 				projected_variable_components=dict()):
 	
 	# Define the plot indices
@@ -90,5 +90,5 @@ def plot_signal_decoding_weber_law(data_flags, axes_to_plot=[0, 1],
 		
 if __name__ == '__main__':
 	data_flags = get_flags()
-	plot_signal_decoding_weber_law(data_flags, axes_to_plot=[0, 1], 
+	plot_divisive_normalization_weber_law(data_flags, axes_to_plot=[0, 1], 
 				projected_variable_components=dict(normal_eps_tuning_width=15))
