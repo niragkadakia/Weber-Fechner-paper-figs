@@ -42,7 +42,7 @@ def load_aggregated_object_list(iter_vars_dims, data_flag):
 	return CS_object_array
 	
 def save_signal_decoding_weber_law(successes, gains, epsilons, 
-									activities, data_flag):
+									activities, Kk2s, data_flag):
 	"""
 	Save list of successes based on decoding error of CS
 	objects.
@@ -53,6 +53,8 @@ def save_signal_decoding_weber_law(successes, gains, epsilons,
 				object array.
 		gains: numpy array of gains
 		epsilons: numpy aray of free energy 
+		activities: numpy array for dYy
+		Kk2s: numpy array for Kk2s
 		data_flag: Data identifier for loading and saving.
 	"""
 	
@@ -62,7 +64,7 @@ def save_signal_decoding_weber_law(successes, gains, epsilons,
 
 	filename = '%s/signal_decoding_weber_law.npz' % out_dir
 	sp.savez(filename, successes=successes, gains=gains, epsilons=epsilons, 
-				activities=activities)
+				activities=activities, Kk2s=Kk2s)
 	print ('\nDecoding error data file saved to %s' % filename)
 
 def load_signal_decoding_weber_law(data_flag):
@@ -129,3 +131,53 @@ def save_activities_fig(fig, data_flag):
 	plt.savefig(filename, bbox_inches = 'tight')
 	filename = '%s/%s.svg' % (out_dir, file_str)
 	plt.savefig(filename, bbox_inches = 'tight')
+	plt.close()
+	
+def save_Kk2_fig(fig, data_flag):
+
+	"""
+	Save activities subfigures.
+	"""
+	
+	out_dir = '%s/figures/signal_decoding/%s' % (ANALYSIS_DIR, data_flag)
+	file_str = 'Kk2' 
+	if not os.path.exists(out_dir): 
+		os.makedirs(out_dir)
+	
+	filename = '%s/%s.png' % (out_dir, file_str)
+	plt.savefig(filename, bbox_inches = 'tight')
+	
+	out_dir = '../subfigures/%s' % data_flag
+	if not os.path.exists(out_dir): 
+		os.makedirs(out_dir)
+	
+	filename = '%s/%s.png' % (out_dir, file_str)
+	plt.savefig(filename, bbox_inches = 'tight')
+	filename = '%s/%s.svg' % (out_dir, file_str)
+	plt.savefig(filename, bbox_inches = 'tight')
+	
+def save_signal_estimation_fig(fig, data_flag):
+
+	"""
+	Save activities subfigures.
+	"""
+	
+	out_dir = '%s/figures/signal_decoding/%s' % (ANALYSIS_DIR, data_flag)
+	file_str = 'signal_estimation' 
+	if not os.path.exists(out_dir): 
+		os.makedirs(out_dir)
+	
+	filename = '%s/%s.png' % (out_dir, file_str)
+	plt.savefig(filename, bbox_inches = 'tight')
+	
+	out_dir = '../subfigures/%s' % data_flag
+	if not os.path.exists(out_dir): 
+		os.makedirs(out_dir)
+	
+	filename = '%s/%s.png' % (out_dir, file_str)
+	plt.savefig(filename, bbox_inches = 'tight')
+	filename = '%s/%s.svg' % (out_dir, file_str)
+	plt.savefig(filename, bbox_inches = 'tight')
+	
+	
+	

@@ -71,7 +71,7 @@ def plot_activities(data_flags, axes_to_plot=[0, 1],
 		
 		for iter_var_idx in range(len(iter_vars[iter_plot_var])):
 			if iter_var_idx == 0:
-				bins = sp.linspace(-3, 0, 5000)
+				bins = sp.linspace(-4, 0, 5000)
 				activities_data = sp.zeros((len(iter_vars[iter_plot_var]), 
 										len(bins) - 1))
 				

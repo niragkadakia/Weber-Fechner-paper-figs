@@ -81,3 +81,27 @@ def activities_subfigures():
 
 	return fig
 	
+def Kk2_subfigures():
+	"""
+	Generate Kk2 heatmap.
+	"""
+	
+	fig = plt.figure()
+	
+	plt.xticks([])
+	plt.yticks([])
+	plt.xlim(0, 40.1)
+	
+	return fig
+	
+def signal_estimation_subfigures():
+	"""
+	Generate sample signal estimation figure, ordered	
+	"""
+	
+	fig = plt.figure()
+	
+	plt.xticks([])
+	plt.yticks([])
+	
+	return fig
