@@ -74,7 +74,6 @@ def plot_signal_estimation_weber_law(data_flags, axes_to_plot=[0, 1],
 			color=cmap(0.7), zorder=2, width=1.0)
 	
 		save_signal_estimation_fig(fig, data_flag)
-		plt.show()
 		
 		
 if __name__ == '__main__':

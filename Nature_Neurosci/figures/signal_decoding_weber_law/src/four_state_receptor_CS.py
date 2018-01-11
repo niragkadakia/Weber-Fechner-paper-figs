@@ -26,7 +26,7 @@ from lin_alg_structs import random_matrix, sparse_vector, \
 from kinetics import linear_gain, receptor_activity, free_energy, \
 						Kk2_samples, Kk2_eval_normal_activity, \
 						Kk2_eval_exponential_activity, \
-						Kk2_eval_uniform_activity, inhibitory_normalization,	 \
+						Kk2_eval_uniform_activity, inhibitory_normalization, \
 						inhibitory_normalization_linear_gain
 from optimize import decode_CS, decode_nonlinear_CS
 from utils import clip_array
@@ -123,10 +123,11 @@ class four_state_receptor_CS:
 		self.sigma_Kk2_hyper_hi = 1e-4
 		
 		# Divisive normalization constants. 
-		# a_DN = (a^\eta)/(a^\eta + C/M*sum(a) + D)
+		# a_DN = R*(a^\eta)/(a^\eta + C/M*sum(a) + D)
 		self.inh_C = 1.0
 		self.inh_D = 1e-9
 		self.inh_eta = 1.5
+		self.inh_R = 1.0
 		self.divisive_normalization = 0.0
 		
 		# Fixed activity distributions for adapted individual odorant response, 
@@ -270,7 +271,7 @@ class four_state_receptor_CS:
 		self.eps_base += random_matrix(self.Mm, params=[0, self.sigma_eps], 
 										seed=self.seed_eps)
 		
-		self.eps = self.WL_scaling*sp.log(self.mu_dSs) + self.eps_base 
+		self.eps = self.WL_scaling*sp.log(self.mu_Ss0) + self.eps_base 
 		
 	def set_random_free_energy(self):
 		"""
@@ -515,9 +516,9 @@ class four_state_receptor_CS:
 		# Add effects of divisive normalization if called.
 		if self.divisive_normalization == True:
 			self.Yy0 = inhibitory_normalization(self.Yy0, self.inh_C, 
-						self.inh_D, self.inh_eta)
+						self.inh_D, self.inh_eta, self.inh_R)
 			self.Yy = inhibitory_normalization(self.Yy, self.inh_C, 
-						self.inh_D, self.inh_eta)
+						self.inh_D, self.inh_eta, self.inh_R)
 			self.dYy = self.Yy - self.Yy0
 			
 			
@@ -537,7 +538,7 @@ class four_state_receptor_CS:
 		self.Rr = linear_gain(self.Ss0, self.Kk1, self.Kk2, self.eps)
 		if self.divisive_normalization == True:
 			self.Rr = inhibitory_normalization_linear_gain(self.Yy0, self.Rr, 
-						self.inh_C, self.inh_D, self.inh_eta)
+						self.inh_C, self.inh_D, self.inh_eta, self.inh_R)
 			
 	def decode(self):
 		"""

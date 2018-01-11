@@ -191,7 +191,7 @@ def Kk2_eval_exponential_activity(shape, receptor_activity_mus,
 	
 	return Kk2
 	
-def inhibitory_normalization(Yy, C, D, eta):
+def inhibitory_normalization(Yy, C, D, eta, R):
 	"""
 	Add inhibitory divisive normalization.
 	"""
@@ -199,9 +199,9 @@ def inhibitory_normalization(Yy, C, D, eta):
 	total_act = sp.sum(Yy)
 	Mm = len(Yy)
 	
-	return (Yy**eta)/(Yy**eta + 1.*C/Mm*total_act + D)
+	return 1.*R*(Yy**eta)/(Yy**eta + 1.*C/Mm*total_act + D)
 	
-def inhibitory_normalization_linear_gain(Yy0, Rr, C, D, eta):
+def inhibitory_normalization_linear_gain(Yy0, Rr, C, D, eta, R):
 	"""
 	Chain rule propagated via divisive normalization to the gain matrix.
 	"""
@@ -212,8 +212,8 @@ def inhibitory_normalization_linear_gain(Yy0, Rr, C, D, eta):
 	
 	for iM in range(Mm):	
 		den = (Yy0[iM]**eta + 1.*C/Mm*total_act + D)**2.0
-		df_da[iM, :] = (-(Yy0[iM]**eta)*C/Mm)/den
-		df_da[iM, iM] += (eta*Yy0[iM]**(eta - 1.0)*(1.*C/Mm*total_act + D))/den
+		df_da[iM, :] = R*(-(Yy0[iM]**eta)*C/Mm)/den
+		df_da[iM, iM] += R*(eta*Yy0[iM]**(eta - 1.0)*(1.*C/Mm*total_act + D))/den
 	
 	df_da_dot_Rr = sp.dot(df_da, Rr)
 	
