@@ -32,10 +32,10 @@ def plot_signal_estimation_weber_law(data_flags, axes_to_plot=[0, 1],
 		
 	# Ready the plotting window; colormaps; colors; signals to plot
 	fig = signal_estimation_subfigures()
-	cmaps = [cm.Blues, cm.Reds]
+	cmaps = [cm.Reds, cm.Blues]
 	
-	mu_dSs_to_plot = 60
-	seed_Kk2_to_plot = 10
+	mu_dSs_to_plot = 30
+	seed_Kk2_to_plot = 2
 	true_signal_lw = 1.0
 	true_signal_color = 'black'
 	
@@ -73,6 +73,7 @@ def plot_signal_estimation_weber_law(data_flags, axes_to_plot=[0, 1],
 		plt.bar(sp.arange(Nn), est_signal[sorted_idxs]*(-1)**Weber_idx, 
 			color=cmap(0.7), zorder=2, width=1.0)
 	
+	for data_flag in data_flags:
 		save_signal_estimation_fig(fig, data_flag)
 		
 		

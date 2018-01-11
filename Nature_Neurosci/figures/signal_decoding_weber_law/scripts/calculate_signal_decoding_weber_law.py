@@ -32,7 +32,7 @@ from save_load_data import load_aggregated_object_list, \
 
 
 def calculate_signal_decoding_weber_law(data_flags, 
-										nonzero_bounds=[0.5, 1.5], 
+										nonzero_bounds=[0.8, 1.2], 
 										zero_bound=1./10., 
 										threshold_pct_nonzero=75.0, 
 										threshold_pct_zero=75.0):
@@ -87,7 +87,7 @@ def calculate_signal_decoding_weber_law(data_flags,
 						threshold_pct_zero=threshold_pct_zero)
 			epsilons[it.multi_index] = CS_object_array[it.multi_index].eps
 			gains[it.multi_index] = CS_object_array[it.multi_index].Rr
-			activities[it.multi_index] = CS_object_array[it.multi_index].dYy
+			activities[it.multi_index] = CS_object_array[it.multi_index].Yy
 			Kk2s[it.multi_index] = CS_object_array[it.multi_index].Kk2
 			it.iternext()
 		

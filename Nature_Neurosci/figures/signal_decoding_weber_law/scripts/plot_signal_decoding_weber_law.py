@@ -114,8 +114,8 @@ def plot_signal_decoding_weber_law(data_flags, axes_to_plot=[0, 1],
 		sorted_Kk2 = Kk2[sorted_idxs, :]
 		
 		fig = Kk2_subfigures()
-		plt.imshow(sp.log(sorted_Kk2.T)/sp.log(10), interpolation='nearest', 
-						cmap=plt.cm.inferno, vmin=-4.8, vmax=-2.2)
+		plt.imshow(sorted_Kk2.T, interpolation='nearest', cmap=plt.cm.inferno, 
+						vmin=1e-5, vmax=9e-5)
 		save_Kk2_fig(fig, data_flag)
 	
 		

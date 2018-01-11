@@ -41,36 +41,12 @@ from save_load_data import save_discrimination_accuracy_fig, \
 							save_sample_estimation_fig, \
 							load_signal_discrimination_weber_law, \
 							load_aggregated_object_list
-from figure_plot_formats import decoding_accuracy_subfigures, \
-								sample_estimation_subfigures
+from figure_plot_formats import decoding_accuracy_subfigures
 
 
 def plot_signal_discrimination_weber_law(data_flags, axes_to_plot=[0, 1], 
 				projected_variable_components=dict()):
 	
-	
-	# Function to plot signal and inset; odor 2 is overlaid in darker color.
-	def signal_plot(ax):
-	
-		ax.bar(sp.arange(Nn), CS_object_array[mu_dSs_to_plot, 
-			seed_Kk2_to_plot[Kk_split_idx]].dSs*(-1)**Weber_idx, 
-			lw=true_signal_lw, edgecolor=true_signal_color,
-			zorder=100, width=1.0, fill=False)
-		ax.bar(sp.arange(Nn), CS_object_array[mu_dSs_to_plot, 
-			seed_Kk2_to_plot[Kk_split_idx]].dSs_est*(-1)**Weber_idx, 
-			color=cmap(dual_odor_color_shades[0]), zorder=2, width=1.0)
-		
-		# Generate just odor 2 signal and plot over first plot
-		signal_2 = sp.zeros(Nn)
-		idxs_2 = CS_object_array[mu_dSs_to_plot, \
-				seed_Kk2_to_plot[Kk_split_idx]].idxs_2
-		for idx_2 in idxs_2:
-			signal_2[idx_2] = CS_object_array[mu_dSs_to_plot, 
-				seed_Kk2_to_plot[Kk_split_idx]].dSs_est[idx_2]
-		ax.bar(sp.arange(Nn), signal_2*(-1)**Weber_idx, 
-			color=cmap(dual_odor_color_shades[1]), zorder=3, width=1.0)
-		
-		return ax	
 	
 	# Define the plot indices
 	Kk_split_idxs = len(data_flags)/2
@@ -86,20 +62,7 @@ def plot_signal_discrimination_weber_law(data_flags, axes_to_plot=[0, 1],
 	true_signal_color = 'black'
 	true_signal_lw = 1.0
 	mu_dSs_to_plot = 27
-	
-	# Which particular Kk_2 to plot for each set of 2 data_flags (WL/no-WL)
-	seed_Kk2_to_plot = [9, 64, 25]
-	assert len(seed_Kk2_to_plot) == len(data_flags)/2, "seed_Kk2_to_plot must" \
-		" have as many entries as command line arguments / 2"
-	# Where plot inset values for each set of 2 data flags
-	inset_xlims = [[42, 49], [24, 32], [52, 58]] 
-	assert len(inset_xlims) == len(data_flags)/2, "inset_xlims must" \
-		" have as many entries as command line arguments / 2"
-	# Where to place inset, for each set of 2 plots
-	inset_locs = [1, 2, 1]
-	assert len(inset_locs) == len(data_flags)/2, "inset_locs must" \
-		" have as many entries as command line arguments / 2"
-		
+			
 	# Plot
 	for Kk_split_idx in range(Kk_split_idxs):
 		
@@ -153,39 +116,7 @@ def plot_signal_discrimination_weber_law(data_flags, axes_to_plot=[0, 1],
 			data_flag = data_flags[Weber_idx + Kk_split_idx*2]
 			save_discrimination_accuracy_fig(fig, data_flag)
 		
-		# Sample estimation subfigures
-		fig, ax, ax_insert = sample_estimation_subfigures(
-				inset_xlims=inset_xlims[Kk_split_idx], 
-				inset_loc=inset_locs[Kk_split_idx])
 		
-		for Weber_idx in range(2):
-		
-			data_flag_idx = Weber_idx + Kk_split_idx*2
-			data_flag = data_flags[data_flag_idx]
-			
-			# Blue for non-adapted; red for adapted
-			cmap = cmaps[Weber_idx]
-			
-			# Load CS objects for single stimuli plotting
-			iter_vars_dims = []
-			for iter_var in iter_vars:
-				iter_vars_dims.append(len(iter_vars[iter_var]))		
-			print ('Loading object list for single stimulus plot...'),
-			CS_object_array = load_aggregated_object_list(iter_vars_dims, data_flag)
-			print ('...loaded.')
-							
-			# Plot signal and inset
-			ax = signal_plot(ax)
-			ax_insert = signal_plot(ax_insert)
-			if Weber_idx == 1:
-				mark_inset(ax, ax_insert, loc1=3, loc2=4, fc="none", ec="0.5")
-				
-		# Save same plot in both Weber Law and non-Weber Law folders
-		for Weber_idx in range(2):
-			data_flag = data_flags[Weber_idx + Kk_split_idx*2]
-			save_sample_estimation_fig(fig, data_flag)
-		
-
 if __name__ == '__main__':
 	data_flags = get_flags()
 	plot_signal_discrimination_weber_law(data_flags, axes_to_plot=[0, 1], 

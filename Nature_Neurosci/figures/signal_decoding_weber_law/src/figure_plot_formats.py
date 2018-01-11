@@ -36,9 +36,9 @@ def decoding_accuracy_subfigures():
 	fig = plt.figure()
 	fig.set_size_inches(plot_size, plot_size)	
 	plt.xscale('log')
-	plt.xticks([10**-2, 10**0, 10**2], fontsize=tick_label_size)
+	plt.xticks([1e-2, 1, 1e2, 1e4], fontsize=tick_label_size)
 	plt.yticks([0, 50, 100], fontsize=tick_label_size)
-	plt.xlim(1e-2, 1e2)
+	plt.xlim(1e-2, 1e4)
 	plt.ylim(-2, 102)
 	
 	return fig
@@ -56,9 +56,9 @@ def divisive_normalization_subfigures():
 	fig = plt.figure()
 	fig.set_size_inches(plot_size, plot_size)	
 	plt.xscale('log')
-	plt.xticks([10**-2, 10**0, 10**2], fontsize=tick_label_size)
+	plt.xticks([1e-2, 1, 1e2, 1e4], fontsize=tick_label_size)
 	plt.yticks([0, 50, 100], fontsize=tick_label_size)
-	plt.xlim(1e-2, 1e2)
+	plt.xlim(1e-2, 1e4)
 	plt.ylim(-2, 102)
 	
 	return fig
@@ -75,7 +75,7 @@ def activities_subfigures():
 	fig.set_size_inches(plot_size, plot_size)	
 	plt.xscale('log')
 	plt.yscale('log')
-	plt.xticks([1e-2, 1e0, 1e2], fontsize=tick_label_size)
+	plt.xticks([1e-2, 1e0, 1e2, 1e4], fontsize=tick_label_size)
 	plt.yticks([1e-4, 1e-3, 1e-2, 1e-1, 1e0], fontsize=tick_label_size)
 	plt.ylim(1e-2, 1e0)
 
