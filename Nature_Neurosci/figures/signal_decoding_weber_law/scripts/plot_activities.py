@@ -71,7 +71,7 @@ def plot_activities(data_flags, axes_to_plot=[0, 1],
 		
 		for iter_var_idx in range(len(iter_vars[iter_plot_var])):
 			if iter_var_idx == 0:
-				bins = sp.linspace(-4, 0, 5000)
+				bins = sp.linspace(-4, 0, 10000)
 				activities_data = sp.zeros((len(iter_vars[iter_plot_var]), 
 										len(bins) - 1))
 				
@@ -79,7 +79,7 @@ def plot_activities(data_flags, axes_to_plot=[0, 1],
 			#  this particular background mean
 			hist, bin_edges = sp.histogram(
 								sp.log(activities[iter_var_idx, :, :])\
-								/sp.log(10), bins=100)
+								/sp.log(10), bins=200)
 			
 			# Interpolate to identical scale for all columns.
 			interp_hist = sp.interp(bins, bin_edges[:-1], hist)[:-1]
