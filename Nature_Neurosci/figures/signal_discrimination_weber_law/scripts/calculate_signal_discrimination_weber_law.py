@@ -21,7 +21,7 @@ from save_load_data import load_aggregated_object_list, \
 
 
 def calculate_signal_discrimination_weber_law(data_flags, 
-										nonzero_bounds=[0.8, 1.2], 
+										nonzero_bounds=[0.75, 1.25], 
 										zero_bound=1./10., 
 										threshold_pct_nonzero=100.0, 
 										threshold_pct_zero=100.0):
