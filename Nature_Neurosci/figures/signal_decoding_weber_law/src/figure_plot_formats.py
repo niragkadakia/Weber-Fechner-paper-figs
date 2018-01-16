@@ -76,8 +76,8 @@ def activities_subfigures():
 	plt.xscale('log')
 	plt.yscale('log')
 	plt.xticks([1e-2, 1e0, 1e2, 1e4], fontsize=tick_label_size)
-	plt.yticks([1e-4, 1e-3, 1e-2, 1e-1, 1e0], fontsize=tick_label_size)
-	plt.ylim(1e-2, 1e0)
+	plt.yticks(10.**sp.arange(-8, 1), fontsize=tick_label_size)
+	plt.ylim(1e-5, 1e0)
 
 	return fig
 	
@@ -94,14 +94,19 @@ def Kk2_subfigures():
 	
 	return fig
 	
-def signal_estimation_subfigures():
+def signal_estimation_subfigures(Nn_over_Kk=None):
 	"""
 	Generate sample signal estimation figure, ordered	
 	"""
 	
 	fig = plt.figure()
 	
-	plt.xticks([])
-	plt.yticks([])
+	if Nn_over_Kk == None:
+		fig.set_size_inches(2, 6)
+	else:
+		fig.set_size_inches(2*Nn_over_Kk, 6)
 	
+	plt.xticks([])
+	plt.yticks(fontsize=22)
+			
 	return fig

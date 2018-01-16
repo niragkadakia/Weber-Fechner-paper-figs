@@ -41,8 +41,7 @@ def load_aggregated_object_list(iter_vars_dims, data_flag):
 
 	return CS_object_array
 	
-def save_signal_decoding_weber_law(successes, gains, epsilons, 
-									activities, Kk2s, data_flag):
+def save_signal_decoding_weber_law(data, data_flag):
 	"""
 	Save list of successes based on decoding error of CS
 	objects.
@@ -62,9 +61,8 @@ def save_signal_decoding_weber_law(successes, gains, epsilons,
 	if not os.path.exists(out_dir):
 		os.makedirs(out_dir)
 
-	filename = '%s/signal_decoding_weber_law.npz' % out_dir
-	sp.savez(filename, successes=successes, gains=gains, epsilons=epsilons, 
-				activities=activities, Kk2s=Kk2s)
+	filename = '%s/signal_decoding_weber_law.npy' % out_dir
+	sp.save(filename, data)
 	print ('\nDecoding error data file saved to %s' % filename)
 
 def load_signal_decoding_weber_law(data_flag):
@@ -80,9 +78,9 @@ def load_signal_decoding_weber_law(data_flag):
 				data), gains, and epsilons.
 	"""
 	
-	filename = '%s/analysis/%s/signal_decoding_weber_law.npz' \
+	filename = '%s/analysis/%s/signal_decoding_weber_law.npy' \
 				% (DATA_DIR, data_flag)
-	data = sp.load(filename)
+	data = sp.load(filename).item()
 	
 	return data
 	
@@ -156,14 +154,14 @@ def save_Kk2_fig(fig, data_flag):
 	filename = '%s/%s.svg' % (out_dir, file_str)
 	plt.savefig(filename, bbox_inches = 'tight')
 	
-def save_signal_estimation_fig(fig, data_flag):
+def save_signal_estimation_zeros_fig(fig, data_flag, mu_dSs, seed_Kk2):
 
 	"""
 	Save activities subfigures.
 	"""
 	
 	out_dir = '%s/figures/signal_decoding/%s' % (ANALYSIS_DIR, data_flag)
-	file_str = 'signal_estimation' 
+	file_str = 'signal_estimation_zeros_%s,%s' % (mu_dSs, seed_Kk2) 
 	if not os.path.exists(out_dir): 
 		os.makedirs(out_dir)
 	
@@ -178,6 +176,31 @@ def save_signal_estimation_fig(fig, data_flag):
 	plt.savefig(filename, bbox_inches = 'tight')
 	filename = '%s/%s.svg' % (out_dir, file_str)
 	plt.savefig(filename, bbox_inches = 'tight')
+	
+	
+def save_signal_estimation_nonzeros_fig(fig, data_flag, mu_dSs, seed_Kk2):
+
+	"""
+	Save activities subfigures.
+	"""
+	
+	out_dir = '%s/figures/signal_decoding/%s' % (ANALYSIS_DIR, data_flag)
+	file_str = 'signal_estimation_nonzeros_%s,%s' % (mu_dSs, seed_Kk2) 
+	if not os.path.exists(out_dir): 
+		os.makedirs(out_dir)
+	
+	filename = '%s/%s.png' % (out_dir, file_str)
+	plt.savefig(filename, bbox_inches = 'tight')
+	
+	out_dir = '../subfigures/%s' % data_flag
+	if not os.path.exists(out_dir): 
+		os.makedirs(out_dir)
+	
+	filename = '%s/%s.png' % (out_dir, file_str)
+	plt.savefig(filename, bbox_inches = 'tight')
+	filename = '%s/%s.svg' % (out_dir, file_str)
+	plt.savefig(filename, bbox_inches = 'tight')
+	
 	
 	
 	

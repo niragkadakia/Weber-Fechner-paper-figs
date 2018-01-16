@@ -2,17 +2,6 @@
 Calculate success ratios for CS batch runs, now regarding each CS
 estimation as successful or not. 
 
-Data generated so far:
-
-mu_dSs_lo_Kk2_lo_diverse_Kk=7_WL 
-mu_dSs_lo_Kk2_lo_diverse_Kk=7_no-WL 
-mu_dSs_lo_Kk2_med_diverse_Kk=7_WL 
-mu_dSs_lo_Kk2_med_diverse_Kk=7_no-WL 
-mu_dSs_lo_Kk2_hi_diverse_Kk=7_WL 
-mu_dSs_lo_Kk2_hi_diverse_Kk=7_no-WL 
-mu_dSs_lo_Kk2_vryhi_diverse_Kk=7_WL 
-mu_dSs_lo_Kk2_vryhi_diverse_Kk=7_no-WL 
-
 Created by Nirag Kadakia at 11:00 10-06-2017
 This work is licensed under the 
 Creative Commons Attribution-NonCommercial-ShareAlike 4.0 
@@ -32,12 +21,11 @@ from save_load_data import load_aggregated_object_list, \
 
 
 def calculate_signal_decoding_weber_law(data_flags, 
-										nonzero_bounds=[0.8, 1.2], 
+										nonzero_bounds=[0.75, 1.25], 
 										zero_bound=1./10., 
-										threshold_pct_nonzero=75.0, 
-										threshold_pct_zero=75.0):
-	"""
-	"""
+										threshold_pct_nonzero=100.0, 
+										threshold_pct_zero=100.0):
+	
 	
 	for data_flag in data_flags:
 
@@ -54,17 +42,20 @@ def calculate_signal_decoding_weber_law(data_flags,
 		print ('...loaded.')
 
 		# Data structures 
+		data = dict()
 		errors_nonzero = sp.zeros(iter_vars_dims)
 		errors_zero = sp.zeros(iter_vars_dims)
-		epsilons = sp.zeros((iter_vars_dims[0], iter_vars_dims[1], 
+		data['epsilons'] = sp.zeros((iter_vars_dims[0], iter_vars_dims[1], 
 								params['Mm']))
-		activities = sp.zeros((iter_vars_dims[0], iter_vars_dims[1], 
+		data['dYys'] = sp.zeros((iter_vars_dims[0], iter_vars_dims[1], 
 								params['Mm']))
-		gains = sp.zeros((iter_vars_dims[0], iter_vars_dims[1], 
+		data['Yys'] = sp.zeros((iter_vars_dims[0], iter_vars_dims[1], 
+								params['Mm']))
+		data['gains'] = sp.zeros((iter_vars_dims[0], iter_vars_dims[1], 
 							params['Mm'], params['Nn']))
-		Kk2s = sp.zeros((iter_vars_dims[0], iter_vars_dims[1], 
+		data['Kk2s'] = sp.zeros((iter_vars_dims[0], iter_vars_dims[1], 
 							params['Mm'], params['Nn']))
-		successes = sp.zeros(iter_vars_dims)
+		data['successes'] = sp.zeros(iter_vars_dims)
 		
 		# Calculate binary errors
 		it = sp.nditer(sp.zeros(iter_vars_dims), flags=['multi_index'])	
@@ -80,19 +71,19 @@ def calculate_signal_decoding_weber_law(data_flags,
 		# Calculate success ratios from binary errors
 		it = sp.nditer(sp.zeros(iter_vars_dims), flags = ['multi_index'])
 		while not it.finished:
-			successes[it.multi_index] = binary_success(
+			data['successes'][it.multi_index] = binary_success(
 						errors_nonzero[it.multi_index], 
 						errors_zero[it.multi_index], 
 						threshold_pct_nonzero=threshold_pct_nonzero,
 						threshold_pct_zero=threshold_pct_zero)
-			epsilons[it.multi_index] = CS_object_array[it.multi_index].eps
-			gains[it.multi_index] = CS_object_array[it.multi_index].Rr
-			activities[it.multi_index] = CS_object_array[it.multi_index].Yy
-			Kk2s[it.multi_index] = CS_object_array[it.multi_index].Kk2
+			data['epsilons'][it.multi_index] = CS_object_array[it.multi_index].eps
+			data['gains'][it.multi_index] = CS_object_array[it.multi_index].Rr
+			data['dYys'][it.multi_index] = CS_object_array[it.multi_index].dYy
+			data['Yys'][it.multi_index] = CS_object_array[it.multi_index].Yy
+			data['Kk2s'][it.multi_index] = CS_object_array[it.multi_index].Kk2
 			it.iternext()
 		
-		save_signal_decoding_weber_law(successes, gains, epsilons, 
-										activities, Kk2s, data_flag)
+		save_signal_decoding_weber_law(data, data_flag)
 		
 if __name__ == '__main__':
 	data_flags = sys.argv[1:]
