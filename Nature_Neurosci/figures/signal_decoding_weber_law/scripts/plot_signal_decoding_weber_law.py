@@ -109,13 +109,16 @@ def plot_signal_decoding_weber_law(data_flags, axes_to_plot=[0, 1],
 		reshape_idxs = sp.hstack((-1, Kk2s.shape[-2:]))
 		Kk2 = Kk2s.reshape(reshape_idxs)[0]
 		
+		means = sp.average(Kk2, axis=1)
 		stdevs = sp.std(Kk2, axis=1)
-		sorted_idxs = sp.argsort(stdevs)
+		sorted_idxs = sp.argsort(means)
 		sorted_Kk2 = Kk2[sorted_idxs, :]
 		
 		fig = Kk2_subfigures()
-		plt.imshow(sorted_Kk2.T, interpolation='nearest', cmap=plt.cm.inferno, 
-						vmin=1e-5, vmax=9e-5)
+		plt.imshow(sp.log(sorted_Kk2.T)/sp.log(10), interpolation='nearest', 
+					cmap=plt.cm.inferno, vmin=-1.51, vmax=0.01)
+		cbar = plt.colorbar()
+		cbar.ax.tick_params(labelsize=14) 
 		save_Kk2_fig(fig, data_flag)
 	
 		
