@@ -67,11 +67,11 @@ def plot_activities(data_flags, axes_to_plot=[0, 1],
 		x_axis_var = iter_vars.keys()[axes_to_plot[1]]
 		
 		data = load_signal_decoding_weber_law(data_flag)
-		activities = data['dYys']
+		activities = data['Yys']
 		
 		for iter_var_idx in range(len(iter_vars[iter_plot_var])):
 			if iter_var_idx == 0:
-				bins = sp.linspace(-5, 0, 12000)
+				bins = sp.linspace(-4, 1.05, 20000)
 				activities_data = sp.zeros((len(iter_vars[iter_plot_var]), 
 										len(bins) - 1))
 				
@@ -85,9 +85,11 @@ def plot_activities(data_flags, axes_to_plot=[0, 1],
 			interp_hist = sp.interp(bins, bin_edges[:-1], hist)[:-1]
 			activities_data[iter_var_idx, :] = interp_hist
 		
+		normed_activities = activities_data.T/sp.amax(activities_data.T, axis=0)
 		fig = activities_subfigures()
-		plt.pcolormesh(iter_vars[iter_plot_var], 10.**bins, activities_data.T, 
-					cmap=cmaps_r[Weber_idx], rasterized=True) 
+		plt.pcolormesh(iter_vars[iter_plot_var], 10.**bins, normed_activities, 
+					cmap=cmaps_r[Weber_idx], rasterized=True, vmin=0, vmax=1.05)
+		
 		save_activities_fig(fig, data_flag)
 		
 	

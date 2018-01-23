@@ -77,7 +77,7 @@ def activities_subfigures():
 	plt.yscale('log')
 	plt.xticks([1e-2, 1e0, 1e2, 1e4], fontsize=tick_label_size)
 	plt.yticks(10.**sp.arange(-8, 1), fontsize=tick_label_size)
-	plt.ylim(1e-5, 1e0)
+	plt.ylim(1e-2, 1.1e0)
 
 	return fig
 	

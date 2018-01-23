@@ -116,7 +116,7 @@ def plot_signal_decoding_weber_law(data_flags, axes_to_plot=[0, 1],
 		
 		fig = Kk2_subfigures()
 		plt.imshow(sp.log(sorted_Kk2.T)/sp.log(10), interpolation='nearest', 
-					cmap=plt.cm.inferno, vmin=-1.51, vmax=0.01)
+					cmap=plt.cm.inferno)#, vmin=-1.51, vmax=0.01)
 		cbar = plt.colorbar()
 		cbar.ax.tick_params(labelsize=14) 
 		save_Kk2_fig(fig, data_flag)
