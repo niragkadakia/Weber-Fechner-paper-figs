@@ -24,18 +24,49 @@ DATA_DIR = def_data_dir()
 VAR_STRINGS = dict(mu_Ss0 = '$\langle s_0 \\rangle$')
 
 					
-def signal_trace_subfigures():
+def signal_trace_subfigures(xlims):
 	"""
 	"""
 
-	plot_width = 9
 	plot_height = 3
+	plot_width = 25*(xlims[1] - xlims[0])
 	tick_label_size = 16
 	
 	fig = plt.figure()
 	fig.set_size_inches(plot_width, plot_height)	
 	plt.xticks(fontsize=tick_label_size)
-	plt.yticks(fontsize=tick_label_size)
+	plt.yticks(sp.arange(0, 5, 0.2), fontsize=tick_label_size)
 	
 	return fig
 	
+def epsilon_trace_subfigures(xlims):
+	"""
+	"""
+
+	plot_height = 3
+	plot_width = 30*(xlims[1] - xlims[0])
+	tick_label_size = 16
+	
+	fig = plt.figure()
+	fig.set_size_inches(plot_width, plot_height)	
+	plt.xticks(fontsize=tick_label_size)
+	plt.yticks(sp.arange(-10, 10, 1), fontsize=tick_label_size)
+	
+	return fig
+	
+def errors_trace_subfigures(xlims):
+	"""
+	"""
+
+	plot_height = 3
+	plot_width = 30*(xlims[1] - xlims[0])
+	tick_label_size = 16
+	
+	fig = plt.figure()
+	fig.set_size_inches(plot_width, plot_height)	
+	plt.xticks(fontsize=tick_label_size)
+	plt.yticks(sp.arange(0, 150, 25), fontsize=tick_label_size)
+	
+	plt.ylim(-2, 102)
+	
+	return fig

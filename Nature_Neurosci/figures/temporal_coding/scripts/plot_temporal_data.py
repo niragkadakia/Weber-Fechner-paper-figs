@@ -14,8 +14,12 @@ import sys
 sys.path.append('../src')
 import matplotlib.pyplot as plt
 from load_specs import read_specs_file
-from save_load_data import load_temporal_errors, save_signal_trace_fig
-from figure_plot_formats import signal_trace_subfigures
+from save_load_data import load_temporal_errors, save_signal_trace_fig, \
+							save_epsilon_trace_fig, save_zero_errors_trace_fig, \
+							save_nonzero_errors_trace_fig
+from figure_plot_formats import signal_trace_subfigures, \
+								epsilon_trace_subfigures, \
+								errors_trace_subfigures
 
 
 def plot_temporal_data(data_flag, iter_var_axis=0, avg_var_axis=1, 
@@ -62,16 +66,44 @@ def plot_temporal_data(data_flag, iter_var_axis=0, avg_var_axis=1,
 	
 	# Get time axes, select colors from blue (non-adaptive) to red (adapted)
 	Tt = data['Tt'] - data['Tt'][0]
-	cmap = plt.cm.coolwarm
-	colors = cmap(sp.linspace(0.2, 1.0, len(iter_var_idxs_to_plot)))
+	cmap = plt.cm.Reds
+	colors = cmap(sp.linspace(0.2, 1, len(iter_var_idxs_to_plot)))
+	lws = sp.linspace(3, 1.5, len(iter_var_idxs_to_plot))
+	x_range_to_plot = range(int(xlims[0]*len(Tt)), int(xlims[1]*len(Tt)))
 	
 	# Plot signal
-	fig = signal_trace_subfigures()
-	plt.plot(Tt, data['signal'], color='mediumorchid')
+	fig = signal_trace_subfigures(xlims)
+	plt.plot(Tt[x_range_to_plot], data['signal'][x_range_to_plot], \
+				color='slategray', lw=2.5)
 	plt.xlim(Tt[0] + Tt[int(xlims[0]*len(Tt))], xlims[-1]*Tt[-1])
 	save_signal_trace_fig(fig, data_flag, xlims)
+	
+	# Plot epsilons
+	fig = epsilon_trace_subfigures(xlims)
+	for iVar, iter_var_idx in enumerate(iter_var_idxs_to_plot):
+		plt.plot(Tt[x_range_to_plot], data['epsilons'][:, iter_var_idx]\
+				[x_range_to_plot], color=colors[iVar], lw=lws[iVar], alpha=0.8)
+		plt.xlim(Tt[0] + Tt[int(xlims[0]*len(Tt))], xlims[-1]*Tt[-1])
+	save_epsilon_trace_fig(fig, data_flag, xlims)
+	
+	# Plot non-present sparse signal component errors
+	fig = errors_trace_subfigures(xlims)
+	for iVar, iter_var_idx in enumerate(iter_var_idxs_to_plot):
+		plt.plot(Tt[x_range_to_plot], data['zero_errors'][:, iter_var_idx]\
+				[x_range_to_plot], color=colors[iVar], lw=lws[iVar], alpha=0.8)
+		plt.xlim(Tt[0] + Tt[int(xlims[0]*len(Tt))], xlims[-1]*Tt[-1])
+	save_zero_errors_trace_fig(fig, data_flag, xlims)
+	
+	# Plot sparse component odorant errors
+	fig = errors_trace_subfigures(xlims)
+	for iVar, iter_var_idx in enumerate(iter_var_idxs_to_plot):
+		plt.plot(Tt[x_range_to_plot], data['nonzero_errors'][:, iter_var_idx]\
+				[x_range_to_plot], color=colors[iVar], lw=lws[iVar], alpha=0.8)
+		plt.xlim(Tt[0] + Tt[int(xlims[0]*len(Tt))], xlims[-1]*Tt[-1])
+	save_nonzero_errors_trace_fig(fig, data_flag, xlims)
 	
 	
 if __name__ == '__main__':
 	data_flags = sys.argv[1]
-	plot_temporal_data(data_flags, iter_var_idxs_to_plot=[3, 6, 8, 11], xlims=[0, 1])
+	plot_temporal_data(data_flags, iter_var_idxs_to_plot=[5, 7, 8, 9, 10], 
+						xlims=[0, 1])
