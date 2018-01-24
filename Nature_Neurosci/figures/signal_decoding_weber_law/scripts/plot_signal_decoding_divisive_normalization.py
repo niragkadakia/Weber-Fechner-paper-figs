@@ -50,7 +50,7 @@ def plot_divisive_normalization_weber_law(data_flags, axes_to_plot=[0, 1],
 	
 	# Ready the plotting window; colormaps; colors; signals to plot
 	cmaps = [cm.Reds, cm.Blues]
-	shades = sp.linspace(0.3, 0.7, len(data_flags)/2)
+	shades = sp.linspace(0.3, 0.85, len(data_flags)/2)
 	
 	# Plot success error figures
 	for data_flag_idx, data_flag in enumerate(data_flags):
@@ -89,7 +89,7 @@ def plot_divisive_normalization_weber_law(data_flags, axes_to_plot=[0, 1],
 		# Plot successes, averaged over second axis of successes array
 		avg_successes = sp.average(successes, axis=1)*100.0
 		plt.plot(iter_vars[iter_plot_var], avg_successes, 
-					color=cmap(shade), zorder=normalization_idx, lw=3.0)
+					color=cmap(shade), zorder=normalization_idx, lw=4.0)
 	
 		# Save same plot in both Weber Law and non-Weber Law folders
 		for Weber_idx in range(2):
