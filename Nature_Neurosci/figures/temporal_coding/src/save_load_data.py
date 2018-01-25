@@ -171,7 +171,7 @@ def save_est_signal_zeros_fig(fig, data_flag, dts_to_plot,
 								iter_vars_idx_to_plot):
 
 	"""
-	Save signal trace subfigures
+	Save signal estimation subfigures for zero components
 	"""
 	
 	out_dir = '%s/figures/temporal_coding/%s' % (ANALYSIS_DIR, data_flag)
@@ -198,7 +198,7 @@ def save_est_signal_nonzeros_fig(fig, data_flag, dts_to_plot,
 								iter_vars_idx_to_plot):
 
 	"""
-	Save signal trace subfigures
+	Save signal estimation subfigures for nonzero components
 	"""
 	
 	out_dir = '%s/figures/temporal_coding/%s' % (ANALYSIS_DIR, data_flag)

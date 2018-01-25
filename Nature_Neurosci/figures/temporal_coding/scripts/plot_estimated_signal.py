@@ -73,13 +73,13 @@ def plot_estimated_signal(data_flag, iter_vars_idxs_to_plot=[0],
 											avg_var_idx_to_plot, :] == 0))[0]
 		est_signal_data_lo = data['dSs_est'][iT_lo, iter_vars_idx_to_plot, 
 												avg_var_idx_to_plot, zero_idxs]
-		sorted_idxs = sp.argsort(est_signal_data_lo)[::-1]
+		sorted_idxs_zeros = sp.argsort(est_signal_data_lo)[::-1]
 		
 		# Get the estimated signals at the two times for the zero components
-		est_signal_data_lo = est_signal_data_lo[sorted_idxs]
+		est_signal_data_lo = est_signal_data_lo[sorted_idxs_zeros]
 		est_signal_data_hi = data['dSs_est'][iT_hi, iter_vars_idx_to_plot, 
 									avg_var_idx_to_plot, zero_idxs]
-		est_signal_data_hi = est_signal_data_hi[sorted_idxs]
+		est_signal_data_hi = est_signal_data_hi[sorted_idxs_zeros]
 				
 		# Plot as filled plot for easier visualization
 		plt.fill_between(range_lo[Kk:], 0, est_signal_data_lo, 
@@ -101,26 +101,28 @@ def plot_estimated_signal(data_flag, iter_vars_idxs_to_plot=[0],
 				% (true_signal_lo[-1], true_signal_hi[-1])
 	
 		# Plot nonzero components
-		
 		fig = est_signal_zeros_subfigures(nonzero_ylims)
 		
 		nonzero_idxs = (sp.where(data['dSs'][iT_lo, iter_vars_idx_to_plot, 
 											avg_var_idx_to_plot, :] != 0))[0]
-		sorted_idxs = sp.argsort(data['dSs'][iT_lo, iter_vars_idx_to_plot, 
+		sorted_idxs_nonzeros = sp.argsort(data['dSs'][iT_lo, iter_vars_idx_to_plot, 
 									avg_var_idx_to_plot, :])[-Kk:][::-1]
 		est_signal_data_lo = data['dSs_est'][iT_lo, iter_vars_idx_to_plot, 
-												avg_var_idx_to_plot, sorted_idxs]
+												avg_var_idx_to_plot, 
+												sorted_idxs_nonzeros]
 		est_signal_data_hi = data['dSs_est'][iT_hi, iter_vars_idx_to_plot, 
-												avg_var_idx_to_plot, sorted_idxs]
-		plt.bar(range_lo[-Kk:], est_signal_data_lo, color=color_lo, zorder=-1)
-		plt.bar(range_hi[-Kk:], est_signal_data_hi, 
-							color=color_hi, zorder=-1, alpha=0.75)
-		plt.bar(range_lo[-Kk:], true_signal_lo, 
-							color='black', fill=False, zorder=-1, alpha=0.75)
-		plt.bar(range_hi[-Kk:], true_signal_hi, 
-							color='black', fill=False, zorder=-1, alpha=0.75)
+												avg_var_idx_to_plot, 
+												sorted_idxs_nonzeros]
 		
-		plt.xlim(2*Nn -2*Kk - 1, 2*Nn)
+		# Make bar graphs for nonzero components -- looks better for small #
+		plt.bar(range_lo[-Kk:], est_signal_data_lo, color=color_lo)
+		plt.bar(range_hi[-Kk:], est_signal_data_hi, color=color_hi, alpha=0.75)
+		plt.bar(range_lo[-Kk:], true_signal_lo, color='black', 
+					fill=False, alpha=0.75)
+		plt.bar(range_hi[-Kk:], true_signal_hi, color='black', 
+					fill=False, alpha=0.75)
+		
+		plt.xlim(2*Nn - 2*Kk - 1, 2*Nn)
 		save_est_signal_nonzeros_fig(fig, data_flag, dts_to_plot, 
 									avg_var_idx_to_plot, 
 									iter_vars_idx_to_plot)
