@@ -36,18 +36,27 @@ def plot_signal_histogram(data_flag):
 	# Get time axes, select colors from blue (non-adaptive) to red (adapted)
 	Tt = data['Tt'] - data['Tt'][0]
 	
-	bins = sp.linspace(-6, -0.1, 100)
+	bins = sp.linspace(-2, -0.2, 50)
 	
 	#signal_hist = sp.histogram(data['signal'], bins=bins)
-	signal_hist = sp.histogram(sp.log(data['signal'])/sp.log(10), bins=bins, normed=1)
-	signal_hist_bins = (signal_hist[1][1:] + signal_hist[1][:-1])/2.0
-	#plt.yscale('log')
+	hist = sp.histogram(sp.log(data['signal'])/sp.log(10), bins=bins, normed=True)
+	hist_bins = (hist[1][1:] + hist[1][:-1])/2.0
+	hist_dx = hist[1][1] - hist[1][0]
+	hist_vals = hist[0]
+	
+	cum_hist = sp.cumsum(hist_vals)*hist_dx
+	
 	# Plot signal
 	#fig = signal_trace_subfigures(xlims)
-	plt.plot(signal_hist_bins, signal_hist[0])
-	plt.hist(sp.log(data['signal'])/sp.log(10), histtype='step', cumulative=1, bins=bins, normed=1)
+	plt.plot(10**hist_bins, hist_vals)
+	#plt.xlim(-2, 0)
+	plt.xscale('log')
+	plt.yscale('log')
+	plt.plot(10**hist_bins, cum_hist)
 	plt.show()
 	
+
 if __name__ == '__main__':
 	data_flags = sys.argv[1]
 	plot_signal_histogram(data_flags)
+	

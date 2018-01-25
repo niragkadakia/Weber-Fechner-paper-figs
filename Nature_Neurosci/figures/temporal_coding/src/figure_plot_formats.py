@@ -44,7 +44,7 @@ def epsilon_trace_subfigures(xlims):
 	"""
 
 	plot_height = 3
-	plot_width = 30*(xlims[1] - xlims[0])
+	plot_width = 25*(xlims[1] - xlims[0])
 	tick_label_size = 16
 	
 	fig = plt.figure()
@@ -59,7 +59,7 @@ def errors_trace_subfigures(xlims):
 	"""
 
 	plot_height = 3
-	plot_width = 30*(xlims[1] - xlims[0])
+	plot_width = 25*(xlims[1] - xlims[0])
 	tick_label_size = 16
 	
 	fig = plt.figure()
@@ -70,3 +70,38 @@ def errors_trace_subfigures(xlims):
 	plt.ylim(-2, 102)
 	
 	return fig
+	
+def est_signal_zeros_subfigures(ylims):
+	"""
+	"""
+	
+	plot_height = 3
+	plot_width = 3
+	tick_label_size = 16
+	yticks = [ylims[0], 0, ylims[1]]
+	
+	fig = plt.figure()
+	fig.set_size_inches(plot_width, plot_height)	
+	plt.xticks([0])
+	plt.yticks(yticks, fontsize=tick_label_size)
+	plt.ylim(ylims[0], ylims[1])
+		
+	return fig
+	
+def est_signal_nonzeros_subfigures(ylims):
+	"""
+	"""
+	
+	plot_height = 3
+	plot_width = 3
+	tick_label_size = 16
+	yticks = [ylims[0], 0, ylims[1]]
+	
+	fig = plt.figure()
+	fig.set_size_inches(plot_width, plot_height)	
+	plt.xticks([0])
+	plt.yticks(yticks, fontsize=tick_label_size)
+	plt.ylim(ylims[0], ylims[1])
+		
+	return fig
+	

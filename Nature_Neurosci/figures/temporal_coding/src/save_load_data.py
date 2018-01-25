@@ -166,3 +166,56 @@ def save_zero_errors_trace_fig(fig, data_flag, xlims):
 	filename = '%s/%s.svg' % (out_dir, file_str)
 	plt.savefig(filename, bbox_inches = 'tight')
 	
+def save_est_signal_zeros_fig(fig, data_flag, dts_to_plot, 
+								avg_var_idx_to_plot, 
+								iter_vars_idx_to_plot):
+
+	"""
+	Save signal trace subfigures
+	"""
+	
+	out_dir = '%s/figures/temporal_coding/%s' % (ANALYSIS_DIR, data_flag)
+	file_str = 'est_signal_zeros_%s_%s_%s' % (dts_to_plot, 
+												avg_var_idx_to_plot, 
+												iter_vars_idx_to_plot)
+	if not os.path.exists(out_dir): 
+		os.makedirs(out_dir)
+	
+	filename = '%s/%s.png' % (out_dir, file_str)
+	plt.savefig(filename, bbox_inches = 'tight')
+	
+	out_dir = '../subfigures/%s' % data_flag
+	if not os.path.exists(out_dir): 
+		os.makedirs(out_dir)
+	
+	filename = '%s/%s.png' % (out_dir, file_str)
+	plt.savefig(filename, bbox_inches = 'tight')
+	filename = '%s/%s.svg' % (out_dir, file_str)
+	plt.savefig(filename, bbox_inches = 'tight')
+	
+def save_est_signal_nonzeros_fig(fig, data_flag, dts_to_plot, 
+								avg_var_idx_to_plot, 
+								iter_vars_idx_to_plot):
+
+	"""
+	Save signal trace subfigures
+	"""
+	
+	out_dir = '%s/figures/temporal_coding/%s' % (ANALYSIS_DIR, data_flag)
+	file_str = 'est_signal_nonzeros_%s_%s_%s' % (dts_to_plot, 
+												avg_var_idx_to_plot, 
+												iter_vars_idx_to_plot)
+	if not os.path.exists(out_dir): 
+		os.makedirs(out_dir)
+	
+	filename = '%s/%s.png' % (out_dir, file_str)
+	plt.savefig(filename, bbox_inches = 'tight')
+	
+	out_dir = '../subfigures/%s' % data_flag
+	if not os.path.exists(out_dir): 
+		os.makedirs(out_dir)
+	
+	filename = '%s/%s.png' % (out_dir, file_str)
+	plt.savefig(filename, bbox_inches = 'tight')
+	filename = '%s/%s.svg' % (out_dir, file_str)
+	plt.savefig(filename, bbox_inches = 'tight')
