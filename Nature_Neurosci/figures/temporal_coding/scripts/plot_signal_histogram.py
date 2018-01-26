@@ -1,5 +1,5 @@
 """
-Plot histogram of temporal data
+Plot histogram of temporal data (under construction)
 
 Created by Nirag Kadakia at 17:00 01-24-2018
 This work is licensed under the 
@@ -24,6 +24,7 @@ from figure_plot_formats import signal_trace_subfigures, \
 
 def plot_signal_histogram(data_flag):
 	"""
+	UNDER CONSTRUCTION
 	"""
 	
 	# Load data and get iterated variables and their dimensions
@@ -51,7 +52,7 @@ def plot_signal_histogram(data_flag):
 	plt.plot(10**hist_bins, hist_vals)
 	#plt.xlim(-2, 0)
 	plt.xscale('log')
-	plt.yscale('log')
+	#plt.yscale('log')
 	plt.plot(10**hist_bins, cum_hist)
 	plt.show()
 	

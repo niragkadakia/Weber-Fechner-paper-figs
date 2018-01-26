@@ -30,6 +30,7 @@ from kinetics import linear_gain, receptor_activity, free_energy, \
 						inhibitory_normalization_linear_gain
 from optimize import decode_CS, decode_nonlinear_CS
 from utils import clip_array
+from load_data import load_signal_trace_from_file
 
 
 INT_PARAMS = ['Nn', 'Kk', 'Mm', 'seed_Ss0', 'seed_dSs', 'seed_Kk1', 
@@ -165,6 +166,22 @@ class four_state_receptor_CS:
 		self.adapted_activity_mu = 0.5
 		self.adapted_activity_sigma = 0.01
 		
+		# Temporal coding variables. temporal_adaptation_type can be 'perfect'
+		# or 'imperfect'. In the latter case, the rate is used to adapt in 
+		# time. Dual odors can be used by setting signal_trace_file_2, 
+		# signal_trace_multiplier_2, and signal_trace_offset_2.
+		self.signal_trace_file = None
+		self.signal_trace_multiplier = 1.0
+		self.signal_trace_offset = 0
+		self.signal_trace_file_2 = None
+		self.signal_trace_multiplier_2 = 1.0
+		self.signal_trace_offset_2 = 0
+		self.temporal_adaptation_type = 'perfect' 
+		self.temporal_adaptation_rate = 1.5
+		self.temporal_adaptation_mu_eps = 5.0
+		self.temporal_adaptation_sigma_eps = 0.0
+		self.temporal_adaptation_mu_Ss0 = 1e-2
+		
 		# Overwrite variables with passed arguments	
 		for key in kwargs:
 			if key in INT_PARAMS:
@@ -250,10 +267,6 @@ class four_state_receptor_CS:
 		Set free energy based on adapted activity activity.
 		"""
 		
-		assert self.inhibitory_fraction == 0, "Cannot use adapted free energy "\
-				"in tandem with inhibitory neurons at this point; set "\
-				"self.inhibitory_fraction to 0."
-		
 		activity_stats = [self.adapted_activity_mu, self.adapted_activity_sigma]
 		adapted_activity = random_matrix([self.Mm], params=activity_stats, 
 									seed=self.seed_adapted_activity)
@@ -271,7 +284,13 @@ class four_state_receptor_CS:
 		self.eps_base += random_matrix(self.Mm, params=[0, self.sigma_eps], 
 										seed=self.seed_eps)
 		
-		self.eps = self.WL_scaling*sp.log(self.mu_Ss0) + self.eps_base 
+		# If dual signal, use the average of the FULL signal nonzero components
+		if self.Kk_split == 0:
+			self.eps = self.WL_scaling*sp.log(self.mu_Ss0) + self.eps_base 
+		else:
+			self.eps = self.WL_scaling*sp.log(sp.average(self.Ss\
+							[self.Ss != 0])) + self.eps_base
+		
 		
 	def set_random_free_energy(self):
 		"""
@@ -451,9 +470,14 @@ class four_state_receptor_CS:
 		params_Kk1 = [self.mu_Kk1, self.sigma_Kk1]
 		self.Kk1 = random_matrix(matrix_shape, params_Kk1, seed=self.seed_Kk1)
 	
+		mu_Ss0 = self.mu_Ss0
+		mu_eps = self.mu_eps
+		for key in kwargs:
+			exec ('%s = kwargs[key]' % key)
+		
 		params_Kk2 = [self.uniform_activity_lo, self.uniform_activity_hi]
 		self.Kk2 = Kk2_eval_uniform_activity(matrix_shape, params_Kk2, 
-											self.mu_Ss0, self.mu_eps, 
+											mu_Ss0, mu_eps, 
 											self.seed_Kk2)
 		
 		if clip == True:
@@ -553,9 +577,84 @@ class four_state_receptor_CS:
 		"""
 		
 		self.dSs_est = decode_nonlinear_CS(self)
+			
+
 	
+	######################################################
+	#####         Temporal Coding functions          #####
+	######################################################
 	
+
 	
+	def set_signal_trace(self):
+		"""
+		Load signal trace data from file; gathered from fly walking assay.
+		self.signal_trace_file is the filename of the signal trace file; 
+		saved in the DATA_DIR/signal_traces folder. It is a 2-column
+		tab-delimited file of which the first column is time and the second
+		is the signal amplitude.
+		"""
+		
+		assert self.signal_trace_file is not None, "Need to set "\
+			"'signal_trace_file' var before calling set_signal_trace; "\
+			"var should be set without extension, which must be .dat"
+		
+		signal_data = load_signal_trace_from_file(self.signal_trace_file)
+		print 'Signal time trace from file %s.dat loaded\n' \
+				% self.signal_trace_file
+		self.signal_trace_Tt = signal_data[:, 0]
+		self.signal_trace = (signal_data[:, 1] + self.signal_trace_offset)*\
+								self.signal_trace_multiplier
+		
+		if self.signal_trace_file_2 is not None:
+			signal_data_2 = load_signal_trace_from_file(self.signal_trace_file_2)
+			print 'Signal time trace 2 from file %s.dat loaded\n' \
+				% self.signal_trace_file_2
+			assert len(self.signal_trace_Tt) == len(signal_data_2[:, 0]), \
+				"signal_trace_file_2 must be same length as signal_trace_file"
+			assert  sp.allclose(self.signal_trace_Tt, signal_data_2[:, 0], 
+				1e-6), "signal_trace_file_2 must have same time array as "\
+				"signal_trace_file"
+			self.signal_trace_2 = (signal_data_2[:, 1] + \
+									self.signal_trace_offset_2)*\
+									self.signal_trace_multiplier_2
+		
+		
+	def set_temporal_adapted_epsilon(self):
+		"""
+		Set adapted epsilon based on current value and adaptation rate.
+		The adapted value is set by linear decay rate equation, 
+		d(eps)/dt = beta*(a_0 - a). a_0 is set by passing the manually
+		chosen variables temporal_adaptation_mu_eps and 
+		temporal_adaptation_mu_Ss0 to the activity. 
+		"""
+		
+		# Perfectly adapted activity level is based on the variables:
+		#  temporal_adaptation_mu_eps, temporal_adaptation_sigma_eps, 
+		#  temporal_adaptation_mu_Ss0. These functions take the activity
+		#  level set by these variables at that signal intensity, to 
+		#  adapt epsilon to the current Ss0
+		perfect_adapt_eps_base = sp.ones(self.Mm)*\
+				self.temporal_adaptation_mu_eps + random_matrix(self.Mm, 
+				params=[0, self.temporal_adaptation_sigma_eps], 
+				seed=self.seed_eps)
+		perfect_adapt_Ss0 = sp.zeros(self.Nn)
+		perfect_adapt_Ss0[self.Ss0 != 0] = self.temporal_adaptation_mu_Ss0
+		perfect_adapt_Yy0 = receptor_activity(perfect_adapt_Ss0, 
+								self.Kk1, self.Kk2, perfect_adapt_eps_base)
+		
+		if self.temporal_adaptation_type == 'imperfect':
+			d_eps_dt = self.temporal_adaptation_rate*\
+						(self.Yy0 - perfect_adapt_Yy0)
+			delta_t = self.signal_trace_Tt[1] - self.signal_trace_Tt[0]
+			self.eps += delta_t*d_eps_dt 
+		elif self.temporal_adaptation_type == 'perfect':
+			self.eps = free_energy(self.Ss0, self.Kk1, self.Kk2, 
+									perfect_adapt_Yy0)
+		
+			
+			
+			
 	######################################################
 	########## 		Encoding functions			##########
 	######################################################
@@ -574,7 +673,7 @@ class four_state_receptor_CS:
 		# Run all functions to encode when activity is uniformly distributed.
 		self.set_sparse_signals()
 		self.set_normal_free_energy()
-		self.set_Kk2_uniform_activity()
+		self.set_Kk2_uniform_activity(**kwargs)
 		self.set_measured_activity()
 		self.set_linearized_response()
 	
