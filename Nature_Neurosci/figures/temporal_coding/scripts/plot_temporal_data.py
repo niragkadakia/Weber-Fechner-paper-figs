@@ -81,7 +81,7 @@ def plot_temporal_data(data_flag, iter_var_axis=0, avg_var_axis=1,
 	# Plot epsilons
 	fig = epsilon_trace_subfigures(xlims)
 	for iVar, iter_var_idx in enumerate(iter_var_idxs_to_plot):
-		plt.plot(Tt[x_range_to_plot], data['epsilons'][:, iter_var_idx]\
+		plt.plot(Tt[x_range_to_plot], data['avg_eps'][:, iter_var_idx]\
 				[x_range_to_plot], color=colors[iVar], lw=lws[iVar], alpha=0.8)
 	plt.xlim(Tt[0] + Tt[int(xlims[0]*len(Tt))], xlims[-1]*Tt[-1])
 	save_epsilon_trace_fig(fig, data_flag, xlims)

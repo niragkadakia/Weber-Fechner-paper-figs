@@ -48,20 +48,34 @@ def calculate_temporal_success(data_flags, nonzero_bounds=[0.75, 1.25],
 	nT = len(CS_init_array)
 	Tt = CS_init_array[0].signal_trace_Tt
 	signal = CS_init_array[0].signal_trace
+	if 'Kk_split' in list_dict['params'].keys():
+		if list_dict['params']['Kk_split'] != 0:
+			signal_2 = CS_init_array[0].signal_trace_2
 	
 	# To hold data for each timepoint, for each iter_var_idx
 	data = dict()
+
 	array_shape = sp.hstack((nT, iter_vars_dims))
 	data['success_ratios'] = sp.zeros(array_shape)
 	data['nonzero_errors'] = sp.zeros(array_shape)
 	data['zero_errors'] = sp.zeros(array_shape)
-	data['epsilons'] = sp.zeros(array_shape)
+	data['avg_eps'] = sp.zeros(array_shape)
+	data['avg_dYy'] = sp.zeros(array_shape)
+	data['avg_Yy'] = sp.zeros(array_shape)
 	data['Tt'] = Tt
 	data['signal'] = signal
-	
+	if 'Kk_split' in list_dict['params'].keys():
+		if list_dict['params']['Kk_split'] != 0:
+			data['signal_2'] = signal_2
+		
 	array_shape_dSs = sp.hstack((nT, iter_vars_dims, list_dict['params']['Nn']))
 	data['dSs_est'] = sp.zeros(array_shape_dSs)
 	data['dSs'] = sp.zeros(array_shape_dSs)
+	
+	array_shape_dYy = sp.hstack((nT, iter_vars_dims, list_dict['params']['Mm']))
+	data['dYy'] = sp.zeros(array_shape_dYy)
+	data['Yy'] = sp.zeros(array_shape_dYy)
+	data['epsilons'] = sp.zeros(array_shape_dYy)
 	
 	while not it.finished:
 		
@@ -84,14 +98,19 @@ def calculate_temporal_success(data_flags, nonzero_bounds=[0.75, 1.25],
 			data['nonzero_errors'][full_idx] = errors['errors_nonzero']
 			data['zero_errors'][full_idx] = errors['errors_zero']
 			data['success_ratios'][full_idx] = success
-			data['epsilons'][full_idx] = sp.average(temporal_CS_array[iT].eps)
+			data['avg_eps'][full_idx] = sp.average(temporal_CS_array[iT].eps)
+			data['avg_dYy'][full_idx] = sp.average(temporal_CS_array[iT].dYy)
+			data['avg_Yy'][full_idx] = sp.average(temporal_CS_array[iT].Yy)
 			data['dSs_est'][full_idx] = temporal_CS_array[iT].dSs_est
 			data['dSs'][full_idx] = temporal_CS_array[iT].dSs
-			
-		save_temporal_errors(data, data_flag)
-			
+			data['dYy'][full_idx] = temporal_CS_array[iT].dYy
+			data['Yy'][full_idx] = temporal_CS_array[iT].Yy
+			data['epsilons'][full_idx] = temporal_CS_array[iT].eps
+					
 		it.iternext()
-	
+				
+	save_temporal_errors(data, data_flag)
+		
 	
 if __name__ == '__main__':
 	data_flag = sys.argv[1]
