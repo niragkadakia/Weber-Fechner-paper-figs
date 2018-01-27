@@ -74,14 +74,18 @@ def load_temporal_errors(data_flag):
 	
 	return data_dict	
 	
-def save_signal_trace_fig(fig, data_flag, xlims):
+def save_signal_trace_fig(fig, data_flag, xlims, dual=False):
 
 	"""
 	Save signal trace subfigures
 	"""
 	
 	out_dir = '%s/figures/temporal_coding/%s' % (ANALYSIS_DIR, data_flag)
-	file_str = 'signal_trace_%s' % xlims
+	
+	if dual == False:
+		file_str = 'signal_trace_%s' % xlims
+	else:
+		file_str = 'signal_trace_2_%s' % xlims
 	if not os.path.exists(out_dir): 
 		os.makedirs(out_dir)
 	
@@ -120,14 +124,18 @@ def save_epsilon_trace_fig(fig, data_flag, xlims):
 	filename = '%s/%s.svg' % (out_dir, file_str)
 	plt.savefig(filename, bbox_inches = 'tight')
 	
-def save_nonzero_errors_trace_fig(fig, data_flag, xlims):
+def save_nonzero_errors_trace_fig(fig, data_flag, xlims, dual=False):
 
 	"""
 	Save signal trace subfigures
 	"""
 	
 	out_dir = '%s/figures/temporal_coding/%s' % (ANALYSIS_DIR, data_flag)
-	file_str = 'nonzero_errors_trace_%s' % xlims
+	
+	if dual == False:
+		file_str = 'nonzero_errors_trace_%s' % xlims
+	else:
+		file_str = 'nonzero_errors_2_trace_%s' % xlims
 	if not os.path.exists(out_dir): 
 		os.makedirs(out_dir)
 	
