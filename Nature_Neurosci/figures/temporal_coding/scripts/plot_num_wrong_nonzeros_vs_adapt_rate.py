@@ -1,6 +1,6 @@
 """
-Plot number of zero components erroneously estimated, versus adaptation rate,
-at beginning and end of whiff encounters.
+Plot absolute percentage error of nonzero components of estiamted
+signal as a function of adaptation rate.
 
 Created by Nirag Kadakia at 22:30 01-28-2018
 This work is licensed under the 
@@ -22,8 +22,7 @@ from figure_plot_formats import perf_vs_adapt_rate_subfigures
 
 def plot_perf_vs_adapt_rate(data_flag, iter_var_idxs_to_plot=None, 
 								whf_thresh=0.1, ylims=[0, 100]):
-	"""
-	"""
+	
 	
 	# Load data and get iterated variables and their dimensions; plot vars
 	data = load_temporal_errors(data_flag)
