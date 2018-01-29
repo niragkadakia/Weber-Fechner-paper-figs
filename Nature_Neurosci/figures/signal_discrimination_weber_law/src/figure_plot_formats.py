@@ -37,7 +37,7 @@ def decoding_accuracy_subfigures():
 	plt.xscale('log')
 	plt.xticks(10.**sp.arange(-4, 6, 2), fontsize=tick_label_size)
 	plt.yticks([0, 50, 100], fontsize=tick_label_size)
-	plt.xlim(1e-1, 1e4)
+	plt.xlim(1e-2, 1e4)
 	
 	return fig
 	

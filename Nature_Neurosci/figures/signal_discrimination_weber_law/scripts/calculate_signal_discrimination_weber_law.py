@@ -47,6 +47,7 @@ def calculate_signal_discrimination_weber_law(data_flags,
 		
 		# Data structures 
 		errors_zero = sp.zeros(iter_vars_dims)
+		errors_zero_2 = sp.zeros(iter_vars_dims)
 		errors_nonzero_2 = sp.zeros(iter_vars_dims)
 		errors_nonzero = sp.zeros(iter_vars_dims)
 		successes_2 = sp.zeros(iter_vars_dims)
@@ -62,19 +63,20 @@ def calculate_signal_discrimination_weber_law(data_flags,
 			errors_nonzero[it.multi_index] = errors['errors_nonzero']
 			errors_nonzero_2[it.multi_index] = errors['errors_nonzero_2']
 			errors_zero[it.multi_index] = errors['errors_zero']
+			errors_zero_2[it.multi_index] = errors['errors_zero_2']
 			it.iternext()
 		
 		# Calculate success ratios from binary errors
 		it = sp.nditer(sp.zeros(iter_vars_dims), flags = ['multi_index'])
 		while not it.finished:
-			successes_2[it.multi_index] = binary_success(
-						errors_nonzero_2[it.multi_index], 
-						errors_zero[it.multi_index], 
-						threshold_pct_nonzero=threshold_pct_nonzero,
-						threshold_pct_zero=threshold_pct_zero)
 			successes[it.multi_index] = binary_success(
 						errors_nonzero[it.multi_index], 
 						errors_zero[it.multi_index], 
+						threshold_pct_nonzero=threshold_pct_nonzero,
+						threshold_pct_zero=threshold_pct_zero)
+			successes_2[it.multi_index] = binary_success(
+						errors_nonzero_2[it.multi_index], 
+						errors_zero_2[it.multi_index], 
 						threshold_pct_nonzero=threshold_pct_nonzero,
 						threshold_pct_zero=threshold_pct_zero)
 			it.iternext()

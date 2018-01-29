@@ -40,7 +40,6 @@ def plot_perf_vs_adapt_rate(data_flag, iter_var_idxs_to_plot=None,
 		iter_var_idxs_to_plot = range(iter_vars_dims[0])
 	else:
 		pass
-	avg_var_idxs = range(iter_vars_dims[1])
 	
 	# Relevant data needed
 	adapt_rates =  list_dict['iter_vars']['temporal_adaptation_rate']\
