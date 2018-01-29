@@ -105,3 +105,22 @@ def est_signal_nonzeros_subfigures(ylims):
 		
 	return fig
 	
+def perf_vs_adapt_rate_subfigures(ylims=[0, 100]):
+	"""
+	"""
+	
+	plot_height = 3
+	plot_width = 3
+	tick_label_size = 16
+	yticks = sp.arange(int(5*round(float(ylims[0])/5)), 
+							int(5*round(float(ylims[1])/5)) + 1, 5)
+	
+	fig = plt.figure()
+	fig.set_size_inches(plot_width, plot_height)	
+	plt.xticks(fontsize=tick_label_size)
+	plt.yticks(yticks, fontsize=tick_label_size)
+	plt.ylim(ylims[0], ylims[1])
+	plt.xscale('log')
+	
+	return fig
+	

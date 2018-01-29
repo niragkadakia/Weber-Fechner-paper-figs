@@ -55,10 +55,6 @@ def calculate_temporal_success(data_flags, nonzero_bounds=[0.75, 1.25],
 		if list_dict['params']['Kk_split'] != 0:
 			signal_2 = CS_init_array[0].signal_trace_2
 			data['signal_2'] = signal_2
-	if 'temporal_adaptation_rate_sigma' in list_dict['fixed_vars'].keys():
-		if list_dict['fixed_vars']['temporal_adaptation_rate_sigma'] != 0:
-			data['adaptation_rates'] = CS_init_array[0].\
-				temporal_adaptation_rate_vector
 	
 	# Data structures to hold stats at every iteration
 	array_shape = sp.hstack((nT, iter_vars_dims))
@@ -82,6 +78,7 @@ def calculate_temporal_success(data_flags, nonzero_bounds=[0.75, 1.25],
 	data['dYy'] = sp.zeros(array_shape_Mm)
 	data['Yy'] = sp.zeros(array_shape_Mm)
 	data['epsilons'] = sp.zeros(array_shape_Mm)
+	data['adaptation_rates'] = sp.zeros(array_shape_Mm)
 	
 	while not it.finished:
 		
@@ -91,6 +88,7 @@ def calculate_temporal_success(data_flags, nonzero_bounds=[0.75, 1.25],
 		
 		# Grab all the errors and stats, timepoint-by-timepoint
 		for iT, dt in enumerate(data['Tt']):
+		
 			full_idx = (iT, ) + it.multi_index
 			
 			if temporal_CS_array[iT].Kk_split == 0:
@@ -128,7 +126,13 @@ def calculate_temporal_success(data_flags, nonzero_bounds=[0.75, 1.25],
 			if temporal_CS_array[iT].Kk_split > 0:
 				data['nonzero_errors_2'][full_idx] = errors['errors_nonzero_2']
 				data['success_ratios_2'][full_idx] = success_2
+
+			if 'temporal_adaptation_rate_sigma' in list_dict['fixed_vars'].keys():
+				if list_dict['fixed_vars']['temporal_adaptation_rate_sigma'] != 0:
+					data['adaptation_rates'][full_idx] = \
+						temporal_CS_array[iT].temporal_adaptation_rate_vector
 			
+	
 		it.iternext()
 				
 	save_temporal_errors(data, data_flag)
