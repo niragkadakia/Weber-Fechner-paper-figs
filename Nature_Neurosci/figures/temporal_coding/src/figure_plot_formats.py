@@ -124,3 +124,20 @@ def perf_vs_adapt_rate_subfigures(ylims=[0, 100]):
 	
 	return fig
 	
+def adapt_rate_vs_act(xvals, yvals):
+	"""
+	"""
+	
+	plot_height = 3
+	plot_width = 3
+	tick_label_size = 16
+	
+	fig = plt.figure()
+	fig.set_size_inches(plot_width, plot_height)	
+	plt.xticks(fontsize=tick_label_size)
+	plt.yticks(fontsize=tick_label_size)
+	plt.yscale('log')
+	plt.xlim(min(xvals)*0.9, max(xvals)*1.1)
+	plt.ylim(min(yvals)*0.4, max(yvals)*1.6)
+	
+	return fig

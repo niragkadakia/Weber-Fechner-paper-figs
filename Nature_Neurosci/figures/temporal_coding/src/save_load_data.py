@@ -271,3 +271,25 @@ def save_nonzero_pct_err_vs_adapt_rate(fig, data_flag, whf_thresh):
 	plt.savefig(filename, bbox_inches = 'tight')
 	filename = '%s/%s.svg' % (out_dir, file_str)
 	plt.savefig(filename, bbox_inches = 'tight')
+	
+def save_plot_adapt_rate_vs_act(fig, data_flag):
+	"""
+	Save adaptation rate versus activity level for ordered adaptation rates
+	"""
+	
+	out_dir = '%s/figures/temporal_coding/%s' % (ANALYSIS_DIR, data_flag)
+	file_str = 'adapt_rate_vs_act'
+	if not os.path.exists(out_dir): 
+		os.makedirs(out_dir)
+	
+	filename = '%s/%s.png' % (out_dir, file_str)
+	plt.savefig(filename, bbox_inches = 'tight')
+	
+	out_dir = '../subfigures/%s' % data_flag
+	if not os.path.exists(out_dir): 
+		os.makedirs(out_dir)
+	
+	filename = '%s/%s.png' % (out_dir, file_str)
+	plt.savefig(filename, bbox_inches = 'tight')
+	filename = '%s/%s.svg' % (out_dir, file_str)
+	plt.savefig(filename, bbox_inches = 'tight')

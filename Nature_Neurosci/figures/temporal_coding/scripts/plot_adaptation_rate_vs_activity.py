@@ -14,13 +14,12 @@ import sys
 sys.path.append('../src')
 import matplotlib.pyplot as plt
 from load_specs import read_specs_file
-from save_load_data import load_temporal_errors
+from save_load_data import load_temporal_errors, save_plot_adapt_rate_vs_act
+from figure_plot_formats import adapt_rate_vs_act
 
 
-def plot_adapt_rate_vs_act(data_flag,  iT=100, iter_var_idx_to_plot=7, 
-							avg_var_idxs_to_plot=[0, 1, 5]):
-	"""
-	"""
+def plot_adapt_rate_vs_act(data_flag,  iT=0, iter_var_idx_to_plot=0, 
+							avg_var_idx_to_plot=0):
 	
 	# Load data and get iterated variables and their dimensions
 	data = load_temporal_errors(data_flag)
@@ -29,21 +28,19 @@ def plot_adapt_rate_vs_act(data_flag,  iT=100, iter_var_idx_to_plot=7,
 	for iter_var in list_dict['iter_vars']:
 		iter_vars_dims.append(len(list_dict['iter_vars'][iter_var]))		
 	
+	Yys = data['Yy'][iT, iter_var_idx_to_plot, avg_var_idx_to_plot]
+	adaptation_rates = data['adaptation_rates'][iT, 
+					iter_var_idx_to_plot, avg_var_idx_to_plot]
+	Yys_ordered_idxs = sp.argsort(Yys)
+	adaptation_rates_ordered = adaptation_rates[Yys_ordered_idxs]
+	Yys_ordered = Yys[Yys_ordered_idxs]
 	
-	for avg_var_idx in avg_var_idxs_to_plot:
-		adaptation_rates = data['adaptation_rates'][iT, 
-						iter_var_idx_to_plot, avg_var_idx]
-		Yys = data['Yy'][iT, iter_var_idx_to_plot, avg_var_idx]
-		dYys = data['dYy'][iT, iter_var_idx_to_plot, avg_var_idx]
-	
-		plt.scatter(Yys, adaptation_rates)
-		plt.xlim(min(Yys)*0.8, max(Yys)*1.2)
-		plt.ylim(min(adaptation_rates)*0.8, max(adaptation_rates)*1.2)
-		plt.yscale('log')	
-		
-	plt.show()
-	
+	colors = plt.cm.Reds(sp.linspace(0.25, 0.75, len(adaptation_rates)))
+	fig = adapt_rate_vs_act(xvals=Yys, yvals=adaptation_rates)
+	plt.scatter(Yys_ordered, adaptation_rates_ordered, s=20, color=colors)
+	save_plot_adapt_rate_vs_act(fig, data_flag)
+
 	
 if __name__ == '__main__':
 	data_flags = sys.argv[1]
-	plot_adapt_rate_vs_act(data_flags)
+	plot_adapt_rate_vs_act(data_flags, iT=95, iter_var_idx_to_plot=8)

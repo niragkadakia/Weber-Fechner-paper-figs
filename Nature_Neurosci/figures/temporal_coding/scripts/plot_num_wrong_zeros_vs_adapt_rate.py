@@ -77,4 +77,4 @@ def plot_perf_vs_adapt_rate(data_flag, iter_var_idxs_to_plot=None,
 if __name__ == '__main__':
 	data_flag = sys.argv[1]
 	plot_perf_vs_adapt_rate(data_flag, iter_var_idxs_to_plot=sp.arange(4, 12),
-							ylims=[5, 20])
+							ylims=[5, 25])
