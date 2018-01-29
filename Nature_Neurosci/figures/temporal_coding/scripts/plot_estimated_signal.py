@@ -131,5 +131,5 @@ def plot_estimated_signal(data_flag, iter_vars_idxs_to_plot=[0],
 if __name__ == '__main__':
 	data_flags = sys.argv[1]
 	plot_estimated_signal(data_flags, iter_vars_idxs_to_plot=[7, 8, 9], 
-							avg_var_idx_to_plot=7, dts_to_plot=[3.72, 4.00], 
+							avg_var_idx_to_plot=7, dts_to_plot=[23.86, 25.17], 
 							zero_ylims=[-0.01, 0.01], nonzero_ylims=[0, 0.12])

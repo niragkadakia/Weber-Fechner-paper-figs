@@ -72,12 +72,14 @@ def binary_errors_dual_odor(CS_object, nonzero_bounds=[0.7, 1.3],
 	
 	Nn = CS_object.Nn
 	mu_dSs = CS_object.mu_dSs
+	mu_dSs_2 = CS_object.mu_dSs_2
 	sparse_idxs =  CS_object.idxs[0]
 	idxs_2 =  CS_object.idxs_2
 	
 	errors_nonzero = 0
 	errors_nonzero_2 = 0
 	errors_zero = 0
+	errors_zero_2 = 0
 	
 	for iN in range(Nn):
 		if iN in sparse_idxs: 
@@ -91,7 +93,10 @@ def binary_errors_dual_odor(CS_object, nonzero_bounds=[0.7, 1.3],
 					errors_nonzero += 1
 		else:
 			if abs(CS_object.dSs_est[iN]) <  abs(mu_dSs*zero_bound):
-					errors_zero += 1
+				errors_zero += 1
+			if CS_object.Kk_split != 0:
+				if abs(CS_object.dSs_est[iN]) <  abs(mu_dSs_2*zero_bound):
+					errors_zero_2 += 1
 			
 	errors = dict()
 	
@@ -108,5 +113,7 @@ def binary_errors_dual_odor(CS_object, nonzero_bounds=[0.7, 1.3],
 			sp.around(1.*errors_nonzero_2/len(idxs_2)*100., 2)
 	errors['errors_zero'] = \
 		sp.around(1.*errors_zero/(Nn - len(sparse_idxs))*100., 2)
+	errors['errors_zero_2'] = \
+		sp.around(1.*errors_zero_2/(Nn - len(sparse_idxs))*100., 2)
 										
 	return errors

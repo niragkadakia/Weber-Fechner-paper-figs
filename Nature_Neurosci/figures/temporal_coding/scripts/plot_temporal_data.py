@@ -123,5 +123,5 @@ def plot_temporal_data(data_flag, iter_var_axis=0, avg_var_axis=1,
 	
 if __name__ == '__main__':
 	data_flags = sys.argv[1]
-	plot_temporal_data(data_flags, iter_var_idxs_to_plot=[3, 5, 7, 8, 9, 10], 
-						xlims=[.1, 0.14])
+	plot_temporal_data(data_flags, iter_var_idxs_to_plot=[5, 7, 8, 9, 10], 
+						xlims=[0.75, 1])
