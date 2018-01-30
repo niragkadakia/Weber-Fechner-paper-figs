@@ -114,14 +114,21 @@ def plot_temporal_data(data_flag, iter_var_axis=0, avg_var_axis=1,
 		if list_dict['params']['Kk_split'] > 0:
 			fig = errors_trace_subfigures(xlims)
 			for iVar, iter_var_idx in enumerate(iter_var_idxs_to_plot):
+				plt.plot(Tt[x_range_to_plot], data['zero_errors_2']
+						[:, iter_var_idx][x_range_to_plot], 
+						color=colors[iVar], lw=lws[iVar], alpha=0.8)
+			plt.xlim(Tt[0] + Tt[int(xlims[0]*len(Tt))], xlims[-1]*Tt[-1])
+			save_zero_errors_trace_fig(fig, data_flag, xlims, dual=True)
+				
+			for iVar, iter_var_idx in enumerate(iter_var_idxs_to_plot):
 				plt.plot(Tt[x_range_to_plot], data['nonzero_errors_2']
 						[:, iter_var_idx][x_range_to_plot], 
 						color=colors[iVar], lw=lws[iVar], alpha=0.8)
 			plt.xlim(Tt[0] + Tt[int(xlims[0]*len(Tt))], xlims[-1]*Tt[-1])
 			save_nonzero_errors_trace_fig(fig, data_flag, xlims, dual=True)
-				
+			
 	
 if __name__ == '__main__':
 	data_flags = sys.argv[1]
 	plot_temporal_data(data_flags, iter_var_idxs_to_plot=[5, 7, 8, 9, 10], 
-						xlims=[0.75, 1])
+						xlims=[0, 1])

@@ -18,13 +18,17 @@ import matplotlib.pyplot as plt
 from mpl_toolkits.mplot3d import Axes3D
 from load_specs import read_specs_file
 from save_load_data import load_temporal_errors, \
-							save_nonzero_pct_err_vs_adapt_rate
-from figure_plot_formats import perf_vs_adapt_rate_subfigures
+							save_adapt_rate_discr_num_wrong_zero_3d_fig, \
+							save_adapt_rate_discr_pct_error_nonzero_3d_fig
+from figure_plot_formats import adapt_rate_discrimination_3d_fig
 
 
 def plot_errors_vs_adapt_rate_discrimination(data_flag, 
 								iter_var_idxs_to_plot=None, 
-								whf_thresh=0.1, ylims=[0, 100]):
+								whf_threshs_1=[0.1, 100], 
+								whf_threshs_2=[0.2, 100],
+								zlims_zero=[0, 100], 
+								zlims_nonzero=[0, 100]):
 	
 	
 	# Load data and get iterated variables and their dimensions; plot vars
@@ -43,55 +47,76 @@ def plot_errors_vs_adapt_rate_discrimination(data_flag,
 		iter_var_idxs_to_plot = range(iter_vars_dims[0])
 	else:
 		pass
+	avg_var_idxs = range(iter_vars_dims[1])
 	
+	# Data structures and some variables needed for plotting
 	adapt_rates =  list_dict['iter_vars']['temporal_adaptation_rate']\
 						[iter_var_idxs_to_plot]
 	Nn = list_dict['params']['Nn']
 	Kk = list_dict['params']['Kk']
-	data_beg = sp.zeros((len(iter_var_idxs_to_plot), len(data_flags)))
-	data_end = sp.zeros((len(iter_var_idxs_to_plot), len(data_flags)))
+	data_rates = sp.zeros((len(iter_var_idxs_to_plot), len(data_flags), 2))
+	log_adapt_rates = sp.log(adapt_rates)/sp.log(10)
 	
 	# Only need to load encounters and signal once
-	signal = data['signal_2']
-	binary_hits = 1.*(signal > whf_thresh)
-	enc_on_idxs = sp.where(sp.diff(binary_hits) > 0)[0] + 1
-	enc_off_idxs = sp.where(sp.diff(binary_hits) < 0)[0] 
+	signal_1 = data['signal']
+	signal_2 = data['signal_2']
+	binary_hits = (signal_2 < whf_threshs_2[1])*(signal_2 > whf_threshs_2[0])*\
+					(signal_1 < whf_threshs_1[1])*(signal_1 > whf_threshs_1[0])
 	
-	print data['Tt'][enc_on_idxs] - data['Tt'][0]
-	fig = plt.figure()
-	ax = fig.add_subplot(111, projection='3d')
-	cmap_beg = plt.cm.Purples
-	cmap_end = plt.cm.Greens
-		
+	cmap = plt.cm.viridis
+	
 	for data_idx, data_flag in enumerate(data_flags):
 		
 		# Load data for each flag
 		data = load_temporal_errors(data_flag)
-		zero_errors = data['zero_errors']
-		
-		rates_enc_beg = []
-		rates_enc_end = []	
-		
-		# Plot zero errors, averaging over encounters and average index (2nd index)
+		zero_errors = []
+		nonzero_errors = []
+		list_dict = read_specs_file(data_flag)
+		Kk_split = list_dict['params']['Kk_split']
+	
 		for iter_var_idx in iter_var_idxs_to_plot:
-			rates_enc_beg.append(sp.average((Nn - Kk) - zero_errors\
-								[enc_on_idxs, iter_var_idx, :]/100.*(Nn - Kk)))
-			rates_enc_end.append(sp.average((Nn - Kk) - zero_errors\
-								[enc_off_idxs, iter_var_idx, :]/100.*(Nn - Kk)))
 		
-		data_beg[:, data_idx] = rates_enc_beg
-		data_end[:, data_idx] = rates_enc_end
-		
-		
-	X, Y = sp.meshgrid(sp.log(adapt_rates)/sp.log(10), range(len(data_flags)))
-	ax.plot_wireframe(X.T, Y.T, data_beg, color=cmap_beg(0.7))
-	ax.plot_wireframe(X.T, Y.T, data_end, color=cmap_end(0.7))
-	plt.show()	
-	#save_nonzero_pct_err_vs_adapt_rate(fig, data_flag, whf_thresh)
-
+			# Use fluctuation in 2nd signal component 
+			zero_errors.append(sp.average(100 - data['zero_errors_2']\
+								[binary_hits, iter_var_idx, :])/100.*(Nn - Kk))
+			
+			# For nonzero components, only use nonzero components in 2nd signal
+			nonzero_errors_avg_idxs = 0
+			for avg_var_idx in avg_var_idxs:
+				nonzero_idxs = data['idxs_2'][0, iter_var_idx, avg_var_idx, :]\
+								.astype(int)
+				dSs = data['dSs'][:, iter_var_idx, avg_var_idx, 
+									nonzero_idxs][binary_hits, :]
+				dSs_est = data['dSs_est'][:, iter_var_idx, avg_var_idx, \
+											nonzero_idxs][binary_hits, :]
+				nonzero_errors_avg_idxs += sp.sum(sp.absolute((dSs - \
+										dSs_est)/dSs))/sp.sum(binary_hits)\
+										/Kk_split*100
+				
+			nonzero_errors.append(nonzero_errors_avg_idxs/len(avg_var_idxs))
+			
+		data_rates[:, data_idx, 0] = zero_errors
+		data_rates[:, data_idx, 1] = nonzero_errors
+	
+	fig, ax = adapt_rate_discrimination_3d_fig(data_rates[:, :, 0],
+										adapt_rates, zlims=zlims_zero)
+	X, Y = sp.meshgrid(log_adapt_rates, range(len(data_flags)))
+	ax.plot_surface(X.T, Y.T, data_rates[:, :, 0], cmap=cmap, 
+						lw=0, alpha=0.8, antialiased=False)
+	save_adapt_rate_discr_num_wrong_zero_3d_fig(fig, data_flag, 
+											whf_threshs_1, whf_threshs_2)
+	
+	fig, ax = adapt_rate_discrimination_3d_fig(data_rates[:, :, 1], 
+										adapt_rates, zlims=zlims_nonzero)
+	X, Y = sp.meshgrid(log_adapt_rates, range(len(data_flags)))
+	ax.plot_surface(X.T, Y.T, data_rates[:, :, 1], cmap=cmap, 
+						lw=0, alpha=0.5, antialiased=False)
+	save_adapt_rate_discr_pct_error_nonzero_3d_fig(fig, data_flag, 
+											whf_threshs_1, whf_threshs_2)
+	
 	
 if __name__ == '__main__':
 	data_flags = sys.argv[1:]
 	plot_errors_vs_adapt_rate_discrimination(data_flags, 
 					iter_var_idxs_to_plot=sp.arange(4, 12),
-					ylims=[0, 25])
+					zlims_zero=[0, 30], zlims_nonzero=[0, 25])

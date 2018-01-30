@@ -14,7 +14,7 @@ import sys
 sys.path.append('../src')
 import matplotlib.pyplot as plt
 from load_specs import read_specs_file
-from save_load_data import load_temporal_errors, save_plot_adapt_rate_vs_act
+from save_load_data import load_temporal_errors, save_plot_adapt_rate_vs_act_fig
 from figure_plot_formats import adapt_rate_vs_act
 
 
@@ -38,7 +38,7 @@ def plot_adapt_rate_vs_act(data_flag,  iT=0, iter_var_idx_to_plot=0,
 	colors = plt.cm.Reds(sp.linspace(0.25, 0.75, len(adaptation_rates)))
 	fig = adapt_rate_vs_act(xvals=Yys, yvals=adaptation_rates)
 	plt.scatter(Yys_ordered, adaptation_rates_ordered, s=20, color=colors)
-	save_plot_adapt_rate_vs_act(fig, data_flag)
+	save_plot_adapt_rate_vs_act_fig(fig, data_flag)
 
 	
 if __name__ == '__main__':

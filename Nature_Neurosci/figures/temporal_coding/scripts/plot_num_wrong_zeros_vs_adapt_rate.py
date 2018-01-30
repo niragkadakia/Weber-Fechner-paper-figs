@@ -16,7 +16,7 @@ sys.path.append('../src')
 import matplotlib.pyplot as plt
 from load_specs import read_specs_file
 from save_load_data import load_temporal_errors, \
-							save_num_wrong_zeros_vs_adapt_rate
+							save_num_wrong_zeros_vs_adapt_rate_fig
 from figure_plot_formats import perf_vs_adapt_rate_subfigures
 
 
@@ -64,16 +64,16 @@ def plot_perf_vs_adapt_rate(data_flag, iter_var_idxs_to_plot=None,
 	# Plot zero errors, averaging over encounters and average index (2nd index)
 	fig = perf_vs_adapt_rate_subfigures(ylims=ylims)
 	for iter_var_idx in iter_var_idxs_to_plot:
-		rates_enc_beg.append(sp.average((Nn - Kk) - zero_errors\
-							[enc_on_idxs, iter_var_idx, :]/100.*(Nn - Kk)))
-		rates_enc_end.append(sp.average((Nn - Kk) - zero_errors\
-							[enc_off_idxs, iter_var_idx, :]/100.*(Nn - Kk)))
+		rates_enc_beg.append(sp.average(100 - zero_errors\
+							[enc_on_idxs, iter_var_idx, :])/100.*(Nn - Kk))
+		rates_enc_end.append(sp.average(100 - zero_errors\
+							[enc_off_idxs, iter_var_idx, :])/100.*(Nn - Kk))
 	plt.plot(adapt_rates, rates_enc_beg, color=color_lo, lw=3)
 	plt.plot(adapt_rates, rates_enc_end, color=color_hi, lw=3)
-	save_num_wrong_zeros_vs_adapt_rate(fig, data_flag, whf_thresh)
+	save_num_wrong_zeros_vs_adapt_rate_fig(fig, data_flag, whf_thresh)
 
 	
 if __name__ == '__main__':
 	data_flag = sys.argv[1]
 	plot_perf_vs_adapt_rate(data_flag, iter_var_idxs_to_plot=sp.arange(4, 12),
-							ylims=[5, 25])
+							ylims=[0, 20])

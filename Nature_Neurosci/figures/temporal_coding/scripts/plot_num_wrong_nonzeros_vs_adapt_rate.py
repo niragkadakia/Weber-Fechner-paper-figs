@@ -16,7 +16,7 @@ sys.path.append('../src')
 import matplotlib.pyplot as plt
 from load_specs import read_specs_file
 from save_load_data import load_temporal_errors, \
-							save_nonzero_pct_err_vs_adapt_rate
+							save_nonzero_pct_err_vs_adapt_rate_fig
 from figure_plot_formats import perf_vs_adapt_rate_subfigures
 
 
@@ -93,7 +93,7 @@ def plot_perf_vs_adapt_rate(data_flag, iter_var_idxs_to_plot=None,
 	plt.plot(adapt_rates, rates_enc_beg, color=color_lo, lw=3)
 	plt.plot(adapt_rates, rates_enc_end, color=color_hi, lw=3)
 	
-	save_nonzero_pct_err_vs_adapt_rate(fig, data_flag, whf_thresh)
+	save_nonzero_pct_err_vs_adapt_rate_fig(fig, data_flag, whf_thresh)
 
 	
 if __name__ == '__main__':

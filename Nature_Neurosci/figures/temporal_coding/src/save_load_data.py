@@ -151,14 +151,18 @@ def save_nonzero_errors_trace_fig(fig, data_flag, xlims, dual=False):
 	filename = '%s/%s.svg' % (out_dir, file_str)
 	plt.savefig(filename, bbox_inches = 'tight')
 	
-def save_zero_errors_trace_fig(fig, data_flag, xlims):
+def save_zero_errors_trace_fig(fig, data_flag, xlims, dual=False):
 
 	"""
 	Save signal trace subfigures
 	"""
 	
 	out_dir = '%s/figures/temporal_coding/%s' % (ANALYSIS_DIR, data_flag)
-	file_str = 'zero_errors_trace_%s' % xlims
+	
+	if dual == False:
+		file_str = 'zero_errors_trace_%s' % xlims
+	else:
+		file_str = 'zero_errors_2_trace_%s' % xlims
 	if not os.path.exists(out_dir): 
 		os.makedirs(out_dir)
 	
@@ -228,7 +232,7 @@ def save_est_signal_nonzeros_fig(fig, data_flag, dts_to_plot,
 	filename = '%s/%s.svg' % (out_dir, file_str)
 	plt.savefig(filename, bbox_inches = 'tight')
 	
-def save_num_wrong_zeros_vs_adapt_rate(fig, data_flag, whf_thresh):
+def save_num_wrong_zeros_vs_adapt_rate_fig(fig, data_flag, whf_thresh):
 	"""
 	Save performance vs adaptation rate figures for zero components
 	"""
@@ -250,7 +254,7 @@ def save_num_wrong_zeros_vs_adapt_rate(fig, data_flag, whf_thresh):
 	filename = '%s/%s.svg' % (out_dir, file_str)
 	plt.savefig(filename, bbox_inches = 'tight')
 	
-def save_nonzero_pct_err_vs_adapt_rate(fig, data_flag, whf_thresh):
+def save_nonzero_pct_err_vs_adapt_rate_fig(fig, data_flag, whf_thresh):
 	"""
 	Save performance vs adaptation rate figures for zero components
 	"""
@@ -272,7 +276,7 @@ def save_nonzero_pct_err_vs_adapt_rate(fig, data_flag, whf_thresh):
 	filename = '%s/%s.svg' % (out_dir, file_str)
 	plt.savefig(filename, bbox_inches = 'tight')
 	
-def save_plot_adapt_rate_vs_act(fig, data_flag):
+def save_plot_adapt_rate_vs_act_fig(fig, data_flag):
 	"""
 	Save adaptation rate versus activity level for ordered adaptation rates
 	"""
@@ -293,3 +297,61 @@ def save_plot_adapt_rate_vs_act(fig, data_flag):
 	plt.savefig(filename, bbox_inches = 'tight')
 	filename = '%s/%s.svg' % (out_dir, file_str)
 	plt.savefig(filename, bbox_inches = 'tight')
+	
+def save_adapt_rate_discr_num_wrong_zero_3d_fig(fig, data_flag, 
+										whf_threshs_1, whf_threshs_2):
+	"""
+	Save 3d plot of wrong nonzero elements as a function of 
+	adaptataion rate and Kk_split
+	"""
+	
+	if whf_threshs_1[1] > 50:
+		whf_threshs_1[1] = sp.inf
+	if whf_threshs_2[1] > 50:
+		whf_threshs_2[1] = sp.inf
+	
+	out_dir = '%s/figures/temporal_coding/%s' % (ANALYSIS_DIR, data_flag)
+	file_str = 'num_wrong_discr_threshs=[%.3f,%.3f],'\
+		'[%.3f,%.3f]' % (whf_threshs_1[0], whf_threshs_1[1], 
+		whf_threshs_2[0], whf_threshs_2[1])
+	if not os.path.exists(out_dir): 
+		os.makedirs(out_dir)
+	
+	filename = '%s/%s.png' % (out_dir, file_str)
+	plt.savefig(filename, bbox_inches = 'tight')
+	
+	out_dir = '../subfigures/%s' % data_flag
+	if not os.path.exists(out_dir): 
+		os.makedirs(out_dir)
+	
+	filename = '%s/%s.png' % (out_dir, file_str)
+	plt.savefig(filename, bbox_inches = 'tight')
+	filename = '%s/%s.svg' % (out_dir, file_str)
+	plt.savefig(filename, bbox_inches = 'tight')
+	
+def save_adapt_rate_discr_pct_error_nonzero_3d_fig(fig, data_flag, 
+										whf_threshs_1, whf_threshs_2):
+	"""
+	Save 3d plot of pct error in nonzero elements as a function of 
+	adaptataion rate and Kk_split
+	"""
+	
+	out_dir = '%s/figures/temporal_coding/%s' % (ANALYSIS_DIR, data_flag)
+	file_str = 'nonzero_pct_error_discr_threshs=[%.3f,%.3f],'\
+		'[%.3f,%.3f]' % (whf_threshs_1[0], whf_threshs_1[1], 
+		whf_threshs_2[0], whf_threshs_2[1])
+	if not os.path.exists(out_dir): 
+		os.makedirs(out_dir)
+	
+	filename = '%s/%s.png' % (out_dir, file_str)
+	plt.savefig(filename, bbox_inches = 'tight')
+	
+	out_dir = '../subfigures/%s' % data_flag
+	if not os.path.exists(out_dir): 
+		os.makedirs(out_dir)
+	
+	filename = '%s/%s.png' % (out_dir, file_str)
+	plt.savefig(filename, bbox_inches = 'tight')
+	filename = '%s/%s.svg' % (out_dir, file_str)
+	plt.savefig(filename, bbox_inches = 'tight')
+	
