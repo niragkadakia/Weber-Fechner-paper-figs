@@ -67,7 +67,7 @@ def plot_temporal_data(data_flag, iter_var_axis=0, avg_var_axis=1,
 	# Get time axes, select colors from blue (non-adaptive) to red (adapted)
 	Tt = data['Tt'] - data['Tt'][0]
 	cmap = plt.cm.Reds
-	colors = cmap(sp.linspace(0.2, 1, len(iter_var_idxs_to_plot)))
+	colors = cmap(sp.linspace(0.2, 1.0, len(iter_var_idxs_to_plot)))
 	lws = sp.linspace(3, 1.5, len(iter_var_idxs_to_plot))
 	x_range_to_plot = range(int(xlims[0]*len(Tt)), int(xlims[1]*len(Tt)))
 	
@@ -112,6 +112,7 @@ def plot_temporal_data(data_flag, iter_var_axis=0, avg_var_axis=1,
 	
 	if 'Kk_split' in list_dict['params'].keys():
 		if list_dict['params']['Kk_split'] > 0:
+			
 			fig = errors_trace_subfigures(xlims)
 			for iVar, iter_var_idx in enumerate(iter_var_idxs_to_plot):
 				plt.plot(Tt[x_range_to_plot], data['zero_errors_2']
@@ -119,7 +120,8 @@ def plot_temporal_data(data_flag, iter_var_axis=0, avg_var_axis=1,
 						color=colors[iVar], lw=lws[iVar], alpha=0.8)
 			plt.xlim(Tt[0] + Tt[int(xlims[0]*len(Tt))], xlims[-1]*Tt[-1])
 			save_zero_errors_trace_fig(fig, data_flag, xlims, dual=True)
-				
+			
+			fig = errors_trace_subfigures(xlims)			
 			for iVar, iter_var_idx in enumerate(iter_var_idxs_to_plot):
 				plt.plot(Tt[x_range_to_plot], data['nonzero_errors_2']
 						[:, iter_var_idx][x_range_to_plot], 

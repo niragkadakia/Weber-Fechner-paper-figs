@@ -25,8 +25,8 @@ from figure_plot_formats import adapt_rate_discrimination_3d_fig
 
 def plot_errors_vs_adapt_rate_discrimination(data_flag, 
 								iter_var_idxs_to_plot=None, 
-								whf_threshs_1=[0.1, 100], 
-								whf_threshs_2=[0.2, 100],
+								whf_threshs_1=[0, 100], 
+								whf_threshs_2=[0.4, 100],
 								zlims_zero=[0, 100], 
 								zlims_nonzero=[0, 100]):
 	
@@ -73,7 +73,7 @@ def plot_errors_vs_adapt_rate_discrimination(data_flag,
 		nonzero_errors = []
 		list_dict = read_specs_file(data_flag)
 		Kk_split = list_dict['params']['Kk_split']
-	
+		
 		for iter_var_idx in iter_var_idxs_to_plot:
 		
 			# Use fluctuation in 2nd signal component 
@@ -110,7 +110,7 @@ def plot_errors_vs_adapt_rate_discrimination(data_flag,
 										adapt_rates, zlims=zlims_nonzero)
 	X, Y = sp.meshgrid(log_adapt_rates, range(len(data_flags)))
 	ax.plot_surface(X.T, Y.T, data_rates[:, :, 1], cmap=cmap, 
-						lw=0, alpha=0.5, antialiased=False)
+						lw=0, alpha=0.8, antialiased=False)
 	save_adapt_rate_discr_pct_error_nonzero_3d_fig(fig, data_flag, 
 											whf_threshs_1, whf_threshs_2)
 	
@@ -119,4 +119,4 @@ if __name__ == '__main__':
 	data_flags = sys.argv[1:]
 	plot_errors_vs_adapt_rate_discrimination(data_flags, 
 					iter_var_idxs_to_plot=sp.arange(4, 12),
-					zlims_zero=[0, 30], zlims_nonzero=[0, 25])
+					zlims_zero=[0, 20], zlims_nonzero=[0, 25])

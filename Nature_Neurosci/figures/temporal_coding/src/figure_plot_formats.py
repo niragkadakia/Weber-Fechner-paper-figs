@@ -166,10 +166,10 @@ def adapt_rate_discrimination_3d_fig(data_rates, adapt_rates, zlims):
 	plt.xticks(xticks_rounded, xtick_labels, fontsize=tick_label_size)
 	
 	# Cannot set zticks, need to do a different way.
-	ax.set_zticks(sp.arange(0, sp.amax(data_rates), 5))
+	ax.set_zticks(sp.arange(zlims[0], zlims[1] + 5, 5))
 	for tick in ax.zaxis.get_major_ticks():
                 tick.label.set_fontsize(tick_label_size) 
-	ax.view_init(11, -73)
+	ax.view_init(6, -26)
 	ax.set_zlim(zlims[0], zlims[1])
 	
 	return fig, ax

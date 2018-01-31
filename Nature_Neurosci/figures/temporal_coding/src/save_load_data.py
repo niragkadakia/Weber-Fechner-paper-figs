@@ -337,7 +337,7 @@ def save_adapt_rate_discr_pct_error_nonzero_3d_fig(fig, data_flag,
 	"""
 	
 	out_dir = '%s/figures/temporal_coding/%s' % (ANALYSIS_DIR, data_flag)
-	file_str = 'nonzero_pct_error_discr_threshs=[%.3f,%.3f],'\
+	file_str = 'nonzero_pct_discr_threshs=[%.3f,%.3f],'\
 		'[%.3f,%.3f]' % (whf_threshs_1[0], whf_threshs_1[1], 
 		whf_threshs_2[0], whf_threshs_2[1])
 	if not os.path.exists(out_dir): 
