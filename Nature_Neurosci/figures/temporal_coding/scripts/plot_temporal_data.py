@@ -16,10 +16,12 @@ import matplotlib.pyplot as plt
 from load_specs import read_specs_file
 from save_load_data import load_temporal_errors, save_signal_trace_fig, \
 							save_epsilon_trace_fig, save_zero_errors_trace_fig, \
-							save_nonzero_errors_trace_fig
+							save_nonzero_errors_trace_fig, \
+							save_dual_signal_trace_fig
 from figure_plot_formats import signal_trace_subfigures, \
 								epsilon_trace_subfigures, \
-								errors_trace_subfigures
+								errors_trace_subfigures, \
+								signal_trace_dual_signal_subfigures
 
 
 def plot_temporal_data(data_flag, iter_var_axis=0, avg_var_axis=1, 
@@ -85,6 +87,14 @@ def plot_temporal_data(data_flag, iter_var_axis=0, avg_var_axis=1,
 						color='slategray', lw=2.5)
 			plt.xlim(Tt[0] + Tt[int(xlims[0]*len(Tt))], xlims[-1]*Tt[-1])
 			save_signal_trace_fig(fig, data_flag, xlims, dual=True)
+		
+			fig = signal_trace_dual_signal_subfigures(xlims)
+			plt.fill_between(Tt[x_range_to_plot], 0, data['signal']
+							[x_range_to_plot], color=plt.cm.Oranges(0.2))
+			plt.plot(Tt[x_range_to_plot], data['signal_2'][x_range_to_plot],
+						color=plt.cm.Blues(0.8), lw=1.5)
+			plt.xlim(Tt[0] + Tt[int(xlims[0]*len(Tt))], xlims[-1]*Tt[-1])
+			save_dual_signal_trace_fig(fig, data_flag, xlims)
 		
 	# Plot epsilons
 	fig = epsilon_trace_subfigures(xlims)

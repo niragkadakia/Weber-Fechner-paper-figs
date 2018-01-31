@@ -173,3 +173,22 @@ def adapt_rate_discrimination_3d_fig(data_rates, adapt_rates, zlims):
 	ax.set_zlim(zlims[0], zlims[1])
 	
 	return fig, ax
+	
+def signal_trace_dual_signal_subfigures(xlims):
+	"""
+	"""
+
+	plot_height = 3
+	plot_width = 7*(xlims[1] - xlims[0])
+	if xlims[0] == 0 and xlims[1] == 1:
+		tick_label_size = 16
+	else:
+		tick_label_size = 12
+		
+	fig = plt.figure()
+	fig.set_size_inches(plot_width, plot_height)	
+	plt.xticks(fontsize=tick_label_size)
+	plt.yticks(sp.arange(0, 5, 0.2), fontsize=tick_label_size)
+	
+	return fig
+	

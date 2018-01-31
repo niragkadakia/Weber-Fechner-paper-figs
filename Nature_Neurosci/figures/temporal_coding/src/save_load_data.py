@@ -355,3 +355,26 @@ def save_adapt_rate_discr_pct_error_nonzero_3d_fig(fig, data_flag,
 	filename = '%s/%s.svg' % (out_dir, file_str)
 	plt.savefig(filename, bbox_inches = 'tight')
 	
+def save_dual_signal_trace_fig(fig, data_flag, xlims):
+	"""
+	Save signal trace subfigure with both traces for discrimination task.
+	"""
+	
+	out_dir = '%s/figures/temporal_coding/%s' % (ANALYSIS_DIR, data_flag)
+	
+	file_str = 'signal_trace_dual_%s' % xlims
+	if not os.path.exists(out_dir): 
+		os.makedirs(out_dir)
+	
+	filename = '%s/%s.png' % (out_dir, file_str)
+	plt.savefig(filename, bbox_inches = 'tight')
+	
+	out_dir = '../subfigures/%s' % data_flag
+	if not os.path.exists(out_dir): 
+		os.makedirs(out_dir)
+	
+	filename = '%s/%s.png' % (out_dir, file_str)
+	plt.savefig(filename, bbox_inches = 'tight')
+	filename = '%s/%s.svg' % (out_dir, file_str)
+	plt.savefig(filename, bbox_inches = 'tight')
+	
