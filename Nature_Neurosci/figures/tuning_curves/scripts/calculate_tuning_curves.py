@@ -62,7 +62,7 @@ def calculate_tuning_curves(data_flag):
 		for iN in range(vars_to_pass['Nn']):
 			vars_to_pass['manual_dSs_idxs'] = sp.array([iN])
 			obj = single_encode_CS(vars_to_pass, run_specs)
-			tuning_curve[iter_var_idxs[0], iter_var_idxs[1], iN, :] = obj.dYy
+			tuning_curve[iter_var_idxs[0], iter_var_idxs[1], iN, :] = obj.Yy
 		
 		epsilons[it.multi_index] = obj.eps
 		Kk2s[it.multi_index] = obj.Kk2

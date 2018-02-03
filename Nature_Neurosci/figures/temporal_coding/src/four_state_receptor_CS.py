@@ -156,6 +156,8 @@ class four_state_receptor_CS:
 		# Random free energy statistics
 		self.mu_eps = 5.0
 		self.sigma_eps = 0.0
+		self.max_eps = 100.0
+		self.min_eps = 0.0
 		
 		# Tuned free energy maximum
 		self.normal_eps_tuning_prefactor = 0.0
@@ -305,17 +307,15 @@ class four_state_receptor_CS:
 			self.eps = self.WL_scaling*sp.log(sp.average(self.Ss\
 							[self.Ss != 0])) + self.eps_base
 		
+		# Apply max epsilon value to each component
+		for iM in range(self.Mm):
+			if self.eps[iM] > self.max_eps:
+				self.eps[iM] = self.max_eps
+			if self.eps[iM] < self.min_eps:
+				self.eps[iM] = self.min_eps
 		
-	def set_random_free_energy(self):
-		"""
-		Set free energy as random vector.
-		"""
-		
-		self.eps = random_matrix([self.Mm], [self.mu_eps, self.sigma_eps], 
-									seed = self.seed_eps)
 	
-
-
+	
 	######################################################
 	########## 		Binding functions			##########
 	######################################################

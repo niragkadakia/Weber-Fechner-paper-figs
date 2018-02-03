@@ -94,18 +94,16 @@ def Kk2_subfigures():
 	
 	return fig
 	
-def signal_estimation_subfigures(Nn_over_Kk=None):
+def signal_estimation_subfigures(nonzero=True):
 	"""
 	Generate sample signal estimation figure, ordered	
 	"""
 	
 	fig = plt.figure()
-	
-	if Nn_over_Kk == None:
+	if nonzero == True:
 		fig.set_size_inches(2, 6)
 	else:
-		fig.set_size_inches(2*Nn_over_Kk, 6)
-	
+		fig.set_size_inches(6, 6)
 	plt.xticks([])
 	plt.yticks(fontsize=22)
 			

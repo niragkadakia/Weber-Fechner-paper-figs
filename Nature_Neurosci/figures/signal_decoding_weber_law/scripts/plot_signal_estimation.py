@@ -29,18 +29,16 @@ def plot_signal_estimation_weber_law(data_flags, axes_to_plot=[0, 1],
 	# Define the plot indices
 	assert len(data_flags) == 2, \
 		"Need command line arguments to be two, alternating " \
-		"Weber law and non-Weber law."
+		"non-Weber law and Weber law."
 			
-	cmaps = [cm.Reds, cm.Blues]
-	mu_dSs_to_plot = sp.arange(0, 100, 10)
+	cmaps = [cm.Blues, cm.Reds]
+	alphas = [1.0, 0.8]
+	mu_dSs_to_plot = [99]#sp.arange(0, 100, 5)
 	seed_Kk2_to_plot = sp.arange(0, 100, 5)
 	true_signal_lw = 1.0
 	true_signal_color = 'black'
 	CS_object_array = []
 	
-	# How many zero elements of sparse signal to plot
-	zero_vals_to_plot = 20
-		
 	# Load both object arrays only once
 	for Weber_idx, data_flag in enumerate(data_flags):
 	
@@ -59,17 +57,17 @@ def plot_signal_estimation_weber_law(data_flags, axes_to_plot=[0, 1],
 		CS_object_array.append(load_aggregated_object_list(iter_vars_dims, 
 								data_flag))
 		print ('...loaded.')
-
+	
 	# Nonzero components
 	for dSs_idx in mu_dSs_to_plot:
 		for Kk2_idx in seed_Kk2_to_plot:
 			
 			# Ready the plotting window; colormaps; colors; signals to plot
-			fig = signal_estimation_subfigures()
+			fig = signal_estimation_subfigures(nonzero=True)
 			for Weber_idx, data_flag in enumerate(data_flags):
 
 				# Blue for non-adapted; red for adapted
-				cmap = cmaps[Weber_idx]
+				color = cmaps[Weber_idx](0.6)
 
 				# Plot the bar graphs for true signal and estimates, top and 
 				#  bottom; order by signal strength
@@ -80,34 +78,32 @@ def plot_signal_estimation_weber_law(data_flags, axes_to_plot=[0, 1],
 					lw=true_signal_lw, edgecolor=true_signal_color,
 					zorder=100, width=1.0, fill=False)
 				plt.bar(sp.arange(Kk), est_signal[sorted_idxs][:Kk]*(-1)**Weber_idx, 
-					color=cmap(0.7), zorder=2, width=1.0)
-			
+					color=color, zorder=2, width=1.0)
+				
 			for data_flag in data_flags:
 				save_signal_estimation_nonzeros_fig(fig, data_flag, dSs_idx, Kk2_idx)
 			plt.close()
-			
+		
 	# Zero components
 	for dSs_idx in mu_dSs_to_plot:
 		for Kk2_idx in seed_Kk2_to_plot:
 			
 			# Ready the plotting window; colormaps; colors; signals to plot
-			fig = signal_estimation_subfigures(Nn_over_Kk=1.*zero_vals_to_plot/Kk)
+			fig = signal_estimation_subfigures(nonzero=False)
 			for Weber_idx, data_flag in enumerate(data_flags):
 			
 				# Blue for non-adapted; red for adapted
-				cmap = cmaps[Weber_idx]
+				color = cmaps[Weber_idx](0.6)
+				alpha = alphas[Weber_idx]
 				
 				# Ordering here is actually not necessary
 				true_signal = CS_object_array[Weber_idx][dSs_idx, Kk2_idx].dSs
 				est_signal = CS_object_array[Weber_idx][dSs_idx, Kk2_idx].dSs_est
 				sorted_idxs = sp.argsort(true_signal)[::-1]
-				plt.bar(sp.arange(zero_vals_to_plot), true_signal[sorted_idxs]\
-					[Kk:zero_vals_to_plot + Kk]*(-1)**Weber_idx, 
-					lw=true_signal_lw, edgecolor=true_signal_color,
-					zorder=100, width=1.0, fill=False)
-				plt.bar(sp.arange(zero_vals_to_plot), est_signal[sorted_idxs]\
-					[Kk:zero_vals_to_plot + Kk]*(-1)**Weber_idx, 
-					color=cmap(0.7), zorder=2, width=1.0)
+				est_signal_nonzeros = est_signal[sorted_idxs][Kk:]
+				est_signal_sorted_idxs = sp.argsort(est_signal_nonzeros)
+				plt.fill_between(sp.arange(Nn - Kk), 0, est_signal_nonzeros\
+					[est_signal_sorted_idxs], color=color, alpha=alpha)
 			
 			for data_flag in data_flags:
 				save_signal_estimation_zeros_fig(fig, data_flag, dSs_idx, Kk2_idx)

@@ -41,21 +41,24 @@ def plot_tuning_curve_subfigures(data_flag, plot_tuning_curves=True,
 									plot_Kk2=True, plot_firing_rate=True):
 	
 	# Which level of background stimulus and diversity?
-	mu_dSs_idx = 4
-	sigma_Kk2_idx = 1
+	mu_dSs_idx = 2
+	sigma_Kk2_idx = 0
+	
+	# How many odorants to plot in the Kk2 matrix?
+	num_odorants_Kk2 = 100
 	
 	# Which background level indices to plot for adaptation plots?
-	mu_dSs_idxs = [0, 8, 13]
+	mu_dSs_idxs = [0, 3, 6]
 	
 	# Choose the sparsity of the signal for the adaptation plots.
-	adaptation_Kk = 6
+	adaptation_Kk = 20
 	
 	# What are the random number seeds for picking odor components?
 	odor_seeds = range(40)
 	
-	# Which of the (num_figs) to highlight, and with what colors?
-	highlight_figs = [1, 14, 32]
-	highlight_colors = [cm.Oranges, cm.Blues, cm.Greens]
+	# Which of the (num_figs) to highlight, and with what colors? (incr order!)
+	highlight_figs = [14, 24, 32]
+	highlight_colors = [cm.Blues, cm.Oranges, cm.Greens]
 	
 	list_dict = read_specs_file(data_flag)
 	for key in list_dict:
@@ -74,8 +77,9 @@ def plot_tuning_curve_subfigures(data_flag, plot_tuning_curves=True,
 		
 		fig = Kk2_subfigure()
 		ax = fig.add_subplot(111)
-		img1 = ax.imshow(sp.log(Kk2s[mu_dSs_idx, sigma_Kk2_idx, :, :].T), 
-				aspect=0.2, cmap='bone', rasterized=True, vmin=-8.5, vmax=-3)
+		img1 = ax.imshow(sp.log(Kk2s[mu_dSs_idx, sigma_Kk2_idx, :, \
+				:num_odorants_Kk2].T)/sp.log(10), aspect=2.0, cmap='hot_r', 
+				rasterized=True, vmin=-3.5, vmax=0, interpolation="nearest")
 		
 		# Draw arrows to indicate representative plots
 		highlight_idx = 0
@@ -83,7 +87,7 @@ def plot_tuning_curve_subfigures(data_flag, plot_tuning_curves=True,
 			if fig_num in highlight_figs:
 				color = highlight_colors[highlight_idx](0.5)
 				highlight_idx += 1
-				ax.annotate('', fontsize=20, xy=(iM, 2), xycoords='data', 
+				ax.annotate('', fontsize=20, xy=(iM, 1), xycoords='data', 
 					xytext=(0, 30), textcoords='offset points', 
 					arrowprops=dict(arrowstyle="->", lw=2.5, color=color))
 			else:
@@ -91,7 +95,7 @@ def plot_tuning_curve_subfigures(data_flag, plot_tuning_curves=True,
 			
 		
 		# matplotlib weirdness in making colorbar correct size.
-		cb = fig.colorbar(img1, ax=ax, ticks=[-8, -6, -4])
+		cb = fig.colorbar(img1, ax=ax, ticks=sp.arange(-5, 1, 1))
 		ax.set_aspect('auto')
 		cb.ax.tick_params(labelsize=14)
 		save_Kk2_fig(fig, sigma_Kk2_idx, data_flag)

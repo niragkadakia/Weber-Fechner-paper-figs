@@ -6,24 +6,29 @@ Here is a citation to a seminal work\cite{OKeeNade78a}. \lipsum[2-3]
 
 \subsection*{A model framework that preserves ORN tuning, diversity, and adaptive feedback}
 
-The theoretical framework of odor discrimination consists of two stages: a biophysical model of odor binding and subsequent ORN firing -- "encoding" -- and a computational paradigm for then inferring odor identity and intensity from this repertoire of ORN response, or "decoding." We model the first stage as follows. Odor molecules individually bind and unbind to distinct olfactory receptor neurons (ORNs), which are either active (firing) or inactive (quiescent) state. When bombarded by a naturalistic odor consisting of a few or more volatile compounds, the likelihood and rate of ORN spiking is dictated by two aspects. First, the probability that ORN binds a given molecular odorant depends on the identities of both the neuron and the odorant, as well as the neuron's state (active or inactive). Second, the likelihood that this binding event then incites an action potential depends on ORN-specific activation energies needed to open Na and Ca ion channels. Together, these comprise a stochastic process that translate odors of varying identities and concentrations into a repertoire of ORN response.
+The theoretical framework of odor discrimination consists of two stages: a biophysical model of odor binding and subsequent ORN firing -- encoding -- and a computational paradigm for then inferring odor identity and intensity from this repertoire of ORN response -- decoding. 
 
-To characterize the diversity of ORN response, w
+We encoding process is modeled as follows. Odorant molecules individually bind and unbind to distinct olfactory receptor neurons (ORNs), which are either active (firing) or inactive (quiescent) state. In the presence of an odor consisting of a few or more volatile compounds, the likelihood and rate of ORN spiking is dictated by two aspects. First, the probability that ORN binds a given molecular odorant depends on the identities of both the neuron and the odorant, as well as the neuron's state (active or inactive). Second, the likelihood that this binding event then incites an action potential depends on ORN-specific activation energies needed to open Na and Ca ion channels. Together, these comprise a stochastic process that translates the binding of odors of varying identities and concentrations into a repertoire of ORN response. We will first consider this system in steady state, later relaxing this assumption and letting the slower adaptive process proceed dynamically. 
 
-At the second stage, the ORN activity levels is incorporated into an optimization routine intended to mimic the neural computations that infer the identity and intensity of the odor signal. This is the decoding aspect, of which 
+%In our model, we assume that the binding process is competitive, so that the OR is bound with at most one ligand at a given time ({\color{blue} Say that non-competitive should be similar}). The complex $C$ then lives in one of $2(N+1)$ states, corresponding to being unbound, $C$, bound with receptor $n$ and firing $nC^*$, or bound with receptor $n$ and quiescent, $nC$. Switching between 
+
+{\color {blue} More words about the model and the functional forms here.}
+
+First, we show that the steady state response reproduces observed ORN tuning curves. It is known that olfactory receptors in \textit{Drosophila} can range from narrowly tuned, responding to a single odorant, to quite broad, responding to various distinct odorants spanning multiple functional groups. We incorporate this diversity of response into our framework by treating the equilibrium disassociation constants of a odorant-receptor pair ($i$-$a$) as a random variable with pre-defined statistics. Actually, there are two disassociation constants, for the inactive and active receptor, respectively; however, for a large range of odor concentrations, the model dynamics are well dictated only by those of the active receptor, $K^*_{i, a}$, where the binding affinity is much higher. Accordingly, we only consider variations among these. 
+
+Figure \ref{!!!} shows how a simple choice of statistics on $K^*_{i, a}$ can naturally produce a diverse repertoire of response closely mimicking observed \textit{Drosophila} ORN tuning curves. The tuning curves, of which some are narrowly peaked and some are broad, are produced by sampling at two stages. For a given receptor $a$, $K^*_{i,a}$ are chosen uniformly in some range (this dictates how receptor $a$ responds to distinct odorants), while diversity among receptors is incorporated by sampling the bounds of each range from a hyperdistribution, also chosen uniform. Receptors with narrow ranges produce peaked tuning curves (the orange receptor in Fig. (XX)), while and those with broader ranges produce more disperse tuning curves (blue receptor). 
 
 
+These tuning curves are maximum responses. On the other hand, it has recently been demonstrated that \textit{Drosophila} ORNs adapt their firing rates in accordance with the Weber-Fechner law. Specifically, the sensitivity, or gain, of the receptor scales inversely with mean odor concentration, and this scaling holds across receptor and odorant identities. In our model, we incorporate this adaptive mechanism by assuming that the firing rate feeds back on the sensory machinery through the receptor free energies, $\epsilon_m$, required to produce an action potential event. Strictly speaking, $\epsilon_m$ are single parameter simplifications of the full dissipative process of cation inflow and membrane depolarization prior to an action potential. Nonetheless, they {\color{blue} Explain why ok here}.  
 
-We first show that the natural diversity of observed tuning curve response in \textit{Drosophila} response is 
+The Weber-Fechner law is naturally incorporated into the framework of our model by scaling $\epsilon_m$ logarithmically with the mean odor concentration (between fixed outer bounds $\epsilon_{\text {L}}$ and $\epsilon_{\text {H}}$). We note that since naturalistic odors are not comprised of pure odorants, rather combinations a few or several such constituent species, adapting to the average alone concentration could in principle skew the distribution of receptor response as concentrations elevate. Nonetheless, for sufficiently small 
 
 
-
-
-The affinities of distinct molecules to distinct ORNs are completely independent and general. 
+We incorporate this adaptive mechanism into our 
 
 \subsection*{}
 
-
+The second stage of the framework is odor discrimination, which exploits a 
 
 %An inline figure reference will look like \tfig{single}, whereas a parenthesized figure panel
 %reference will be abbreviated (\fig{single}{a}). \comment{Remove `disable' from the todonotes
