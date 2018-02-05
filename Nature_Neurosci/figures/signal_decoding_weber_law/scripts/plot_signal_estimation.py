@@ -33,7 +33,7 @@ def plot_signal_estimation_weber_law(data_flags, axes_to_plot=[0, 1],
 			
 	cmaps = [cm.Blues, cm.Reds]
 	alphas = [1.0, 0.8]
-	mu_dSs_to_plot = [99]#sp.arange(0, 100, 5)
+	mu_dSs_to_plot = sp.arange(0, 100, 5)
 	seed_Kk2_to_plot = sp.arange(0, 100, 5)
 	true_signal_lw = 1.0
 	true_signal_color = 'black'

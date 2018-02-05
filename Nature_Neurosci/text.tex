@@ -4,11 +4,13 @@ Here is a citation to a seminal work\cite{OKeeNade78a}. \lipsum[2-3]
 
 \section*{Results}
 
-\subsection*{A model framework that preserves ORN tuning, diversity, and adaptive feedback}
+\subsection*{A model framework that preserves ORN tuning, diversity, and concentration invariance}
 
 The theoretical framework of odor discrimination consists of two stages: a biophysical model of odor binding and subsequent ORN firing -- encoding -- and a computational paradigm for then inferring odor identity and intensity from this repertoire of ORN response -- decoding. 
 
 We encoding process is modeled as follows. Odorant molecules individually bind and unbind to distinct olfactory receptor neurons (ORNs), which are either active (firing) or inactive (quiescent) state. In the presence of an odor consisting of a few or more volatile compounds, the likelihood and rate of ORN spiking is dictated by two aspects. First, the probability that ORN binds a given molecular odorant depends on the identities of both the neuron and the odorant, as well as the neuron's state (active or inactive). Second, the likelihood that this binding event then incites an action potential depends on ORN-specific activation energies needed to open Na and Ca ion channels. Together, these comprise a stochastic process that translates the binding of odors of varying identities and concentrations into a repertoire of ORN response. We will first consider this system in steady state, later relaxing this assumption and letting the slower adaptive process proceed dynamically. 
+
+
 
 %In our model, we assume that the binding process is competitive, so that the OR is bound with at most one ligand at a given time ({\color{blue} Say that non-competitive should be similar}). The complex $C$ then lives in one of $2(N+1)$ states, corresponding to being unbound, $C$, bound with receptor $n$ and firing $nC^*$, or bound with receptor $n$ and quiescent, $nC$. Switching between 
 
@@ -19,14 +21,57 @@ First, we show that the steady state response reproduces observed ORN tuning cur
 Figure \ref{!!!} shows how a simple choice of statistics on $K^*_{i, a}$ can naturally produce a diverse repertoire of response closely mimicking observed \textit{Drosophila} ORN tuning curves. The tuning curves, of which some are narrowly peaked and some are broad, are produced by sampling at two stages. For a given receptor $a$, $K^*_{i,a}$ are chosen uniformly in some range (this dictates how receptor $a$ responds to distinct odorants), while diversity among receptors is incorporated by sampling the bounds of each range from a hyperdistribution, also chosen uniform. Receptors with narrow ranges produce peaked tuning curves (the orange receptor in Fig. (XX)), while and those with broader ranges produce more disperse tuning curves (blue receptor). 
 
 
-These tuning curves are maximum responses. On the other hand, it has recently been demonstrated that \textit{Drosophila} ORNs adapt their firing rates in accordance with the Weber-Fechner law. Specifically, the sensitivity, or gain, of the receptor scales inversely with mean odor concentration, and this scaling holds across receptor and odorant identities. In our model, we incorporate this adaptive mechanism by assuming that the firing rate feeds back on the sensory machinery through the receptor free energies, $\epsilon_m$, required to produce an action potential event. Strictly speaking, $\epsilon_m$ are single parameter simplifications of the full dissipative process of cation inflow and membrane depolarization prior to an action potential. Nonetheless, they {\color{blue} Explain why ok here}.  
+These tuning curves are maximum responses. On the other hand, it has recently been demonstrated that \textit{Drosophila} ORNs adapt their firing rates in accordance with the Weber-Fechner law. Specifically, the sensitivity, or gain, of the receptor scales inversely with mean odor concentration, and this scaling holds across receptor and odorant identities. In our model, we incorporate this adaptive mechanism by assuming that the firing rate feeds back on the sensory machinery through the receptor free energies, $\epsilon_m$, required to produce an action potential event (see Methods). Strictly speaking, $\epsilon_m$ are single parameter simplifications of the full dissipative process of cation inflow and membrane depolarization prior to an action potential. Nonetheless, they {\color{blue} Explain why ok here}.  
 
-The Weber-Fechner law is naturally incorporated into the framework of our model by scaling $\epsilon_m$ logarithmically with the mean odor concentration (between fixed outer bounds $\epsilon_{\text {L}}$ and $\epsilon_{\text {H}}$). We note that since naturalistic odors are not comprised of pure odorants, rather combinations a few or several such constituent species, adapting to the average alone concentration could in principle skew the distribution of receptor response as concentrations elevate. Nonetheless, for sufficiently small 
+The Weber-Fechner law is naturally incorporated into the framework of our model by scaling $\epsilon_m$ logarithmically with the mean odor concentration (between fixed outer bounds $\epsilon_{\text {L}}$ and $\epsilon_{\text {H}}$). This simple mechanism preserves the firing rate response through concentration changes (Fig XXX). Importantly, since this adaptive scaling acsts only in response to individual ORN activity levels via OR-specific free energies, the activity distribution can be naturally preserved across concentration changes, irrespective of odor identity. As we will see, the maintenance of this disperse response is central to reliable odor decoding in fluctuating odor environments. 
 
 
-We incorporate this adaptive mechanism into our 
+\subsection*{A linear decoding process for nonlinear neural response}
 
-\subsection*{}
+In the second stage of the discrimination framework, odorant identity is inferred from the pattern of neural response. The complicating factor in this decoding process is the disparity between measurement dimension and stimulus dimension: while \textit{Drosophila} only express 60 olfactory receptor genes, the space of aromatic odorants is $10^3$ or more, appearing to suggest that odor decoding is a fundamentally under-determined problem. However, naturally-occurring odors are comprised of only a small subset of this large space of volatile compounds. This is quite suggestive, as rigorous mathematical results show that sparse signals passed through linear sensors of sufficiently random response can be reliably reconstructed, despite measurement paucity. %This framework is known as compressed sensing. In it, an $N$-dimensional signal $\mathbf s$ is passed through $M$ sensors, producing an $M$-dimensional response vector $\mathbf y$ via the linear transformation $\mathbf y = \mathbf R \mathbf x$. This equation is not invertible since $M \le N$; compressed sensing solves this problem by instead as a convex optimization routine, simultaneously imposing both signal sparsity and the measurements as linear constraints (see Methods). 
+This reconstruction technique, known in computer vision and elsewhere as compressed sensing, is naturally suited to the observed features of olfactory circuitry. %It was shown that decorrellating and diverging outputs further down the neural pathway enhance the efficacy of odor discrimination and learning. 
+
+In compressed sensing, successful decoding relies on a sufficiently dispersed response. But large fluctuations in intensity characteristic of naturalistic environments could markedly affect response combinatorics, confounding decoding fidelity. Conversely, we expect that since imposing the Weber-Fechner scaling relation maintains the receptor activity distribution over the dynamic range of $\epsilon$, concentration-invariant accuracy can be preserved naturally over a range of odor concentrations.
+
+To incorporate the linear framework of compressed sensing into our nonlinear receptor and activation model, we treat the odor encoding process exactly, while approximating the decoding process to first order. The latter assumption allows the compressed sensing reconstruction -- a constrained optimization problem -- to remain convex, whereby the global minimum is unique (see Methods). Specifically, we represent the nonzero components $s_i$ of the sparse odor signal $\mathbf s$ as $s_i = s_0 + \Delta s_i$, where $s_0$ is the center of the linearization. The target of the decoding process are the identities and intensities of the 'excess' signals $\Delta s_i$. The 'excess' steady state receptor activities are defined as:
+\begin{align}
+\Delta \bar a_m \equiv \bar a_m(\mathbf s) - \bar a_m(\mathbf s_0),
+\end{align}
+where we have assumed that the neural system has access to a baseline odor signal, but must infer exact odor concentrations $s_i$. The decoding process minimizes the the $L_1$ norm of $\Delta s_i$, equivalent to enforcing signal sparsity, while enforcing the linear constraints arising from the excess activities, i.e. the ORN responses (see Methods for mathematical details). To assess the decoding performance, we denote an odor signal as accurately decoded if the sparse odorant components are all estimated to within 25\% of their correct value and the components absent in the original signal, $s_j = 0$, are all estimated as less than 10\% of the mean excess concentration, $\hat s_j \le \langle \Delta s_i \rangle_i$. The former constraint is a measure of accurately inferring signal \textit{intensity}; the latter of signal \textit{identity}. 
+
+\subsection*{Identity and intensity preservation in sparse decoding with adaptive feedback}
+
+Applying this scheme to 100 randomly chosen sparse odor signals of varying mean concentrations, we find that a large proportion are correctly inferred in a particular region of odor intensity (Fig~\ref{xx}). We find that this occurs in two different neural systems, one of which contains distinctly but all broadly responding receptors, the second of which is more indicative of \textit{Drosophila} physiology and exhibits a diverse repertoire ranging from broad to highly specialized. In both cases, however, decoding fidelity is not concentration invariant, compromising the viability of this coding scheme in naturalistic, fluctuating environments (Fig~\ref{!!!}). 
+
+Conversely, we hypothesize by stabilizing the excess activity levels through Weber-Fechner adaptive feedback, such sensitivity can be mitigated. Indeed, by enforcing a logarithmic scaling of the receptor free energies with background odor concentration, $\epsilon_m = \ln(s_0) + \epsilon_{m, 0}$, we find that the coding fidelity is now maintained over a five-fold change in odor strength. We further illustrate this behavior for systems with odorant binding distributions that are chosen exponentially and normally (Supp. Fig.~\ref{XXX!}). {\color{blue} What about only some receptors adapting?}
+
+
+
+A critical feature of olfactory systems is that they can simultaneously decode odor intensity and identity, attributes which are not necessarily mutually exclusive. Compressed decoding conflates these two aspects into a single computation by inferring not only the exact component magnitudes of an odor signal (intensity), but which molecular components constitute the high-dimensional signal in the first place (identity). Despite the conflation of these in practice, it is possible that in this framework, one aspect may be preserved while the other is violated. Separating the errors arising from each (see Methods), we find that indeed, depending on background concentration, either or both may contribute. For moderate concentrations, the inferred zero components reach a substantial fraction of the mean odor concentration, while the estimates of the sparse components are largely even with their true values (Fig.~\ref{XX}). The identity of the odor is substantially compromised. As concentrations increase further, identity is now preserved (zero components are estimated well below the mean), but errors in odor intensity have magnified. This illustrates that in non-adaptive systems, errors both in identity and intensity can confound odor representations. 
+
+\subsection*{Inhibitory normalization?}
+
+\subsection*{Adaptive scaling permits odor discrimination amid confounding backgrounds}
+
+
+
+\begin{align}
+\Delta \hat s_i &= \underset{\Delta s_i}{\text{arg min}} \sum_i^N|\Delta s_i| \qquad \text{such that} \qquad \Delta \bar a_m = \sum_i R_{mi}(s_0) \Delta s_i,
+\end{align}
+where $R_{mi}(s_0)$ is the steady state response of receptor $a$ to odorant $i$, linearized about $s_0$ (see Methods). 
+
+Among 100 randomly chosen sparse signals, a large percentage can be correctly inferred in given regions of mean concentration, but 
+
+
+
+
+
+
+
+The scaling adds the disorder mentioned in previous paper
+
+TEMPORAL: discuss how the adaptive timescale here preserves stuff .. How to incorporate primacy coding?
+Primacy coding -- intensity? Not coded? Also, is it Huffman coding?
 
 The second stage of the framework is odor discrimination, which exploits a 
 
