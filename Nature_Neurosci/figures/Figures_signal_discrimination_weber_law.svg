@@ -4813,15 +4813,15 @@
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
      inkscape:zoom="1.5301741"
-     inkscape:cx="256.49272"
+     inkscape:cx="150.29565"
      inkscape:cy="213.78909"
      inkscape:document-units="mm"
-     inkscape:current-layer="layer2"
+     inkscape:current-layer="layer3"
      showgrid="false"
      units="in"
      inkscape:window-width="1920"
      inkscape:window-height="1027"
-     inkscape:window-x="-8"
+     inkscape:window-x="1912"
      inkscape:window-y="-8"
      inkscape:window-maximized="1"
      objecttolerance="11"
@@ -4841,6 +4841,25 @@
       </cc:Work>
     </rdf:RDF>
   </metadata>
+  <g
+     inkscape:groupmode="layer"
+     id="layer3"
+     inkscape:label="Notes">
+    <flowRoot
+       xml:space="preserve"
+       id="flowRoot6834"
+       style="font-style:normal;font-weight:normal;font-size:8px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-linecap:butt;stroke-linejoin:round"
+       transform="scale(0.26458333)"><flowRegion
+         id="flowRegion6836"
+         style="stroke-linecap:butt;stroke-linejoin:round"><rect
+           id="rect6838"
+           width="139.85336"
+           height="105.87031"
+           x="-148.34914"
+           y="69.994812"
+           style="stroke-linecap:butt;stroke-linejoin:round" /></flowRegion><flowPara
+         id="flowPara6840"
+         style="stroke-linecap:butt;stroke-linejoin:round">files used in this figure:</flowPara></flowRoot>  </g>
   <g
      inkscape:groupmode="layer"
      id="layer7"
@@ -6189,7 +6208,8 @@
      inkscape:groupmode="layer"
      id="layer2"
      inkscape:label="discrimination accuracy"
-     style="stroke-linecap:butt;stroke-linejoin:round">
+     style="stroke-linecap:butt;stroke-linejoin:round"
+     sodipodi:insensitive="true">
     <g
        id="figure_1-19"
        transform="matrix(0.10372727,0,0,0.10372727,59.852318,13.30113)"

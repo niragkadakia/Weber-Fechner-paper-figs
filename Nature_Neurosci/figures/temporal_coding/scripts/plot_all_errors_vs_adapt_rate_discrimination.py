@@ -119,4 +119,4 @@ if __name__ == '__main__':
 	data_flags = sys.argv[1:]
 	plot_errors_vs_adapt_rate_discrimination(data_flags, 
 					iter_var_idxs_to_plot=sp.arange(4, 12),
-					zlims_zero=[0, 20], zlims_nonzero=[0, 25])
+					zlims_zero=[0, 30], zlims_nonzero=[0, 30])
