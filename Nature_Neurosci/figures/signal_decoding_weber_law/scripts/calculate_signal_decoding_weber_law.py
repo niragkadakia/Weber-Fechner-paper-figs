@@ -45,16 +45,14 @@ def calculate_signal_decoding_weber_law(data_flags,
 		data = dict()
 		errors_nonzero = sp.zeros(iter_vars_dims)
 		errors_zero = sp.zeros(iter_vars_dims)
-		data['epsilons'] = sp.zeros((iter_vars_dims[0], iter_vars_dims[1], 
-								params['Mm']))
-		data['dYys'] = sp.zeros((iter_vars_dims[0], iter_vars_dims[1], 
-								params['Mm']))
-		data['Yys'] = sp.zeros((iter_vars_dims[0], iter_vars_dims[1], 
-								params['Mm']))
-		data['gains'] = sp.zeros((iter_vars_dims[0], iter_vars_dims[1], 
-							params['Mm'], params['Nn']))
-		data['Kk2s'] = sp.zeros((iter_vars_dims[0], iter_vars_dims[1], 
-							params['Mm'], params['Nn']))
+		
+		Mm_shape = iter_vars_dims + [params['Mm']]
+		Mm_Nn_shape = iter_vars_dims + [params['Mm'], params['Nn']]
+		data['epsilons'] = sp.zeros(Mm_shape)
+		data['dYys'] = sp.zeros(Mm_shape)
+		data['Yys'] = sp.zeros(Mm_shape)
+		data['gains'] = sp.zeros(Mm_Nn_shape)
+		data['Kk2s'] = sp.zeros(Mm_Nn_shape)
 		data['successes'] = sp.zeros(iter_vars_dims)
 		
 		# Calculate binary errors
