@@ -108,3 +108,15 @@ def signal_estimation_subfigures(nonzero=True):
 	plt.yticks(fontsize=22)
 			
 	return fig
+	
+def signal_decoding_vs_Kk_subfigures():
+	"""
+	"""
+	
+	fig = plt.figure()
+	
+	fig.set_size_inches(5, 4)
+	plt.xticks([])
+	plt.yticks([])
+	
+	return fig

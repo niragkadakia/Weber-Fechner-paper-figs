@@ -20,7 +20,8 @@ import matplotlib.pyplot as plt
 DATA_DIR = def_data_dir()
 ANALYSIS_DIR = def_analysis_dir()
 					
-def save_tuning_curve(tuning_curve, epsilons, Kk2s, activities, data_flag):
+def save_tuning_curve(tuning_curve, epsilons, Kk2s, activities, 
+						gains, data_flag):
 	"""
 	Save objects saved by save_objects in the save_data module. 
 
@@ -34,7 +35,7 @@ def save_tuning_curve(tuning_curve, epsilons, Kk2s, activities, data_flag):
 		os.makedirs(out_dir)
 	filename = '%s/tuning_curve' % out_dir
 	sp.savez(filename, tuning_curve=tuning_curve, epsilons=epsilons, 
-				Kk2s=Kk2s, activities=activities)
+				Kk2s=Kk2s, activities=activities, gains=gains)
 	
 	print ('Tuning curve data saved to %s' % filename) 
 					

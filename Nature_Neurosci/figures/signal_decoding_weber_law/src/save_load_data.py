@@ -202,5 +202,26 @@ def save_signal_estimation_nonzeros_fig(fig, data_flag, mu_dSs, seed_Kk2):
 	plt.savefig(filename, bbox_inches = 'tight')
 	
 	
+def save_decoding_accuracy_vs_Kk_fig(fig, data_flag):
+
+	"""
+	Save activities subfigures.
+	"""
 	
+	out_dir = '%s/figures/signal_decoding/%s' % (ANALYSIS_DIR, data_flag)
+	file_str = 'save_decoding_accuracy_vs_Kk_fig'
+	if not os.path.exists(out_dir): 
+		os.makedirs(out_dir)
+	
+	filename = '%s/%s.png' % (out_dir, file_str)
+	plt.savefig(filename, bbox_inches = 'tight')
+	
+	out_dir = '../subfigures/%s' % data_flag
+	if not os.path.exists(out_dir): 
+		os.makedirs(out_dir)
+	
+	filename = '%s/%s.png' % (out_dir, file_str)
+	plt.savefig(filename, bbox_inches = 'tight')
+	filename = '%s/%s.svg' % (out_dir, file_str)
+	plt.savefig(filename, bbox_inches = 'tight')
 	
