@@ -101,3 +101,15 @@ def tuning_curve_matrix_subfigure():
 	plt.xticks([])
 	
 	return fig
+	
+def tuning_curve_std_subfigures():
+	"""
+	"""
+	
+	fig = plt.figure()
+	
+	fig.set_size_inches(3, 3)
+	plt.xticks([])
+	plt.ylim(0, 0.25)
+	
+	return fig

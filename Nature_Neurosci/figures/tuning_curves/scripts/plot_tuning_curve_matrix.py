@@ -27,8 +27,12 @@ from utils import get_flag
 from load_specs import read_specs_file, parse_iterated_vars, \
 						parse_relative_vars
 from utils import get_flags, merge_two_dicts
-from save_load_data import load_tuning_curve, save_tuning_curve_matrix_fig
-from figure_plot_formats import tuning_curve_matrix_subfigure
+from save_load_data import load_tuning_curve, save_tuning_curve_matrix_fig, \
+							save_tuning_curve_sparse_odors_matrix_fig, \
+							save_tuning_curve_std_fig
+from figure_plot_formats import tuning_curve_matrix_subfigure, \
+								tuning_curve_std_subfigures
+from encode_CS import single_encode_CS
 
 
 def plot_tuning_curve_matrix(data_flag):
@@ -36,37 +40,93 @@ def plot_tuning_curve_matrix(data_flag):
 	# Which diversity of the system to plot?
 	sigma_Kk2_idx = 2
 	
-	# Which signal indices to plot?
-	mu_Ss0_idxs = [3, 20]
+	# Wha signal indices to plot?
+	mu_Ss0_idxs = range(0, 15)
 	
 	# Receptors to plot
-	receptors_to_plot = sp.arange(40)
+	receptors_to_plot = [4, 14, 24]
 	
-	tuning_curve_data = load_tuning_curve(data_flag)
-	tuning_curve = tuning_curve_data['tuning_curve']
+	# Odor seeds and components
+	odor_seeds = sp.arange(100)
+	num_odor_comps = 6
 	
-	"""
-	cmaps_avgs = [plt.cm.Blues_r, plt.cm.Oranges_r, plt.cm.Greens_r]
-	for idx, receptor_idx in enumerate(receptors_to_plot):
-		#means = sp.average(tuning_curve[:, sigma_Kk2_idx, :, receptor_idx], 
-		#					axis=1)
-		#stds = sp.std(tuning_curve[5:15, sigma_Kk2_idx, :, receptor_idx], axis=1)
-		#plt.plot(range(20), means, color='0')
-		#color = 1.*idx/50.
-		#plt.fill_between(range(20), means-stds, means+stds, 
-		#					facecolor='%s' % color)
-		plt.plot(range(10), stds)
-	plt.show()
-	quit()
-	"""
+	# Which standard deviation figures to highlight
+	highlight_colors = [cm.Greens, cm.Blues, cm.Oranges]
 	
 	list_dict = read_specs_file(data_flag)
 	for key in list_dict:
 		exec("%s = list_dict[key]" % key)
 	
-	for idx, receptor_idx in enumerate(receptors_to_plot):
+	
+	
+	#############################
+	### Tuning to sparse odor ###
+	#############################
+	
+	std_devs = sp.zeros((len(mu_Ss0_idxs), len(receptors_to_plot)))
+	
+	for iM, receptor_idx in enumerate(receptors_to_plot):
+	
 		fig = tuning_curve_matrix_subfigure()
-		data = tuning_curve[mu_Ss0_idxs[0]:mu_Ss0_idxs[1], 
+		data_to_plot = sp.zeros((len(mu_Ss0_idxs), len(odor_seeds)))
+		
+		for iSeed, odor_seed in enumerate(odor_seeds):
+			
+			# Loop over different background stimuli; plot at successive dt
+			for idSs, mu_dSs_idx in enumerate(mu_Ss0_idxs):
+					
+				iter_var_idxs = [mu_dSs_idx, sigma_Kk2_idx]
+				vars_to_pass = dict()
+				vars_to_pass = parse_iterated_vars(iter_vars, 
+													iter_var_idxs, 
+													vars_to_pass)
+				vars_to_pass = parse_relative_vars(rel_vars, iter_vars, 
+													vars_to_pass)
+				vars_to_pass = merge_two_dicts(vars_to_pass, fixed_vars)
+				vars_to_pass = merge_two_dicts(vars_to_pass, params)
+				
+				# Choose the random stimulus of num_odor_comps components
+				sp.random.seed(odor_seed)
+				dSs_idxs = sp.random.choice(sp.arange(params['Nn']), 
+											size=num_odor_comps, 
+											replace=False)
+				
+				# Call object and get activity; plot in appropriate region
+				vars_to_pass['manual_dSs_idxs'] = dSs_idxs
+				obj = single_encode_CS(vars_to_pass, run_specs)
+				data_to_plot[idSs, iSeed] = obj.Yy[receptor_idx]
+		plt.pcolormesh(data_to_plot.T, vmin=0, vmax=1, cmap=plt.cm.hot, 
+						rasterized=True)
+		plt.colorbar()
+		save_tuning_curve_sparse_odors_matrix_fig(fig, sigma_Kk2_idx, 
+													receptor_idx, data_flag)
+		
+		std_devs[:, iM] = sp.std(data_to_plot, axis=1)
+
+		
+		
+	#############################
+	###  Dev of tuning curve  ###
+	#############################
+		
+	fig = tuning_curve_std_subfigures()
+	for iM in range(len(receptors_to_plot)):
+		plt.plot(range(len(mu_Ss0_idxs)), std_devs[:, iM], 
+				color=highlight_colors[iM](0.8), alpha=0.65, lw=2.5)
+	
+	save_tuning_curve_std_fig(fig, sigma_Kk2_idx, receptors_to_plot, data_flag)
+	
+	
+
+	#############################
+	###  Full tuning curve    ###
+	#############################
+	
+	tuning_curve_data = load_tuning_curve(data_flag)
+	
+	for iM, receptor_idx in enumerate(receptors_to_plot):
+		fig = tuning_curve_matrix_subfigure()
+		data = tuning_curve_data['tuning_curve'][mu_Ss0_idxs, 
 				sigma_Kk2_idx, :, receptor_idx]
 		plt.pcolormesh(data.T, cmap=plt.cm.hot, rasterized=True)
 		plt.colorbar()

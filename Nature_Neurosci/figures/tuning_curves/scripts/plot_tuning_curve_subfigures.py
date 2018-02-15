@@ -57,8 +57,8 @@ def plot_tuning_curve_subfigures(data_flag, plot_tuning_curves=True,
 	odor_seeds = range(40)
 	
 	# Which of the (num_figs) to highlight, and with what colors? (incr order!)
-	highlight_figs = [14, 24, 32]
-	highlight_colors = [cm.Blues, cm.Oranges, cm.Greens]
+	highlight_figs = [4, 14, 24]
+	highlight_colors = [cm.Greens, cm.Blues, cm.Oranges]
 	
 	list_dict = read_specs_file(data_flag)
 	for key in list_dict:
