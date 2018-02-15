@@ -3814,14 +3814,14 @@
      inkscape:pageshadow="2"
      inkscape:zoom="1.43"
      inkscape:cx="265.12134"
-     inkscape:cy="240.96263"
+     inkscape:cy="241.31228"
      inkscape:document-units="mm"
-     inkscape:current-layer="layer1"
+     inkscape:current-layer="layer3"
      showgrid="false"
      units="in"
-     inkscape:window-width="1920"
-     inkscape:window-height="1027"
-     inkscape:window-x="1912"
+     inkscape:window-width="1366"
+     inkscape:window-height="715"
+     inkscape:window-x="-8"
      inkscape:window-y="-8"
      inkscape:window-maximized="1"
      objecttolerance="11"
@@ -4054,7 +4054,8 @@
      id="layer1"
      inkscape:label="inhibitory normalization decoding accuracy"
      style="stroke-linecap:butt;stroke-linejoin:round"
-     transform="translate(0,12.699995)">
+     transform="translate(0,12.699995)"
+     sodipodi:insensitive="true">
     <rect
        style="opacity:1;fill:url(#linearGradient13214);fill-opacity:1;stroke:none;stroke-width:0.14270379;stroke-linecap:butt;stroke-linejoin:bevel;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
        id="rect11576"
@@ -4135,8 +4136,7 @@
      id="layer3"
      inkscape:label="signal estimation"
      style="stroke-linecap:butt;stroke-linejoin:round"
-     transform="translate(0,12.699995)"
-     sodipodi:insensitive="true">
+     transform="translate(0,12.699995)">
     <path
        style="opacity:1;fill:url(#linearGradient18555);fill-opacity:1;stroke:none;stroke-width:0.38638163;stroke-linecap:butt;stroke-linejoin:bevel;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
        d="M 161.99713,28.286372 H 11.515353 m 0,0 v 5.411932 m 0,0 H 161.99713 v -5.411932"

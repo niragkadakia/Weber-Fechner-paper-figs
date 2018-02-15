@@ -86,3 +86,18 @@ def firing_rate_stimulus_subfigure():
 	plt.xticks([])
 	
 	return fig
+	
+def tuning_curve_matrix_subfigure():
+	""" 
+	Generate the figure frame for tuning curve plots
+	
+	Returns:
+		fig: The figure object.
+	"""
+
+	fig = plt.figure()
+	fig.set_size_inches(3, 4)
+	plt.yticks([])
+	plt.xticks([])
+	
+	return fig
