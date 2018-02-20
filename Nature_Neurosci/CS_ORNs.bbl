@@ -1,30 +1,72 @@
 \begin{thebibliography}{10}
 
-\bibitem{bees_odors}
-M.~Laska, C.~G. Galizia, M.~Giurfa, and R.~Menzel, ``Olfactory discrimination
-  ability and odor structure–activity relationships in honeybees,'' {\em
-  Chemical Senses}, vol.~24, no.~4, pp.~429--438, 1999.
+\bibitem{vijay_1}
+K.~Krishnamurthy, A.~M. Hermundstad, T.~Mora, A.~M. Walczak, and
+  V.~Balasubramanian, ``Disorder and the neural representation of complex
+  odors: smelling in the real world,'' {\em bioRxiv}, vol.~doi:10.1101/160382,
+  2017.
 
-\bibitem{trillion_odors}
-C.~Bushdid, M.~O. Magnasco, L.~B. Vosshall, and A.~Keller, ``Humans can
-  discriminate more than 1 trillion olfactory stimuli,'' {\em Science},
-  vol.~343, no.~6177, pp.~1370--1372, 2014.
+\bibitem{hallem_carlson}
+``Coding of odors by a receptor repertoire,'' {\em Cell}, vol.~125, no.~1,
+  pp.~143--160, 2006.
 
-\bibitem{cafaro_WL}
-J.~Cafaro, ``Multiple sites of adaptation lead to contrast encoding in the
-  drosophila olfactory system,'' {\em Physiological Reports}, vol.~4, no.~4,
-  p.~e12762, 2016.
+\bibitem{early_olfactory_processing}
+R.~I. Wilson, ``Early olfactory processing in \emph{{D}rosophila}: mechanisms
+  and principles,'' {\em Annual Review of Neuroscience}, vol.~36, no.~1,
+  pp.~217--241, 2013.
 
-\bibitem{cao_WL}
-L.-H. Cao, B.-Y. Jing, D.~Yang, X.~Zeng, Y.~Shen, Y.~Tu, and D.-G. Luo,
-  ``Distinct signaling of {D}rosophila chemoreceptors in olfactory sensory
-  neurons,'' {\em Proceedings of the National Academy of Sciences}, vol.~113,
-  no.~7, pp.~E902--E911, 2016.
+\bibitem{abbott_axel}
+``Random convergence of olfactory inputs in the \textit{Drosophila} mushroom
+  body,'' {\em Nature}, vol.~497, no.~4774, pp.~113--117, 2013.
+
+\bibitem{olfactory_map_chiang}
+H.-H. Lin, J.~S.-Y. Lai, A.-L. Chin, Y.-C. Chen, and A.-S. Chiang, ``A map of
+  olfactory representation in the \emph{Drosophila} mushroom body,'' {\em
+  Cell}, vol.~128, no.~6, pp.~1205--1217, 2007.
+
+\bibitem{mushroom_body_review}
+M.~Heisenberg, ``Mushroom body memoir: from maps to models,'' {\em Nature
+  Reviews Neuroscience}, vol.~4, pp.~266--275, 2003.
+
+\bibitem{chih-ying}
+C.-Y. Su, C.~Martelli, T.~Emonet, and J.~R. Carlson, ``Temporal coding of odor
+  mixtures in an olfactory receptor neuron,'' {\em Proceedings of the National
+  Academy of Sciences}, vol.~108, no.~12, pp.~5075--5080, 2011.
+
+\bibitem{martelli}
+C.~Martelli, J.~R. Carlson, and T.~Emonet, ``Intensity invariant dynamics and
+  odor-specific latencies in olfactory receptor neuron response,'' {\em Journal
+  of Neuroscience}, vol.~33, no.~15, pp.~6285--6297, 2013.
 
 \bibitem{srinivas_elife}
 S.~Gorur-Shandilya, M.~Demir, J.~Long, D.~A. Clark, and T.~Emonet, ``Olfactory
   receptor neurons use gain control and complementary kinetics to encode
   intermittent odorant stimuli,'' {\em eLife}, vol.~6, p.~e27670, jun 2017.
+
+\bibitem{cao_WL}
+L.-H. Cao, B.-Y. Jing, D.~Yang, X.~Zeng, Y.~Shen, Y.~Tu, and D.-G. Luo,
+  ``Distinct signaling of \emph{{D}rosophila} chemoreceptors in olfactory
+  sensory neurons,'' {\em Proceedings of the National Academy of Sciences},
+  vol.~113, no.~7, pp.~E902--E911, 2016.
+
+\bibitem{CS_donoho}
+D.~Donoho, ``Compressed sensing,'' {\em IEEE Transactions on Information
+  Theory}, vol.~52, no.~4, pp.~1289--1306, 2006.
+
+\bibitem{CS_tao}
+E.~Candes, J.~Romberg, and T.~Tao, ``Robust uncertainy principles: {E}xact
+  signal reconstruction from highly incomplete frequency information,'' {\em
+  IEEE Transactions on Information Theory}, vol.~52, no.~2, pp.~489--509, 2006.
+
+\bibitem{CS_ganguli}
+S.~Ganguli and H.~Sompolinsky, ``Compressed sensing, sparsity, and
+  dimensionality in neuronal information processing and data analysis,'' {\em
+  Annual Review of Neuroscience}, vol.~35, no.~1, pp.~485--508, 2012.
+
+\bibitem{cafaro_WL}
+J.~Cafaro, ``Multiple sites of adaptation lead to contrast encoding in the
+  \emph{Drosophila} olfactory system,'' {\em Physiological Reports}, vol.~4,
+  no.~4, p.~e12762, 2016.
 
 \bibitem{tu_shimizu_berg}
 Y.~Tu, T.~S. Shimizu, and H.~C. Berg, ``Modeling the chemotactic response of
@@ -34,17 +76,11 @@ Y.~Tu, T.~S. Shimizu, and H.~C. Berg, ``Modeling the chemotactic response of
 \bibitem{Cao_Tu_WL}
 L.-H. Cao, D.~Yang, W.~Wu, X.~Zeng, B.-Y. Jing, M.-T. Li, S.~Qin, C.~Tang,
   Y.~Tu, and D.-G. Luo, ``Odor-evoked inhibition of olfactory sensory neurons
-  drives olfactory perception in {D}rosophila,'' {\em Nature Communications},
-  vol.~8, no.~1, p.~1357, 2017.
-
-\bibitem{vijay_1}
-K.~Krishnamurthy, A.~M. Hermundstad, T.~Mora, A.~M. Walczak, and
-  V.~Balasubramanian, ``Disorder and the neural representation of complex
-  odors: smelling in the real world,'' {\em bioRxiv}, vol.~doi:10.1101/160382,
-  2017.
+  drives olfactory perception in \emph{{D}rosophila},'' {\em Nature
+  Communications}, vol.~8, no.~1, p.~1357, 2017.
 
 \bibitem{vijay_2}
-T.~Tesileanu, M.~R. Cocco, Simona, and V.~Balasubramanian, ``Environmental
+T.~Tesileanu, S.~Cocco, R.~Monasson, and V.~Balasubramanian, ``Environmental
   adaptation of olfactory receptor distributions,'' {\em bioRxiv},
   vol.~doi:10.1101/255547, 2018.
 
@@ -55,19 +91,5 @@ Y.~Zhang and T.~O. Sharpee, ``A robust feedforward model of the olfactory
 \bibitem{information_theory_adaptation}
 I.~Nemenman, ``Information theory and adaptation,'' {\em arXiv},
   vol.~doi:[q-Bio]1011.5466, 2010.
-
-\bibitem{CS_tao}
-E.~Candes, J.~Romberg, and T.~Tao, ``Robust uncertainy principles: {E}xact
-  signal reconstruction from highly incomplete frequency information,'' {\em
-  IEEE Transactions on Information Theory}, vol.~52, no.~2, pp.~489--509, 2006.
-
-\bibitem{CS_donoho}
-D.~Donoho, ``Compressed sensing,'' {\em IEEE Transactions on Information
-  Theory}, vol.~52, no.~4, pp.~1289--1306, 2006.
-
-\bibitem{CS_ganguli}
-S.~Ganguli and H.~Sompolinsky, ``Compressed sensing, sparsity, and
-  dimensionality in neuronal information processing and data analysis,'' {\em
-  Annual Review of Neuroscience}, vol.~35, no.~1, pp.~485--508, 2012.
 
 \end{thebibliography}

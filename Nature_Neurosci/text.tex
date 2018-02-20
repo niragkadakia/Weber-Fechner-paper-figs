@@ -1,45 +1,138 @@
 %!TEX root = CS_ORNs.tex
 
-{\color{blue} Intro forthcoming}
+Animals can identify and discriminate a myriad of odors, far more than their {\color{blue} finish intro}
+
+It was recently noted that a critical feature of our odor environment may resolve this inconsistency: most naturally-occurring odors are composed of only a tiny subset of these many volatile molecular constituents~\cite{vijay_1}. In principle, the high-dimensional odor signal could be accurately decompressed from a limited number of receptor measurements, provided (i) the odor signal is sufficiently sparse in odorant space and (ii) the responses are sufficiently dispersed. The latter requires that odor receptors are not odorant-specific but bind many odorants with distinct affinities, and that a given odorant elicits responses in several such receptors. Odor identity is therefore coded in the unique combination of responses the odor elicits in the sensing repertoire -- a combinatorial coding strategy. Indeed, this response diffusivity has been observed in olfactory receptor neurons (ORNs) in the  \textit{Drosophila melanogaster} sensing periphery~\cite{hallem_carlson}. 
+
+Transformations of ORN response in the subsequent neural circuitry lends further credence to a combinatorial coding strategy. In \textit{Drosophila}, ORNs in the periphery synapse to neuropil compartments in the antennal lobe called glomeruli (ORNs expressing a given OR synapse to the same glomerulus), where they then divergently and randomly synapse to Kenyon cells in the mushroom body (MB)~\cite{early_olfactory_processing, abbott_axel}. In the MB, the responses are decoded and sent to higher order brain centers where they are translated to behavioral response~\cite{olfactory_map_chiang, mushroom_body_review}. It has been suggested that in a combinatorial coding strategy, this dispersion of ORN response alonwg the olfactory pathway from AL to MB may further facilitate flexible learning and robust odor discrimination~\cite{vijay_1}. 
+
+Combinatorial coding relies fundamentally on randomness in the matrix of response, and one potential complication in this coding paradigm is response saturation. Maximum ORN firing rates increase with single odorant concentration rather inhomogenously, potentially jeopardizing response breadth as odor concentrations change. ORNs expressing the receptor Or35a, for example, fire at varying rates spanning 30 to 300 Hz in response to one of eleven distinct odorants at dilutions of $10^{-4}$~\cite{hallem_carlson}. But at dilutions of $10^{-2}$, these maximum rates have all elevated to a narrow range between 200 and 250 Hz
+. Similar apparent saturation occurs for ORNs expressing Or85b, Or22a, and OR67a in response to the same panel of odorants. {\color{blue} Discuss natural statistics odors fluctuating.} {\color{blue} Discuss the statistics changings}
+
+On the other hand, it has been shown that ORN local field potentials and firing rates adapt these responses to odor stimuli in time~\cite{martelli, srinivas_elife, cao_WL}. Specifically, it has been shown that in response to single odorant pulses, ORN firing rate gain scales inversely with mean odor concentration, according to the Weber-Fechner law observed in vision~\cite{srinivas_elife}. This observed scaling law was obeyed by all the odorant-ORN pairs tested, pointing to a mechanistic origin involving the universal co-receptor Orco (which localizes odors), rather than the olfactory binding receptors alone.
+
+Here we show that this scaling law  {\color{blue} What we will show / results summary}
+
+
+
 
 \section{Results}
 
-\subsection{A model of odor encoding that preserves ORN tuning, diversity, and adaptive scaling}
-
-{\color{blue}Add introduction to the motivation for the model here. Discuss adaptation found in SG-S and Vijay's work.}
 
 
-The theoretical framework of odor discrimination consists of two stages: a biophysical model of odor binding and subsequent ORN firing -- encoding -- and a computational paradigm for then inferring odor identity and intensity from this repertoire of ORN response -- decoding. 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%    		MODEL DESCRIPTION    		%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-We encoding process is modeled as follows. Odorant molecules individually bind and unbind to distinct olfactory receptor neurons (ORNs), which are either active (firing) or inactive (quiescent) state. In the presence of an odor consisting of a few molecular constituents, the likelihood and rate of ORN spiking is dictated by two aspects. First, the probability that ORN binds a given molecular odorant depends on the identities of both the neuron and the odorant. Second, the likelihood that this binding event then incites an action potential depends on ORN-specific activation energies needed to open ion channels. Together, these comprise a stochastic process that translates the binding of odors of varying identities and concentrations into a repertoire of ORN response (Figure~\ref{fig:tuning_curves}). 
 
-%We will first consider this system in steady state, later relaxing this assumption and letting the adaptive process proceed dynamically. 
 
-%\begin{align}
-%\bar a_a = (1 + \exp(\epsilon_a)\frac{1 + \sum_i^N K^*_ia}{})
-%\end{align}
+\subsection{A model of odor encoding that preserves the diversity of ORN response and adaptive scaling}
+
+
+The theoretical framework of odor discrimination consists of two stages: a biophysical model of odor transduction and subsequent ORN activity (encoding), and a computational paradigm for then inferring odor identity and intensity from this repertoire of ORN response (decoding).
+\iffalse
+THIERRY COMMENTS:
+the special thing about your paper is that you are actually modeling the receptor-orco complex state and modeling the neuron using exactky the same model that we derived in eLife and that could predict firing rates we measured in ORNs. So you should first talk about orco-receptor complex rather than neuron. e.g. in that model the ORN activity depend on the activity of the receptor-orco complexes, which are assumed to be in an active (ion channel open) or inactive (ion channel closed) conformation.  The probability for the receptor-orco channels to be open is modeled as a Boltzman distribution of its free energy. 
+NEW PARAGRPAH TO TALK ABOUT BINDING
+Bindng and unbinding of ligand is modeled as an equilibrium process. For each odor-receptor pair this process depends on two eqiulibrium constants, one for the active and one for the inactive state of teh receptor-orco complex.
+Ignoring for a moment the slower processes of adapttaion, ...
+Together these comprise a stiochastic process that translates the binding of odors to the RECEPTOR repoertoire into a repertoire of responses.
+\fi
+The encoding framework is a generalization of one recently used to model observed gain control in individual \textit{Drosophila} ORNs~\cite{srinivas_elife}. The apparent generality of Weber's Law (it was observed robustly in xx odorant/receptor pairs) implicates structural modification of the universal co-receptor Orco, rather than odorant-specific Ors alone. Thus, Or/Orco complexes were modeled as a single functional unit at which the gain modulation occurs. These complexes reside in an active (open ion channels) or inactive conformation, the relative likelihood of which is assumed to be a Boltzmann distribution with Or-specific free energies $\epsilon_a$. Importantly, Weber's Law can be satisfied by feeding back the Or/Orco activity onto $\epsilon_a$ in a prescribed way. 
+
+Here, we generalize this model to a repertoire of $a$ distinct ORNs, each housing a collection of Or/Orco complexes. In the presence of an odor consisting of a few molecular constituents, ORN spiking activity is dictated by the combined effect of Or/Orco activation energies $\epsilon_a$ and  odor identity. For simplicity, odorant binding and unbinding is assumed to be in equilibrium, whereby a given odorant-receptor pair ($i$-$a$) depends on two disassociation constants, $K^*_{ia}$ and $K_{ia}$, for odorant binding in the active and inactive conformations, respectively. Together, these comprise a coupled stochastic system that translates the binding of odors of varying identities and concentrations into a repertoire of ORN response (Figure~\ref{fig:tuning_curves_a}). In steady state, the active fraction $\bar A_a$ of Or/Orco complexes in ORN $a$ is:
+\begin{align}
+\bar{A}_a = \left(1 + e^{\epsilon_a}\frac{1 + \sum_i^N s_i/K_{ia}}{1 + \sum_i^N s_i/K^*_{ia}}\right)^{-1},
+\label{eq:steady_state_act}
+\end{align}
+where $s_i$ is the concentration of the odorant $i$, $i~=~1,...,N$. Odors bind to active Or/Orco complexes much faster than to inactive complexes, whereby $K^*_{ia}~\ll~K_{ia}$. In the case of a mono-molecular odor ($N~=~1$), Weber's Law can be satisfied exactly if the complex activation energy scales logarithmically with the odor concentration, $\epsilon_a \sim \ln s_i$. For an odor with several molecular constituents at distinct concentrations, we instead scale the energy with the mean odorant concentration, $\epsilon_a \sim \ln \langle s_i \rangle$, the average being taken over all non-zero concentrations $s_i$ . Finally, we assume that the free energies modulate only within a finite range, $\epsilon_{\text {L}} < \epsilon_a < \epsilon_{\text {H}}$.
+
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%		TUNING CURVES FIGURE			%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+
 
 \begin{figure*}
-\includegraphics[width=0.95\textwidth]{figures/Figures_tuning_curve}
-\caption{\footnotesize{\textbf{A} Odor binding model. Odorants bind to olfactory receptor neurons, which may be quiescent (light gray) or active (dark gray). The likelihood that a neuron is in an active state depends on its binding affinity to constituent odor molecules (through $K^*_{i, a}$) and the energetic cost of ion channel activation. \textbf{B} Different classes of ORNs exhibit distinct binding distributions; some tuned broadly to bind many odorant molecules (blue), some specialized to a few (orange), and some weakly responding in general. \textbf{C} Example instantiation of the active binding disassociation matrix $K^*_{i, a}$ (see Methods). \textbf{D} Sample of firing activity of 9 of the 40 ORNs represented by the matrix in \textbf{C}, produced by the steady state responses (see Methods). The tuning curves, ordered for visualization, exhibit broad, specialized, and weak responses. \textbf{E} Schematic of Weber Law feedback at signal transduction. When Weber Law is enforced, firing distributions of active ORNs (shaded darkly) retain invariance with increasing signal concentrations. \textbf{F} Full activity tuning curves for the unadaptive (top) and adaptive (bottom) system, for the 3 example ORNs indicated in \textbf{B}, \textbf{C}, and \textbf{D}. Without adaptive feedback, ORN responses are more prone to saturation at elevated concentrations.}}
-\label{fig:tuning_curves}
+	\centering
+	\begin{subfigure}[t]{0.85\linewidth}
+		\phantomsubcaption
+		\label{fig:tuning_curves_a}
+	\end{subfigure}
+	\begin{subfigure}[t]{0\linewidth}
+		\phantomsubcaption
+		\label{fig:tuning_curves_b}
+	\end{subfigure}
+	\begin{subfigure}[t]{0\linewidth}
+		\phantomsubcaption
+		\label{fig:tuning_curves_c}
+	\end{subfigure}
+	\begin{subfigure}[t]{0\linewidth}
+		\phantomsubcaption
+		\label{fig:tuning_curves_d}
+	\end{subfigure}
+	\begin{subfigure}[t]{0\linewidth}
+		\phantomsubcaption
+		\label{fig:tuning_curves_e}
+	\end{subfigure}
+	\begin{subfigure}[t]{0\linewidth}
+		\phantomsubcaption
+		\label{fig:tuning_curves_f}
+	\end{subfigure}
+	\includegraphics[width=\textwidth]{figures/Figures_tuning_curve}
+	\caption{\scriptsize{
+		\textbf{A}~Odor binding model. Odorants bind to Or/Orco complexes, which may be quiescent (light gray) or active (dark gray). The likelihood that a complex is in an active state depends on its binding affinity to constituent odor molecules (through $K^*_{i, a}$) and the energetic cost of receptor activation. 
+		\textbf{B}~Or classes exhibit distinct binding distributions. 
+		\textbf{C}~Example instantiation of the active binding disassociation matrix $K^*_{i, a}$ (see Methods). 
+		\textbf{D}~Sample Or/Orco activity of 9 of the 40 ORNs represented by the matrix in (C) (see Methods). The tuning curves, individually ordered by odorant for visualization, exhibit broad, specialized, and weak responses. 
+		\textbf{E}~Schematic of Weber Law feedback at signal transduction. When Weber Law is enforced, activity distributions of active complexes (shaded darkly) remain invariant with increasing signal concentrations. 
+		\textbf{F}~Steady state Or/Orco activity for the three sample ORNs in (B), (C), and (D), in an unadaptive system (top row) and adaptive system (bottom row) in response to 100 different sparse odors (rows of each matrix).
+		}}
+	\label{fig:tuning_curves}
 \end{figure*}
 
-Assuming that the odor binding and neuron activation process are sufficiently fast (compared to odor fluctuations), the ORN activities relax to a steady state. We first show that the steady state response reproduces observed ORN tuning curves. It is known that olfactory receptors in \textit{Drosophila} can range from narrowly tuned, responding to a single odorant, to quite broad, responding to various distinct odorants spanning multiple functional groups. We incorporate this diversity of response into our framework by treating the equilibrium disassociation constants of a odorant-receptor pair ($i$-$a$) as a random variable with pre-defined statistics. Actually, there are two disassociation constants, for the inactive and active receptor, respectively; however, for a large range of odor concentrations, the model dynamics are well dictated only by those of the active receptor, $K^*_{i, a}$, where the binding affinity is much higher. Accordingly, we only consider variations among these. 
+Ignoring for the moment the slower effects of adaptation (i.e., assuming $\epsilon_a$ is fixed), this model represents the instantaneous change in the activity as a function of ligand concentration, i.e. similar to the maximum firing rate measured in~\cite{hallem_carlson}. We first show that the steady state response reproduce the diversity of observed ORN tuning curves. Olfactory receptors in \textit{Drosophila} can range from narrowly tuned, responding to a single odorant, to quite broad, responding to various distinct odorants spanning multiple functional groups. We incorporate this diversity of response into our framework by treating $K^*_{ia}$ and $K_{ia}$ as random variables with pre-defined statistics. Since $K^*_{ia} \ll K_{ia}$, the model dynamics are well dictated only by $K^*_{i, a}$ alone, so we only consider variations among these. 
 
-Figure~\ref{fig:tuning_curves} shows how a simple choice of statistics on $K^*_{i, a}$ can naturally produce a diverse repertoire of response closely mimicking observed \textit{Drosophila} ORN tuning curves. The tuning curves, of which some are narrowly peaked, some are broad, and some are weakly responding, are produced by sampling at two stages. For a given receptor $a$, $K^*_{i,a}$ are chosen uniformly in some range (this dictates how receptor $a$ responds to distinct odorants), while diversity among receptors is incorporated by sampling the bounds of each range from a hyperdistribution, also chosen uniform. Receptors with narrow ranges produce peaked tuning curves (the orange ORN), while and those with broader ranges produce more disperse tuning curves (blue ORN). 
+Figures~\ref{fig:tuning_curves_b}-\ref{fig:tuning_curves_d} shows how a simple choice of statistics on $K^*_{i, a}$ can naturally produce a diverse repertoire of response closely mimicking observed \textit{Drosophila} ORN tuning curves. The tuning curves, of which some are narrowly peaked, some are broad, and some are weakly responding, are produced by sampling at two stages. For a given receptor $a$, $K^*_{i,a}$ are chosen uniformly in some range (this dictates how receptor $a$ responds to distinct odorants), while diversity among receptors is incorporated by sampling the bounds of each range from a hyperdistribution, also chosen uniform. Receptors with narrow ranges produce peaked tuning curves (the orange ORN), while and those with broader ranges produce more disperse tuning curves (blue ORN). 
+
+The enforcement of Weber's Law can maintain this distributed response across concentration changes (Figure~\ref{fig:tuning_curves_e}). Figure~\ref{fig:tuning_curves_f} shows the response of three ORNs to distinct complex but sparse odors at varying mean odor concentrations. Without adaptive feedback, the breadth of the firing rate distributions narrow, homogenizing the responses across odor identity. If the ORN repertoire produces the same pattern of activity in response to distinct odors, odor identity information is lost. Conversely, by scaling $\epsilon_a \sim \ln \langle s_i \rangle$, distributed responses are maintained through a large range of concentrations. As we will see, the maintenance of this disperse response is central to reliable odor decoding in fluctuating  environments. 
 
 
-These tuning curves are maximum responses. On the other hand, it has recently been demonstrated that \textit{Drosophila} ORNs adapt their firing rates to identical background firing rates (about 30 Hz), in accordance with the Weber-Fechner law. Specifically receptor gain scales inversely with mean odor concentration, and this scaling was found to hold across various receptor and odorant identities. In our model, we incorporate this adaptive mechanism by assuming that the firing rate feeds back on the sensory machinery through the receptor free energies, $\epsilon_m$, required to produce an action potential event (see Methods). %Strictly speaking, $\epsilon_m$ are single parameter simplifications of the full dissipative process of cation inflow and membrane depolarization prior to an action potential. Nonetheless, it has been shown that adaptation in this parameter largely reproduces the Weber Scaling law 
 
-The Weber-Fechner law is naturally incorporated into the framework of our model by scaling $\epsilon_m$ logarithmically with the mean odor concentration (between fixed outer bounds $\epsilon_{\text {L}}$ and $\epsilon_{\text {H}}$). This simple mechanism preserves firing rate response as mean odor signal increases (Fig~\ref{fig:tuning_curves}). Importantly, since this adaptive scaling acts only in response to individual OR activity levels via OR-specific free energies, the tuning curve distribution can be naturally preserved across concentration changes, irrespective of odor identity. As we will see, the maintenance of this disperse response is central to reliable odor decoding in fluctuating odor environments. 
+%These tuning curves are maximum responses {\color {blue}Rephrase this. Be specific abut binding affinity and firing rate. Two things which can work in tandem here.} On the other hand, it has recently been demonstrated that \textit{Drosophila} ORNs adapt their firing rates to identical background firing rates (about 30 Hz), in accordance with the Weber-Fechner law. Specifically receptor gain scales inversely with mean odor concentration, and this scaling was found to hold across various receptor and odorant identities. In our model, we incorporate this adaptive mechanism by assuming that the firing rate feeds back on the sensory machinery through the receptor free energies, $\epsilon_m$, required to produce an action potential event (see Methods). %Strictly speaking, $\epsilon_m$ are single parameter simplifications of the full dissipative process of cation inflow and membrane depolarization prior to an action potential. Nonetheless, it has been shown that adaptation in this parameter largely reproduces the Weber Scaling law 
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%    		CS DESCRIPTION     		 	 %%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
 
 
 \subsection{A combinatorial decoding process for nonlinear neural response}
 
 \begin{figure*}
-	\includegraphics[width=\textwidth]{figures/Figures_signal_decoding_weber_law}
-	\caption{\footnotesize{\textbf{A} Percent correctly decoded odors, with (red) and without (blue) Weber Law adaptation. For both homogeneous receptors (bindings constants of each receptor chosen from the uniform distribution) and a diverse receptor repertoire, odor decoding is preserved over background changes in the adaptive system. \textbf{B} Dependence of decoding accuracy on odor sparsity. At low concentrations, both systems can decode relatively complex signals; as concentration increases, complex signals are confounded in the absence of adaptive feedback. \textbf{C} At low concentrations, both signal identity and intensity are correctly inferred in a non-adaptive system. Increases in signal concentrations can lead to confounds in odor intensity, identity, or both. When Weber Law is enforced, both intensity and identity are correctly decoded for a range of mean odor concentrations.}}
+	\centering
+	\begin{subfigure}[t]{0.85\linewidth}
+		\includegraphics[width=\textwidth]{figures/Figures_signal_decoding_weber_law}
+		%\phantomsubcaption
+		\phantomcaption
+		\label{fig:decoding_a}
+	\end{subfigure}
+	\begin{subfigure}[t]{0\linewidth}
+		\phantomcaption
+		\label{fig:decoding_b}
+	 \end{subfigure}
+	\begin{subfigure}[t]{0\linewidth}
+		\phantomcaption
+		\label{fig:decoding_c}
+	\end{subfigure}
+\caption{\footnotesize{\textbf{A} Percent correctly decoded odors, with (red) and without (blue) Weber Law adaptation. For both homogeneous receptors (bindings constants of each receptor chosen from the uniform distribution) and a diverse receptor repertoire, odor decoding is preserved over background changes in the adaptive system. \textbf{B} Dependence of decoding accuracy on odor sparsity. At low concentrations, both systems can decode relatively complex signals; as concentration increases, complex signals are confounded in the absence of adaptive feedback. \textbf{C} At low concentrations, both signal identity and intensity are correctly inferred in a non-adaptive system. Increases in signal concentrations can lead to confounds in odor intensity, identity, or both. When Weber Law is enforced, both intensity and identity are correctly decoded for a range of mean odor concentrations.}}
+\label{fig:decoding}
 \end{figure*}
 
 
