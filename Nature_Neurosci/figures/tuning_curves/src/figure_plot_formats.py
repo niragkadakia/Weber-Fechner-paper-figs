@@ -108,7 +108,7 @@ def tuning_curve_std_subfigures():
 	
 	fig = plt.figure()
 	
-	fig.set_size_inches(3, 3)
+	fig.set_size_inches(1.5, 3)
 	plt.xticks([])
 	plt.ylim(0, 0.25)
 	
