@@ -190,7 +190,7 @@ Separating errors in odor intensity from those in error identity, we find that f
 
 
 \begin{figure}
-	\includegraphics[width=0.45\textwidth]{figures/Figures_signal_decoding_weber_law_2}
+	\includegraphics[width=\textwidth]{figures/Figures_signal_decoding_weber_law_2}
 	\caption{\textbf{A} Schematic of divisive normalization / lateral inhibition \text{B} Increasing divisive normalization w and w/o Weber Law}
 	\label{fig:divisive_normalization}
 \end{figure}
@@ -252,14 +252,20 @@ where $\bar {A}_a = \bar{A}(s(t), \epsilon_a(t))$ is the time-dependent activity
 
 
 \begin{figure*}
-	\includegraphics[width=\textwidth]{figures/Figures_temporal_coding}
-	\caption{Temporal coding; {\color{blue} break up into 2 figures}}
-	\label{fig:temporal_coding}
+	\floatbox[{\capbeside\thisfloatsetup{capbesideposition={right,bottom},capbesidewidth=4cm}}]{figure}[\FBwidth]
+	{\caption{A test figure with its caption side by side}\label{fig:temporal_coding}}
+	{\includegraphics[width=0.75\textwidth]{figures/Figures_temporal_coding}}
 \end{figure*}
 
 Next, to mimic a naturalistic odor signal, we used previously-recorded voltage traces from a photo-ionization detector whose statistics were verified to match those of natural odor plumes. This data was scaled to concentrations applicable to our model framework (which is in arbitrary units). To mimic a complex odor, this time trace was set as the background odor level for the nonzero components of an odor signal, $s_0$, while individual odorant concentrations were chosen as this value plus some deviation $\Delta s_k$. 
 
 Considering first a set of 100 randomly chosen sparse odors of unique identities, we plot decoding errors arising from either mis-identification of odor identity, or that of odor intensity, in two windows containing odor whiffs. Specifically, we plot, over time, the percentage of correctly estimated nonzero component intensities (Fig.~\ref{fig:temporal_coding}), as well as the the percentage of correctly identified zero components, for several distinct adaptation timescales. For slow adaptation, with timescales greater than a few hundred ms (lighter curves in Fig.~\ref{fig:temporal_coding}), we see definite trends in both intensity and identity coding. Errors in odor intensity are quite sensitive to the faster fluctuations in the odor signal, even if the signal remains appreciable throughout the whiff; for example the whiff demarcated by the purple and green markers in Fig.. Conversely, the majority of the odor identity is perceived as soon as the signal appears above a given whiff threshold, remaining at that level of accuracy throughout the whiff. As adaptation speed increases, the coding of odor intensity is nearly perfected within the first 100 ms of the whiff onset, remaining insensitive to further fluctuations throughout the whiff. Interestingly, odor intensity coding improves steadily as the whiff endures, though it takes several times the adaptation timescale to minimize the errors. 
+
+\begin{figure}
+	{\includegraphics[width=\textwidth]{figures/Figures_temporal_coding_2}}
+	\caption{blah}
+	\label{fig:temporal_coding_2}
+\end{figure}
 
 Piecing this out in a bit more detail, we find that the latter of these -- the failure of odor identification rather than intensity -- is most acutely affected by the slower adaptation dynamics: the difference between zero component estimates at whiff onset and at whiff closure are nearly indistinguishable for long timescales, but can reduce by an order of magnitude for faster ones. Finally, we note that, while the number of mis-identified zero components may appear minor (20\% or so), this corresponds to several times the number of sparse components defining the odor signal itself, which is 7. Thus we expect that the increase from 80\% to $> 95$\% through the duration of the whiff indeed corresponds to a salient, dynamically improving perception of odor identity. 
 
