@@ -6,20 +6,6 @@ errors to compare. Plots both the averaged success ratios (averaged
 over the different signals) and a sample signal estimation for each
 one.
 
-Current plots generated with command line arguments:
-
-mu_dSs_bkgrnd_seed_Kk2_med_diverse_Kk=7_Kk_split=1_WL  
-mu_dSs_bkgrnd_seed_Kk2_med_diverse_Kk=7_Kk_split=1_no-WL  
-mu_dSs_bkgrnd_seed_Kk2_med_diverse_Kk=7_Kk_split=4_WL  
-mu_dSs_bkgrnd_seed_Kk2_med_diverse_Kk=7_Kk_split=4_no-WL 
-mu_dSs_bkgrnd_seed_Kk2_med_diverse_Kk=7_Kk_split=6_WL  
-mu_dSs_bkgrnd_seed_Kk2_med_diverse_Kk=7_Kk_split=6_no-WL
-
-Plots are saved in groups of 2; the first two plots are incorporated
-and saved to both those data_flag/ directories. Same for next 2, etc.
-
-Can also do with ..vryhi.. or ...lo...
-
 Created by Nirag Kadakia at 22:00 10-25-2017
 This work is licensed under the 
 Creative Commons Attribution-NonCommercial-ShareAlike 4.0 
@@ -56,66 +42,54 @@ def plot_signal_discrimination_weber_law(data_flags, axes_to_plot=[0, 1],
 		
 	# Ready the plotting window; colormaps; colors; signals to plot
 	cmaps = [cm.Reds, cm.Blues]
-	cmaps_r = [cm.Reds_r, cm.Blues_r]
-	dual_odor_color_shades = [0.7, 0.3]
-	success_plots_linewidths = [4.0, 6.0]
-	true_signal_color = 'black'
-	true_signal_lw = 1.0
-	mu_dSs_to_plot = 27
+	dual_odor_color_shades = [0.7, 0.7]
 			
 	# Plot
 	for Kk_split_idx in range(Kk_split_idxs):
 		
-		# Decoding accuracy subfigures
-		fig = decoding_accuracy_subfigures()
-			
-		for Weber_idx in range(2):
-			
-			data_flag_idx = Weber_idx + Kk_split_idx*2
-			data_flag = data_flags[data_flag_idx]
-			
-			# Blue for non-adapted; red for adapted
-			cmap = cmaps[Weber_idx]
-			
-			list_dict = read_specs_file(data_flag)
-			iter_vars = list_dict['iter_vars']
-			Nn = list_dict['params']['Nn']
-			iter_plot_var = iter_vars.keys()[axes_to_plot[0]]
-			x_axis_var = iter_vars.keys()[axes_to_plot[1]]
-			
-			data = load_signal_discrimination_weber_law(data_flag)
-			successes = data['successes']
-			successes_2 = data['successes_2']
-			
-			nAxes = len(successes.shape)
-			if nAxes > 2:
-				successes = project_tensor(successes, iter_vars, 
-											projected_variable_components,
-											axes_to_plot)
-				successes_2 = project_tensor(successes_2, iter_vars, 
-											projected_variable_components,
-											axes_to_plot)
-											
-			# Switch axes if necessary
-			if axes_to_plot[0] > axes_to_plot[1]:    
-				successes = successes.T
-				successes_2 = successes_2.T
-					
-			# Plot successes, averaged over second axis of successes array
-			avg_successes = sp.average(successes, axis=1)*100.0
-			avg_successes_2 = sp.average(successes_2, axis=1)*100.0
-			plt.plot(iter_vars[iter_plot_var], avg_successes, 
-						color=cmap(dual_odor_color_shades[0]), 
-						zorder=2, lw=success_plots_linewidths[0])
-			plt.plot(iter_vars[iter_plot_var], avg_successes_2, 
-						color=cmap(dual_odor_color_shades[1]),
-						zorder=1, lw=success_plots_linewidths[1])
+		data_sets = ['successes', 'successes_2']
 		
-		# Save same plot in both Weber Law and non-Weber Law folders
-		for Weber_idx in range(2):
-			data_flag = data_flags[Weber_idx + Kk_split_idx*2]
-			save_discrimination_accuracy_fig(fig, data_flag)
+		for data_set_idx, data_set in enumerate(data_sets):
 		
+			fig = decoding_accuracy_subfigures()
+			for Weber_idx in range(2):
+				
+				data_flag_idx = Weber_idx + Kk_split_idx*2
+				data_flag = data_flags[data_flag_idx]
+				
+				# Blue for non-adapted; red for adapted
+				cmap = cmaps[Weber_idx]
+				
+				list_dict = read_specs_file(data_flag)
+				iter_vars = list_dict['iter_vars']
+				Nn = list_dict['params']['Nn']
+				iter_plot_var = iter_vars.keys()[axes_to_plot[0]]
+				x_axis_var = iter_vars.keys()[axes_to_plot[1]]
+				
+				data = load_signal_discrimination_weber_law(data_flag)
+				successes = data[data_set]
+				
+				nAxes = len(successes.shape)
+				if nAxes > 2:
+					successes = project_tensor(successes, iter_vars, 
+												projected_variable_components,
+												axes_to_plot)
+												
+				# Switch axes if necessary
+				if axes_to_plot[0] > axes_to_plot[1]:    
+					successes = successes.T
+						
+				# Plot successes, averaged over second axis of successes array
+				avg_successes = sp.average(successes, axis=1)*100.0
+				plt.plot(iter_vars[iter_plot_var], avg_successes, 
+							color=cmap(dual_odor_color_shades[data_set_idx]),
+							lw=5)
+				
+			# Save same plot in both Weber Law and non-Weber Law folders
+			for Weber_idx in range(2):
+				data_flag = data_flags[Weber_idx + Kk_split_idx*2]
+				save_discrimination_accuracy_fig(fig, data_flag, data_set_idx)
+			
 		
 if __name__ == '__main__':
 	data_flags = get_flags()

@@ -86,7 +86,7 @@ def load_signal_discrimination_weber_law(data_flag):
 	return data
 	
 	
-def save_discrimination_accuracy_fig(fig, data_flag):
+def save_discrimination_accuracy_fig(fig, data_flag, data_set_idx):
 
 	"""
 	Save firing rate subfigures.
@@ -94,8 +94,13 @@ def save_discrimination_accuracy_fig(fig, data_flag):
 	TODO
 	"""
 	
+	if data_set_idx == 0:
+		fig_type = 'bkgrnd'
+	elif data_set_idx == 1:
+		fig_type = 'frgrnd'
+	
 	out_dir = '%s/figures/signal_discrimination/%s' % (ANALYSIS_DIR, data_flag)
-	file_str = 'decoding_accuracy' 
+	file_str = 'decoding_accuracy_%s' % fig_type 
 	if not os.path.exists(out_dir): 
 		os.makedirs(out_dir)
 	
