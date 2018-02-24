@@ -46,7 +46,7 @@ where $s_i$ is the concentration of the odorant $i$, $i~=~1,...,N$. Odors bind t
 
 
 
-\begin{figure*}
+\begin{figure*}[!tb]
 	\centering
 	\begin{subfigure}[t]{0.85\linewidth}
 		\phantomsubcaption
@@ -96,7 +96,7 @@ The enforcement of Weber's Law can maintain this distributed response across con
 
 
 
-\subsection{Identity and intensity preservation in sparse decoding with adaptive feedback}
+\subsection{Adaptive feedback preserves identity and intensity in sparse decoding}
 
 
 In \textit{Drosophila}, odorant identity is inferred from spatiotemporal patterns of neural activity in Kenyon cells housed in the mushroom body. Since these activity patterns result from a combination of ORN response and downstream neural processing, front-end gain control can play a crucial role in preserving neural representations of odor identity. The complicating factor in signal reconstruction is the disparity between measurement dimension and stimulus dimension: while \textit{Drosophila} only express 60 olfactory receptor genes, the space of aromatic odorants is $10^3$ or more, suggesting that decoding is a fundamentally under-determined problem. However, as noted, naturally-occurring odors are comprised of only a small subset of these volatile compounds -- they are sparse in the space of odorants~\cite{vijay_1}. This is suggestive: mathematical results in the theory of compressed sensing guarantee the reconstruction of these sparse signals, assuming a sufficiently random response~\cite{CS_donoho, CS_tao, CS_ganguli}.
@@ -115,7 +115,7 @@ Of course, large fluctuations in intensity characteristic of naturalistic enviro
 
 
 
-\begin{figure*}
+\begin{figure*}[!tb]
 	\centering
 	\begin{subfigure}[t]{\linewidth}
 		\includegraphics[width=\textwidth]{figures/Figures_signal_decoding_weber_law}
@@ -176,7 +176,15 @@ Separating errors in odor intensity from those in error identity, we find that f
 
 
 \begin{figure}
-	\includegraphics[width=\textwidth]{figures/Figures_signal_decoding_weber_law_2}
+	\begin{subfigure}[t]{\linewidth}
+		\includegraphics[width=\textwidth]{figures/Figures_signal_decoding_weber_law_2}
+		\phantomsubcaption
+		\label{fig:divisive_normalization_a}
+	\end{subfigure}
+	\begin{subfigure}[t]{\linewidth}
+		\phantomsubcaption
+		\label{fig:divisive_normalization_b}
+	\end{subfigure}
 	\caption{\textbf{A} Schematic of divisive normalization / lateral inhibition \text{B} Increasing divisive normalization w and w/o Weber Law}
 	\label{fig:divisive_normalization}
 \end{figure}
@@ -207,7 +215,7 @@ Together, these results suggest that in some cases a non-adaptive system of dist
 
 
 
-\begin{figure*}
+\begin{figure*}[!tb]
 	\begin{subfigure}[t]{\linewidth}
 		\includegraphics[width=\textwidth]{figures/Figures_signal_discrimination_weber_law}
 		\phantomsubcaption
@@ -270,7 +278,7 @@ where $\bar {A}_a = \bar{A}(s(t), \epsilon_a(t))$ is the time-dependent activity
 
 
 
-\begin{figure*}
+\begin{figure*}[!tb]
 	\begin{subfigure}[t]{\linewidth}
 		{\includegraphics[width=\linewidth]{figures/Figures_temporal_coding}}
 		\phantomsubcaption
@@ -309,9 +317,9 @@ For slow adaptation, with timescales greater than a few hundred ms (lighter curv
 
 
 
-\begin{figure}
+\begin{figure}[!tb]
 	\begin{subfigure}[t]{\linewidth}
-		{\includegraphics[width=\textwidth]{figures/Figures_temporal_coding_2}}
+		\includegraphics[width=\textwidth]{figures/Figures_temporal_coding_2}
 		\caption{blah}
 		\label{fig:temporal_coding_2_a}	
 	\end{subfigure}
@@ -324,7 +332,7 @@ For slow adaptation, with timescales greater than a few hundred ms (lighter curv
 		\label{fig:temporal_coding_2_c}
 	\end{subfigure}
 	\caption{Dynamic adaptation maintains signal decoding fidelity amid fluctuating backgrounds at disparate timescales.}
-	\label{temporal_coding_2}
+	\label{fig:temporal_coding_2}
 \end{figure}
 
 
@@ -385,39 +393,69 @@ Several studies have implicated the importance of ORN temporal dynamics in odor 
 
 We model an odor as an $N$-dimensional vector $\mathbf s = \langle s_1,...,s_N\rangle$, where $s_i > 0$ are the concentrations of individual volatile molecules (odorants) comprising the odor. In addition, we assume that the odors are sparse in the space of odorants, so only $K$ components of $\mathbf s$ are nonzero, where $K \ll N$. The olfactory sensory system is modeled as a collection of $M$ distinct Or/Orco complexes, each of which can be bound with any one of the odorant molecules, and can be either active (firing) inactive (quiescent). We only consider competitive binding, so a complex is bound with one odorant at most. With $N$ possible odorants, receptor $a$ resides in one of $2N+2$ possible states, \{$R_a$, $R^*_a$, $R_a$-$s_i$, $R^*_a$-$s_i$\}, indicating receptors that are unbound/inactive, unbound/active, inactive/bound to odorant $i$, and active/bound to odorant $i$, respectively. Unless otherwise indicated, we set $N = 100$, $K = 7$, and $M = 50$ throughout.
 
-The system dynamics are schematized in Fig.~\ref{!!}. In the mean-field limit, the binding dynamics of these $2N + 2$ states are described by the master equations:
+The system dynamics are schematized in Fig.(). In the mean-field limit, the binding dynamics of these $2N + 2$ states are described by the master equations:
+
 \begin{align}
 \frac{d[R_a\text{-}s_i]}{dt} &= k^+_{ia}s_i[R_a] - k^-_{ia}[R_a\text{-}s_i] \label{eq:Meq_inactive_bind_rate}\\
-\frac{d[R^*_a\text{-}s_i]}{dt} &= k^{*+}_{ia}s_i[R^*_a] - k^{*-}_{ia}[R^*_a\text{-}s_i],\label{eq:Meq_active_bind_rate}
+\frac{d[R^*_a\text{-}s_i]}{dt} &= k^{*+}_{ia}s_i[R^*_a] - k^{*-}_{ia}[R^*_a\text{-}s_i],
+\label{eq:Meq_active_bind_rate}
 \end{align}
 when receptor $R_a$ is either inactive (Eq.~\ref{eq:Meq_inactive_bind_rate}) or active (Eq.~\ref{eq:Meq_active_bind_rate}). Further, transitions between inactive and active states are described in the mean limit via:
 \begin{align}
-\frac{d[R_a]}{dt} &= w^{\text{u}+}_a [R_a] - w^{\text{u}-}_a [R^*_a] \label{eq:Meq_unbound_act_rate}\\
+\frac{d[R_a]}{dt} &= w^{\text{u}+}_a [R_a] - w^{\text{u}-}_a [R^*_a] \label{eq:Meq_unbound_active_rate}\\
 \frac{d[R^*_a\text{-}s_i]}{dt} &=  w^{\text{b}+}_{ia} [R_a\text{-}s_i] - w^{\text{b}-}_{ia}  [R^*_a\text{-}s_i],
-\label{eq:Meq_bound_act_rate}
+\label{eq:Meq_bound_active_rate}
 \end{align}
-when receptor $R_a$ is either unbound (Eq.~\ref{eq:Meq_unbound_act_rate}) or bound (Eq.~\ref{eq:Meq_bound_act_rate}). The corresponding disassociation constants in terms of the binding transition rates are:
+when receptor $R_a$ is either unbound (Eq.~\ref{eq:Meq_unbound_active_rate}) or bound (Eq.~\ref{eq:Meq_bound_active_rate}). The corresponding disassociation constants in terms of the binding transition rates are:
+
+
 \begin{align}
 K_{ia} = \frac{k^-_{ia}}{k^+_{ia}} \nonumber \\
-K^*_{ia} = \frac{k^{*-}_{ia}}{k^{+*}_{ia}} \label{eq:Kd_def}
+K^*_{ia} = \frac{k^{*-}_{ia}}{k^{+*}_{ia}} 
+\label{eq:Kd}
 \end{align}
-Following~\cite{srinivas_elife}, we assume that in steady state, the active firing state of an ORN is energetically suppressed from the inactive state through corresponding Boltzmann factors:
+
+Following~\cite{srinivas_elife}, we assume that in steady state, the active firing state of an Or/Orco complex is energetically suppressed from the inactive state through corresponding Boltzmann factors:
+
 \begin{align}
-\frac{[R^*_a]}{[R_a]} &= \frac{w^{\text{u}+}_a}{w^{\text{u}-}_a} \equiv e^{-\epsilon_a} \label{eq:steady_state_act_energy_unbound} \\
-\frac{[R^*_a\text{-}s_i]}{[R_a\text{-}s_i]} &= \frac{w^{\text{b}+}_{ia}}{w^{\text{b}-}_{ia}} \equiv e^{-\epsilon^{\text b}_{ia}}\label{eq:steady_state_act_energy_bound}.
+\frac{[R^*_a]}{[R_a]} &= \frac{w^{\text{u}+}_a}{w^{\text{u}-}_a} \equiv e^{-\epsilon_a} \label{eq:epsilon_unbound} \\
+\frac{[R^*_a\text{-}s_i]}{[R_a\text{-}s_i]} &= \frac{w^{\text{b}+}_{ia}}{w^{\text{b}-}_{ia}} \equiv e^{-\epsilon^{\text b}_{ia}}.\label{eq:epsilon_bound}
 \end{align}
-These energies are related through detailed balance, which we assume.. Applying detailed balance to a given 4-cycle as in Fig.~(!!) gives
+These energies are related through detailed balance, which we assume. Applying detailed balance to a given 4-cycle as in Fig.~() gives
 \begin{align}
 \frac{w^{\text{u}+}_a}{w^{\text{u}-}_a}\frac{k^{*+}_{ia}}{k^{*-}_{ia}}\frac{w^{\text{b}-}_{ia}}{w^{\text{b}+}_{ia}}\frac{k^{-}_{ia}}{k^{+}_{ia}} \equiv 1,
+\label{eq:detailed_balance}
 \end{align}
-which in conjunction with Eqs.~\ref{eq:Kd_def}, \ref{eq:steady_state_act_energy_unbound}, and \ref{eq:steady_state_act_energy_bound} implies
+which, in conjunction with Eqs.~\ref{eq:Kd}, \ref{eq:epsilon_unbound}, and \ref{eq:epsilon_bound}, gives
 \begin{align}
 \epsilon_{ia}^{\text b} = \epsilon_a + \ln\left[\frac{K^*_{ia}}{K_{ia}}\right].
+\label{testing_equation}
 \end{align}
-
-We derive the 
-
+Assuming the binding dynamics are fast, then the probability that receptor $a$ is bound by ligand $i$ when inactive and active can be derived from  Eqs.~\ref{eq:Meq_inactive_bind_rate} and \ref{eq:Meq_active_bind_rate} as
+\begin{align}
+p^{\text b}_{ia} = \frac{s_i/K_{ia}}{1 + \sum_j^Ns_j/K_{ja}} \label{eq:bound_prob_ai_inactive} \\
+p^{\text b, *}_{ia} = \frac{s_i/K^*_{ia}}{1 + \sum_j^Ns_j/K^*_{ja}} \label{eq:bound_prob_ai_active}.
+\end{align}
+The average  activity $A_a$ of complex $a$ is the likelihood that the complex is active, unbound or unbound (equivalantly, the proportion of Or/Orco complexes in a given ORN that are active):
+\begin{align}
+A_a = \frac{[R^*_a] + \sum_i^N[R^*_a\text{-}s_i]}{[R^*_a] + \sum_i^N[R^*_a\text{-}s_i] + {[R_a] + \sum_i^N[R_a\text{-}s_i]}}.
+\end{align} 
+Using the master equations between active and inactive states Eq.~\ref{eq:Meq_unbound_active_rate} and \ref{eq:Meq_bound_active_rate}, this activity obeys the master equation
+\begin{align}
+\frac{dA_a}{dt} &= w^+_a(1 - A_a) + w^-_aA_a
+\label{eq:dadt}
+\end{align}
+with effective transition rates
+\begin{align}
+w^+_a &= \sum_i^Np^{\text b}_{ia} w^{\text u +}_{ia} + p_{a}w^{\text u}_a 
+\end{align}
+and analogously for $w_a^-$. Setting Eq.~\ref{eq:dadt} to zero gives the steady state average activity level of ORN $a$:
+\begin{align}
+\bar{A}_a = \left(1 + e^{\epsilon_a}\frac{1 + \sum_i^N s_i/K_{ia}}{1 + \sum_i^N s_i/K^*_{ia}}\right)^{-1}. \tag{\ref{eq:steady_state_act}}
+\end{align}
+	
 \subsection{Odor encoding}
+To generate the plots in Fig.~\ref{fig:tuning_curves}, we 
 
 \subsection{Odor decoding framework}
 
@@ -444,4 +482,4 @@ lis.t
 
 Important results in the supplementary data
 
-(which is in arbitrary units). To mimic a complex odor, this time trace was set as the background odor level for the nonzero components of an odor signal, $s_0$, while individual odorant concentrations were chosen as this value plus some deviation $\Delta s_k$. 
+(which is in arbitrary units). To mimic a complex odor, this time trace was set as the background odor level for the nonzero components of an odor signal, $s_0$, while individual odorant concentrations were chosen as this value plus some deviation $\Delta s_k$.

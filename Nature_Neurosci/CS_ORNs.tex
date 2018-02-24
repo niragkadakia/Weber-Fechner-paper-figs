@@ -1,15 +1,19 @@
 \pdfoutput=1
-%\documentclass[reprint,pre,amssymb,aps]{article}
-\documentclass[reprint,pre,amssymb,aps]{revtex4-1}
+\documentclass[amssymb,aps,twocolumn]{article}
+%\documentclass[reprint,pre,aps]{revtex4-1}
 \usepackage{amsmath}    % need for subequations
 \usepackage{verbatim}   % useful for program listings
 %\usepackage{hyperref}   % use for hypertext links, including those to external \bibliographystyle{ieeetr}
+%\usepackage{cleveref}
 
-\usepackage[utf8]{inputenc}
+\usepackage{fullpage}
+%\usepackage[utf8]{inputenc}
+%\usepackage{fullpage}
 \usepackage{graphicx,color}
 \bibliographystyle{ieeetr}
-\usepackage{xfrac}
-\usepackage{floatrow}
+%\usepackage{xfrac}
+\usepackage{amssymb}
+%\usepackage{floatrow}
 %\usepackage{caption}
 \usepackage{subcaption}
 
@@ -26,7 +30,12 @@
 % For creating nice looking tables
 %\usepackage{booktabs}
 %\usepackage{multirow}
-
+\usepackage{authblk}
+\renewcommand{\thesection}{}
+\renewcommand{\thesubsection}{\alph{subsection}}
+\usepackage{sectsty}
+\sectionfont{\bfseries\large\center}
+\subsectionfont{\bfseries\normalsize\center}
 % Choose your font: uncomment one of the below font packages or add your own
 %\usepackage{pslatex} % for TNR
 %\usepackage{palatino} % for Palatino

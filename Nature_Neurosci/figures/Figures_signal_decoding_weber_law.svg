@@ -5036,14 +5036,14 @@
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
      inkscape:zoom="1.3995495"
-     inkscape:cx="215.83717"
-     inkscape:cy="204.10957"
+     inkscape:cx="325.47691"
+     inkscape:cy="175.52894"
      inkscape:document-units="mm"
-     inkscape:current-layer="layer6"
+     inkscape:current-layer="layer3"
      showgrid="false"
      units="in"
-     inkscape:window-width="1920"
-     inkscape:window-height="1027"
+     inkscape:window-width="1366"
+     inkscape:window-height="715"
      inkscape:window-x="-8"
      inkscape:window-y="-8"
      inkscape:window-maximized="1"
@@ -5060,7 +5060,7 @@
         <dc:format>image/svg+xml</dc:format>
         <dc:type
            rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
-        <dc:title />
+        <dc:title></dc:title>
       </cc:Work>
     </rdf:RDF>
   </metadata>
@@ -11309,8 +11309,7 @@
      id="layer3"
      inkscape:label="signal estimation"
      style="stroke-linecap:butt;stroke-linejoin:round"
-     transform="translate(0,-17.780005)"
-     sodipodi:insensitive="true">
+     transform="translate(0,-17.780005)">
     <path
        style="opacity:1;fill:url(#linearGradient18555);fill-opacity:1;stroke:none;stroke-width:0.38638163;stroke-linecap:butt;stroke-linejoin:bevel;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
        d="M 161.99713,59.507207 H 11.515353 m 0,0 v 5.411932 m 0,0 H 161.99713 v -5.411932"
@@ -12698,32 +12697,32 @@
     <flowRoot
        xml:space="preserve"
        id="flowRoot30248"
-       style="font-style:normal;font-weight:normal;font-size:6.66666698px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-linecap:butt;stroke-linejoin:round"
-       transform="matrix(0.26458333,0,0,0.26458333,-5.5955159,19.264944)"><flowRegion
+       style="font-style:normal;font-weight:normal;font-size:6.66666698px;line-height:1;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-linecap:butt;stroke-linejoin:round;"
+       transform="matrix(0.26458333,0,0,0.26458333,-4.2721734,19.264944)"><flowRegion
          id="flowRegion30250"
-         style="font-size:6.66666698px;stroke-linecap:butt;stroke-linejoin:round"><rect
+         style="font-size:6.66666698px;stroke-linecap:butt;stroke-linejoin:round;line-height:1;"><rect
            id="rect30252"
-           width="48.29546"
-           height="17.045446"
+           width="55.862209"
+           height="27.657738"
            x="66.477272"
            y="265.52274"
-           style="font-size:6.66666698px;stroke-linecap:butt;stroke-linejoin:round" /></flowRegion><flowPara
+           style="font-size:6.66666698px;stroke-linecap:butt;stroke-linejoin:round;line-height:1;" /></flowRegion><flowPara
          id="flowPara30254"
-         style="font-size:6.66666698px;stroke-linecap:butt;stroke-linejoin:round">Nonzero odor components</flowPara></flowRoot>    <flowRoot
+         style="font-size:7.33333349px;stroke-linecap:butt;stroke-linejoin:round;line-height:1;">Sparse odor components</flowPara></flowRoot>    <flowRoot
        xml:space="preserve"
        id="flowRoot30248-8"
-       style="font-style:normal;font-weight:normal;font-size:6.66666698px;line-height:1.25;font-family:sans-serif;text-align:center;letter-spacing:0px;word-spacing:0px;text-anchor:middle;fill:#000000;fill-opacity:1;stroke:none;stroke-linecap:butt;stroke-linejoin:round"
-       transform="matrix(0.26458333,0,0,0.26458333,13.902317,19.255331)"><flowRegion
+       style="font-style:normal;font-weight:normal;font-size:6.66666698px;line-height:1;font-family:sans-serif;text-align:center;letter-spacing:0px;word-spacing:0px;text-anchor:middle;fill:#000000;fill-opacity:1;stroke:none;stroke-linecap:butt;stroke-linejoin:round"
+       transform="matrix(0.26458333,0,0,0.26458333,13.37315,19.255331)"><flowRegion
          id="flowRegion30250-8"
-         style="font-size:6.66666698px;text-align:center;text-anchor:middle;stroke-linecap:butt;stroke-linejoin:round"><rect
+         style="font-size:6.66666698px;line-height:1;text-align:center;text-anchor:middle;stroke-linecap:butt;stroke-linejoin:round"><rect
            id="rect30252-4"
            width="63.068207"
            height="17.613628"
            x="66.477272"
            y="265.52274"
-           style="font-size:6.66666698px;text-align:center;text-anchor:middle;stroke-linecap:butt;stroke-linejoin:round" /></flowRegion><flowPara
+           style="font-size:6.66666698px;line-height:1;text-align:center;text-anchor:middle;stroke-linecap:butt;stroke-linejoin:round" /></flowRegion><flowPara
          id="flowPara30254-7"
-         style="font-size:6.66666698px;text-align:center;text-anchor:middle;stroke-linecap:butt;stroke-linejoin:round">Odorants absent from odor signal</flowPara></flowRoot>    <text
+         style="font-size:6.66666698px;line-height:1;text-align:center;text-anchor:middle;stroke-linecap:butt;stroke-linejoin:round">Odorants absent from odor signal</flowPara></flowRoot>    <text
        xml:space="preserve"
        style="font-style:normal;font-weight:normal;font-size:2.11666656px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;opacity:1;fill:#666666;fill-opacity:1;stroke:none;stroke-width:0.26458332;stroke-linecap:butt;stroke-linejoin:round"
        x="81.792511"
@@ -13407,48 +13406,48 @@
     <flowRoot
        xml:space="preserve"
        id="flowRoot17287"
-       style="font-style:normal;font-weight:normal;font-size:8px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-linecap:butt;stroke-linejoin:round"
-       transform="matrix(0,-0.26458333,0.26458333,0,-76.381903,100.37074)"><flowRegion
+       style="font-style:normal;font-weight:normal;font-size:7.33333349px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-linecap:butt;stroke-linejoin:round"
+       transform="matrix(0,-0.26458333,0.26458333,0,-76.192854,101.46706)"><flowRegion
          id="flowRegion17289"
-         style="stroke-linecap:butt;stroke-linejoin:round"><rect
+         style="font-size:7.33333349px;stroke-linecap:butt;stroke-linejoin:round"><rect
            id="rect17291"
            width="77.272728"
            height="27.840887"
            x="44.31818"
            y="318.36365"
-           style="stroke-linecap:butt;stroke-linejoin:round" /></flowRegion><flowPara
+           style="font-size:7.33333349px;stroke-linecap:butt;stroke-linejoin:round" /></flowRegion><flowPara
          id="flowPara17293"
-         style="font-size:6.66666698px;stroke-linecap:butt;stroke-linejoin:round">odor strength</flowPara></flowRoot>    <flowRoot
+         style="font-size:7.33333349px;stroke-linecap:butt;stroke-linejoin:round">odor strength</flowPara></flowRoot>    <flowRoot
        xml:space="preserve"
        id="flowRoot17907"
-       style="font-style:normal;font-weight:normal;font-size:6px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-linecap:butt;stroke-linejoin:round"
-       transform="matrix(0.26458333,0,0,0.26458333,-16.386127,-17.19792)"><flowRegion
+       style="font-style:normal;font-weight:normal;font-size:6.66666698px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-linecap:butt;stroke-linejoin:round"
+       transform="matrix(0.26458333,0,0,0.26458333,-16.386127,-17.727087)"><flowRegion
          id="flowRegion17909"
-         style="font-size:6px;stroke-linecap:butt;stroke-linejoin:round"><rect
+         style="font-size:6.66666698px;stroke-linecap:butt;stroke-linejoin:round"><rect
            id="rect17911"
            width="47.159092"
            height="28.40909"
            x="91.477272"
            y="321.20456"
-           style="font-size:6px;stroke-linecap:butt;stroke-linejoin:round" /></flowRegion><flowPara
+           style="font-size:6.66666698px;stroke-linecap:butt;stroke-linejoin:round" /></flowRegion><flowPara
          id="flowPara17913"
-         style="font-size:6px;stroke-linecap:butt;stroke-linejoin:round">non-</flowPara><flowPara
-         style="font-size:6px;stroke-linecap:butt;stroke-linejoin:round"
+         style="font-size:6.66666698px;stroke-linecap:butt;stroke-linejoin:round">non-</flowPara><flowPara
+         style="font-size:6.66666698px;stroke-linecap:butt;stroke-linejoin:round"
          id="flowPara20337">adaptive</flowPara></flowRoot>    <flowRoot
        xml:space="preserve"
        id="flowRoot17907-5"
-       style="font-style:normal;font-weight:normal;font-size:6px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-linecap:butt;stroke-linejoin:round"
+       style="font-style:normal;font-weight:normal;font-size:6.66666675px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-linecap:butt;stroke-linejoin:round;"
        transform="matrix(0.26458333,0,0,0.26458333,-2.2799635,-17.523502)"><flowRegion
          id="flowRegion17909-7"
-         style="font-size:6px;stroke-linecap:butt;stroke-linejoin:round"><rect
+         style="font-size:6.66666675px;stroke-linecap:butt;stroke-linejoin:round;"><rect
            id="rect17911-3"
            width="47.159092"
            height="28.40909"
            x="91.477272"
            y="321.20456"
-           style="font-size:6px;stroke-linecap:butt;stroke-linejoin:round" /></flowRegion><flowPara
+           style="font-size:6.66666675px;stroke-linecap:butt;stroke-linejoin:round;" /></flowRegion><flowPara
          id="flowPara17913-0"
-         style="font-size:6px;stroke-linecap:butt;stroke-linejoin:round">adaptive (inverted)</flowPara></flowRoot>    <g
+         style="font-size:6.66666675px;stroke-linecap:butt;stroke-linejoin:round;">adaptive (inverted)</flowPara></flowRoot>    <g
        id="figure_1-6"
        transform="matrix(0.04646478,0,0,0.04646478,12.7,71.87484)"
        style="stroke-linecap:butt;stroke-linejoin:round">
@@ -14312,18 +14311,18 @@
     <flowRoot
        xml:space="preserve"
        id="flowRoot17907-5-5"
-       style="font-style:normal;font-weight:normal;font-size:6px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-linecap:butt;stroke-linejoin:round"
+       style="font-style:normal;font-weight:normal;font-size:6.66666675px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-linecap:butt;stroke-linejoin:round;"
        transform="matrix(0.26458333,0,0,0.26458333,-7.8748887,-17.090548)"><flowRegion
          id="flowRegion17909-7-4"
-         style="font-size:6px;stroke-linecap:butt;stroke-linejoin:round"><rect
+         style="font-size:6.66666675px;stroke-linecap:butt;stroke-linejoin:round;"><rect
            id="rect17911-3-5"
            width="21.590914"
            height="10.22727"
            x="91.477272"
            y="321.20456"
-           style="font-size:6px;stroke-linecap:butt;stroke-linejoin:round" /></flowRegion><flowPara
+           style="font-size:6.66666675px;stroke-linecap:butt;stroke-linejoin:round;" /></flowRegion><flowPara
          id="flowPara17913-0-2"
-         style="font-size:6px;stroke-linecap:butt;stroke-linejoin:round">true</flowPara></flowRoot>    <path
+         style="font-size:6.66666675px;stroke-linecap:butt;stroke-linejoin:round;">true</flowPara></flowRoot>    <path
        style="fill:none;stroke:#000000;stroke-width:0.15000001;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
        d="m 17.936998,70.11247 -0.837423,3.002174"
        id="path17345-1-1"
@@ -15526,7 +15525,7 @@
          style="fill:#ffccaa;stroke:#ff6600;stroke-width:0.40000001;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
     </g>
     <g
-       transform="matrix(0.06777967,0,0,0.06777967,31.561856,64.18034)"
+       transform="matrix(0.08359493,0,0,0.08359493,29.593358,62.63089)"
        id="page1-0"
        style="stroke-linecap:butt;stroke-linejoin:round">
       <use
@@ -16415,7 +16414,7 @@
        inkscape:connector-curvature="0"
        sodipodi:nodetypes="cc" />
     <g
-       transform="matrix(0.06851255,0,0,0.06851255,71.505852,64.140976)"
+       transform="matrix(0.08449881,0,0,0.08449881,70.585846,62.582341)"
        id="page1"
        style="stroke-linecap:butt;stroke-linejoin:round">
       <use
@@ -16491,7 +16490,7 @@
          height="100%" />
     </g>
     <g
-       transform="matrix(0.06851255,0,0,0.06851255,69.260204,86.38476)"
+       transform="matrix(0.08449881,0,0,0.08449881,67.281865,85.355292)"
        id="page1-9"
        style="stroke-linecap:butt;stroke-linejoin:round">
       <use
@@ -17352,7 +17351,7 @@
       </g>
     </g>
     <g
-       transform="matrix(0.06777967,0,0,0.06777967,107.5067,64.18034)"
+       transform="matrix(0.08359493,0,0,0.08359493,106.59653,62.63089)"
        id="page1-5"
        style="stroke-linecap:butt;stroke-linejoin:round">
       <use
@@ -17453,7 +17452,7 @@
          x="70.480347"
          y="74.871704">8X</tspan></text>
     <g
-       transform="matrix(0.0806989,0,0,0.0806989,141.80411,64.463161)"
+       transform="matrix(0.09311412,0,0,0.09311412,140.0275,63.59633)"
        id="page1-01"
        style="stroke-linecap:butt;stroke-linejoin:round">
       <use
@@ -18631,7 +18630,8 @@
      id="layer6"
      inkscape:label="decoding accuracy"
      style="stroke-linecap:butt;stroke-linejoin:round"
-     transform="translate(0,-43.180005)">
+     transform="translate(0,-43.180005)"
+     sodipodi:insensitive="true">
     <g
        id="figure_1-4"
        transform="matrix(0.09536707,0,0,0.09536707,58.279993,52.865009)"
@@ -30032,18 +30032,18 @@
          style="font-size:6px;fill:#4d4d4d;stroke-linecap:butt;stroke-linejoin:round">homogeneous receptors</flowPara></flowRoot>    <flowRoot
        xml:space="preserve"
        id="flowRoot17295"
-       style="font-style:normal;font-weight:normal;font-size:6px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-linecap:butt;stroke-linejoin:round"
-       transform="matrix(0.26458333,0,0,0.26458333,19.007906,-29.440911)"><flowRegion
+       style="font-style:normal;font-weight:normal;font-size:6.66666698px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-linecap:butt;stroke-linejoin:round"
+       transform="matrix(0.26458333,0,0,0.26458333,19.007906,-29.970078)"><flowRegion
          id="flowRegion17297"
-         style="font-size:6px;fill:#000000;stroke-linecap:butt;stroke-linejoin:round"><rect
+         style="font-size:6.66666698px;fill:#000000;stroke-linecap:butt;stroke-linejoin:round"><rect
            id="rect17299"
            width="35.227272"
            height="27.272728"
            x="50.56818"
            y="304.15909"
-           style="font-size:6px;fill:#000000;stroke-linecap:butt;stroke-linejoin:round" /></flowRegion><flowPara
+           style="font-size:6.66666698px;fill:#000000;stroke-linecap:butt;stroke-linejoin:round" /></flowRegion><flowPara
          id="flowPara17301"
-         style="font-size:6px;fill:#000000;stroke-linecap:butt;stroke-linejoin:round">adaptive </flowPara></flowRoot>    <flowRoot
+         style="font-size:6.66666698px;fill:#000000;stroke-linecap:butt;stroke-linejoin:round">adaptive </flowPara></flowRoot>    <flowRoot
        xml:space="preserve"
        id="flowRoot17295-1"
        style="font-style:normal;font-weight:normal;font-size:6px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-linecap:butt;stroke-linejoin:round"
@@ -30057,7 +30057,7 @@
            y="304.15909"
            style="font-size:6px;fill:#000000;stroke-linecap:butt;stroke-linejoin:round" /></flowRegion><flowPara
          id="flowPara17301-9"
-         style="font-size:6px;fill:#000000;stroke-linecap:butt;stroke-linejoin:round">non-adaptive</flowPara></flowRoot>    <path
+         style="font-size:6.66666698px;fill:#000000;stroke-linecap:butt;stroke-linejoin:round">non-adaptive</flowPara></flowRoot>    <path
        style="fill:#003380;stroke:#aaccff;stroke-width:0.26499999;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:1.05999995, 0.26499999;stroke-dashoffset:0;stroke-opacity:1"
        d="m 21.262877,53.596163 5.234979,4.152868"
        id="path17341"
