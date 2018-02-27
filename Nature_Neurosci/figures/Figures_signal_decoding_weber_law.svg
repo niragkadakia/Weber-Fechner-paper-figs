@@ -5036,15 +5036,15 @@
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
      inkscape:zoom="1.3995495"
-     inkscape:cx="325.47691"
+     inkscape:cx="250.45277"
      inkscape:cy="175.52894"
      inkscape:document-units="mm"
-     inkscape:current-layer="layer3"
+     inkscape:current-layer="layer7"
      showgrid="false"
      units="in"
-     inkscape:window-width="1366"
-     inkscape:window-height="715"
-     inkscape:window-x="-8"
+     inkscape:window-width="1920"
+     inkscape:window-height="1027"
+     inkscape:window-x="1912"
      inkscape:window-y="-8"
      inkscape:window-maximized="1"
      objecttolerance="11"
@@ -5060,7 +5060,7 @@
         <dc:format>image/svg+xml</dc:format>
         <dc:type
            rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
-        <dc:title></dc:title>
+        <dc:title />
       </cc:Work>
     </rdf:RDF>
   </metadata>
@@ -5159,8 +5159,7 @@
      id="layer7"
      inkscape:label="Labels"
      style="stroke-linecap:butt;stroke-linejoin:round"
-     transform="translate(0,-17.780005)"
-     sodipodi:insensitive="true">
+     transform="translate(0,-17.780005)">
     <flowRoot
        xml:space="preserve"
        id="flowRoot10392"
@@ -5177,7 +5176,7 @@
          id="flowPara10398"
          style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:16px;font-family:sans-serif;-inkscape-font-specification:'sans-serif Bold';stroke-linecap:butt;stroke-linejoin:round" /><flowPara
          style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:16px;font-family:sans-serif;-inkscape-font-specification:'sans-serif Bold';stroke-linecap:butt;stroke-linejoin:round"
-         id="flowPara10400">  A                                                                  B</flowPara><flowPara
+         id="flowPara10400">  A                                   B                             C</flowPara><flowPara
          style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:16px;font-family:sans-serif;-inkscape-font-specification:'sans-serif Bold';stroke-linecap:butt;stroke-linejoin:round"
          id="flowPara22653" /><flowPara
          style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:16px;font-family:sans-serif;-inkscape-font-specification:'sans-serif Bold';stroke-linecap:butt;stroke-linejoin:round"
@@ -5199,7 +5198,7 @@
          style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:16px;font-family:sans-serif;-inkscape-font-specification:'sans-serif Bold';stroke-linecap:butt;stroke-linejoin:round"
          id="flowPara22671" /><flowPara
          style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:16px;font-family:sans-serif;-inkscape-font-specification:'sans-serif Bold';stroke-linecap:butt;stroke-linejoin:round"
-         id="flowPara22673">  C</flowPara><flowPara
+         id="flowPara22673">  D</flowPara><flowPara
          style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:16px;font-family:sans-serif;-inkscape-font-specification:'sans-serif Bold';stroke-linecap:butt;stroke-linejoin:round"
          id="flowPara18844" /><flowPara
          style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:16px;font-family:sans-serif;-inkscape-font-specification:'sans-serif Bold';stroke-linecap:butt;stroke-linejoin:round"
@@ -5277,8 +5276,7 @@
      id="layer1"
      inkscape:label="inhibitory normalization decoding accuracy"
      style="stroke-linecap:butt;stroke-linejoin:round"
-     transform="translate(0,-17.780005)"
-     sodipodi:insensitive="true">
+     transform="translate(0,-17.780005)">
     <rect
        style="opacity:1;fill:url(#linearGradient13214);fill-opacity:1;stroke:none;stroke-width:0.14270379;stroke-linecap:butt;stroke-linejoin:bevel;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
        id="rect11576"
@@ -18213,8 +18211,7 @@
      id="layer2"
      inkscape:label="accuracy vs Kk"
      style="stroke-linecap:butt;stroke-linejoin:round"
-     transform="translate(0,-17.780005)"
-     sodipodi:insensitive="true">
+     transform="translate(0,-17.780005)">
     <flowRoot
        xml:space="preserve"
        id="flowRoot15850"
@@ -18630,11 +18627,10 @@
      id="layer6"
      inkscape:label="decoding accuracy"
      style="stroke-linecap:butt;stroke-linejoin:round"
-     transform="translate(0,-43.180005)"
-     sodipodi:insensitive="true">
+     transform="translate(0,-43.180005)">
     <g
        id="figure_1-4"
-       transform="matrix(0.09536707,0,0,0.09536707,58.279993,52.865009)"
+       transform="matrix(0.09536707,0,0,0.09536707,60.925828,52.865009)"
        style="stroke-linecap:butt;stroke-linejoin:round">
       <g
          id="patch_1-8"
@@ -20123,7 +20119,7 @@
     </g>
     <g
        id="figure_1-42-3"
-       transform="matrix(0.13295406,0,0,0.09429196,93.348354,90.747042)"
+       transform="matrix(0.13295406,0,0,0.09429196,95.994189,90.747042)"
        style="display:inline;stroke-linecap:butt;stroke-linejoin:round">
       <g
          id="axes_1-88-6"
@@ -22162,7 +22158,7 @@
     </g>
     <g
        id="g27393"
-       transform="matrix(0.27160488,0,0,0.26359898,64.364933,27.868888)"
+       transform="matrix(0.27160488,0,0,0.26359898,67.010768,27.868888)"
        style="stroke-linecap:butt;stroke-linejoin:round">
       <g
          style="display:inline;stroke-linecap:butt;stroke-linejoin:round"
@@ -24225,7 +24221,7 @@
          id="flowPara6534"
          style="stroke-linecap:butt;stroke-linejoin:round" /></flowRoot>    <g
        id="figure_1-2"
-       transform="matrix(0.09536707,0,0,0.09536707,15.350833,52.864917)"
+       transform="matrix(0.09536707,0,0,0.09536707,13.234165,52.864917)"
        style="stroke-linecap:butt;stroke-linejoin:round">
       <g
          id="patch_1-2"
@@ -25665,7 +25661,7 @@
        xml:space="preserve"
        id="flowRoot11430"
        style="font-style:normal;font-weight:normal;font-size:9.33333302px;line-height:100%;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-linecap:butt;stroke-linejoin:round"
-       transform="matrix(0,-0.26458333,0.26458333,0,-28.16757,189.78783)"><flowRegion
+       transform="matrix(0,-0.26458333,0.26458333,0,-30.284238,189.78783)"><flowRegion
          id="flowRegion11432"
          style="line-height:100%;stroke-linecap:butt;stroke-linejoin:round"><rect
            id="rect11434"
@@ -25679,7 +25675,7 @@
        xml:space="preserve"
        id="flowRoot11460-2"
        style="font-style:normal;font-weight:normal;font-size:9.33333302px;line-height:100%;font-family:sans-serif;text-align:center;letter-spacing:0px;word-spacing:0px;text-anchor:middle;fill:#000000;fill-opacity:1;stroke:none;stroke-linecap:butt;stroke-linejoin:round"
-       transform="matrix(0.26458333,0,0,0.26458333,-83.019658,35.155462)"><flowRegion
+       transform="matrix(0.26458333,0,0,0.26458333,-85.136326,35.155462)"><flowRegion
          id="flowRegion11462-6"
          style="line-height:100%;text-align:center;text-anchor:middle;stroke-linecap:butt;stroke-linejoin:round"><rect
            id="rect11464-5"
@@ -25690,7 +25686,7 @@
            style="line-height:100%;text-align:center;text-anchor:middle;stroke-linecap:butt;stroke-linejoin:round" /></flowRegion><flowPara
          id="flowPara11466-4"
          style="font-size:7.33333349px;line-height:100%;text-align:center;text-anchor:middle;stroke-linecap:butt;stroke-linejoin:round">Mean odorant strength</flowPara></flowRoot>    <g
-       transform="matrix(0.11992973,0,0,0.11992973,94.133144,30.673868)"
+       transform="matrix(0.11992973,0,0,0.11992973,96.778979,30.673868)"
        id="layer1-8-1"
        inkscape:label="Layer 1"
        style="stroke-linecap:butt;stroke-linejoin:round">
@@ -25714,7 +25710,7 @@
          sodipodi:type="star" />
     </g>
     <g
-       transform="matrix(0.11445826,0,0,0.11445826,94.078446,35.082516)"
+       transform="matrix(0.11445826,0,0,0.11445826,96.724281,35.082516)"
        id="layer1-5-2"
        inkscape:label="Layer 1"
        style="stroke-linecap:butt;stroke-linejoin:round">
@@ -25738,7 +25734,7 @@
          sodipodi:type="star" />
     </g>
     <g
-       transform="matrix(0.09539592,0,0,0.09539592,94.531201,46.002387)"
+       transform="matrix(0.09539592,0,0,0.09539592,97.177036,46.002387)"
        id="layer1-2-4"
        inkscape:label="Layer 1"
        style="stroke-linecap:butt;stroke-linejoin:round">
@@ -25762,7 +25758,7 @@
          sodipodi:type="star" />
     </g>
     <g
-       transform="matrix(0.0977029,0,0,0.0977029,94.47857,28.162993)"
+       transform="matrix(0.0977029,0,0,0.0977029,97.124405,28.162993)"
        id="layer1-0-8"
        inkscape:label="Layer 1"
        style="stroke-linecap:butt;stroke-linejoin:round">
@@ -25799,9 +25795,9 @@
        d="M 29.1954,59.112783 17.380373,64.606031 15.207461,77.453173 6.3320278,67.913922 -6.5577978,69.817345 -0.22809062,58.428516 -6.0215282,46.757753 6.7658789,49.258321 16.075163,40.14197 17.648508,53.076235 Z"
        inkscape:transform-center-x="-2.9462537"
        inkscape:transform-center-y="-0.12324268"
-       transform="matrix(0.06992381,0,0,0.06035276,95.222796,58.421531)" />
+       transform="matrix(0.06992381,0,0,0.06035276,97.868631,58.421531)" />
     <g
-       transform="matrix(0.11992973,0,0,0.11992973,52.054262,30.673382)"
+       transform="matrix(0.11992973,0,0,0.11992973,49.937594,30.673382)"
        id="layer1-8"
        inkscape:label="Layer 1"
        style="stroke-linecap:butt;stroke-linejoin:round">
@@ -25825,7 +25821,7 @@
          sodipodi:type="star" />
     </g>
     <g
-       transform="matrix(0.11445826,0,0,0.11445826,51.999564,35.08203)"
+       transform="matrix(0.11445826,0,0,0.11445826,49.882896,35.08203)"
        id="layer1-5"
        inkscape:label="Layer 1"
        style="stroke-linecap:butt;stroke-linejoin:round">
@@ -25849,7 +25845,7 @@
          sodipodi:type="star" />
     </g>
     <g
-       transform="matrix(0.09539592,0,0,0.09539592,52.452318,46.0019)"
+       transform="matrix(0.09539592,0,0,0.09539592,50.33565,46.0019)"
        id="layer1-2"
        inkscape:label="Layer 1"
        style="stroke-linecap:butt;stroke-linejoin:round">
@@ -25873,7 +25869,7 @@
          sodipodi:type="star" />
     </g>
     <g
-       transform="matrix(0.0977029,0,0,0.0977029,52.399688,28.162506)"
+       transform="matrix(0.0977029,0,0,0.0977029,50.28302,28.162506)"
        id="layer1-0"
        inkscape:label="Layer 1"
        style="stroke-linecap:butt;stroke-linejoin:round">
@@ -25910,10 +25906,10 @@
        d="M 29.1954,59.112783 17.380373,64.606031 15.207461,77.453173 6.3320278,67.913922 -6.5577978,69.817345 -0.22809062,58.428516 -6.0215282,46.757753 6.7658789,49.258321 16.075163,40.14197 17.648508,53.076235 Z"
        inkscape:transform-center-x="-2.9462537"
        inkscape:transform-center-y="-0.12324268"
-       transform="matrix(0.06992381,0,0,0.06035276,53.143914,58.421044)" />
+       transform="matrix(0.06992381,0,0,0.06035276,51.027246,58.421044)" />
     <g
        id="figure_1-80-0"
-       transform="matrix(0.02340084,0,0,0.02869166,44.370833,50.924998)"
+       transform="matrix(0.02340084,0,0,0.02869166,42.254165,50.924998)"
        style="display:inline;stroke-linecap:butt;stroke-linejoin:round">
       <g
          id="axes_1-3-9-7"
@@ -27951,7 +27947,7 @@
     </g>
     <g
        id="figure_1-80-0-7"
-       transform="matrix(0.02340084,0,0,0.02869166,48.46804,50.844246)"
+       transform="matrix(0.02340084,0,0,0.02869166,46.351372,50.844246)"
        style="display:inline;stroke-linecap:butt;stroke-linejoin:round">
       <g
          id="axes_1-3-9-7-3"
@@ -29992,10 +29988,10 @@
        id="rect17200"
        width="9.019887"
        height="4.9609375"
-       x="70.048431"
+       x="72.694267"
        y="58.857777" />
     <flowRoot
-       transform="matrix(0.26458333,0,0,0.26458333,55.08739,-26.663878)"
+       transform="matrix(0.26458333,0,0,0.26458333,57.733225,-26.663878)"
        xml:space="preserve"
        id="flowRoot17168"
        style="font-style:normal;font-weight:normal;font-size:6.66666698px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#4d4d4d;fill-opacity:1;stroke:none;stroke-linecap:butt;stroke-linejoin:round"><flowRegion
@@ -30013,10 +30009,10 @@
        id="rect17200-5"
        width="11.725853"
        height="2.7059662"
-       x="26.13526"
+       x="24.018591"
        y="59.358315" />
     <flowRoot
-       transform="matrix(0.26458333,0,0,0.26458333,9.8612603,-25.912219)"
+       transform="matrix(0.26458333,0,0,0.26458333,7.7445935,-25.912219)"
        xml:space="preserve"
        id="flowRoot17168-1"
        style="font-style:normal;font-weight:normal;font-size:6px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#4d4d4d;fill-opacity:1;stroke:none;stroke-linecap:butt;stroke-linejoin:round"><flowRegion
@@ -30033,7 +30029,7 @@
        xml:space="preserve"
        id="flowRoot17295"
        style="font-style:normal;font-weight:normal;font-size:6.66666698px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-linecap:butt;stroke-linejoin:round"
-       transform="matrix(0.26458333,0,0,0.26458333,19.007906,-29.970078)"><flowRegion
+       transform="matrix(0.26458333,0,0,0.26458333,16.891238,-29.970078)"><flowRegion
          id="flowRegion17297"
          style="font-size:6.66666698px;fill:#000000;stroke-linecap:butt;stroke-linejoin:round"><rect
            id="rect17299"
@@ -30047,7 +30043,7 @@
        xml:space="preserve"
        id="flowRoot17295-1"
        style="font-style:normal;font-weight:normal;font-size:6px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-linecap:butt;stroke-linejoin:round"
-       transform="matrix(0.26458333,0,0,0.26458333,2.9306176,-29.856317)"><flowRegion
+       transform="matrix(0.26458333,0,0,0.26458333,0.81395083,-29.856317)"><flowRegion
          id="flowRegion17297-3"
          style="font-size:6px;fill:#000000;stroke-linecap:butt;stroke-linejoin:round"><rect
            id="rect17299-9"
@@ -30059,19 +30055,19 @@
          id="flowPara17301-9"
          style="font-size:6.66666698px;fill:#000000;stroke-linecap:butt;stroke-linejoin:round">non-adaptive</flowPara></flowRoot>    <path
        style="fill:#003380;stroke:#aaccff;stroke-width:0.26499999;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:1.05999995, 0.26499999;stroke-dashoffset:0;stroke-opacity:1"
-       d="m 21.262877,53.596163 5.234979,4.152868"
+       d="m 19.146209,53.596163 5.234979,4.152868"
        id="path17341"
        inkscape:connector-curvature="0"
        sodipodi:nodetypes="cc" />
     <path
        style="fill:none;stroke:#ff5555;stroke-width:0.26499999;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:1.05999995, 0.26499999;stroke-dashoffset:0;stroke-opacity:1"
-       d="m 35.400045,52.988823 -5.188704,1.537494"
+       d="m 33.283377,52.988823 -5.188704,1.537494"
        id="path17345"
        inkscape:connector-curvature="0"
        sodipodi:nodetypes="cc" />
     <g
        id="figure_1-56"
-       transform="matrix(0.08055089,0,0,0.08055089,88.338189,37.44988)"
+       transform="matrix(0.08055089,0,0,0.08055089,90.984024,37.44988)"
        style="stroke-linecap:butt;stroke-linejoin:round"
        inkscape:transform-center-x="-17.765306"
        inkscape:transform-center-y="27.373071">
@@ -30160,7 +30156,7 @@
     </g>
     <g
        id="figure_1-9"
-       transform="matrix(0.08055089,0,0,0.08055089,62.146235,23.317732)"
+       transform="matrix(0.08055089,0,0,0.08055089,60.029567,23.317732)"
        style="stroke-linecap:butt;stroke-linejoin:round">
       <g
          id="g20697"
@@ -30239,7 +30235,7 @@
       </g>
     </g>
     <g
-       transform="matrix(0.1209447,0,0,0.1209447,39.572529,42.151916)"
+       transform="matrix(0.1209447,0,0,0.1209447,37.455861,42.151916)"
        id="page1-06"
        style="stroke-linecap:butt;stroke-linejoin:round">
       <use
@@ -30279,7 +30275,7 @@
        xml:space="preserve"
        id="flowRoot11460-2-7"
        style="font-style:normal;font-weight:normal;font-size:9.33333302px;line-height:100%;font-family:sans-serif;text-align:center;letter-spacing:0px;word-spacing:0px;text-anchor:middle;fill:#000000;fill-opacity:1;stroke:none;stroke-linecap:butt;stroke-linejoin:round"
-       transform="matrix(0.26458333,0,0,0.26458333,-64.528921,33.527484)"><flowRegion
+       transform="matrix(0.26458333,0,0,0.26458333,-66.645589,33.527484)"><flowRegion
          id="flowRegion11462-6-5"
          style="line-height:100%;text-align:center;text-anchor:middle;stroke-linecap:butt;stroke-linejoin:round"><rect
            id="rect11464-5-6"
