@@ -29,9 +29,9 @@ While all of these adaptive mechanisms have been shown to facilitate the identif
 
 
 The framework of odor discrimination consists of two stages: odor transduction and subsequent ORN activity (encoding), and a paradigm for then inferring odor identity from this repertoire of ORN response (decoding). The encoding model is a generalization of one recently used to describe front-end adaptation in individual \textit{Drosophila} ORNs~\cite{srinivas_elife}. %There, the observed generality of Weber's Law (it was demonstrated in xx odorant/receptor pairs) implicates structural modification of the universal co-receptor Orco, rather than odorant-specific Ors alone. 
-Here, we generalize this model to a repertoire of $a$ ORNs, each housing a collection of Or/Orco complexes. These complexes bind and unbind odorant molecules stochastically, and are assumed to reside in either an active (open ion channel) or inactive state. In equilibrium, a given odorant-receptor pair ($i$-$a$) depends on two disassociation constants, $K^*_{ia}$ and $K_{ia}$, for odorant binding in the active and inactive conformations, respectively. Together, these comprise a coupled stochastic system that translates the binding of odors of varying identities and concentrations into a repertoire of ORN response (Fig.~\ref{fig:tuning_curves_a}). In steady state, the active fraction $\bar A_a$ of Or/Orco complexes in ORN $a$ is:
+Here, we generalize this model to a repertoire of $a$ ORNs, each housing a collection of Or/Orco complexes. These complexes bind and unbind odorant molecules stochastically, and are assumed to reside in either an active (open ion channel) or inactive state. In equilibrium, a given odorant-receptor pair ($i$-$a$) depends on two disassociation constants, $K^*_{ia}$ and $K_{ia}$, for odorant binding in the active and inactive conformations, respectively. Together, these comprise a coupled stochastic system that translates the binding of odors of varying identities and concentrations into a repertoire of ORN response (Fig.~\ref{fig:tuning_curves_a}). In steady state, the active fraction $ A_a$ of Or/Orco complexes in ORN $a$ is:
 \begin{align}
-\bar{A}_a = \left(1 + e^{\epsilon_a}\frac{1 + \sum_i^N s_i/K_{ia}}{1 + \sum_i^N s_i/K^*_{ia}}\right)^{-1},
+A_a = \left(1 + e^{\epsilon_a}\frac{1 + \sum_i^N s_i/K_{ia}}{1 + \sum_i^N s_i/K^*_{ia}}\right)^{-1},
 \label{eq:steady_state_act}
 \end{align}
 where $s_i$ is the concentration of the odorant $i$ and $\epsilon_a$ is the free energy of activation for a particular Or/Orco complex. %Odors bind to active Or/Orco complexes much faster than to inactive complexes, whereby $K^*_{ia}~\ll~K_{ia}$. 
@@ -269,12 +269,12 @@ Together, these results show that in some cases a non-adaptive system of distrib
 
 
 \subsection{Dynamic adaptation preserves active odor perception in fluctuating odor environments}
-So far, we have assumed that odor signals are static in time, and that adaptation from the neural circuitry feeds back onto the receptor sensitivity instantly and perfectly. But realistic odor environments are highly intermittent and widely fluctuating, exhibiting odor concentrations that can span several orders~\cite{celani}. Further, limitations on energy consumption can limit adaptation speed and accuracy~\cite{ESA}. To account for temporal aspects in both the odor environment and sensing periphery, we relax the assumption that adaptation is instantaneous, instead letting the activity of each Or/Orco complex decay linearly to baseline levels $\bar{A}_{a, 0}$ via accompanying modulation of the complex free energies. Specifically, in response to a dynamic odor signal $s(t)$, the activity of complex $a$ is still given by Eq.~\ref{eq:steady_state_act}, but now with time-dependent free energies, $\epsilon_a \rightarrow \epsilon_a(t)$ obeying the dynamics
+So far, we have assumed that odor signals are static in time, and that adaptation from the neural circuitry feeds back onto the receptor sensitivity instantly and perfectly. But realistic odor environments are highly intermittent and widely fluctuating, exhibiting odor concentrations that can span several orders~\cite{celani}. Further, limitations on energy consumption can limit adaptation speed and accuracy~\cite{ESA}. To account for temporal aspects in both the odor environment and sensing periphery, we relax the assumption that adaptation is instantaneous, instead letting the activity of each Or/Orco complex decay linearly to baseline levels $\bar{A}_{a}$ via accompanying modulation of the complex free energies. Specifically, in response to a dynamic odor signal $s(t)$, the activity of complex $a$ is still given by Eq.~\ref{eq:steady_state_act}, but now with time-dependent free energies, $\epsilon_a \rightarrow \epsilon_a(t)$ obeying the dynamics
 \begin{align}
-\frac{d\epsilon_a(t)}{dt} &= \frac{1}{\tau_a}\left[\bar{A}_a - \bar {A}_{a,0}\right],
+\frac{d\epsilon_a(t)}{dt} &= \frac{1}{\tau_a}\left[A_a - \bar {A}_{a}\right],
 \label{eq:WL_dynamics}
 \end{align}
-where $\bar {A}_a = \bar{A}(s(t), \epsilon_a(t))$ is the time-dependent activity level and $\tau_a$ sets the timescale of adaptation. We compare the results for several timescales between 10 ms and several seconds. In accordance with out assumption that the adaptive mechanism acts on the universal co-receptor Orco, we assume that the adaptation timescale is receptor-independent, $\tau_a \equiv \tau$. 
+where $A_a = A(s(t), \epsilon_a(t))$ is the time-dependent activity level and $\tau_a$ sets the timescale of adaptation. We compare the results for several timescales between 10 ms and several seconds. In accordance with out assumption that the adaptive mechanism acts on the universal co-receptor Orco, we assume that the adaptation timescale is receptor-independent, $\tau_a \equiv \tau$. 
 
 
 
@@ -399,7 +399,7 @@ Several studies have implicated the importance of ORN temporal dynamics in odor 
 
 We model an odor as an $N$-dimensional vector $\mathbf s = \langle s_1,...,s_N\rangle$, where $s_i > 0$ are the concentrations of individual volatile molecules (odorants) comprising the odor. In addition, we assume that the odors are sparse in the space of odorants, so only $K$ components of $\mathbf s$ are nonzero, where $K \ll N$. The olfactory sensory system is modeled as a collection of $M$ distinct Or/Orco complexes, each of which can be bound with any one of the odorant molecules, and can be either active (firing) inactive (quiescent). We only consider competitive binding, so a complex is bound with one odorant at most. With $N$ possible odorants, receptor $a$ resides in one of $2N+2$ possible states, \{$R_a$, $R^*_a$, $R_a$-$s_i$, $R^*_a$-$s_i$\}, indicating receptors that are unbound/inactive, unbound/active, inactive/bound to odorant $i$, and active/bound to odorant $i$, respectively. Unless otherwise indicated, we set $N = 100$, $K = 7$, and $M = 50$ throughout.
 
-The system dynamics are schematized in Fig.(). In the mean-field limit, the binding dynamics of these $2N + 2$ states are described by the master equations:
+In the mean-field limit, the binding dynamics of these $2N + 2$ states are described by the master equations:
 
 \begin{align}
 \frac{d[R_a\text{-}s_i]}{dt} &= k^+_{ia}s_i[R_a] - k^-_{ia}[R_a\text{-}s_i] \label{eq:Meq_inactive_bind_rate}\\
@@ -427,7 +427,11 @@ Following~\cite{srinivas_elife}, we assume that in steady state, the active firi
 \frac{[R^*_a]}{[R_a]} &= \frac{w^{\text{u}+}_a}{w^{\text{u}-}_a} \equiv e^{-\epsilon_a} \label{eq:epsilon_unbound} \\
 \frac{[R^*_a\text{-}s_i]}{[R_a\text{-}s_i]} &= \frac{w^{\text{b}+}_{ia}}{w^{\text{b}-}_{ia}} \equiv e^{-\epsilon^{\text b}_{ia}}.\label{eq:epsilon_bound}
 \end{align}
-These energies are related through detailed balance, which we assume. Applying detailed balance to a given 4-cycle as in Fig.~() gives
+These energies are related through detailed balance, which we assume. Applying detailed balance to a given 4-cycle 
+\begin{align}
+R_a \rightarrow R_a^* \rightarrow R_a^*\text{-}s_i \rightarrow R_a\text{-}s_i \rightarrow R_a
+\end{align}
+gives
 \begin{align}
 \frac{w^{\text{u}+}_a}{w^{\text{u}-}_a}\frac{k^{*+}_{ia}}{k^{*-}_{ia}}\frac{w^{\text{b}-}_{ia}}{w^{\text{b}+}_{ia}}\frac{k^{-}_{ia}}{k^{+}_{ia}} \equiv 1,
 \label{eq:detailed_balance}
@@ -437,7 +441,7 @@ which, in conjunction with Eqs.~\ref{eq:Kd}, \ref{eq:epsilon_unbound}, and \ref{
 \epsilon_{ia}^{\text b} = \epsilon_a + \ln\left[\frac{K^*_{ia}}{K_{ia}}\right].
 \label{testing_equation}
 \end{align}
-Assuming the binding dynamics are fast, then the probability that receptor $a$ is bound by ligand $i$ when inactive and active can be derived from  Eqs.~\ref{eq:Meq_inactive_bind_rate} and \ref{eq:Meq_active_bind_rate} as
+Assuming the binding dynamics are fast, then the probability that receptor $a$ is bound by ligand~$i$ when inactive and active can be derived from  Eqs.~\ref{eq:Meq_inactive_bind_rate} and \ref{eq:Meq_active_bind_rate} as
 \begin{align}
 p^{\text b}_{ia} = \frac{s_i/K_{ia}}{1 + \sum_j^Ns_j/K_{ja}} \label{eq:bound_prob_ai_inactive} \\
 p^{\text b, *}_{ia} = \frac{s_i/K^*_{ia}}{1 + \sum_j^Ns_j/K^*_{ja}} \label{eq:bound_prob_ai_active}.
@@ -457,11 +461,11 @@ w^+_a &= \sum_i^Np^{\text b}_{ia} w^{\text u +}_{ia} + p_{a}w^{\text u}_a
 \end{align}
 and analogously for $w_a^-$. Setting Eq.~\ref{eq:dadt} to zero gives the steady state average activity level of ORN $a$:
 \begin{align}
-\bar{A}_a = \left(1 + e^{\epsilon_a}\frac{1 + \sum_i^N s_i/K_{ia}}{1 + \sum_i^N s_i/K^*_{ia}}\right)^{-1}. \tag{\ref{eq:steady_state_act}}
+A_a = \left(1 + e^{\epsilon_a}\frac{1 + \sum_i^N s_i/K_{ia}}{1 + \sum_i^N s_i/K^*_{ia}}\right)^{-1}. \tag{\ref{eq:steady_state_act}}
 \end{align}
 	
 \subsection{Generation of binding matrices $K^*_{ia}$}
-$K_{ia}^*$ matrices are generated by sampling at two stages. First, for each receptor complex $a$, the disassociation constants for ligand $i$ were chosen uniformly: $K^*_{ia} \sim \mathcal U[\mu_a, \nu_a]$. Each of these bounds were themselves drawn from a hyperdistribution, also uniform, $\mu_a \sim \mathcal U[\mu_{a, \text L}, \mu_{a, \text H}]$ and $\nu_a \sim \mathcal U[\nu_{a, \text L}, \nu_{a, \text H}]$. $K_{ia}$ matrix elements were set identically to 1e3 throughout. 
+$K_{ia}^*$ matrices are generated by sampling at two stages. First, for each receptor complex $a$, the disassociation constants for ligand $i$ were chosen uniformly: $K^*_{ia} \sim \mathcal U[\mu_a, \nu_a]$. Each of these bounds were themselves drawn from a hyperdistribution, also uniform, $\mu_a \sim \mathcal U[\mu_{a, \text L}, \mu_{a, \text H}]$ and $\nu_a \sim \mathcal U[\nu_{a, \text L}, \nu_{a, \text H}]$. The hyperdistribution determines receptor diversity (which receptors are broadly versus narrowly tuned), while the target distribution for a given $a$ determines that receptor's particular tuning curve. $K_{ia}$ matrix elements were set identically to 1e3 throughout. 
 
 
 \subsection{Compressed sensing decoding of ORN response}
@@ -478,80 +482,80 @@ CS addresses the problem of determining a sparse signal from a set of linear mea
 \hat s_i = \textup{argmin} \sum_i^N |s_i| \quad \textup{such that } \mathbf y = \mathbf R\mathbf s
 \label{eq:CS}
 \end{align}
-where $\hat s_i$ are the optimal estimates of the signal components and the sum, which is known as the $L_1$ norm of $\mathbf s$ is a natural metric of sparsity. 
+where $\hat s_i$ are the optimal estimates of the signal components and the sum, which is known as the $L_1$ norm of $\mathbf s$, is a natural metric of sparsity. 
 
 Importantly, the $L_1$ norm is a convex operation and the constraints are linear, so the optimization has a unique global minimum. To incorporate the nonlinear response of our encoding model into this linear framework, we assume that the responses are generated through the full nonlinear steady state response, Eq.~\ref{eq:steady_state_act}, but that the measurement matrix needed for decoding uses a linear approximation of this transformation.  Expanding Eq.~\ref{eq:steady_state_act} around $s_0 = s_i - \Delta s_i$ gives
 \begin{align}
-\bar A_a &\approx \bar A_{a, 0} + \Delta \bar{A}_a \label{eq:CS_act_approx} \\
-\Delta \bar{A}_a &= \sum_i^NR_{ia}\big|_{s_0}\Delta s_i \label{eq:CS_dAct_approx}\\
-\bar A_{a, 0} &= \frac{\sum_1^N s_0/K_{ia}^*}{\sum_1^N s_0/K_{ia}^* + e^{\epsilon_a}} \label{eq:CS_act0_approx} \\
+A_a &\approx A_{a, 0} + \Delta A_a \label{eq:CS_act_approx} \\
+\Delta A_a &= \sum_i^NR_{ia}\big|_{s_0}\Delta s_i \label{eq:CS_dAct_approx}\\
+A_{a, 0} &= \frac{\sum_1^N s_0/K_{ia}^*}{\sum_1^N s_0/K_{ia}^* + e^{\epsilon_a}} \label{eq:CS_act0_approx} \\
 R_{ia}\big|_{s_0} &=  \frac{e^{\epsilon_a}/K_{ia}^*}{(\sum_i^Ns_0/K_{ia}^* + e^{\epsilon_a})^2},
 \label{eq:CS_gain_approx}
 \end{align}
-where we work in the approximation $K^*_{ia} \ll~s_0 \ll K_{ia}$. We assume that the neural system has access to the linearized response, Eq.~\ref{eq:CS_gain_approx}, but must infer the excess signals $\Delta s_i$ from the excess activity $\Delta \bar A_a$. Corresponding to the CS framework, therefore, $\Delta \mathbf {\bar A} \rightarrow \mathbf y$, $\Delta \mathbf s \rightarrow \mathbf s$, and $R_{ia}\big|_{s_0} \rightarrow \mathbf R$. We optimize the cost function in Eq.~\ref{eq:CS} using sequential least squares programming, implemented in Python through using the scientific package SciPy.
+where we work in the approximation $K^*_{ia} \ll~s_0 \ll K_{ia}$. We assume that the neural system has access to the linearized response, Eq.~\ref{eq:CS_gain_approx}, but must infer the excess signals $\Delta s_i$ from the excess activity $\Delta A_a$. Corresponding to the CS framework, therefore, $\Delta \mathbf {A} \rightarrow \mathbf y$, $\Delta \mathbf s \rightarrow \mathbf s$, and $R_{ia}\big|_{s_0} \rightarrow \mathbf R$. We optimize the cost function in Eq.~\ref{eq:CS} using sequential least squares programming, implemented in Python through using the scientific package SciPy.
 
 \subsection{Or/Orco  energies of activation $\epsilon_a$ and enforcement of Weber's Law}
-Free energies are considered receptor-independent throughout, with the exception of dynamically adaptive system in a temporal odor environment (Figs.~\ref{fig:temporal_coding} and \ref{fig:temporal_coding_2}). To enforce Weber's Law, we assume the receptor activities feed back onto $\epsilon_a$ through the dynamics
+Free energies are considered receptor-independent throughout, with the exception of dynamically adaptive system in a temporal odor environment (Figs.~\ref{fig:temporal_coding} and \ref{fig:temporal_coding_2}). To enforce Weber's Law, we assume the receptor activities feed back onto $\epsilon_a$ through the free energies. For the static case, adaptation is perfect, whereby Or/Orco activities are pegged to perfectly adapted values $\bar {A}_{a}$. Incorporating this into Eq.~\ref{eq:steady_state_act}, and assuming  $K^*_{ia} \ll s \ll K_{ia}$, gives
 \begin{align}
-\frac{d\epsilon_a(t)}{dt} &= \frac{1}{\tau_a}\left[\bar{A}_a - \bar {A}_{a,0}\right] \tag{\ref{eq:WL_dynamics}}.
-\end{align}
-For the static case, adaptation is perfect, whereby Or/Orco activities are pegged to their perfectly adapted values $\bar {A}_{a,0}$. Incorporating this into Eq.~\ref{eq:steady_state_act}, and assuming  $K^*_{ia} \ll s_0 << K_{ia}$, gives
-\begin{align}
-\bar \epsilon_a &= \ln\left(\frac{1-\bar {A}_{a,0}}{\bar {A}_{a,0}}\right) + \ln\left(\sum_i^N\frac{s_i}{K_{ia}^*}\right).
+\bar \epsilon_a &= \ln\left(\frac{1-\bar {A}_{a}}{\bar {A}_{a}}\right) + \ln\left(\sum_i^N\frac{s_i}{K_{ia}^*}\right).
 \label{eq:adapted_epsilon}
 \end{align}
-Assuming that the excess signals are small, $\Delta s_i \ll s_0$, this gives 
+Assuming that the excess signals are small, $\Delta s_i < s_0$, this gives 
 \begin{align}
 \epsilon_a \approx \ln(s_0) + \epsilon_{a, 0},
 \label{eq:WL_approx}
 \end{align} 
 where $\epsilon_{a, 0}$ are receptor-dependent constants. In the static case, we choose these constants such that $\epsilon_{a}$ in both adaptive and non-adaptive systems are equivalent, equal to $\epsilon_{\text {L}}$, at a given low concentration, $s_{0, \text L}$.  Below this concentration, we assume adaptation is not in effect, so $\epsilon_a  = \epsilon_{\text {L}}$.  
 
-It is important to note that while the linearized gain Eq.~\ref{eq:CS_gain_approx} utilized by the decoding algorithm appears to rely on $\epsilon_a$, by the above argument $\epsilon_a$ can in principle be determined by firing rates alone. That is, $\epsilon_a$ is inferred in time through integration of Eq.~\ref{eq:WL_dynamics}, which relies only on the current ORN activity and the adapted activity $\bar{A}_{a, 0}$. 
+It is important to note that while the linearized gain Eq.~\ref{eq:CS_gain_approx} utilized by the decoding algorithm appears to rely on $\epsilon_a$, by the above argument $\epsilon_a$ can in principle be determined by firing rates alone. That is, $\epsilon_a$ is inferred in time through integration of Eq.~\ref{eq:WL_dynamics}, which relies only on the current ORN activity.
 
-
-\subsection{Odor signals}
-Odor signals $\mathbf s$ are $N$-dimensional vectors presumed sparse whereby only $K$ components, $s_k$ are nonzero,  $K~\ll~N$. We assume that $N~=100$ throughout. $K$ is set to 7 throughout, except in Fig.~\ref{fig:decoding_b}, where it ranges from 1 to 20. 
-
-The magnitudes of the nonzero components $s_k$ are denoted $s_0 + \Delta s_k$. Here, $\Delta s_k$ is a random vector, while $s_0$ is both the center of linearization and, in the case of the adaptive system, the value dictating the strength of adaptive feedback $\epsilon_a\sim\ln\langle s_0 \rangle$. 
-
-All the signal intensities are in arbitrary units as they can be scaled to any range by a corresponding shift in the scales of $K_{ia}$ and $K^*_{ia}$.
-
-\subsection{Parameter values used in all figures}
 
 \begin{table*}[!tb]
 	\centering
 	{\small
-	\begin{tabular}{ccccccccccccccc}
-		Figure & $N$& $M$ & $K$ & $\mu_{a, \text L}$ & $\mu_{a, \text H}$ & $\nu_{a, \text L}$ & $\nu_{a, \text H}$ & $\epsilon_{a, 0}$ & $\epsilon_{\text {L}}$  & $\epsilon_{\text {H}}$  & $s_{0, \text L}$ & $p(s_k)$ & $p(s_{k, \text F})$\\[0.1cm]
-
-		\hline \\[-0.2cm]
-		\smallskip
-		
-		\ref{fig:tuning_curves_c} & 200 & 40 & 6 & $2\cdot 10^{-4}$ & $10^{-3}$ & $10^{-2}$ & 1.0 & 5.4 & 5.4 & 10  & - & $ \mathcal N\left(\frac{s_0}{5}, \frac{s_0}{15}\right)$ & --\\
-		
-		\ref{fig:decoding_a} & 100 & 50 & 7 & 0.5 & 0.5 & 0.8 & 0.8 & 5.4 & 3.1 & 10  & $10^{-1}$ & $ \mathcal N\left(\frac{s_0}{3}, \frac{s_0}{15}\right)$ & -- \\
-		
-		\ref{fig:decoding_b} & 100 & 50 & 7 & 0.5 & 0.6 & 0.6 & 0.9 & 5.4 & 3.1 & 10 & $10^{-1}$ & $ \mathcal N\left(\frac{s_0}{3}, \frac{s_0}{15}\right)$ & ---\\
-		
-		\ref{fig:decoding_c} & 100 & 50 & 7 & 0.5 & 0.6 & 0.6 & 0.9 & 5.4 & 3.1 & 10 & $10^{-1}$ & $ \mathcal N\left(\frac{s_0}{3}, \frac{s_0}{15}\right)$ & -- \\
-	
-		\ref{fig:signal_discrimination_a}-\ref{fig:signal_discrimination_h} & 100 & 50 & 7 & 0.5 & 0.6 & 0.6 & 0.9 & 5.4 & 3.1 & 10 & $10^{-1}$ & $ \mathcal N\left(\frac{s_0}{3}, \frac{s_0}{15}\right)$ & $ \mathcal N(1, \frac{1}{5})$ \\
-	
-	\end{tabular}
+		\begin{tabular}{ccccccccccccccc}
+			Figure & $N$& $M$ & $K$ & $\mu_{a, \text L}$ & $\mu_{a, \text H}$ & $\nu_{a, \text L}$ & $\nu_{a, \text H}$ & $\epsilon_{a, 0}$ & $\epsilon_{\text {L}}$  & $\epsilon_{\text {H}}$  & $s_{0, \text L}$ & $s_k$ & $s_{k, \text F}$\\[0.1cm]
+			
+			\hline \\[-0.2cm]
+			\smallskip
+			
+			\ref{fig:tuning_curves_c} & 200 & 40 & 6 & $2\cdot 10^{-4}$ & $10^{-3}$ & $10^{-2}$ & 1.0 & 5.4 & 5.4 & 10  & - & $ \mathcal N\left(\frac{s_0}{5}, \frac{s_0}{15}\right)$ & --\\
+			
+			\ref{fig:decoding_a} & 100 & 50 & 7 & 0.5 & 0.5 & 0.8 & 0.8 & 5.4 & 3.1 & 10  & $10^{-1}$ & $ \mathcal N\left(\frac{s_0}{3}, \frac{s_0}{15}\right)$ & -- \\
+			
+			\ref{fig:decoding_b} & 100 & 50 & 7 & 0.5 & 0.6 & 0.6 & 0.9 & 5.4 & 3.1 & 10 & $10^{-1}$ & $ \mathcal N\left(\frac{s_0}{3}, \frac{s_0}{15}\right)$ & ---\\
+			
+			\ref{fig:decoding_c} & 100 & 50 & 7 & 0.5 & 0.6 & 0.6 & 0.9 & 5.4 & 3.1 & 10 & $10^{-1}$ & $ \mathcal N\left(\frac{s_0}{3}, \frac{s_0}{15}\right)$ & -- \\
+			
+			\ref{fig:signal_discrimination_a}-\ref{fig:signal_discrimination_h} & 100 & 50 & 7 & 0.5 & 0.6 & 0.6 & 0.9 & 5.4 & 3.1 & 10 & $10^{-1}$ & $ \mathcal N\left(\frac{s_0}{3}, \frac{s_0}{15}\right)$ & $ \mathcal N(1, \frac{1}{5})$ \\
+			
+			\ref{fig:temporal_coding} & 100 & 50 & 7 & 0.5 & 0.6 & 0.6 & 0.9 & -- & -- & -- & $10^{-2}$ & $ \mathcal N\left(\frac{s_0}{3}, \frac{s_0}{9}\right)$ & -- \\
+			
+			\ref{fig:temporal_coding_2} & 100 & 50 & 7 & 0.5 & 0.6 & 0.6 & 0.9 & -- & -- & -- & $10^{-2}$ & $ \mathcal N\left(\frac{s_0}{3}, \frac{s_0}{9}\right)$ & -- \\
+		\end{tabular}
+	}
+	\caption{Parameters for simulations in all of the figures.}
 	\label{tab:params}
-	\caption{table}
-}
 \end{table*}
+
+
+
+\subsection{Odor signals}
+Odor signals $\mathbf s$ are $N$-dimensional vectors presumed sparse whereby only $K$ components, $s_k$ are nonzero,  $K~\ll~N$. The magnitudes of the nonzero components $s_k$ are denoted $s_0 + \Delta s_k$. Here, $\Delta s_k$ is a random vector, while $s_0$ is both the center of linearization and, in the case of the adaptive system, the value dictating the strength of adaptive feedback $\epsilon_a\sim\ln\langle s_0 \rangle$. 
+
+All the signal intensities are in arbitrary units, as they can be scaled to any range by a corresponding shift in the scales of $K_{ia}$ and $K^*_{ia}$.
 
 \subsection{Dynamic adaptation}
 
 Dynamic adaptation is enforced through
 \begin{align}
-	\frac{d\epsilon_a(t)}{dt} &= \frac{1}{\tau_a}\left[\bar{A}_a - \bar {A}_{a,0}\right].
+	\frac{d\epsilon_a(t)}{dt} &= \frac{1}{\tau_a}\left[A_a - \bar {A}_{a}\right].
 	\tag{\ref{eq:WL_dynamics}}
 \end{align}
-The perfectly adapted activity levels $\bar {A}_{a,0}$ are determined via Eq.~\ref{eq:steady_state_act} at a given odor intensity, $s_{0, \text{L}}$, corresponding to a minimum stimulus at which adaptation takes effect. 
+The perfectly adapted activity levels $\bar {A}_{a}$ are determined by evaluating Eq.~\ref{eq:steady_state_act} at a given odor intensity, $s_{0, \text{L}}$, corresponding to a minimum stimulus at which adaptation takes effect. The decoding step is assumed instantaneous, so decoded odor identity $\mathbf {\hat s}$ is determined by the current value of $\epsilon_a$ (which, by virtue of Eq.~\ref{eq:WL_dynamics}, is determined by ORN activity a short time prior).
 
+For the simulations with two fluctuating odors (Figs.~\ref{fig:temporal_coding_2}), the traces shown correspond to the values of $s_0$ (in blue) and $s_{0, \text{b}}$ (orange), where $s_{0, \text{b}}$ is the baseline concentration of the background odor components, to which the excess signals $\Delta s_{k, \text {b}}$ are added to set the individual odorant concentrations. We choose $\Delta s_{k, \text {b}}~\sim~\mathcal N(s_{k, \text {b}}/3, s_{k, \text {b}}/9)$.
 
-The decoding algorithm is assumed instantaneous, so the decoded odor identity $\mathbf {\hat s}$ is 
+\subsection{Parameter values used in all figures}
+
+Parameter values for all of the plots are listed in Table~\ref{tab:params}.
