@@ -18,7 +18,27 @@ from local_methods import def_data_dir
 
 
 DATA_DIR = def_data_dir()
-					
+
+def load_Hallem_firing_rate_data():
+	"""
+	Load firing rate data from file.
+	
+	Returns:
+		data: dictionary of 24 ORN firing rates for each of 
+				110 monomolecular odorants.
+	"""
+	
+	filename = '%s/Hallem_data/firing_rates.dat' % (DATA_DIR)
+	data = sp.loadtxt(filename, dtype='S8')
+	unicode_data = data.view(sp.chararray).encode('utf-8')
+		
+	data_dict = dict()
+	ORN_names = data[0, :]
+	ORN_rates = sp.array(data[1:, :], dtype='float').T
+	for idx, name in enumerate(ORN_names): 
+		data_dict[name] = (ORN_rates[idx])
+	
+	return data_dict					
 
 def load_objects(obj_idx, data_flag):
 	"""

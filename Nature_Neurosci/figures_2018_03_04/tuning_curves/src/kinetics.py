@@ -12,6 +12,8 @@ visit http://creativecommons.org/licenses/by-nc-sa/4.0/.
 
 import scipy as sp
 from stats import Kk_dist_Gaussian_activity
+from scipy.stats import gamma
+from scipy.interpolate import interp1d
 import warnings
 import sys
 
@@ -33,7 +35,7 @@ def linear_gain(Ss0, Kk1, Kk2, eps):
 		WL_term = (1./Kk1[iM,:])/(sp.ones(Nn) + Kk1_sum[iM]) - \
 					(1./Kk2[iM,:])/(sp.ones(Nn) + Kk2_sum[iM])
 		dAadSs0[iM,:] = -A0[iM]*(sp.ones(Nn) - A0[iM])*WL_term
-	
+		
 	return dAadSs0
 	
 
@@ -51,6 +53,50 @@ def receptor_activity(Ss, Kk1, Kk2, eps):
 	
 	return Aa
 
+def temporal_kernel(vec, memory_vec, integration_Tt, kernel_params):
+	"""
+	Apply temporal kernel to current values of activity or gain levels. 
+	This function discretely integrates the convolution of the 
+	temporal kernel with a vector of activities held in a finite
+	length of memory. To account for the fact that the kernel has
+	features at a finer timescale than the integration time, the
+	activities are interpolated in between these times to convolve
+	on a finer timescale. integration_Tt is the time vector of the 
+	full integration of the estimation.
+	"""
+	
+	kernel_T, kernel_dt, kernel_tau_1, kernel_tau_2, kernel_alpha, \
+		kernel_scale, = kernel_params
+
+	# Length of memory vector based on signal sampling rate
+	signal_dt = integration_Tt[1] - integration_Tt[0]
+	signal_Tt = sp.linspace(0, kernel_T, int(kernel_T/signal_dt) + 1)
+	memory_vec_len = len(signal_Tt)
+	
+	# Finer mesh for kernel integration, utilizing kernel_dt
+	kernel_Tt = sp.arange(0, kernel_T, kernel_dt)
+	
+	# Assign memory vector holding past activity levels; replace t = 0 
+	# value with current vector value; roll rest to previous times
+	if memory_vec is None:
+		memory_vec = sp.zeros(vec.shape + (memory_vec_len,))
+	memory_vec = sp.roll(memory_vec, 1)
+	memory_vec[...,0] = vec
+		
+	# Interpolating function to get finer mesh for kernel integration
+	interp_f = interp1d(signal_Tt, memory_vec)
+	
+	# Get kernel and Yy, Yy0 at points on scale of kernel_dt
+	vec_interped = interp_f(kernel_Tt)
+	kernel = kernel_scale*((1. - kernel_alpha)*gamma.pdf(kernel_Tt, 2, 
+				scale=kernel_tau_1) - 0*kernel_alpha*gamma.pdf(kernel_Tt, 3,
+				scale=kernel_tau_2))
+	
+	# Apply the filter
+	vec = sp.sum(vec_interped*kernel*kernel_dt, axis=-1)
+	
+	return vec, memory_vec
+	
 def free_energy(Ss, Kk1, Kk2, adapted_A0):
 	"""
 	Adapted steady state free energy for given 

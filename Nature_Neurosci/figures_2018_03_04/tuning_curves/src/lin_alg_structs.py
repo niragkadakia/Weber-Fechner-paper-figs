@@ -11,6 +11,8 @@ visit http://creativecommons.org/licenses/by-nc-sa/4.0/.
 
 
 import scipy as sp
+from scipy.stats import powerlaw
+
 
 def random_matrix(matrix_shape, params, sample_type='normal', seed=0):
 	"""
@@ -50,22 +52,44 @@ def random_matrix(matrix_shape, params, sample_type='normal', seed=0):
 	
 	elif sample_type == "rank2_row_uniform":
 		sp.random.seed(seed)
-		sigmas_lo, sigmas_hi = params[:2]
+		bounds_lo, bounds_hi = params[:2]
 		
 		assert len(matrix_shape) == 2, \
 				"rank2_row_uniform method needs a 2x2 matrix"
 		nRows, nCols = matrix_shape
-		assert len(sigmas_lo) == nRows, "rank2_row_uniform needs " \
-										"sigma_lo vector of proper length"
-		assert len(sigmas_hi) == nRows, "rank2_row_uniform needs " \
-										"sigma_hi vector of proper length"
+		assert len(bounds_lo) == nRows, "rank2_row_uniform needs " \
+										"bounds_lo vector of proper length"
+		assert len(bounds_hi) == nRows, "rank2_row_uniform needs " \
+										"bounds_hi vector of proper length"
 		out_matrix = sp.zeros(matrix_shape)
 		
 		for iRow in range(nRows):
-			out_matrix[iRow, :] = sp.random.uniform(sigmas_lo[iRow], 
-									sigmas_hi[iRow], nCols)
+			out_matrix[iRow, :] = sp.random.uniform(bounds_lo[iRow], 
+									bounds_hi[iRow], nCols)
 		return out_matrix
 	
+	elif sample_type == "rank2_row_power":
+		sp.random.seed(seed)
+		bounds_lo, bounds_hi, power_exp = params[:3]
+		
+		assert len(matrix_shape) == 2, \
+				"rank2_row_power method needs a 2x2 matrix"
+		nRows, nCols = matrix_shape
+		assert len(bounds_lo) == nRows, "rank2_row_gaussian needs " \
+										"bounds_lo vector of proper length"
+		assert len(bounds_hi) == nRows, "rank2_row_gaussian needs " \
+										"bounds_hi vector of proper length"
+		out_matrix = sp.zeros(matrix_shape)
+		
+		for iRow in range(nRows):
+			out_matrix[iRow, :] = powerlaw.rvs(power_exp, loc=bounds_lo[iRow], 
+									scale=bounds_hi[iRow], size=nCols)	
+		return out_matrix
+	
+	elif sample_type == 'power':
+		sp.random.seed(seed)
+		lo, hi, power_exp = params[:3]
+		return powerlaw.rvs(power_exp, loc=lo, scale=hi, size=matrix_shape)	
 	
 	elif sample_type == "gaussian_mixture":
 		mean1, sigma1, mean2, sigma2, prob_1 = params[:5]
