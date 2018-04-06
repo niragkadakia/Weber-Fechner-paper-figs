@@ -13,7 +13,7 @@ http://creativecommons.org/licenses/by-nc-sa/4.0/.
 import scipy as sp
 import sys
 sys.path.append('../../shared_src')
-
+from save_load_figure_data import save_success_ratios
 
 # The location of the source code for CS-variability-adaptation is listed
 # in the ../../shared_src/local_methods file within src_dir()
@@ -21,15 +21,12 @@ from local_methods import src_dir
 sys.path.append(src_dir())
 from utils import get_flag
 from load_specs import read_specs_file
-from analysis import binary_success, binary_errors, binary_errors
+from analysis import binary_success, binary_errors
 from load_data import load_aggregated_object_list
-from save_figure_data import save_success_ratios
 
 
-def calculate_errors(data_flags, nonzero_bounds=[0.75, 1.25], zero_bound=1./30,
+def calculate_errors(data_flags, nonzero_bounds=[0.75, 1.25], zero_bound=1./10,
 						threshold_pct_nonzero=100.0, threshold_pct_zero=100.0):
-	"""
-	"""
 	
 	for data_flag in data_flags:
 	
