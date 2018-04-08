@@ -27,7 +27,10 @@ from load_data import load_aggregated_object_list
 
 def calculate_errors(data_flags, nonzero_bounds=[0.75, 1.25], zero_bound=1./10,
 						threshold_pct_nonzero=100.0, threshold_pct_zero=100.0):
-	
+	"""
+	Calcualte successful odor estimations based on binary errors.
+	"""
+		
 	for data_flag in data_flags:
 	
 		list_dict = read_specs_file(data_flag)

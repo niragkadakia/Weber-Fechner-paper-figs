@@ -25,15 +25,14 @@ from local_methods import src_dir
 sys.path.append(src_dir())
 from utils import get_flag
 from load_specs import read_specs_file
-from analysis import binary_success, binary_errors
-from load_data import load_aggregated_object_list
 
 
 
 def plot_errors_vs_Kk(data_flag, conc_shift=-8):
 	"""
-	conc_shift is shift of concentration to realistic levels; i.e. consider
-	all odor stimuli as relative to this value.
+	Heatmap of errors as a function of background stimulus (x) and 
+	odor complexity (y). conc_shift is shift of concentration to realistic 
+	levels; i.e. consider all odor stimuli as relative to this value.
 	"""
 	
 	list_dict = read_specs_file(data_flag)

@@ -10,17 +10,8 @@ visit http://creativecommons.org/licenses/by-nc-sa/4.0/.
 """
 
 import scipy as sp
-import cPickle
-import shelve
-import gzip
 import os
-import time
-try:
-	import matplotlib.pyplot as plt
-except:
-	import matplotlib
-	matplotlib.use('Agg')
-	import matplotlib.pyplot as plt
+import matplotlib.pyplot as plt
 from local_methods import def_data_dir, def_figure_analysis_data_dir
 
 
