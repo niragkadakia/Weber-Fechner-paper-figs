@@ -53,7 +53,18 @@ def fig_Kk2():
 		
 	fig = plt.figure()
 	
-	#fig.set_size_inches(, 4)
+	plt.xticks([])
+	plt.yticks([])
+	
+	return fig
+	
+def fig_temporal_kernel():
+	"""
+	Plot binding matrices
+	"""
+		
+	fig = plt.figure()
+	fig.set_size_inches(2.5, 1.5)
 	plt.xticks([])
 	plt.yticks([])
 	

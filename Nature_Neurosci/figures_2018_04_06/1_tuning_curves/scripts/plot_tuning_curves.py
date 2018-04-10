@@ -58,16 +58,17 @@ def plot_tuning_curves(data_flag, Ss0_to_plot=10.0, seed_to_plot=9):
 		obj = single_encode_CS(obj, list_dict['run_specs'])
 		tuning_curve[iN, :] = obj.Yy
 	
+	# Plot the activity matrix
 	fig = fig_Kk2()
 	ax = plt.gca()
-	im = ax.imshow(tuning_curve.T, cmap=plt.cm.hot, aspect=2.0, 
+	im = ax.imshow(tuning_curve.T, cmap=plt.cm.bone_r, aspect=1.0, 
 						vmin=-1, vmax=300)
-	cbar = plt.colorbar(im, fraction=0.032, pad=0.04)
+	cbar = plt.colorbar(im, fraction=0.07, pad=0.04, orientation="horizontal")
 	cbar.set_ticks([0, 100, 200, 300])
-	cbar.ax.tick_params(labelsize=15) 
+	cbar.ax.tick_params(labelsize=12) 
 	save_fig('act_matrix_seed=%s' % seed_to_plot, subdir=data_flag)
 	
-	# Plot tuning curve
+	# Plot sorted individual tuning curve
 	for iM in range(Mm):
 		fig = fig_tuning_curve()
 		tuning_curve_sorted = sp.sort(tuning_curve[:, iM])
