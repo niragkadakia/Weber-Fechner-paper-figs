@@ -26,9 +26,9 @@ def fig_errors_vs_Kk():
 		
 	fig = plt.figure()
 	
-	fig.set_size_inches(5, 4)
-	plt.xticks(sp.arange(-10, 0), fontsize=13)
-	plt.yticks(sp.arange(1, 20), fontsize=13)
+	fig.set_size_inches(4, 3)
+	plt.xticks(sp.arange(-10, 0), fontsize=15)
+	plt.yticks(sp.arange(1, 20), fontsize=15)
 	
 	return fig
 
@@ -39,8 +39,23 @@ def fig_tuning_curve():
 		
 	fig = plt.figure()
 	
-	fig.set_size_inches(5, 4)
+	fig.set_size_inches(5, 3)
+	plt.xticks([])
+	plt.yticks([])
+	plt.ylim(0, 285)		
+		
+	return fig
+	
+def fig_Kk2():
+	"""
+	Plot binding matrices
+	"""
+		
+	fig = plt.figure()
+	
+	#fig.set_size_inches(, 4)
 	plt.xticks([])
 	plt.yticks([])
 	
 	return fig
+	

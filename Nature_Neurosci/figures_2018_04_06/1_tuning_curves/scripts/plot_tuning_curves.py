@@ -15,6 +15,7 @@ import sys
 import matplotlib.pyplot as plt
 sys.path.append('../../shared_src')
 from save_load_figure_data import save_success_ratios, save_fig
+from plot_formats import fig_tuning_curve, fig_Kk2
 
 # The location of the source code for CS-variability-adaptation is listed
 # in the ../../shared_src/local_methods file within src_dir()
@@ -57,16 +58,24 @@ def plot_tuning_curves(data_flag, Ss0_to_plot=10.0, seed_to_plot=9):
 		obj = single_encode_CS(obj, list_dict['run_specs'])
 		tuning_curve[iN, :] = obj.Yy
 	
+	fig = fig_Kk2()
+	ax = plt.gca()
+	im = ax.imshow(tuning_curve.T, cmap=plt.cm.hot, aspect=2.0, 
+						vmin=-1, vmax=300)
+	cbar = plt.colorbar(im, fraction=0.032, pad=0.04)
+	cbar.set_ticks([0, 100, 200, 300])
+	cbar.ax.tick_params(labelsize=15) 
+	save_fig('act_matrix_seed=%s' % seed_to_plot, subdir=data_flag)
+	
 	# Plot tuning curve
 	for iM in range(Mm):
+		fig = fig_tuning_curve()
 		tuning_curve_sorted = sp.sort(tuning_curve[:, iM])
 		tuning_to_plot = sp.hstack((tuning_curve_sorted[::2], 
 									tuning_curve_sorted[1::2][::-1]))
 		plt.bar(sp.arange(-Nn/2, Nn/2), tuning_to_plot, 
-					color='0.2', width=0.95)
-		plt.ylim(0, 325)
-		
-		save_fig('%s' % iM, subdir=data_flag, clear_plot=True)
+					color='0.1', width=1)
+		save_fig('seed=%s_iM=%s' % (seed_to_plot, iM), subdir=data_flag)
 	
 	
 if __name__ == '__main__':

@@ -16,7 +16,9 @@ import scipy as sp
 import sys
 import matplotlib.pyplot as plt
 sys.path.append('../../shared_src')
-from save_load_figure_data import load_success_ratios, save_fig
+from save_load_figure_data import load_success_ratios, load_binary_errors, \
+									load_MSE_errors, load_odor_ID_errors, \
+									save_fig
 from plot_formats import fig_errors_vs_Kk
 
 # The location of the source code for CS-variability-adaptation is listed
@@ -25,7 +27,6 @@ from local_methods import src_dir
 sys.path.append(src_dir())
 from utils import get_flag
 from load_specs import read_specs_file
-
 
 
 def plot_errors_vs_Kk(data_flag, conc_shift=-8):
@@ -38,9 +39,7 @@ def plot_errors_vs_Kk(data_flag, conc_shift=-8):
 	list_dict = read_specs_file(data_flag)
 	iter_vars = list_dict['iter_vars']
 	
-	# Decoding accuracy subfigures
-	fig = fig_errors_vs_Kk()
-
+	
 	assert len(iter_vars) == 3, "Need 3 iter_vars"
 	iter_var = iter_vars.keys()[0]
 	Kk_var = iter_vars.keys()[2]
@@ -50,17 +49,31 @@ def plot_errors_vs_Kk(data_flag, conc_shift=-8):
 	X, Y = sp.meshgrid(x, y)
 	
 	successes = load_success_ratios(data_flag)
+	binary_errors = load_binary_errors(data_flag)
+	errors_nonzero = binary_errors['errors_nonzero']
+	errors_zero = binary_errors['errors_zero']
+	odor_ID_errors = load_odor_ID_errors(data_flag)
 	
 	# Plot successes, averaged over second axis of successes array
+	fig = fig_errors_vs_Kk()
+	avg_odor_ID_errors = sp.average(odor_ID_errors , axis=1)
+	plt.pcolormesh(X, Y, avg_odor_ID_errors.T, cmap=plt.cm.hot, rasterized=True, 
+					shading='gouraud', vmin=0, vmax=1)
+	plt.xlim(-8, -4)
+	plt.ylim(1, 5)
+	plt.colorbar()
+	save_fig('errors_vs_Kk_odor_ID', subdir=data_flag)
+	
+	fig = fig_errors_vs_Kk()
 	avg_successes = sp.average(successes, axis=1)
 	plt.pcolormesh(X, Y, avg_successes.T, cmap=plt.cm.hot, rasterized=True, 
-					shading='gouraud', vmin=-0.05, vmax=1.05)
+					shading='gouraud', vmin=0, vmax=1)
 	plt.xlim(-8, -4)
-	plt.ylim(1, 8)
+	plt.ylim(1, 5)
 	plt.colorbar()
 	save_fig('errors_vs_Kk', subdir=data_flag)
 	
-		
+	
 if __name__ == '__main__':
 	data_flag = get_flag()
 	plot_errors_vs_Kk(data_flag)
