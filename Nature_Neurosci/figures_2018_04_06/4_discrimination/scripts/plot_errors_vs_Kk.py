@@ -28,11 +28,15 @@ from utils import get_flag
 from load_specs import read_specs_file
 
 
-def plot_errors_vs_Kk(data_flag, conc_shift=-8):
+def plot_errors_vs_Kk(data_flag, conc_shift=-8, plot_colorbar=True, xticks=True, 
+						yticks=True, complexities_to_plot=range(1, 6)):
 	"""
 	Heatmap of errors as a function of background stimulus (x) and 
 	odor complexity (y). conc_shift is shift of concentration to realistic 
 	levels; i.e. consider all odor stimuli as relative to this value.
+	
+	complexities_to_plot: list; actual background odor complexities to plot;
+							not the indices of the array. 
 	"""
 	
 	list_dict = read_specs_file(data_flag)
@@ -60,6 +64,9 @@ def plot_errors_vs_Kk(data_flag, conc_shift=-8):
 	# Distinct plot for each background complexity
 	for iKk2, Kk2 in enumerate(bkgrnd_complexities):
 	
+		if Kk2 not in complexities_to_plot:
+			continue
+	
 		fig = fig_errors_vs_Kk()
 		avg_successes = sp.average(successes[:, :, :, iKk2], axis=1)
 		plt.pcolormesh(X, Y, avg_successes.T, cmap=plt.cm.hot, rasterized=True,
@@ -67,7 +74,13 @@ def plot_errors_vs_Kk(data_flag, conc_shift=-8):
 		plt.xscale('log')
 		plt.xlim(10**(-8), 10**(-4))
 		plt.ylim(1, 5)
-		plt.colorbar()
+		if xticks == False:
+			plt.xticks([])
+		if yticks == False:
+			plt.yticks([])
+		if plot_colorbar == True:
+			cbar = plt.colorbar()
+			cbar.ax.tick_params(labelsize=15) 
 		save_fig('errors_vs_Kk_bkgrnd_complexity=%s' % Kk2, subdir=data_flag)
 		
 		
