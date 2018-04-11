@@ -58,6 +58,23 @@ def fig_Kk2():
 	
 	return fig
 	
+def fig_Kk2_hist():
+	"""
+	Plot binding constnats histogram
+	"""
+	
+	fig = plt.figure()
+	
+	fig.set_size_inches(3, 2.5)
+	plt.ylim(-3, 0)
+	plt.xlim(-3, 0)
+	plt.xticks(sp.arange(-4,1), fontsize=15)
+	plt.yticks(sp.arange(-4, 1), fontsize=15)
+	plt.xlim(-3.2, 0.2)
+	plt.ylim(-3.1, 0.5)
+	
+	return fig
+	
 def fig_temporal_kernel():
 	"""
 	Plot binding matrices

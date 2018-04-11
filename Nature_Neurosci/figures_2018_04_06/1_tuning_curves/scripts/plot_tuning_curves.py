@@ -61,9 +61,9 @@ def plot_tuning_curves(data_flag, Ss0_to_plot=10.0, seed_to_plot=9):
 	# Plot the activity matrix
 	fig = fig_Kk2()
 	ax = plt.gca()
-	im = ax.imshow(tuning_curve.T, cmap=plt.cm.bone_r, aspect=1.0, 
+	im = ax.imshow(tuning_curve.T, cmap=plt.cm.hot, aspect=1.0, 
 						vmin=-1, vmax=300)
-	cbar = plt.colorbar(im, fraction=0.07, pad=0.04, orientation="horizontal")
+	cbar = plt.colorbar(im, fraction=0.015, pad=0.04)
 	cbar.set_ticks([0, 100, 200, 300])
 	cbar.ax.tick_params(labelsize=12) 
 	save_fig('act_matrix_seed=%s' % seed_to_plot, subdir=data_flag)

@@ -1,5 +1,5 @@
 """
-Plot the binding matrices
+Plot the binding matrices and their distribution in a histogram.
 
 
 Created by Nirag Kadakia at 9:00 04-08-2017
@@ -15,7 +15,7 @@ import sys
 import matplotlib.pyplot as plt
 sys.path.append('../../shared_src')
 from save_load_figure_data import save_success_ratios, save_fig
-from plot_formats import fig_Kk2
+from plot_formats import fig_Kk2, fig_Kk2_hist
 
 # The location of the source code for CS-variability-adaptation is listed
 # in the ../../shared_src/local_methods file within src_dir()
@@ -28,7 +28,7 @@ from load_data import load_aggregated_object_list
 
 def plot_Kk2(data_flag, seed_to_plot=9):
 	"""
-	Plot binding matrix.
+	Plot binding matrix and histogram.
 	"""
 	
 	list_dict = read_specs_file(data_flag)
@@ -48,8 +48,12 @@ def plot_Kk2(data_flag, seed_to_plot=9):
 	
 	fig = fig_Kk2()
 	plt.imshow(sp.log(Kk2)/sp.log(10), cmap=plt.cm.afmhot_r, aspect=1.5)
-	#plt.colorbar()
 	save_fig('Kk2_seed=%s' % seed_to_plot, subdir=data_flag)
+	
+	fig = fig_Kk2_hist()
+	hist, bins = sp.histogram(sp.log(sp.ndarray.flatten(Kk2))/sp.log(10), bins = 50, normed=True)
+	plt.plot(bins[:-1], sp.log((bins[1:] - bins[:-1])*sp.cumsum(hist))/sp.log(10), color='k', lw=5)
+	save_fig('Kk2_hist_seed=%s' % seed_to_plot, subdir=data_flag)
 	
 	
 if __name__ == '__main__':
