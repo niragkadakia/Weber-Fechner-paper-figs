@@ -27,8 +27,8 @@ def fig_errors_vs_Kk():
 	fig = plt.figure()
 	
 	fig.set_size_inches(4, 3)
-	plt.xticks(sp.arange(-10, 0), fontsize=15)
-	plt.yticks(sp.arange(1, 20), fontsize=15)
+	plt.xticks(sp.arange(-10, 10), fontsize=20)
+	plt.yticks(sp.arange(1, 15, 2), fontsize=20)
 	
 	return fig
 

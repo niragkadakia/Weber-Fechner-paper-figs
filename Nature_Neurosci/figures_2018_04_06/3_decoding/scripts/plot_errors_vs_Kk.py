@@ -14,6 +14,7 @@ http://creativecommons.org/licenses/by-nc-sa/4.0/.
 
 import scipy as sp
 import sys
+import matplotlib as mpl
 import matplotlib.pyplot as plt
 sys.path.append('../../shared_src')
 from save_load_figure_data import load_success_ratios, load_binary_errors, \
@@ -29,7 +30,7 @@ from utils import get_flag
 from load_specs import read_specs_file
 
 
-def plot_errors_vs_Kk(data_flag, conc_shift=-8):
+def plot_errors_vs_Kk(data_flag, conc_shift=-4):
 	"""
 	Heatmap of errors as a function of background stimulus (x) and 
 	odor complexity (y). conc_shift is shift of concentration to realistic 
@@ -38,8 +39,7 @@ def plot_errors_vs_Kk(data_flag, conc_shift=-8):
 	
 	list_dict = read_specs_file(data_flag)
 	iter_vars = list_dict['iter_vars']
-	
-	
+		
 	assert len(iter_vars) == 3, "Need 3 iter_vars"
 	iter_var = iter_vars.keys()[0]
 	Kk_var = iter_vars.keys()[2]
@@ -52,26 +52,25 @@ def plot_errors_vs_Kk(data_flag, conc_shift=-8):
 	binary_errors = load_binary_errors(data_flag)
 	errors_nonzero = binary_errors['errors_nonzero']
 	errors_zero = binary_errors['errors_zero']
-	odor_ID_errors = load_odor_ID_errors(data_flag)
 	
 	# Plot successes, averaged over second axis of successes array
-	fig = fig_errors_vs_Kk()
-	avg_odor_ID_errors = sp.average(odor_ID_errors , axis=1)
-	plt.pcolormesh(X, Y, avg_odor_ID_errors.T, cmap=plt.cm.hot, rasterized=True, 
-					shading='gouraud', vmin=0, vmax=1)
-	plt.xlim(-8, -4)
-	plt.ylim(1, 5)
-	plt.colorbar()
-	save_fig('errors_vs_Kk_odor_ID', subdir=data_flag)
-	
 	fig = fig_errors_vs_Kk()
 	avg_successes = sp.average(successes, axis=1)
 	plt.pcolormesh(X, Y, avg_successes.T, cmap=plt.cm.hot, rasterized=True, 
 					shading='gouraud', vmin=0, vmax=1)
-	plt.xlim(-8, -4)
-	plt.ylim(1, 5)
-	plt.colorbar()
+	plt.xlim(-4, 0)
+	plt.ylim(1, 7)
 	save_fig('errors_vs_Kk', subdir=data_flag)
+	
+	fig = plt.figure()
+	fig.set_size_inches(1, 5)
+	ax1 = fig.add_axes([0.1, 0.1, 0.3, 0.7])
+	norm = mpl.colors.Normalize(vmin=0, vmax=100)
+	cbar = mpl.colorbar.ColorbarBase(ax1, cmap=plt.cm.hot,
+                                norm=norm, ticks=[0, 50, 100],
+                                orientation='vertical')
+	cbar.ax.tick_params(labelsize=25)
+	save_fig('errors_vs_Kk_colorbar', subdir=data_flag, tight_layout=False)
 	
 	
 if __name__ == '__main__':

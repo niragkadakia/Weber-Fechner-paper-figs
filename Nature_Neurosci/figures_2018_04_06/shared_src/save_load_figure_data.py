@@ -184,7 +184,7 @@ def load_odor_ID_errors(data_flag):
 	
 	return odor_ID_errors
 	
-def save_fig(fig_name, subdir=None, clear_plot=True):
+def save_fig(fig_name, subdir=None, clear_plot=True, tight_layout=True):
 	"""
 	"""
 	
@@ -195,7 +195,8 @@ def save_fig(fig_name, subdir=None, clear_plot=True):
 	if not os.path.exists(out_dir):
 		os.makedirs(out_dir)
 
-	plt.tight_layout()
+	if tight_layout == True:
+		plt.tight_layout()
 	filename = '%s/%s' % (out_dir, fig_name)
 	plt.savefig('%s.svg' % filename, bbox_inches = 'tight')
 	plt.savefig('%s.png' % filename, bbox_inches = 'tight')

@@ -27,8 +27,7 @@ from load_data import load_aggregated_object_list
 
 
 def calculate_errors(data_flags, nonzero_bounds=[0.7, 1.3], zero_bound=1./10.,
-						threshold_pct_nonzero=100.0, threshold_pct_zero=100.0,
-						odor_ID_bounds=[1/10., 1/10.]):
+						threshold_pct_nonzero=100.0, threshold_pct_zero=100.0):
 	"""
 	Calcualte successful odor estimations based on binary errors.
 	"""
@@ -46,20 +45,13 @@ def calculate_errors(data_flags, nonzero_bounds=[0.7, 1.3], zero_bound=1./10.,
 
 		# Data structures 
 		binary_dict = dict()
-		MSE_dict = dict()
 		binary_dict['nonzero'] = sp.zeros(iter_vars_dims)
 		binary_dict['zero'] = sp.zeros(iter_vars_dims)
-		MSE_dict['nonzero'] = sp.zeros(iter_vars_dims)
-		MSE_dict['zero'] = sp.zeros(iter_vars_dims)
-		odor_ID_errors = sp.zeros(iter_vars_dims)
 		successes = sp.zeros(iter_vars_dims)
 		
 		# Calculate binary errors
 		it = sp.nditer(sp.zeros(iter_vars_dims), flags=['multi_index'])	
 		while not it.finished:
-			MSE_error = MSE_errors(CS_object_array[it.multi_index])
-			MSE_dict['nonzero'][it.multi_index] = MSE_error['errors_nonzero']
-			MSE_dict['zero'][it.multi_index] = MSE_error['errors_zero']
 			
 			binary_error = binary_errors(CS_object_array[it.multi_index], 
 									nonzero_bounds=nonzero_bounds,
@@ -67,16 +59,6 @@ def calculate_errors(data_flags, nonzero_bounds=[0.7, 1.3], zero_bound=1./10.,
 			binary_dict['nonzero'][it.multi_index] = \
 						binary_error['errors_nonzero']
 			binary_dict['zero'][it.multi_index] = binary_error['errors_zero']
-			
-			odor_ID_error = binary_errors(
-								CS_object_array[it.multi_index],
-								nonzero_bounds=[odor_ID_bounds[0], 1e9],
-								zero_bound=odor_ID_bounds[1])
-			odor_ID_errors[it.multi_index] = binary_success(
-						odor_ID_error['errors_nonzero'], 
-						odor_ID_error['errors_zero'],
-						threshold_pct_nonzero=100, 
-						threshold_pct_zero=100)
 			
 			successes[it.multi_index] = binary_success(
 						binary_error['errors_nonzero'], 
@@ -88,8 +70,6 @@ def calculate_errors(data_flags, nonzero_bounds=[0.7, 1.3], zero_bound=1./10.,
 		# Save MSE and binary errors (for identify v intensity) and pct success
 		save_binary_errors(binary_dict['nonzero'], binary_dict['zero'], 
 							data_flag)
-		save_MSE_errors(MSE_dict['nonzero'], MSE_dict['zero'], data_flag)
-		save_odor_ID_errors(odor_ID_errors, data_flag)
 		save_success_ratios(successes, data_flag)
 	
 	
