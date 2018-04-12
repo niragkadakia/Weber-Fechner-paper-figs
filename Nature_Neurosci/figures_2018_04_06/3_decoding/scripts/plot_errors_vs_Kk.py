@@ -30,11 +30,14 @@ from utils import get_flag
 from load_specs import read_specs_file
 
 
-def plot_errors_vs_Kk(data_flag, conc_shift=-4):
+def plot_errors_vs_Kk(data_flag, conc_shift=0):
 	"""
 	Heatmap of errors as a function of background stimulus (x) and 
-	odor complexity (y). conc_shift is shift of concentration to realistic 
-	levels; i.e. consider all odor stimuli as relative to this value.
+	odor complexity (y). 
+	
+	Args:
+		data_flag: string; run identifier.
+		conc_shift: integer; shift of concentration for plotting.
 	"""
 	
 	list_dict = read_specs_file(data_flag)
@@ -58,7 +61,7 @@ def plot_errors_vs_Kk(data_flag, conc_shift=-4):
 	avg_successes = sp.average(successes, axis=1)
 	plt.pcolormesh(X, Y, avg_successes.T, cmap=plt.cm.hot, rasterized=True, 
 					shading='gouraud', vmin=0, vmax=1)
-	plt.xlim(-4, 0)
+	plt.xlim(0, 4)
 	plt.ylim(1, 7)
 	save_fig('errors_vs_Kk', subdir=data_flag)
 	

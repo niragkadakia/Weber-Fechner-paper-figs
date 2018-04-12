@@ -10,7 +10,6 @@ http://creativecommons.org/licenses/by-nc-sa/4.0/.
 """
 
 
-
 import scipy as sp
 import sys
 import matplotlib as mpl
@@ -28,9 +27,21 @@ from load_specs import read_specs_file
 from load_data import load_aggregated_object_list
 
 
-def plot_ID_intensity(data_flag, conc_shift=-4, zero_thresh=0.05, 
-							nonzero_thresh=0.3, row_placement=[[0, 1], [1, 1]]):
+def plot_ID_intensity(data_flag, conc_shift=0, zero_thresh=0.05, 
+							nonzero_thresh=0.3, 
+							row_placement=[[0, 1], [1, 1]]):
 	"""
+	Args:
+		data_flag: string; run identifier.
+		conc_shift: integer; shift of concentration for plotting.
+		zero_thresh: multiplier of mu_dSs for which to consider a false
+			negative for missing components of the estimated odor signal.
+		nonzero_thresh: multiplier of dSs for which to consider an error
+			in the sparse components.
+		row_placement: 2-element list of 2-element list. Entries are 
+			whether to draw tick labels for x and y-axes for intensity 
+			and identity plots.
+		
 	"""
 	
 	list_dict = read_specs_file(data_flag)
@@ -69,12 +80,17 @@ def plot_ID_intensity(data_flag, conc_shift=-4, zero_thresh=0.05,
 				mask[nonzero_idxs] = False
 				zero_idxs = all_idxs[mask]
 				
-				# Count number of zero components that are above min threshold
-				num_bad_zeros = 100.*sp.sum(obj.dSs_est[zero_idxs] <= zero_thresh
-								*min(obj.dSs[nonzero_idxs]))/(obj.Nn - obj.Kk)
+				# Count error of nonzero components
 				num_bad_nonzeros = 100.*sp.sum(sp.absolute(obj.dSs_est
 								[nonzero_idxs] - obj.dSs[nonzero_idxs]) <=
 								nonzero_thresh*obj.mu_dSs)/obj.Kk
+				
+				# Count number of zero components that are above min threshold
+				# and number of nonzero components above threshold
+				num_bad_zeros = sp.sum(obj.dSs_est[zero_idxs] <= zero_thresh
+								*min(obj.dSs[nonzero_idxs])) + \
+								sp.sum(obj.dSs_est[nonzero_idxs] >= zero_thresh
+								*min(obj.dSs[nonzero_idxs])) 
 				nonzero_errors_all_seeds.append(num_bad_nonzeros)
 				zero_errors_all_seeds.append(num_bad_zeros)
 							
@@ -114,7 +130,7 @@ def plot_ID_intensity(data_flag, conc_shift=-4, zero_thresh=0.05,
 				plt.xticks([])
 			if row_placement[1][1] == 0:
 				plt.yticks([])
-		plt.xlim(-4, 0)
+		plt.xlim(0, 4)
 		plt.ylim(1, 7)
 		plt.pcolormesh(X, Y, errors[error_type].T, cmap=plt.cm.hot, 
 						rasterized=True, shading='gouraud', 

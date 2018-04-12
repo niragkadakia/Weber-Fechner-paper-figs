@@ -87,3 +87,13 @@ def fig_temporal_kernel():
 	
 	return fig
 	
+def fig_signal_estimation():
+	"""
+	Plot estimated signals, ordered.
+	"""
+		
+	fig = plt.figure()
+	fig.set_size_inches(4, 2.5)
+	
+	return fig
+	
