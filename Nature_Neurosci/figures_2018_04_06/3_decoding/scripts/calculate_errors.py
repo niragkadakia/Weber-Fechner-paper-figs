@@ -67,7 +67,7 @@ def calculate_errors(data_flags, nonzero_bounds=[0.7, 1.3], zero_bound=1./10.,
 						threshold_pct_zero=threshold_pct_zero)
 			it.iternext()
 		
-		# Save MSE and binary errors (for identify v intensity) and pct success
+		# Save binary errors (for identify v intensity) and pct success
 		save_binary_errors(binary_dict['nonzero'], binary_dict['zero'], 
 							data_flag)
 		save_success_ratios(successes, data_flag)

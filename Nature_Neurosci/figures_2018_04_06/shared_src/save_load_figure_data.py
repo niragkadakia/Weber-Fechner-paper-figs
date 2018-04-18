@@ -184,23 +184,6 @@ def load_odor_ID_errors(data_flag):
 	odor_ID_errors = infile['odor_ID_errors']
 	
 	return odor_ID_errors
-
-def load_temporal_errors(data_flag):
-	"""
-	Load error arrays for temporal runs.
-	
-	Args:
-		data_flag: Data identifier for loading and saving.
-		
-	Returns: 
-		data_dict: dictionary with all data from the CS estimation.
-	"""
-	
-	filename = '%s/%s/temporal_errors.pklz' % (FIGURE_ANALYSIS_DATA_DIR, data_flag)
-	with gzip.open(filename, 'rb') as f:
-		data_dict = cPickle.load(f)
-	
-	return data_dict
 			
 def save_fig(fig_name, subdir=None, clear_plot=True, tight_layout=True):
 	"""

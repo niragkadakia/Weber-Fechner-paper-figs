@@ -1,5 +1,6 @@
 """
-Plot estimation of odor signal intensity and identity.
+Plot estimation of odor signal intensity and identity, and the 
+full errors which is the product of these.
 
 Created by Nirag Kadakia at 12:40 04-11-2017
 This work is licensed under the 
@@ -27,20 +28,19 @@ from load_specs import read_specs_file
 from load_data import load_aggregated_object_list
 
 
-def plot_ID_intensity(data_flag, conc_shift=0, zero_thresh=0.05, 
-							nonzero_thresh=0.3, 
-							row_placement=[[0, 1], [1, 1]]):
+def plot_errors(data_flag, zero_thresh=0.1, nonzero_thresh=[0.7, 1.3],
+							row_placement=[[1, 1], [1, 1], [1, 1]]):
 	"""
 	Args:
 		data_flag: string; run identifier.
 		conc_shift: integer; shift of concentration for plotting.
 		zero_thresh: multiplier of mu_dSs for which to consider a false
-			negative for missing components of the estimated odor signal.
-		nonzero_thresh: multiplier of dSs for which to consider an error
-			in the sparse components.
-		row_placement: 2-element list of 2-element list. Entries are 
-			whether to draw tick labels for x and y-axes for intensity 
-			and identity plots.
+			negative or false positive for the estimated odor signal.
+		nonzero_thresh: 2-element list; range for which |s_est/s| is 
+			considered correctly intensity decoded
+		row_placement: 3-element list of 2-element lists. Entries are 
+			whether to draw tick labels for x and y-axes for intensity, 
+			identity, and full errors plots.
 		
 	"""
 	
@@ -63,12 +63,14 @@ def plot_ID_intensity(data_flag, conc_shift=0, zero_thresh=0.05,
 		
 	zero_errors = sp.zeros((iter_vars_dims[0], iter_vars_dims[2]))
 	nonzero_errors = sp.zeros((iter_vars_dims[0], iter_vars_dims[2]))
+	full_errors = sp.zeros((iter_vars_dims[0], iter_vars_dims[2]))
 	
 	for iSs0 in range(iter_vars_dims[0]):
 		for iKk in range(iter_vars_dims[2]):
 			
 			zero_errors_all_seeds = []
 			nonzero_errors_all_seeds = []
+			full_all_seeds = []
 			
 			for iSeed in range(iter_vars_dims[1]):
 				obj = CS_object_array[iSs0, iSeed, iKk]
@@ -80,80 +82,84 @@ def plot_ID_intensity(data_flag, conc_shift=0, zero_thresh=0.05,
 				mask[nonzero_idxs] = False
 				zero_idxs = all_idxs[mask]
 				
-				# Count error of nonzero components
-				num_bad_nonzeros = 100.*sp.sum(sp.absolute(obj.dSs_est
-								[nonzero_idxs] - obj.dSs[nonzero_idxs]) <=
-								nonzero_thresh*obj.mu_dSs)/obj.Kk
+				# Count number of nonzero components within error
+				scaled_est = sp.absolute(obj.dSs_est[nonzero_idxs]/
+											obj.dSs[nonzero_idxs])
+				num_good_nonzeros = 100.*sp.sum((scaled_est 
+									<= nonzero_thresh[1])*(scaled_est 
+									> nonzero_thresh[0]))/obj.Kk
 				
-				# Count number of zero components that are above min threshold
+				# Count number of zero components that are below min threshold
 				# and number of nonzero components above threshold
-				num_bad_zeros = sp.sum(obj.dSs_est[zero_idxs] <= zero_thresh
-								*min(obj.dSs[nonzero_idxs])) + \
-								sp.sum(obj.dSs_est[nonzero_idxs] >= zero_thresh
-								*min(obj.dSs[nonzero_idxs])) 
-				nonzero_errors_all_seeds.append(num_bad_nonzeros)
-				zero_errors_all_seeds.append(num_bad_zeros)
-							
-			zero_errors[iSs0, iKk] = sp.average(zero_errors_all_seeds)
-			nonzero_errors[iSs0, iKk] = sp.average(nonzero_errors_all_seeds)
+				num_good_zeros = sp.sum(abs(obj.dSs_est[zero_idxs]) <= 
+								abs(zero_thresh*obj.mu_dSs)) + \
+								sp.sum(abs(obj.dSs_est[nonzero_idxs]) >= 
+								abs(zero_thresh*obj.mu_dSs))
+				
+				# Binary success for identity and intensity, separately
+				nonzero_errors_all_seeds.append(num_good_nonzeros == 100)
+				zero_errors_all_seeds.append(num_good_zeros == 100)
+				full_all_seeds.append((num_good_nonzeros == 100)*
+										(num_good_zeros == 100))
+				
+			zero_errors[iSs0, iKk] = 100.*sp.average(zero_errors_all_seeds)
+			nonzero_errors[iSs0, iKk] = 100.*sp.average(nonzero_errors_all_seeds)
+			full_errors[iSs0, iKk] = 100.*sp.average(full_all_seeds)
+	
+	vminmax = [0, 100]
+	ticks = [0, 50, 100]
+	tick_labels = ['0', '50', '100']
 	
 	errors = dict()
-	vminmax = dict()
-	ticks = dict()
-	tick_labels = dict()
-	plot_colorbar = dict()
-	
 	errors['nonzero'] = nonzero_errors
-	vminmax['nonzero'] = [0, 100]
-	ticks['nonzero'] = [0, 50, 100]
-	tick_labels['nonzero'] = ['0', '50', '100']
-	
 	errors['zero'] = zero_errors
-	vminmax['zero'] = [80, 100]
-	ticks['zero'] = [80, 90, 100]
-	tick_labels['zero'] = ['<80', '90', '100']
+	errors['full'] = full_errors
 	
-	# First entry is whether to plot x and y ticks of nonzero plots; 
-	# second entry is whether to plot x and y ticks of zero plots
 	row_placement = row_placement
 	
-	for error_type in ['zero', 'nonzero']:
+	for key in errors.keys():
 	
 		fig = fig_errors_vs_Kk()
-		if error_type == 'nonzero':
+		
+		# Whether or not to put axes
+		if key == 'nonzero':
 			if row_placement[0][0] == 0:
 				plt.xticks([])
 			if row_placement[0][1] == 0:
 				plt.yticks([])
-		if error_type == 'zero':
+		if key == 'zero':
 			if row_placement[1][0] == 0:
 				plt.xticks([])
 			if row_placement[1][1] == 0:
 				plt.yticks([])
+		if key == 'full':
+			if row_placement[2][0] == 0:
+				plt.xticks([])
+			if row_placement[2][1] == 0:
+				plt.yticks([])
+		
 		plt.xlim(0, 4)
 		plt.ylim(1, 7)
-		plt.pcolormesh(X, Y, errors[error_type].T, cmap=plt.cm.hot, 
+		plt.pcolormesh(X, Y, errors[key].T, cmap=plt.cm.hot, 
 						rasterized=True, shading='gouraud', 
-						vmin=vminmax[error_type][0], 
-						vmax=vminmax[error_type][1])
-		save_fig('%s_errors' % error_type, subdir=data_flag)
+						vmin=vminmax[0], vmax=vminmax[1])
+		save_fig('%s_errors' % key, subdir=data_flag)
 		
 		# Separate figure for colorbar
 		fig = plt.figure()
 		fig.set_size_inches(1, 5)
 		ax1 = fig.add_axes([0.1, 0.1, 0.3, 0.7])
-		norm = mpl.colors.Normalize(vmin=vminmax[error_type][0], 
-									vmax=vminmax[error_type][1])
+		norm = mpl.colors.Normalize(vmin=vminmax[0], vmax=vminmax[1])
 		cbar = mpl.colorbar.ColorbarBase(ax1, cmap=plt.cm.hot,
-                                norm=norm, ticks=ticks[error_type],
+                                norm=norm, ticks=ticks,
                                 orientation='vertical')
 		cbar.ax.tick_params(labelsize=25)
-		cbar.ax.set_yticklabels(tick_labels[error_type])
-		save_fig('%s_errors_colorbar' % error_type, subdir=data_flag, 
+		cbar.ax.set_yticklabels(tick_labels)
+		save_fig('%s_errors_colorbar' % key, subdir=data_flag, 
 					tight_layout=False)
 		
 		
 				
 if __name__ == '__main__':
 	data_flag = get_flag()
-	plot_ID_intensity(data_flag)
+	plot_errors(data_flag)
