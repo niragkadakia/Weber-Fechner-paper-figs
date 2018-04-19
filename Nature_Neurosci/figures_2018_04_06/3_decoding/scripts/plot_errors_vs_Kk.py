@@ -28,12 +28,11 @@ from load_specs import read_specs_file
 from load_data import load_aggregated_object_list
 
 
-def plot_errors(data_flag, zero_thresh=0.1, nonzero_thresh=[0.7, 1.3],
+def plot_errors_vs_Kk(data_flag, zero_thresh=0.1, nonzero_thresh=[0.7, 1.3],
 							row_placement=[[1, 1], [1, 1], [1, 1]]):
 	"""
 	Args:
 		data_flag: string; run identifier.
-		conc_shift: integer; shift of concentration for plotting.
 		zero_thresh: multiplier of mu_dSs for which to consider a false
 			negative or false positive for the estimated odor signal.
 		nonzero_thresh: 2-element list; range for which |s_est/s| is 
@@ -49,16 +48,21 @@ def plot_errors(data_flag, zero_thresh=0.1, nonzero_thresh=[0.7, 1.3],
 	iter_vars_dims = []
 	for iter_var in list_dict['iter_vars']:
 		iter_vars_dims.append(len(list_dict['iter_vars'][iter_var]))	
+	
 	assert len(iter_vars) == 3, "Need 3 iter_vars"
+	iter_var_names = ['mu_Ss0', 'seed_Kk2', 'Kk']
+	for iName, name in enumerate(iter_var_names):
+		assert iter_vars.keys()[iName] == name, "%sth variable "\
+			"must have name %s" % (iName, name)
+	mu_Ss0_vals = iter_vars['mu_Ss0']
+	Kk_vals = iter_vars['Kk']
 	
 	print ('Loading object list...'),
 	CS_object_array = load_aggregated_object_list(iter_vars_dims, data_flag)
 	print ('...loaded.')
 	
-	mu_Ss0_var = iter_vars.keys()[0]
-	Kk_var = iter_vars.keys()[2]
-	x = sp.log(iter_vars[mu_Ss0_var])/sp.log(10) + conc_shift
-	y = iter_vars[Kk_var]
+	x = mu_Ss0_vals
+	y = Kk_vals
 	X, Y = sp.meshgrid(x, y)
 		
 	zero_errors = sp.zeros((iter_vars_dims[0], iter_vars_dims[2]))
@@ -137,8 +141,9 @@ def plot_errors(data_flag, zero_thresh=0.1, nonzero_thresh=[0.7, 1.3],
 			if row_placement[2][1] == 0:
 				plt.yticks([])
 		
-		plt.xlim(0, 4)
+		plt.xlim(10**0, 10**4)
 		plt.ylim(1, 7)
+		plt.xscale('log')
 		plt.pcolormesh(X, Y, errors[key].T, cmap=plt.cm.hot, 
 						rasterized=True, shading='gouraud', 
 						vmin=vminmax[0], vmax=vminmax[1])
@@ -161,4 +166,4 @@ def plot_errors(data_flag, zero_thresh=0.1, nonzero_thresh=[0.7, 1.3],
 				
 if __name__ == '__main__':
 	data_flag = get_flag()
-	plot_errors(data_flag)
+	plot_errors_vs_Kk(data_flag)

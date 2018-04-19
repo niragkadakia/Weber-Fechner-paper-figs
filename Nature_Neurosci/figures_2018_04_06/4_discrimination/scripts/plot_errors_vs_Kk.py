@@ -28,7 +28,7 @@ from utils import get_flag
 from load_specs import read_specs_file
 
 
-def plot_errors_vs_Kk(data_flag, conc_shift=-8, plot_colorbar=True, xticks=True, 
+def plot_errors_vs_Kk(data_flag, conc_shift=0, plot_colorbar=True, xticks=True, 
 						yticks=True, complexities_to_plot=range(1, 6)):
 	"""
 	Heatmap of errors as a function of background stimulus (x) and 
@@ -54,9 +54,10 @@ def plot_errors_vs_Kk(data_flag, conc_shift=-8, plot_colorbar=True, xticks=True,
 	
 	# Each plot is foreground complexity versus foreground intensity
 	x = mu_Ss0_vals*10**conc_shift
+	x = sp.log(mu_Ss0_vals)/sp.log(10) + conc_shift
 	y = Kk_1_vals
 	X, Y = sp.meshgrid(x, y)
-	
+		
 	# Distinct plots for each background complexity
 	bkgrnd_complexities = Kk_2_vals
 	
@@ -71,9 +72,9 @@ def plot_errors_vs_Kk(data_flag, conc_shift=-8, plot_colorbar=True, xticks=True,
 		avg_successes = sp.average(successes[:, :, :, iKk2], axis=1)
 		plt.pcolormesh(X, Y, avg_successes.T, cmap=plt.cm.hot, rasterized=True,
 						shading='gouraud', vmin=-0.05, vmax=1.05)
+		plt.xlim(10**0, 10**4)
+		plt.ylim(1, 7)
 		plt.xscale('log')
-		plt.xlim(10**(-8), 10**(-4))
-		plt.ylim(1, 5)
 		if xticks == False:
 			plt.xticks([])
 		if yticks == False:
@@ -81,6 +82,7 @@ def plot_errors_vs_Kk(data_flag, conc_shift=-8, plot_colorbar=True, xticks=True,
 		if plot_colorbar == True:
 			cbar = plt.colorbar()
 			cbar.ax.tick_params(labelsize=15) 
+		plt.show()
 		save_fig('errors_vs_Kk_bkgrnd_complexity=%s' % Kk2, subdir=data_flag)
 		
 		

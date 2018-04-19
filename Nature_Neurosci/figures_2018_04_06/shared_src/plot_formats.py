@@ -66,12 +66,11 @@ def fig_Kk2_hist():
 	fig = plt.figure()
 	
 	fig.set_size_inches(3, 2.5)
-	plt.ylim(-3, 0)
-	plt.xlim(-3, 0)
-	plt.xticks(sp.arange(-4,1), fontsize=15)
-	plt.yticks(sp.arange(-4, 1), fontsize=15)
-	plt.xlim(-3.2, 0.2)
-	plt.ylim(-3.1, 0.5)
+	xticks = sp.arange(-6, 0, 2)
+	plt.xticks(10.**xticks, fontsize=15)
+	plt.yticks(10.**xticks, fontsize=15)
+	plt.xlim(10**(-3.2), 10**0.2)
+	plt.ylim(10**(-3.1), 10**0.5)
 	
 	return fig
 	

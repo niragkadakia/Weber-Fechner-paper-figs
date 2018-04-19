@@ -28,7 +28,7 @@ from load_specs import read_specs_file
 from load_data import load_aggregated_object_list
 
 
-def plot_temporal_kernel_NL_r(t)(data_flag):
+def plot_temporal_kernel_NL_firing_rate(data_flag):
 	"""
 	Plot a trace of the temporal kernel.
 	"""
@@ -73,4 +73,4 @@ def plot_temporal_kernel_NL_r(t)(data_flag):
 	
 if __name__ == '__main__':
 	data_flag = sys.argv[1]
-	plot_temporal_kernel_NL_r(t)(data_flag)
+	plot_temporal_kernel_NL_firing_rate(data_flag)

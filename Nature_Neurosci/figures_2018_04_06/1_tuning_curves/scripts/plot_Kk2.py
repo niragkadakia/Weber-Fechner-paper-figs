@@ -53,6 +53,15 @@ def plot_Kk2(data_flag, seed_to_plot=9):
 	fig = fig_Kk2_hist()
 	hist, bins = sp.histogram(sp.log(sp.ndarray.flatten(Kk2))/sp.log(10), bins = 50, normed=True)
 	plt.plot(bins[:-1], sp.log((bins[1:] - bins[:-1])*sp.cumsum(hist))/sp.log(10), color='k', lw=5)
+	
+	# Convert to log plot
+	log_bins = (bins[:-1] + bins[1:])/2.0
+	log_vals = sp.log((bins[1:] - bins[:-1])*sp.cumsum(hist))/sp.log(10)
+	exp_bins = 10**log_bins
+	exp_vals = 10**(log_vals)
+	plt.plot(exp_bins, exp_vals, color='k', lw=5)
+	plt.xscale('log')
+	plt.yscale('log')
 	save_fig('Kk2_hist_seed=%s' % seed_to_plot, subdir=data_flag)
 	
 	
