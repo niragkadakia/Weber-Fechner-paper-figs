@@ -204,4 +204,3 @@ def save_fig(fig_name, subdir=None, clear_plot=True, tight_layout=True):
 	
 	if clear_plot == True:
 		plt.close()
-		

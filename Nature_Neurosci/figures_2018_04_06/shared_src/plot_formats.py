@@ -97,3 +97,18 @@ def fig_signal_estimation():
 	
 	return fig
 	
+def fig_temporal_heatmap():
+	"""
+	Heatmap of estimation with time as x-axis 
+	and adaptation rate (or something else) as y-axis.
+	"""
+	
+	fig = plt.figure()
+	fig.set_size_inches(7, 3)
+	
+	plt.xticks(sp.arange(-10, 10, 0.5), fontsize=18)
+	plt.yticks(sp.arange(1, 15, 2), fontsize=18)
+	
+	return fig
+	
+	

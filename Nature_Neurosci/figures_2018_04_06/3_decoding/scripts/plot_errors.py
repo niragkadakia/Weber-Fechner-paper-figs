@@ -105,16 +105,15 @@ def plot_errors(data_flag, zero_thresh=0.1, nonzero_thresh=[0.7, 1.3],
 			zero_errors[iSs0, iKk] = 100.*sp.average(zero_errors_all_seeds)
 			nonzero_errors[iSs0, iKk] = 100.*sp.average(nonzero_errors_all_seeds)
 			full_errors[iSs0, iKk] = 100.*sp.average(full_all_seeds)
-	
-	vminmax = [0, 100]
-	ticks = [0, 50, 100]
-	tick_labels = ['0', '50', '100']
-	
+		
 	errors = dict()
 	errors['nonzero'] = nonzero_errors
 	errors['zero'] = zero_errors
 	errors['full'] = full_errors
 	
+	vminmax = [0, 100]
+	ticks = [0, 50, 100]
+	tick_labels = ['0', '50', '100']
 	row_placement = row_placement
 	
 	for key in errors.keys():

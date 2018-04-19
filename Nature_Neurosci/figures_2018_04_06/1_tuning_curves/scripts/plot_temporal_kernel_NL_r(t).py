@@ -14,6 +14,7 @@ import scipy as sp
 import sys
 import matplotlib.pyplot as plt
 from scipy.stats import gamma
+from scipy.ndimage.filters import gaussian_filter
 sys.path.append('../../shared_src')
 from plot_formats import fig_temporal_kernel
 from save_load_figure_data import save_fig
@@ -27,7 +28,7 @@ from load_specs import read_specs_file
 from load_data import load_aggregated_object_list
 
 
-def plot_temporal_kernel_and_NL(data_flag):
+def plot_temporal_kernel_NL_r(t)(data_flag):
 	"""
 	Plot a trace of the temporal kernel.
 	"""
@@ -48,6 +49,8 @@ def plot_temporal_kernel_and_NL(data_flag):
 						scale=obj.kernel_tau_1) - obj.kernel_alpha*\
 						gamma.pdf(kernel_Tt, 3, scale=obj.kernel_tau_2))
 	NL = NL_Tt*(NL_Tt > 0)
+	firing_rate = sp.exp(-NL)*(NL_Tt > 0)
+	firing_rate = gaussian_filter(firing_rate, sigma=50)
 	
 	fig = fig_temporal_kernel()
 	ax = plt.axes(frameon=False)
@@ -60,8 +63,14 @@ def plot_temporal_kernel_and_NL(data_flag):
 	ax.axis('off')
 	plt.plot(NL_Tt, NL, lw=7, color='k')
 	save_fig('NL', subdir=data_flag)
+		
+	fig = fig_temporal_kernel()
+	ax = plt.axes(frameon=False)
+	plt.plot(firing_rate, lw=7, color='k')
+	ax.axis('off')
+	save_fig('r(t)', subdir=data_flag)
 	
 	
 if __name__ == '__main__':
 	data_flag = sys.argv[1]
-	plot_temporal_kernel_and_NL(data_flag)
+	plot_temporal_kernel_NL_r(t)(data_flag)
