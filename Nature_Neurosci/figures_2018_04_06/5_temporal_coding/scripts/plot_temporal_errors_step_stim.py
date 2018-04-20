@@ -9,14 +9,15 @@ To view a copy of this license, visit
 http://creativecommons.org/licenses/by-nc-sa/4.0/.
 """
 
-
 import scipy as sp
+from scipy.ndimage.filters import gaussian_filter
 import sys
+import matplotlib as mpl
 import matplotlib.pyplot as plt
 sys.path.append('../../shared_src')
 from save_load_figure_data import load_binary_errors, load_success_ratios, \
 									save_fig
-from plot_formats import fig_temporal_heatmap
+from plot_formats import fig_temporal_heatmap, fig_temporal_kernel
 
 # The location of the source code for CS-variability-adaptation is listed
 # in the ../../shared_src/local_methods file within src_dir()
@@ -58,7 +59,18 @@ def plot_temporal_errors(data_flag, nT_to_plot=85, Kk_idx=2,
 	plt.yscale('log')
 	save_fig('temporal_heatmap', subdir=data_flag)
 	
+	fig = plt.figure()
+	fig.set_size_inches(1, 3)
+	ax1 = fig.add_axes([0.1, 0.1, 0.3, 0.7])
+	norm = mpl.colors.Normalize(vmin=0, vmax=100)
+	cbar = mpl.colorbar.ColorbarBase(ax1, cmap=plt.cm.hot,
+							norm=norm, ticks=[0, 50, 100],
+							orientation='vertical')
+	cbar.ax.tick_params(labelsize=25)
+	cbar.ax.set_yticklabels(['0', '50', '100'])
+	save_fig('temporal_heatmap_colorbar', subdir=data_flag, tight_layout=False)
 	
+		
 if __name__ == '__main__':
 	data_flag = get_flag()
 	plot_temporal_errors(data_flag)

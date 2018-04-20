@@ -4,11 +4,6 @@ decoding for a full signal trace in time. Success ratios are calculated
 as a function of time. Saved to objects as a distinct file particular
 to these figures for the paper, temporal_coding_figures_errors.pklz.
 
-Note that "load_data" must be in src/ (in addition to save_load_data),
-since it is called by four_state_receptor_CS for signal loading. 
-However, all i/o functions for figure generation are in src/save_load_data.
-
-
 Created by Nirag Kadakia at 10:00 04-17-2018
 This work is licensed under the 
 Creative Commons Attribution-NonCommercial-ShareAlike 4.0 

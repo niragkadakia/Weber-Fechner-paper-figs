@@ -103,11 +103,23 @@ def fig_temporal_heatmap():
 	"""
 	
 	fig = plt.figure()
-	fig.set_size_inches(7, 3)
+	fig.set_size_inches(8, 2)
 	
 	plt.xticks(sp.arange(-10, 10, 0.5), fontsize=18)
 	plt.yticks(sp.arange(1, 15, 2), fontsize=18)
 	
 	return fig
 	
+def fig_signal_trace():
+	"""
+	Figure of temporal signal trace.
+	"""
+	
+	fig = plt.figure()
+	fig.set_size_inches(9, 2)
+	
+	plt.xticks(sp.arange(0, 10), fontsize=18)
+	plt.yticks(sp.arange(0, 5000, 500), fontsize=18)
+	
+	return fig
 	
