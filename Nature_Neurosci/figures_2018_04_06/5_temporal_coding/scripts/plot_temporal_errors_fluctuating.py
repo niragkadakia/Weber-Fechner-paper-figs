@@ -28,7 +28,7 @@ from load_data import load_aggregated_temporal_objects, \
 						load_signal_trace_from_file
 
 
-def plot_temporal_errors(data_flag, rates_to_plot = [0, 4, 9], whiff_threshold=105):
+def plot_temporal_errors(data_flag, rates_to_plot = [0, 1], whiff_threshold=50):
 	"""
 	"""
 	
@@ -40,7 +40,7 @@ def plot_temporal_errors(data_flag, rates_to_plot = [0, 4, 9], whiff_threshold=1
 	iter_vars = list_dict['iter_vars']
 	
 	assert len(iter_vars) == 2, "Need 2 iter_vars"
-	iter_var_names = ['temporal_adaptation_rate', 'seed_Kk2']
+	iter_var_names = ['temporal_adaptation_rate', 'seed_dSs']
 	for iName, name in enumerate(iter_var_names):
 		assert iter_vars.keys()[iName] == name, "%sth variable "\
 			"must have name %s" % (iName, name)

@@ -123,3 +123,17 @@ def fig_signal_trace():
 	
 	return fig
 	
+def fig_MI_trace():
+	"""
+	Figure of trace of mutual information.
+	"""
+	
+	fig = plt.figure()
+	fig.set_size_inches(4, 3)
+	
+	plt.xscale('log')
+	plt.xticks([1, 100, 10000], fontsize=18)
+	plt.yticks(range(0, 100, 2), fontsize=18)
+	
+	return fig
+	

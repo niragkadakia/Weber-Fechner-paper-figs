@@ -2,7 +2,7 @@
 Plot estimation of odor signal intensity and identity, and the 
 full errors which is the product of these.
 
-Created by Nirag Kadakia at 12:40 04-11-2017
+Created by Nirag Kadakia at 12:40 04-11-2018
 This work is licensed under the 
 Creative Commons Attribution-NonCommercial-ShareAlike 4.0 
 International License. 
