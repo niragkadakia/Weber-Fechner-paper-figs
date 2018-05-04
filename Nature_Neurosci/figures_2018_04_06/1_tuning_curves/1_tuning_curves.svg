@@ -7681,15 +7681,15 @@
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
      inkscape:zoom="1.61"
-     inkscape:cx="259.35167"
-     inkscape:cy="188.16973"
+     inkscape:cx="158.41999"
+     inkscape:cy="213.01445"
      inkscape:document-units="mm"
-     inkscape:current-layer="layer6"
+     inkscape:current-layer="layer2"
      showgrid="false"
      units="in"
      inkscape:window-width="1920"
      inkscape:window-height="1027"
-     inkscape:window-x="1912"
+     inkscape:window-x="-8"
      inkscape:window-y="-8"
      inkscape:window-maximized="1"
      objecttolerance="11"
@@ -12928,10 +12928,11 @@
      inkscape:groupmode="layer"
      id="layer6"
      inkscape:label="histogram"
-     style="stroke-linecap:butt;stroke-linejoin:round">
+     style="stroke-linecap:butt;stroke-linejoin:round"
+     sodipodi:insensitive="true">
     <g
        id="figure_1-09"
-       transform="matrix(0.14692643,0,0,0.14692643,116.30948,47.144132)"
+       transform="matrix(0.14692643,0,0,0.14692643,117.36782,47.144132)"
        style="stroke-linecap:butt;stroke-linejoin:round">
       <g
          id="patch_1-3"
@@ -15180,7 +15181,7 @@
       </g>
     </g>
     <g
-       transform="matrix(0.14068853,0,0,0.14068853,116.96801,42.400586)"
+       transform="matrix(0.14068853,0,0,0.14068853,118.02635,42.400586)"
        id="page1-6"
        style="fill:#ff2a2a;stroke-linecap:butt;stroke-linejoin:round">
       <use
@@ -15240,12 +15241,12 @@
     </g>
     <path
        style="fill:#ff0000;stroke:#ff2a2a;stroke-width:0.26458332;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:0.79374995, 0.79374995;stroke-dashoffset:0;stroke-opacity:1"
-       d="m 127.5413,55.076147 11.92793,-3.592255"
+       d="m 128.59964,55.076147 11.92793,-3.592255"
        id="path24116"
        inkscape:connector-curvature="0"
        sodipodi:nodetypes="cc" />
     <g
-       transform="matrix(0.19133629,0,0,0.19133629,122.35449,61.413486)"
+       transform="matrix(0.19133629,0,0,0.19133629,123.41283,61.942653)"
        id="page1-438"
        style="stroke-linecap:butt;stroke-linejoin:round">
       <use
@@ -15258,7 +15259,7 @@
          height="100%" />
     </g>
     <g
-       transform="matrix(0,-0.24996711,0.24996711,0,98.812177,78.917851)"
+       transform="matrix(0,-0.24996711,0.24996711,0,99.341344,78.917851)"
        id="page1-00"
        style="stroke-linecap:butt;stroke-linejoin:round">
       <use
@@ -19025,8 +19026,7 @@
      id="layer2"
      inkscape:label="Single ORN model"
      style="stroke-linecap:butt;stroke-linejoin:round"
-     transform="translate(0,5.080001)"
-     sodipodi:insensitive="true">
+     transform="translate(0,5.080001)">
     <rect
        style="opacity:0.66199999;fill:#ffffff;fill-opacity:1;stroke:#000000;stroke-width:0.07544642;stroke-linecap:butt;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
        id="rect9420"

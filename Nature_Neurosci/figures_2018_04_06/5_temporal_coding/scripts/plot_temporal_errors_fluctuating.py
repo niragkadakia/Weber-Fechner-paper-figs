@@ -28,9 +28,12 @@ from load_data import load_aggregated_temporal_objects, \
 						load_signal_trace_from_file
 
 
-def plot_temporal_errors(data_flag, rates_to_plot = [0, 1], whiff_threshold=50):
+def plot_temporal_errors(data_flag, rates_to_plot=[0, 1], whiff_threshold=30):
 	"""
 	"""
+
+	Kk_1_idx = 0
+	Kk_2_idx = 1
 	
 	success = load_success_ratios(data_flag)
 	list_dict = read_specs_file(data_flag)
@@ -39,34 +42,56 @@ def plot_temporal_errors(data_flag, rates_to_plot = [0, 1], whiff_threshold=50):
 		iter_vars_dims.append(len(list_dict['iter_vars'][iter_var]))		
 	iter_vars = list_dict['iter_vars']
 	
-	assert len(iter_vars) == 2, "Need 2 iter_vars"
 	iter_var_names = ['temporal_adaptation_rate', 'seed_dSs']
 	for iName, name in enumerate(iter_var_names):
 		assert iter_vars.keys()[iName] == name, "%sth variable "\
 			"must have name %s" % (iName, name)
 	
+	# Set Kk_1 and Kk_2 if needed	
+	if len(iter_vars) > 2:
+		assert iter_vars.keys()[2] == 'Kk_1'
+		assert iter_vars.keys()[3] == 'Kk_2'
+		success = success[:, :, Kk_1_idx, Kk_2_idx]
+	
 	# Signal data can be loaded from specs file -- no need to open agg objs.
 	signal_file = list_dict['fixed_vars']['signal_trace_file']
 	signal_data = load_signal_trace_from_file(signal_file)
 	Tt = signal_data[:, 0] - signal_data[0, 0]
-	signal = signal_data[:, 1]
+	multiplier = list_dict['fixed_vars']['signal_trace_multiplier']
+	offset = list_dict['fixed_vars']['signal_trace_offset']
+	signal = (offset + signal_data[:, 1])*multiplier
+	
+	if 'signal_trace_file_2' in list_dict['fixed_vars']:
+		signal_file_2 = list_dict['fixed_vars']['signal_trace_file_2']
+		signal_data_2 = load_signal_trace_from_file(signal_file_2)
+		multiplier = list_dict['fixed_vars']['signal_trace_multiplier_2']
+		offset = list_dict['fixed_vars']['signal_trace_offset_2']
+		signal_2 = (offset + signal_data_2[:, 1])*multiplier
+	
+	xlims = (Tt[-1]*0.2, Tt[-1]*0.6)
 	
 	# Plot signal alone
 	fig = fig_signal_trace()
-	plt.ylim(0, 1000)
-	plt.xlim(Tt[0], Tt[-1])
+	plt.ylim(0, 300)
+	plt.xlim(xlims[0], xlims[1])
 	plt.plot(Tt, signal, lw = 3, color='k')
+	if 'signal_trace_file_2' in list_dict['fixed_vars']:
+		plt.plot(Tt, signal_2, lw = 3, color='green')
 	save_fig('signal', subdir=data_flag)
 	
 	# Signal with whiffs highlighted
 	whiff_hits_array = 1.*(signal > whiff_threshold)
 	whiff_begs = Tt[sp.where(sp.diff(whiff_hits_array) == 1)[0]]
 	whiff_ends = Tt[sp.where(sp.diff(whiff_hits_array) == -1)[0]]
-		
+	if len(whiff_begs) > len(whiff_ends):
+		whiff_begs = whiff_begs[:-1]
+	
 	fig = fig_signal_trace()
-	plt.ylim(0, 1000)
-	plt.xlim(Tt[0], Tt[-1])
+	plt.ylim(0, 300)
+	plt.xlim(xlims[0], xlims[1])
 	plt.plot(Tt, signal, lw=3, color='k')
+	if 'signal_trace_file_2' in list_dict['fixed_vars']:
+		plt.plot(Tt, signal_2, lw = 3, color='green')
 	for nWhf in range(len(whiff_begs)):
 		plt.axvspan(whiff_begs[nWhf], whiff_ends[nWhf], alpha=0.2, color='r')
 	save_fig('signal_with_whiffs', subdir=data_flag)
@@ -85,7 +110,7 @@ def plot_temporal_errors(data_flag, rates_to_plot = [0, 1], whiff_threshold=50):
 		# Plot whiff regions in each estimation plot
 		for nWhf in range(len(whiff_begs)):
 			plt.axvspan(whiff_begs[nWhf], whiff_ends[nWhf], alpha=0.2, color='r')
-		plt.xlim(Tt[0], Tt[-1])
+		plt.xlim(xlims[0], xlims[1])
 		plt.yticks(sp.arange(0, 101, 50), fontsize=18)
 		save_fig('errors_rate=%s' % iRate, subdir=data_flag)
 		

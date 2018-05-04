@@ -17,7 +17,7 @@ from sklearn.manifold import TSNE
 from sklearn.decomposition import PCA
 sys.path.append('../../shared_src')
 from save_load_figure_data import save_fig
-#from plot_formats import fig_signal_trace
+from plot_formats import fig_tnse
 
 # The location of the source code for CS-variability-adaptation is listed
 # in the ../../shared_src/local_methods file within src_dir()
@@ -75,6 +75,7 @@ def tsne(data_flag, cmap=plt.cm.inferno):
 	reduced_data = TSNE_func.fit_transform(Yys_aggregated).reshape(reduced_idxs)
 	
 	# Project all points to 2D space; color by identity; size by intensity
+	fig = fig_tnse()
 	color_range = sp.linspace(0.1, 0.9, num_signals)
 	marker_size_range = sp.linspace(2, 100, num_intensities)
 	for iOdor in range(Yys.shape[1]):

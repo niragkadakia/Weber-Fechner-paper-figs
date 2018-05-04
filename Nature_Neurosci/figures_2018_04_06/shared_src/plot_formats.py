@@ -27,8 +27,8 @@ def fig_errors_vs_Kk():
 	fig = plt.figure()
 	
 	fig.set_size_inches(4, 3)
-	plt.xticks(sp.arange(-10, 10), fontsize=20)
-	plt.yticks(sp.arange(1, 15, 2), fontsize=20)
+	plt.xticks(sp.arange(-10, 10), fontsize=16)
+	plt.yticks(sp.arange(1, 15, 2), fontsize=16)
 	
 	return fig
 
@@ -136,4 +136,18 @@ def fig_MI_trace():
 	plt.yticks(range(0, 100, 2), fontsize=18)
 	
 	return fig
+	
+def fig_tnse():
+	"""
+	Figure of 2D tsne projection of high-D data
+	"""
+	
+	fig = plt.figure()
+	fig.set_size_inches(5, 4)
+	
+	plt.xticks(fontsize=18)
+	plt.yticks(fontsize=18)
+	
+	return fig
+	
 	
