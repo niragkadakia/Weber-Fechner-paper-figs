@@ -2,7 +2,7 @@
 Plot the binding matrices and their distribution in a histogram.
 
 
-Created by Nirag Kadakia at 9:00 04-08-2017
+Created by Nirag Kadakia at 9:00 04-08-2018
 This work is licensed under the 
 Creative Commons Attribution-NonCommercial-ShareAlike 4.0 
 International License. 

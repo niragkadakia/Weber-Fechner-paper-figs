@@ -29,9 +29,8 @@ from load_data import load_aggregated_temporal_objects, \
 
 
 def plot_temporal_errors(data_flag, rates_to_plot=[0, 1], whiff_threshold=8):
-	"""
-	"""
 
+	# Which background and foreground complexities to plot
 	Kk_1_idx = 0
 	Kk_2_idx = 2
 	
@@ -68,7 +67,7 @@ def plot_temporal_errors(data_flag, rates_to_plot=[0, 1], whiff_threshold=8):
 		offset = list_dict['fixed_vars']['signal_trace_offset_2']
 		signal_2 = (offset + signal_data_2[:, 1])*multiplier
 	
-	# Clip array
+	# Clip array to desired section
 	xlims = (0.35, 0.40)
 	xlim_idxs = [int(len(Tt)*xlims[0]), int(len(Tt)*xlims[1])]
 	plot_range = range(xlim_idxs[0], xlim_idxs[1])

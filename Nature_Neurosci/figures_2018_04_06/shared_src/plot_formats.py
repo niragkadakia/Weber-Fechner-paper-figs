@@ -150,4 +150,17 @@ def fig_tnse():
 	
 	return fig
 	
+def fig_avg_whiff_errors():
+	"""
+	Figure of plots comparing errors during whiffs
+	"""
+	
+	fig = plt.figure()
+	fig.set_size_inches(4, 3)
+	
+	plt.xticks(fontsize=20)
+	plt.yticks(fontsize=20)
+	
+	return fig
+	
 	

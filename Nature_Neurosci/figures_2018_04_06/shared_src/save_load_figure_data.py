@@ -189,7 +189,7 @@ def save_fig(fig_name, subdir=None, clear_plot=True, tight_layout=True):
 	"""
 	"""
 	
-	if dir is None:
+	if subdir is None:
 		out_dir = '../subfigures'
 	else:
 		out_dir = '../subfigures/%s' % subdir

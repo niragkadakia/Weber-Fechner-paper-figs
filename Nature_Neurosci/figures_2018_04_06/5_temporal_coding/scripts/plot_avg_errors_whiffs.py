@@ -14,9 +14,8 @@ import sys
 from scipy.ndimage.filters import gaussian_filter
 import matplotlib.pyplot as plt
 sys.path.append('../../shared_src')
-from save_load_figure_data import load_binary_errors, load_success_ratios, \
-									save_fig
-from plot_formats import fig_signal_trace
+from save_load_figure_data import load_success_ratios, save_fig
+from plot_formats import fig_avg_whiff_errors
 
 # The location of the source code for CS-variability-adaptation is listed
 # in the ../../shared_src/local_methods file within src_dir()
@@ -24,17 +23,15 @@ from local_methods import src_dir
 sys.path.append(src_dir())
 from utils import get_flags
 from load_specs import read_specs_file
-from load_data import load_aggregated_temporal_objects, \
-						load_signal_trace_from_file
+from load_data import load_signal_trace_from_file
 
 
 def plot_avg_errors(data_flags, rates_to_plot=[0, 1], whiff_threshold=8):
 	"""
 	"""
 
-	avg_whiff_errors = sp.zeros((len(data_flags), 2))
-	Kk_1_idx = 0
-	Kk_2_idx = 2
+	# This should come from the data flags themselves
+	background_intensities = [10, 50, 100, 300]
 	
 	for iFlag, data_flag in enumerate(data_flags):
 		
@@ -45,34 +42,35 @@ def plot_avg_errors(data_flags, rates_to_plot=[0, 1], whiff_threshold=8):
 			iter_vars_dims.append(len(list_dict['iter_vars'][iter_var]))		
 		iter_vars = list_dict['iter_vars']
 		
-		iter_var_names = ['temporal_adaptation_rate', 'seed_dSs']
+		iter_var_names = ['temporal_adaptation_rate', 'seed_dSs', 'Kk_1', 'Kk_2']
 		for iName, name in enumerate(iter_var_names):
 			assert iter_vars.keys()[iName] == name, "%sth variable "\
 				"must have name %s" % (iName, name)
 		
-		# Set Kk_1 and Kk_2 if needed	
-		if len(iter_vars) > 2:
-			assert iter_vars.keys()[2] == 'Kk_1'
-			assert iter_vars.keys()[3] == 'Kk_2'
-			success = success[:, :, Kk_1_idx, Kk_2_idx]
-		
+		try: 
+			avg_whiff_errors
+		except:
+			error_array_dims = (len(data_flags), ) + (iter_vars_dims[0], 
+								iter_vars_dims[2], iter_vars_dims[3])
+			avg_whiff_errors = sp.zeros(error_array_dims)
+			
 		# Signal data can be loaded from specs file -- no need to open agg objs.
 		signal_file = list_dict['fixed_vars']['signal_trace_file']
 		signal_data = load_signal_trace_from_file(signal_file)
-		Tt = signal_data[:, 0] - signal_data[0, 0]
+		Tt = sp.arange(len(signal_data))#signal_data[:, 0] - signal_data[0, 0]
 		multiplier = list_dict['fixed_vars']['signal_trace_multiplier']
 		offset = list_dict['fixed_vars']['signal_trace_offset']
 		signal = (offset + signal_data[:, 1])*multiplier
 		
-		# Clip array
-		xlims = (0, 1.0)
+		# Clip array to desired range
+		xlims = (0.0, 0.4)
 		xlim_idxs = [int(len(Tt)*xlims[0]), int(len(Tt)*xlims[1])]
 		plot_range = range(xlim_idxs[0], xlim_idxs[1])
 		Tt = Tt[plot_range]
-		Tt = sp.arange(len(Tt))
+		Tt = Tt - Tt[0]
 		signal = signal[plot_range]
 		success = success[plot_range,...]
-	
+		
 		# Signal with whiffs highlighted
 		whiff_hits_array = 1.*(signal > whiff_threshold)
 		whiff_begs = Tt[sp.where(sp.diff(whiff_hits_array) == 1)[0]]
@@ -84,22 +82,40 @@ def plot_avg_errors(data_flags, rates_to_plot=[0, 1], whiff_threshold=8):
 		if len(whiff_begs) < len(whiff_ends):
 			whiff_begs = sp.hstack((Tt[0], whiff_begs))
 		
-		# Get success rate during whiff times
 		avg_success = sp.average(success, axis=2)*100.
 		cum_success = 0
 		num_pts = 0
+		
+		# Grab the data
 		for nWhf in range(len(whiff_begs)):
 			whf_range = range(whiff_begs[nWhf], whiff_ends[nWhf])
-			cum_success += sp.sum(avg_success[whf_range, :], axis=0)
+			cum_success += sp.sum(avg_success[whf_range,...], axis=0)
 			num_pts += len(whf_range)
 		whf_success = 1.*cum_success/num_pts
-		avg_whiff_errors[iFlag, :] = whf_success
-
-	for iFlag in range(len(data_flags)):
-		x_range = [iFlag + 0.75, iFlag + 1.25]
-		plt.bar(x_range, avg_whiff_errors[iFlag, :], width=0.5)
-	plt.show()
+		avg_whiff_errors[iFlag,...] = whf_success
 	
+	# x-axis of heatmap is background strength; y- is background complexity
+	x_range = background_intensities
+	y_range = range(iter_vars_dims[3])
+	X, Y = sp.meshgrid(x_range, y_range)
+	
+	# Separate figure for each foreground/background complexity pair
+	for Kk_1 in range(iter_vars_dims[2]):
+		for Kk_2 in range(iter_vars_dims[2]):
+			fig = fig_avg_whiff_errors()
+			#plt.fill_between(x_range, 0, avg_whiff_errors[:, 1, Kk_1, Kk_2], 
+			#	color=plt.cm.Greys(0.7))
+			#plt.fill_between(x_range, 0, avg_whiff_errors[:, 0, Kk_1, Kk_2], 
+			#	color=plt.cm.Greys(0.4))
+			plt.plot(x_range, avg_whiff_errors[:, 1, Kk_1, Kk_2], 
+						color=plt.cm.Greys(0.7), lw=4)
+			plt.plot(x_range, avg_whiff_errors[:, 0, Kk_1, Kk_2], 
+						color=plt.cm.Greys(0.4), lw=4)
+			plt.yticks([0, 50, 100])
+			plt.xscale('log')
+			plt.ylim(0, 100)
+			save_fig('%s_Kk_1=%s_Kk_2=%s' % (x_range, Kk_1, Kk_2), 
+						subdir='avg_whiff_errors')
 	
 if __name__ == '__main__':
 	data_flags = get_flags()
