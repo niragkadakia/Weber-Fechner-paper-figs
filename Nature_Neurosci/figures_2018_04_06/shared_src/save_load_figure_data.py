@@ -105,6 +105,25 @@ def save_odor_ID_errors(errors, data_flag):
 	sp.savez(filename, odor_ID_errors=errors)
 	print ('\nOdor ID errors file saved to %s' % filename)
 	
+def save_activities(Yy, data_flag):
+	"""
+	Save activity values, typically from a temporal run, to avoid having 
+	to open aggregated objects each time.
+	
+	Args:
+		Yy: array to be saved
+		data_flag: Data identifier for saving and loading.
+	"""
+
+	out_dir = '%s/%s' % (FIGURE_ANALYSIS_DATA_DIR, data_flag)
+	if not os.path.exists(out_dir):
+		os.makedirs(out_dir)
+
+	filename = '%s/Yy.npz' % out_dir
+	
+	sp.savez(filename, Yy=Yy)
+	print ('\nActivity values file saved to %s' % filename)
+	
 def load_binary_errors(data_flag):
 	"""
 	Load .npz file containing error data.
@@ -173,18 +192,27 @@ def load_odor_ID_errors(data_flag):
 		data_flag: Data identifier for saving and loading.
 	"""
 
-	out_dir = '%s/%s' % (FIGURE_ANALYSIS_DATA_DIR, data_flag)
-	if not os.path.exists(out_dir):
-		os.makedirs(out_dir)
-
-	filename = '%s/odor_ID_errors.npz' % out_dir
-	
-	
+	filename = '%s/%s/odor_ID_errors.npz' % (FIGURE_ANALYSIS_DATA_DIR, data_flag)
 	infile = sp.load(filename)
 	odor_ID_errors = infile['odor_ID_errors']
 	
 	return odor_ID_errors
 			
+def load_activities(data_flag):
+	"""
+	Load activity values, typically from a temporal run, to avoid having 
+	to open aggregated objects each time.
+	
+	Args:
+		data_flag: Data identifier for loading.
+	"""
+
+	filename = '%s/%s/Yy.npz' % (FIGURE_ANALYSIS_DATA_DIR, data_flag)
+	infile = sp.load(filename)
+	Yy = infile['Yy']
+	
+	return Yy
+	
 def save_fig(fig_name, subdir=None, clear_plot=True, tight_layout=True):
 	"""
 	"""

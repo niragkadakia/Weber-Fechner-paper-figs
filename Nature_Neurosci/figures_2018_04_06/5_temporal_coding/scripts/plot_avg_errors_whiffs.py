@@ -26,8 +26,10 @@ from load_specs import read_specs_file
 from load_data import load_signal_trace_from_file
 
 
-def plot_avg_errors(data_flags, rates_to_plot=[0, 1], whiff_threshold=8):
+def plot_avg_errors(data_flags, whiff_threshold=8):
 	"""
+	Will only plot 2 rates (indices 0 and 1 for temporal_adaptation_rate
+	index in data file).
 	"""
 
 	# This should come from the data flags themselves
@@ -57,7 +59,7 @@ def plot_avg_errors(data_flags, rates_to_plot=[0, 1], whiff_threshold=8):
 		# Signal data can be loaded from specs file -- no need to open agg objs.
 		signal_file = list_dict['fixed_vars']['signal_trace_file']
 		signal_data = load_signal_trace_from_file(signal_file)
-		Tt = sp.arange(len(signal_data))#signal_data[:, 0] - signal_data[0, 0]
+		Tt = sp.arange(len(signal_data))
 		multiplier = list_dict['fixed_vars']['signal_trace_multiplier']
 		offset = list_dict['fixed_vars']['signal_trace_offset']
 		signal = (offset + signal_data[:, 1])*multiplier

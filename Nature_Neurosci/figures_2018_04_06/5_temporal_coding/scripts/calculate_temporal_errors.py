@@ -3,6 +3,7 @@ Calculate estimation error of inferred signal in compressed sensing
 decoding for a full signal trace in time. Success ratios are calculated
 as a function of time. Saved to objects as a distinct file particular
 to these figures for the paper, temporal_coding_figures_errors.pklz.
+Also saves activity data for primacy coding analysis.
 
 Created by Nirag Kadakia at 10:00 04-17-2018
 This work is licensed under the 
@@ -17,7 +18,8 @@ import scipy as sp
 import sys
 import matplotlib.pyplot as plt
 sys.path.append('../../shared_src')
-from save_load_figure_data import save_binary_errors, save_success_ratios
+from save_load_figure_data import save_binary_errors, save_success_ratios, \
+									save_activities
 
 # The location of the source code for CS-variability-adaptation is listed
 # in the ../../shared_src/local_methods file within src_dir()
@@ -84,6 +86,7 @@ def calculate_temporal_errors(data_flags, nonzero_bounds=[0.7, 1.3],
 
 	save_binary_errors(errors_nonzero, errors_zero, data_flag)
 	save_success_ratios(success, data_flag)
+	save_activities(data['Yy'], data_flag)
 	
 if __name__ == '__main__':
 	data_flag = sys.argv[1]
