@@ -78,9 +78,9 @@ def plot_primacy_schematic(data_flag, seed_Kk2=16, vmin=10, vmax=30):
 	ticks = [vmin, vmax]
 	cbar = mpl.colorbar.ColorbarBase(ax1, cmap=plt.cm.Purples,
 							norm=norm, ticks=ticks, orientation='vertical')
-	cbar.ax.tick_params(labelsize=30)
-	cbar.ax.set_yticklabels([r'0', r'>50'])
-	cbar.ax.yaxis.set_ticks_position('left')
+	cbar.ax.tick_params(labelsize=35)
+	cbar.ax.set_yticklabels([r'<%s' % vmin, r'>%s' % vmax])
+	cbar.ax.yaxis.set_ticks_position('right')
 	save_fig('primacy_schematic_Kk=%s_mu_Ss0=%1.2f' % (Kk, mu_Ss0), 
 						subdir=data_flag, tight_layout=False)
 	

@@ -169,27 +169,14 @@ def fig_primacy_errors_num_active():
 	"""
 	
 	fig = plt.figure()
-	fig.set_size_inches(4, 3)
+	fig.set_size_inches(3.5, 2.5)
 	
 	plt.xticks(fontsize=16)
 	plt.yticks([0, 50, 100], fontsize=16)
 	plt.ylim(-1, 101)
 		
 	return fig
-	
-def fig_primacy_active_moment():
-	"""
-	Figure of plots comparing time to active for different intensities
-	"""
-	
-	fig = plt.figure()
-	fig.set_size_inches(3, 3)
-	
-	plt.xticks([0, 5, 10], fontsize=16)
-	plt.yticks(fontsize=16)
-		
-	return fig
-	
+
 def fig_primacy_errors_time():
 	"""
 	Figure of plots comparing time to active for different intensities
