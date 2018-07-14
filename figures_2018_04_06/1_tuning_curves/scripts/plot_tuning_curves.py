@@ -39,7 +39,7 @@ def plot_tuning_curves(data_flag, Ss0_to_plot=10.0, seed_to_plot=9):
 	tuning_curve = sp.zeros((Nn, Mm))
 	
 	# Only need to specify the mu_Ss0 and seed_Kk2 index. Kk index not needed.
-	assert iter_vars.keys()[0] == 'mu_Ss0', "Need mu_Ss0 as first iter var"
+	assert list(iter_vars.keys())[0] == 'mu_Ss0', "Need mu_Ss0 as 1st iter_var"
 	iter_var_idxs = sp.zeros(len(iter_vars)).astype(int)
 	iter_var_idxs[0] = (abs(iter_vars['mu_Ss0'] - Ss0_to_plot)).argmin()
 	iter_var_idxs[1] = seed_to_plot	

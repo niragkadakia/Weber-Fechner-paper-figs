@@ -36,8 +36,8 @@ def plot_Kk2(data_flag, seed_to_plot=9):
 	for iter_var in list_dict['iter_vars']:
 		iter_vars_dims.append(len(list_dict['iter_vars'][iter_var]))		
 	
-	assert list_dict['iter_vars'].keys()[1] == 'seed_Kk2', 'Second iter_var '\
-		'must be seed_Kk2'
+	assert list(list_dict['iter_vars'].keys())[1] == 'seed_Kk2', \
+		'Second iter_var must be seed_Kk2'
 	assert len(iter_vars_dims) == 3, 'Need 3 iter_vars'	
 	
 	print ('Loading object list...'),
@@ -51,8 +51,10 @@ def plot_Kk2(data_flag, seed_to_plot=9):
 	save_fig('Kk2_seed=%s' % seed_to_plot, subdir=data_flag)
 	
 	fig = fig_Kk2_hist()
-	hist, bins = sp.histogram(sp.log(sp.ndarray.flatten(Kk2))/sp.log(10), bins = 50, normed=True)
-	plt.plot(bins[:-1], sp.log((bins[1:] - bins[:-1])*sp.cumsum(hist))/sp.log(10), color='k', lw=5)
+	hist, bins = sp.histogram(sp.log(sp.ndarray.flatten(Kk2))/sp.log(10), 
+								bins = 50, normed=True)
+	plt.plot(bins[:-1], sp.log((bins[1:] - bins[:-1])*sp.cumsum(hist))/sp.log(10), 
+								color='k', lw=5)
 	
 	# Convert to log plot
 	log_bins = (bins[:-1] + bins[1:])/2.0
