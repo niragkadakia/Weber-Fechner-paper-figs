@@ -23,7 +23,7 @@ from local_methods import src_dir
 sys.path.append(src_dir())
 from utils import get_flag
 from load_specs import read_specs_file
-from analysis import binary_success, binary_errors
+from analysis import binary_success, binary_errors_dual_odor
 from load_data import load_aggregated_object_list
 
 
@@ -52,7 +52,7 @@ def calculate_errors(data_flags, nonzero_bounds=[0.7, 1.3], zero_bound=1./10,
 		# Calculate binary errors of foreground odor
 		it = sp.nditer(sp.zeros(iter_vars_dims), flags=['multi_index'])	
 		while not it.finished:
-			errors = binary_errors(CS_object_array[it.multi_index], 
+			errors = binary_errors_dual_odor(CS_object_array[it.multi_index], 
 									nonzero_bounds=nonzero_bounds,
 									zero_bound=zero_bound)
 			

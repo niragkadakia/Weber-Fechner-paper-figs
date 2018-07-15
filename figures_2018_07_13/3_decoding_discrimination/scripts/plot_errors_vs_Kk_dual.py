@@ -51,17 +51,18 @@ def plot_avg_successes_vs_Kk(data_flag, zero_thresh=0.1, nonzero_thresh=[0.7, 1.
 	for iter_var in list_dict['iter_vars']:
 		iter_vars_dims.append(len(list_dict['iter_vars'][iter_var]))	
 	
-	assert len(iter_vars) == 3, "Need 3 iter_vars"
-	iter_var_names = ['mu_Ss0', 'seed_dSs', 'Kk']
+	assert len(iter_vars) == 4, "Need 3 iter_vars"
+	iter_var_names = ['mu_Ss0', 'seed_dSs', 'Kk_1', 'Kk_2']
 	for iName, name in enumerate(iter_var_names):
 		assert list(iter_vars.keys())[iName] == name, "%sth variable "\
 			"must have name %s" % (iName, name)
 	mu_Ss0_vals = iter_vars['mu_Ss0']
-	Kk_vals = iter_vars['Kk']
+	Kk_1_vals = iter_vars['Kk_1']
+	Kk_2_vals = iter_vars['Kk_2']
 	Nn = list_dict['params']['Nn']
 	
 	x = mu_Ss0_vals
-	y = Kk_vals
+	y = Kk_1_vals
 	X, Y = sp.meshgrid(x, y)
 	successes = load_success_ratios(data_flag)
 	avg_successes = 100*sp.average(successes, axis=1)
@@ -75,28 +76,29 @@ def plot_avg_successes_vs_Kk(data_flag, zero_thresh=0.1, nonzero_thresh=[0.7, 1.
 	if row_placement[2][1] == 0:
 		plt.yticks([])
 	
-	fig = fig_errors_vs_Kk()
-	plt.xlim(10**0, 10**4)
-	plt.ylim(1, 7)
-	plt.xscale('log')
-	plt.pcolormesh(X, Y, avg_successes.T, cmap=plt.cm.hot, 
-					rasterized=True, shading='gouraud', 
-					vmin=vminmax[0], vmax=vminmax[1])
-	save_fig('avg_successes', subdir=data_flag)
-	
-	# Separate figure for colorbar
-	fig = plt.figure()
-	fig.set_size_inches(1, 5)
-	ax1 = fig.add_axes([0.1, 0.1, 0.3, 0.7])
-	norm = mpl.colors.Normalize(vmin=vminmax[0], vmax=vminmax[1])
-	cbar = mpl.colorbar.ColorbarBase(ax1, cmap=plt.cm.hot,
-							norm=norm, ticks=ticks,
-							orientation='vertical')
-	cbar.ax.tick_params(labelsize=25)
-	cbar.ax.set_yticklabels(tick_labels)
-	save_fig('avg_successes_colorbar', subdir=data_flag, 
-				tight_layout=False)
-	
+	for iKk_2, Kk_2 in enumerate(Kk_2_vals):
+		fig = fig_errors_vs_Kk()
+		plt.xlim(10**0, 10**4)
+		plt.ylim(1, 5)
+		plt.xscale('log')
+		plt.pcolormesh(X, Y, avg_successes[...,iKk_2].T, cmap=plt.cm.hot,
+						rasterized=True, shading='gouraud', 
+						vmin=vminmax[0], vmax=vminmax[1])
+		save_fig('avg_successes_bkgrnd_complexity=%s' % Kk_2, subdir=data_flag)
+		
+		# Separate figure for colorbar
+		fig = plt.figure()
+		fig.set_size_inches(1, 5)
+		ax1 = fig.add_axes([0.1, 0.1, 0.3, 0.7])
+		norm = mpl.colors.Normalize(vmin=vminmax[0], vmax=vminmax[1])
+		cbar = mpl.colorbar.ColorbarBase(ax1, cmap=plt.cm.hot,
+								norm=norm, ticks=ticks,
+								orientation='vertical')
+		cbar.ax.tick_params(labelsize=25)
+		cbar.ax.set_yticklabels(tick_labels)
+		save_fig('avg_successes_colorbar_bkgrnd_complexity=%s' % Kk_2, 
+					subdir=data_flag, tight_layout=False)
+		
 	
 			
 if __name__ == '__main__':
