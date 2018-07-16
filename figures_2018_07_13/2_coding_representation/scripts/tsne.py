@@ -57,7 +57,7 @@ def tsne(data_flag, cmap=plt.cm.inferno):
 			elif val[0] == 'encode_entropy_calc_adapted':
 				obj.encode_entropy_calc_adapted()
 			else:
-				print '`%s` run type not accepted for entropy calculation' % val[0]
+				print ('`%s` run type not accepted for entropy calculation' % val[0])
 				quit()
 		else:
 			print ('No entropy calculation run type specified, proceeding with' \
@@ -80,7 +80,8 @@ def tsne(data_flag, cmap=plt.cm.inferno):
 	marker_size_range = sp.linspace(2, 100, num_intensities)
 	for iOdor in range(Yys.shape[1]):
 		plt.scatter(reduced_data[:, iOdor, 0], reduced_data[:, iOdor, 1], 
-					color=cmap(color_range[iOdor]), s=marker_size_range)
+					color=cmap(color_range[iOdor]), s=marker_size_range, 
+					alpha=0.8)
 	
 	save_fig('tsne_Kk_1=%s_Kk_2=%s_nOdors=%s' % (obj.Kk_1, obj.Kk_2, 
 				num_signals), subdir=data_flag)

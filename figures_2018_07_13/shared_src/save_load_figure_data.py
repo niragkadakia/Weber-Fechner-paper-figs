@@ -11,9 +11,10 @@ visit http://creativecommons.org/licenses/by-nc-sa/4.0/.
 
 import scipy as sp
 import os
+import copy
+import gzip
 import matplotlib.pyplot as plt
 from local_methods import def_data_dir, def_figure_analysis_data_dir
-import gzip
 
 
 DATA_DIR = def_data_dir()
@@ -232,3 +233,4 @@ def save_fig(fig_name, subdir=None, clear_plot=True, tight_layout=True):
 	
 	if clear_plot == True:
 		plt.close()
+		

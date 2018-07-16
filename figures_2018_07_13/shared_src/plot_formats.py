@@ -203,4 +203,20 @@ def fig_primacy_schematic():
 		
 	return fig
 	
+def fig_classification_accuracy():
+	"""
+	Figure of plots to compare classification accuracy of odors in full network 
+	"""
+	
+	fig = plt.figure()
+	fig.set_size_inches(5, 5)
+		
+	plt.xticks(fontsize=20)
+	plt.yticks(fontsize=20)
+		
+	plt.xscale('log')
+	plt.ylim(0.5, 1.002)
+		
+	return fig
+	
 	
