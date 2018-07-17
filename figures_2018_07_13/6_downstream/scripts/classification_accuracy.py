@@ -79,6 +79,7 @@ def plot_accuracy_vs_num_signals(data_flags):
 		del (list_dict)
 		gc.collect()
 	
+	plt.ylim(0.35, 1.002)
 	save_fig('classification_accuracy', subdir=data_flag)
 					
 if __name__ == '__main__':

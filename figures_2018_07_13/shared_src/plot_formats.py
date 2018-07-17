@@ -202,6 +202,21 @@ def fig_primacy_schematic():
 	plt.yticks([])
 		
 	return fig
+
+def primacy_min_active_for_accurate_heatmap():
+	"""
+	Plot heatmap of minimum number of active receptors
+	to correctly decode a signal, as a function of 
+	odor complexity and intensity
+	"""
+		
+	fig = plt.figure()
+	
+	fig.set_size_inches(4, 3)
+	plt.xticks(sp.arange(-10, 10), fontsize=16)
+	plt.yticks(sp.arange(1, 15, 2), fontsize=16)
+	
+	return fig
 	
 def fig_classification_accuracy():
 	"""
