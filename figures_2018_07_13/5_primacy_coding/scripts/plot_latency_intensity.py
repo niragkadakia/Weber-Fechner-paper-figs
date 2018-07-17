@@ -27,8 +27,8 @@ from load_specs import read_specs_file
 from load_data import load_signal_trace_from_file
 
 
-def active_heatmap(data_flag, decoded_pct=90, Kk_idxs_to_plot=range(0, 5),
-					intensity_idxs_to_plot=range(0, 5)):
+def active_heatmap(data_flag, decoded_pct=75, Kk_idxs_to_plot=[0, 2, 4, 6, 8],
+					intensity_idxs_to_plot=range(1, 9)):
 	
 	binary_errors = load_binary_errors(data_flag)
 	errors_nonzero = binary_errors['errors_nonzero']
@@ -89,12 +89,12 @@ def active_heatmap(data_flag, decoded_pct=90, Kk_idxs_to_plot=range(0, 5),
 				latencies[iI, :] = decoded_times[iI, :] - decoded_times[0, :]
 			avg_latencies = sp.nanmean(latencies, axis=1)
 			
-			color = plt.cm.viridis(0.85*Kk/(len(Kk_idxs_to_plot) - 1))
+			color = plt.cm.viridis(0.85*iKk/(len(Kk_idxs_to_plot) - 1))
 			plt.plot(signal_intensities, 1e3*avg_latencies, color=color, lw=2)
 
 		print 'Thrown out indices = %s out of %s' % (nans, (iKk + 1)*num_odors*(iI + 1))
-		plt.xticks([1, 3, 5, 7, 9])
-		plt.xlim(0, 10.1)
+		#plt.xticks([1, 3, 5, 7, 9])
+		#plt.xlim(0, 10.1)
 		save_fig('primacy_errors_vs_time_rate=%s_intensities=%s' 
 					% (iRate, intensity_idxs_to_plot), subdir=data_flag)
 		

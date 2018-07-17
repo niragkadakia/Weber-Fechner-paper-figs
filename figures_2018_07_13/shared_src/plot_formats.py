@@ -185,7 +185,7 @@ def fig_primacy_errors_time():
 	fig = plt.figure()
 	fig.set_size_inches(3, 3)
 	
-	plt.xticks([0, 5, 10], fontsize=16)
+	plt.xticks([0, 5, 10, 15, 20, 25], fontsize=16)
 	plt.yticks(fontsize=16)
 		
 	return fig
