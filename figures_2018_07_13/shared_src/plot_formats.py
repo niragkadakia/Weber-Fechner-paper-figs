@@ -213,7 +213,7 @@ def primacy_min_active_for_accurate_heatmap():
 	fig = plt.figure()
 	
 	fig.set_size_inches(4, 3)
-	plt.xticks(sp.arange(-10, 10), fontsize=16)
+	plt.xticks(sp.arange(1, 15, 2), fontsize=16)
 	plt.yticks(sp.arange(1, 15, 2), fontsize=16)
 	
 	return fig

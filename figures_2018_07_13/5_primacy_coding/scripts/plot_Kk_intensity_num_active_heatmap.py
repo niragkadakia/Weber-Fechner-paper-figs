@@ -97,7 +97,8 @@ def accuracy_vs_num_active(data_flag, active_rate=20, min_accurate_pct=75):
 	# Plot heatmap
 	fig = primacy_min_active_for_accurate_heatmap()
 	X, Y = sp.meshgrid(range(num_Kks), range(num_intensities)[1:])
-	plt.pcolormesh(X, Y, total_errors[0, :, 1:].T, cmap=plt.cm.hot)
+	plt.pcolormesh(Y, X, total_errors[0, :, 1:].T, cmap=plt.cm.hot)
+	#plt.ylim(range(num_intensities)[1], range(num_intensities)[-1])
 	save_fig('min_num_active_for_accurate_vs_Kk_intensity_heatmap', 
 				subdir=data_flag)
 	

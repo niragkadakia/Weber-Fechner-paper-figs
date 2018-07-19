@@ -93,8 +93,6 @@ def active_heatmap(data_flag, decoded_pct=75, Kk_idxs_to_plot=[0, 2, 4, 6, 8],
 			plt.plot(signal_intensities, 1e3*avg_latencies, color=color, lw=2)
 
 		print 'Thrown out indices = %s out of %s' % (nans, (iKk + 1)*num_odors*(iI + 1))
-		#plt.xticks([1, 3, 5, 7, 9])
-		#plt.xlim(0, 10.1)
 		save_fig('primacy_errors_vs_time_rate=%s_intensities=%s' 
 					% (iRate, intensity_idxs_to_plot), subdir=data_flag)
 		
