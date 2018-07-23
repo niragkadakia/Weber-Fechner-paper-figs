@@ -86,13 +86,14 @@ def active_heatmap(data_flag, decoded_pct=75, Kk_idxs_to_plot=[0, 2, 4, 6, 8],
 			
 			# Latencies for each intensity, for each odor, then avgd over odors
 			for iI in range(len(intensity_idxs_to_plot)):
-				latencies[iI, :] = decoded_times[iI, :] - decoded_times[0, :]
+				latencies[iI, :] = -(decoded_times[iI, :] - decoded_times[0, :])
 			avg_latencies = sp.nanmean(latencies, axis=1)
 			
 			color = plt.cm.viridis(0.85*iKk/(len(Kk_idxs_to_plot) - 1))
 			plt.plot(signal_intensities, 1e3*avg_latencies, color=color, lw=2)
 
-		print 'Thrown out indices = %s out of %s' % (nans, (iKk + 1)*num_odors*(iI + 1))
+		print ('Thrown out indices = %s out of %s' % 
+				(nans, (iKk + 1)*num_odors*(iI + 1)))
 		save_fig('primacy_errors_vs_time_rate=%s_intensities=%s' 
 					% (iRate, intensity_idxs_to_plot), subdir=data_flag)
 		
