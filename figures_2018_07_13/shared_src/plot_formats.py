@@ -185,7 +185,8 @@ def fig_primacy_errors_time():
 	fig = plt.figure()
 	fig.set_size_inches(3, 3)
 	
-	plt.xticks([0, 5, 10, 15, 20, 25], fontsize=16)
+	plt.xscale('log')
+	plt.xticks([1, 3, 10, 30, 100], ['1x', '3x', '10x', '30x', '100x'], fontsize=16)
 	plt.yticks(fontsize=16)
 		
 	return fig
@@ -213,7 +214,8 @@ def primacy_min_active_for_accurate_heatmap():
 	fig = plt.figure()
 	
 	fig.set_size_inches(4, 3)
-	plt.xticks(sp.arange(1, 15, 2), fontsize=16)
+	plt.xscale('log')
+	plt.xticks([1, 3, 10, 30, 100], ['1x', '3x', '10x', '30x', '100x'], fontsize=16)
 	plt.yticks(sp.arange(1, 15, 2), fontsize=16)
 	
 	return fig
@@ -224,13 +226,14 @@ def fig_classification_accuracy():
 	"""
 	
 	fig = plt.figure()
-	fig.set_size_inches(5, 5)
+	fig.set_size_inches(4, 4)
 		
 	plt.xticks(fontsize=20)
 	plt.yticks(fontsize=20)
 		
 	plt.xscale('log')
 	plt.ylim(0.5, 1.002)
+	plt.xlim(1, 5000)
 		
 	return fig
 	

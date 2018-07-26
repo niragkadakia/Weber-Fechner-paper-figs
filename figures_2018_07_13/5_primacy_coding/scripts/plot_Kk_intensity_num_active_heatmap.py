@@ -27,7 +27,8 @@ from utils import get_flag
 from load_specs import read_specs_file
 
 
-def accuracy_vs_num_active(data_flag, active_rate=20, min_accurate_pct=75):
+def accuracy_vs_num_active(data_flag, active_rate=15, min_accurate_pct=75, 
+							intensity_idxs_to_plot=range(4, 15)):
 	
 	binary_errors = load_binary_errors(data_flag)
 	errors_nonzero = binary_errors['errors_nonzero']
@@ -55,8 +56,6 @@ def accuracy_vs_num_active(data_flag, active_rate=20, min_accurate_pct=75):
 	it = sp.nditer(sp.zeros(iter_array_dims), flags=['multi_index'])
 	errors_shape = (num_rates, num_Kks, num_intensities)
 	total_errors = sp.zeros(errors_shape)
-	
-	print (total_errors.shape)
 	
 	while not it.finished:
 	
@@ -96,8 +95,11 @@ def accuracy_vs_num_active(data_flag, active_rate=20, min_accurate_pct=75):
 	
 	# Plot heatmap
 	fig = primacy_min_active_for_accurate_heatmap()
-	X, Y = sp.meshgrid(range(num_Kks), range(num_intensities)[1:])
-	plt.pcolormesh(Y, X, total_errors[0, :, 1:].T, cmap=plt.cm.hot)
+	scale_multiplier = 0.15
+	X, Y = sp.meshgrid(iter_vars['Kk'] - 0.5, 
+			iter_vars['signal_trace_multiplier'][intensity_idxs_to_plot]*scale_multiplier)
+	plt.pcolormesh(Y, X, total_errors[0, :, intensity_idxs_to_plot], cmap=plt.cm.hot)
+	plt.xlim(0.99, 10.5)
 	#plt.ylim(range(num_intensities)[1], range(num_intensities)[-1])
 	save_fig('min_num_active_for_accurate_vs_Kk_intensity_heatmap', 
 				subdir=data_flag)
@@ -112,7 +114,6 @@ def accuracy_vs_num_active(data_flag, active_rate=20, min_accurate_pct=75):
 							norm=norm, ticks=ticks,
 							orientation='vertical')
 	cbar.ax.tick_params(labelsize=25)
-	#cbar.ax.set_yticklabels(tick_labels)
 	save_fig('min_num_active_colorbar', subdir=data_flag, 
 				tight_layout=False)
 	

@@ -33,8 +33,7 @@ def plot_accuracy_vs_num_signals(data_flags):
 
 	fig = fig_classification_accuracy()
 	
-	cmap = plt.cm.viridis
-	colors = [0, .25, 0.55, 0.8]
+	colors = plt.cm.viridis([0.2, 0.4, 0.6, 0.8])
 	lws = [3, 3, 3, 3]
 	lss = ['-', '-', '-', '-']
 	
@@ -70,7 +69,7 @@ def plot_accuracy_vs_num_signals(data_flags):
 				sum_acc += acc
 			avg_accuracies[iNum] = sum_acc/len(Jj_mask_seed)
 			
-		plt.plot(num_signals, avg_accuracies, color=cmap(colors[iFlag]),
+		plt.plot(num_signals, avg_accuracies, color=colors[iFlag],
 					lw=lws[iFlag], linestyle=lss[iFlag])
 		
 		del (obj_list)
@@ -79,7 +78,8 @@ def plot_accuracy_vs_num_signals(data_flags):
 		del (list_dict)
 		gc.collect()
 	
-	plt.ylim(0.35, 1.002)
+	#plt.ylim(0.35, 1.005)
+	plt.ylim(0.5, 1.005)
 	save_fig('classification_accuracy', subdir=data_flag)
 					
 if __name__ == '__main__':

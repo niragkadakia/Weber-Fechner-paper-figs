@@ -31,21 +31,24 @@ from load_specs import read_specs_file
 from load_data import load_aggregated_entropy_objects
 
 
-def plot_MI(data_flags, Kk_idxs = [[0, 3], [3, 0]], dual_color=0):
+def plot_MI(data_flags, Kk_idxs = [[0, 3]], dual_color=0):
 	"""
 	Kk_idxs is a list of which of the iterated variables to plot
 	(inner loop) for each data_flag (outer loop).
 	"""
 	
-	# Use this for Kk_idxs = [[0, 3], [3, 0]]; changes from unadapted to adapted
-	cmaps = [plt.cm.Reds, plt.cm.Blues]
-	colors = ['r', 'b']
+	# Use this for Kk_idxs = [[0, 3]]; changes from unadapted to adapted
+	cmaps = [plt.cm.Reds]
+	colors = ['r']
 	#dual_color = 1 # set this if overlapping plots
 	
-	# Use this for Kk_idxs = [[3, 0], [3, 3]]; changes from adapted w/o perturbation
-	#  to adapted w/ perturbation
-	#cmaps = [plt.cm.Blues, plt.cm.Greens]
-	#colors = ['b', 'g']
+	# Use this for Kk_idxs = [[3, 0]]; changes from unadapted adapted 
+	#cmaps = [plt.cm.Blues]
+	#colors = ['b']
+	
+	# Use this for Kk_idxs = [[3, 5]]; changes from adapted to adapted w/ bkgrnd
+	#cmaps = [plt.cm.Greens]
+	#colors = ['g']
 	
 	assert len(data_flags) <= 2, "Only plot 2 data flags at a time"
 	
