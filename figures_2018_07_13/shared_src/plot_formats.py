@@ -103,7 +103,7 @@ def fig_temporal_heatmap():
 	"""
 	
 	fig = plt.figure()
-	fig.set_size_inches(8, 2)
+	fig.set_size_inches(6, 1.5)
 	
 	plt.xticks(sp.arange(-10, 10, 0.5), fontsize=18)
 	plt.yticks(sp.arange(1, 15, 2), fontsize=18)
@@ -129,7 +129,7 @@ def fig_MI_trace():
 	"""
 	
 	fig = plt.figure()
-	fig.set_size_inches(4, 3)
+	fig.set_size_inches(3, 3)
 	
 	plt.xscale('log')
 	plt.xticks([1, 100, 10000], fontsize=18)

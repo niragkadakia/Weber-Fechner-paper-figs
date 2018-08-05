@@ -52,7 +52,7 @@ def plot_temporal_errors(data_flag, nT_to_plot=85, Kk_idx=2,
 	X, Y = sp.meshgrid(Tt, rates)
 	
 	avg_success = sp.average(success, axis=2)
-	Z = avg_success[:nT_to_plot, rate_idxs, Kk_idx]
+	Z = avg_success[:nT_to_plot, rate_idxs, Kk_idx][:, ::-1]
 	
 	fig = fig_temporal_heatmap()
 	plt.pcolormesh(X, Y, Z.T, cmap='hot', vmin=-0.05, vmax=1.05)

@@ -87,6 +87,28 @@ def save_success_ratios(successes, data_flag):
 	sp.savez(filename, successes=successes)
 	print ('\nSignal binary successes file saved to %s' % filename)
 	
+def save_tau_f_success_ratios(successes, data_flag, int_window_rate_mult):
+	"""
+	Save list of successes based on decoding error of CS
+	objects.
+	
+	Args:
+		successes: numpy array of number of binary data for
+					success (1) or not success (0), for full CS
+					object array.
+		data_flag: Data identifier for loading and saving.
+	"""
+	
+	out_dir = '%s/%s' % (FIGURE_ANALYSIS_DATA_DIR, data_flag)
+	if not os.path.exists(out_dir):
+		os.makedirs(out_dir)
+
+	filename = '%s/successes_%.2f.npz' % (out_dir, int_window_rate_mult)
+	sp.savez(filename, successes=successes)
+	print ('\nSignal binary successes file saved to %s' % filename)
+	
+	
+	
 def save_odor_ID_errors(errors, data_flag):
 	"""
 	Save decoding error of odor ID; by thresholding nonzeros above small value 
@@ -183,6 +205,26 @@ def load_success_ratios(data_flag):
 	
 	return successes
 
+def load_tf_success_ratios(data_flag, int_window_rate_mult):
+	"""
+	Load list of successes based on decoding error of CS
+	objects. Depends on forgetting time.
+	
+	Args:
+		data_flag: Data identifier for loading and saving.
+		
+	Returns:
+		successes: numpy object of success ratio data
+	"""
+	
+	filename = '%s/%s/successes_%.2f.npz' % (FIGURE_ANALYSIS_DATA_DIR, 
+											data_flag, int_window_rate_mult)
+	infile = sp.load(filename)
+	successes = infile['successes']
+	
+	return successes
+
+	
 def load_odor_ID_errors(data_flag):
 	"""
 	Save decoding error of odor ID; by thresholding nonzeros above small value 

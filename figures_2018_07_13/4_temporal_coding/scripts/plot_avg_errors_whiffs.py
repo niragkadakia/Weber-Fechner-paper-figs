@@ -14,7 +14,7 @@ import sys
 from scipy.ndimage.filters import gaussian_filter
 import matplotlib.pyplot as plt
 sys.path.append('../../shared_src')
-from save_load_figure_data import load_success_ratios, save_fig
+from save_load_figure_data import load_tf_success_ratios, save_fig
 from plot_formats import fig_avg_whiff_errors
 
 # The location of the source code for CS-variability-adaptation is listed
@@ -26,10 +26,14 @@ from load_specs import read_specs_file
 from load_data import load_signal_trace_from_file
 
 
-def plot_avg_errors(data_flags, whiff_threshold=8):
+def plot_avg_errors(data_flags, whiff_threshold=10, 
+					int_window_rate_mults=[0.1, 1, 5], 
+					background_intensities=sp.array([10, 30, 100, 300]),
+					whiff_bkgrnd_factor=0.25, plot_x_shift=1./10):
+					
 	"""
 	Will only plot 2 rates (indices 0 and 1 for temporal_adaptation_rate
-	index in data file).
+	index in data file). Will consider various forgetting times.
 	"""
 
 	# This should come from the data flags themselves
@@ -39,92 +43,103 @@ def plot_avg_errors(data_flags, whiff_threshold=8):
 	#	temporal_power_law_acv_1_bkgrnd_step_mult=100
 	#	temporal_power_law_acv_1_bkgrnd_step_mult=300
 	
-	background_intensities = [10, 50, 100, 300]
 	
-	for iFlag, data_flag in enumerate(data_flags):
-		
-		success = load_success_ratios(data_flag)
-		list_dict = read_specs_file(data_flag)
-		iter_vars_dims = []
-		for iter_var in list_dict['iter_vars']:
-			iter_vars_dims.append(len(list_dict['iter_vars'][iter_var]))		
-		iter_vars = list_dict['iter_vars']
-		
-		iter_var_names = ['temporal_adaptation_rate', 'seed_dSs', 'Kk_1', 'Kk_2']
-		for iName, name in enumerate(iter_var_names):
-			assert list(iter_vars.keys())[iName] == name, "%sth variable "\
-				"must have name %s" % (iName, name)
-		
-		try: 
-			avg_whiff_errors
-		except:
-			error_array_dims = (len(data_flags), ) + (iter_vars_dims[0], 
-								iter_vars_dims[2], iter_vars_dims[3])
-			avg_whiff_errors = sp.zeros(error_array_dims)
+	for iMult, int_window_rate_mult in enumerate(int_window_rate_mults):
+	
+		for iFlag, data_flag in enumerate(data_flags):
 			
-		# Signal data can be loaded from specs file -- no need to open agg objs.
-		signal_file = list_dict['fixed_vars']['signal_trace_file']
-		signal_data = load_signal_trace_from_file(signal_file)
-		Tt = sp.arange(len(signal_data))
-		multiplier = list_dict['fixed_vars']['signal_trace_multiplier']
-		offset = list_dict['fixed_vars']['signal_trace_offset']
-		signal = (offset + signal_data[:, 1])*multiplier
+			success = load_tf_success_ratios(data_flag, int_window_rate_mult)
+			list_dict = read_specs_file(data_flag)
+			iter_vars_dims = []
+			for iter_var in list_dict['iter_vars']:
+				iter_vars_dims.append(len(list_dict['iter_vars'][iter_var]))		
+			iter_vars = list_dict['iter_vars']
+			
+			iter_var_names = ['temporal_adaptation_rate', 'seed_dSs', 'Kk_1', 'Kk_2']
+			for iName, name in enumerate(iter_var_names):
+				assert list(iter_vars.keys())[iName] == name, "%sth variable "\
+					"must have name %s" % (iName, name)
+			
+			try: 
+				avg_whiff_errors
+			except:
+				error_array_dims = (len(data_flags), len(int_window_rate_mults)) \
+										+ (iter_vars_dims[0], iter_vars_dims[2], 
+										iter_vars_dims[3])
+				avg_whiff_errors = sp.zeros(error_array_dims)
+				
+			# Signal data can be loaded from specs file -- no need to open agg objs.
+			signal_file = list_dict['fixed_vars']['signal_trace_file']
+			signal_data = load_signal_trace_from_file(signal_file)
+			Tt = sp.arange(len(signal_data))
+			multiplier = list_dict['fixed_vars']['signal_trace_multiplier']
+			offset = list_dict['fixed_vars']['signal_trace_offset']
+			signal = (offset + signal_data[:, 1])*multiplier
+			
+			# Clip array to desired range
+			xlims = (0, 1.0)
+			xlim_idxs = [int(len(Tt)*xlims[0]), int(len(Tt)*xlims[1])]
+			plot_range = range(xlim_idxs[0], xlim_idxs[1])
+			Tt = Tt[plot_range]
+			Tt = Tt - Tt[0]
+			signal = signal[plot_range]
+			success = success[plot_range,...]
+			
+			# Set whiff_threshold as factor of background
+			whiff_threshold = background_intensities[iFlag]*whiff_bkgrnd_factor
+			
+			# Get the whiff occurences
+			whiff_hits_array = 1.*(signal > whiff_threshold)
+			whiff_begs = Tt[sp.where(sp.diff(whiff_hits_array) == 1)[0]]
+			whiff_ends = Tt[sp.where(sp.diff(whiff_hits_array) == -1)[0]]
+			if whiff_hits_array[0] > whiff_threshold:
+				whiff_begs = sp.hstack((sp.zeros(1), whiff_begs))
+			if len(whiff_begs) > len(whiff_ends):
+				whiff_ends = sp.hstack((whiff_ends, Tt[-1]))
+			if len(whiff_begs) < len(whiff_ends):
+				whiff_begs = sp.hstack((Tt[0], whiff_begs))
+			whiff_begs = whiff_begs.astype(int)
+			whiff_ends = whiff_ends.astype(int)
+			
+			cum_success = 0
+			num_whfs = 0
+			
+			# For each whiff -- see max decoding accuracy during whiff
+			for nWhf in range(len(whiff_begs)):
+				whf_range = range(whiff_begs[nWhf], whiff_ends[nWhf])
+				cum_success += sp.amax(success[whf_range,...], axis=0)
+				num_whfs += 1
+			whf_success = 1.*cum_success/num_whfs
+			avg_whf_success = sp.average(whf_success, axis=1)*100.0
+			avg_whiff_errors[iFlag, iMult, ...] = avg_whf_success
 		
-		# Clip array to desired range
-		xlims = (0.0, 0.4)
-		xlim_idxs = [int(len(Tt)*xlims[0]), int(len(Tt)*xlims[1])]
-		plot_range = range(xlim_idxs[0], xlim_idxs[1])
-		Tt = Tt[plot_range]
-		Tt = Tt - Tt[0]
-		signal = signal[plot_range]
-		success = success[plot_range,...]
-		
-		# Signal with whiffs highlighted
-		whiff_hits_array = 1.*(signal > whiff_threshold)
-		whiff_begs = Tt[sp.where(sp.diff(whiff_hits_array) == 1)[0]]
-		whiff_ends = Tt[sp.where(sp.diff(whiff_hits_array) == -1)[0]]
-		if whiff_hits_array[0] > whiff_threshold:
-			whiff_begs = sp.hstack((sp.zeros(1), whiff_begs))
-		if len(whiff_begs) > len(whiff_ends):
-			whiff_ends = sp.hstack((whiff_ends, Tt[-1]))
-		if len(whiff_begs) < len(whiff_ends):
-			whiff_begs = sp.hstack((Tt[0], whiff_begs))
-		
-		avg_success = sp.average(success, axis=2)*100.
-		cum_success = 0
-		num_pts = 0
-		
-		# Grab the data
-		for nWhf in range(len(whiff_begs)):
-			whf_range = range(whiff_begs[nWhf], whiff_ends[nWhf])
-			cum_success += sp.sum(avg_success[whf_range,...], axis=0)
-			num_pts += len(whf_range)
-		whf_success = 1.*cum_success/num_pts
-		avg_whiff_errors[iFlag,...] = whf_success
-	
 	# x-axis of heatmap is background strength; y- is background complexity
-	x_range = background_intensities
+	x_range = background_intensities*plot_x_shift
 	y_range = range(iter_vars_dims[3])
 	X, Y = sp.meshgrid(x_range, y_range)
 	
 	# Separate figure for each foreground/background complexity pair
 	for Kk_1 in range(iter_vars_dims[2]):
 		for Kk_2 in range(iter_vars_dims[2]):
+			
 			fig = fig_avg_whiff_errors()
-			#plt.fill_between(x_range, 0, avg_whiff_errors[:, 1, Kk_1, Kk_2], 
-			#	color=plt.cm.Greys(0.7))
-			#plt.fill_between(x_range, 0, avg_whiff_errors[:, 0, Kk_1, Kk_2], 
-			#	color=plt.cm.Greys(0.4))
-			plt.plot(x_range, avg_whiff_errors[:, 1, Kk_1, Kk_2], 
-						color=plt.cm.Greys(0.7), lw=4)
-			plt.plot(x_range, avg_whiff_errors[:, 0, Kk_1, Kk_2], 
-						color=plt.cm.Greys(0.4), lw=4)
-			plt.yticks([0, 50, 100])
-			plt.xscale('log')
-			plt.ylim(0, 100)
-			save_fig('%s_Kk_1=%s_Kk_2=%s' % (x_range, Kk_1, Kk_2), 
+			
+			for iMult, int_window_rate_mult in enumerate(int_window_rate_mults):
+				
+				# Different values of color for each forgetting time
+				color_val = 0.3 + iMult*0.7/(len(int_window_rate_mults) - 1)
+				
+				# Fast adaptation in red, slow adaptation in blue
+				plt.plot(x_range, avg_whiff_errors[:, iMult, 1, Kk_1, Kk_2],
+							color=plt.cm.Reds(color_val), lw=3)
+				plt.plot(x_range, avg_whiff_errors[:, iMult, 0, Kk_1, Kk_2], 
+							color=plt.cm.Blues(color_val), lw=3)
+				plt.yticks([0, 50, 100])
+				plt.xscale('log')
+				plt.ylim(0, 100)
+			save_fig('%s_Kk_1=%s_Kk_2=%s' % (background_intensities, Kk_1, Kk_2),
 						subdir='avg_whiff_errors')
-	
+		
 if __name__ == '__main__':
 	data_flags = get_flags()
 	plot_avg_errors(data_flags)
