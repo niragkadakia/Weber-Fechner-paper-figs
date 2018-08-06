@@ -103,7 +103,7 @@ def fig_temporal_heatmap():
 	"""
 	
 	fig = plt.figure()
-	fig.set_size_inches(6, 1.5)
+	fig.set_size_inches(5.5, 2)
 	
 	plt.xticks(sp.arange(-10, 10, 0.5), fontsize=18)
 	plt.yticks(sp.arange(1, 15, 2), fontsize=18)

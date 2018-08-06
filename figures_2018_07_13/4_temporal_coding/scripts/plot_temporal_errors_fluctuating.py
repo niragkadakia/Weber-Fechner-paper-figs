@@ -28,13 +28,13 @@ from load_data import load_aggregated_temporal_objects, \
 						load_signal_trace_from_file
 
 
-def plot_temporal_errors(data_flag, rates_to_plot=[0, 1], whiff_threshold=15):
+def plot_temporal_errors(data_flag, rates_to_plot=[0, 1], whiff_threshold=10,
+							plot_errors=False):
 
 	# Which background and foreground complexities to plot
 	Kk_1_idx = 0
 	Kk_2_idx = 2
 	
-	#success = load_success_ratios(data_flag)
 	list_dict = read_specs_file(data_flag)
 	iter_vars_dims = []
 	for iter_var in list_dict['iter_vars']:
@@ -50,7 +50,9 @@ def plot_temporal_errors(data_flag, rates_to_plot=[0, 1], whiff_threshold=15):
 	if len(iter_vars) > 2:
 		assert list(iter_vars.keys())[2] == 'Kk_1'
 		assert list(iter_vars.keys())[3] == 'Kk_2'
-		#success = success[:, :, Kk_1_idx, Kk_2_idx]
+		if plot_errors == True:
+			success = load_success_ratios(data_flag)
+			success = success[:, :, Kk_1_idx, Kk_2_idx]
 	
 	# Signal data can be loaded from specs file -- no need to open agg objs.
 	signal_file = list_dict['fixed_vars']['signal_trace_file']
@@ -68,8 +70,8 @@ def plot_temporal_errors(data_flag, rates_to_plot=[0, 1], whiff_threshold=15):
 		signal_2 = (offset + signal_data_2[:, 1])*multiplier
 	
 	# Clip array to desired section
-	#xlims = (0.35, 0.40)
-	xlims = (0, 1)
+	xlims = (0.3, 0.40)
+	#xlims = (0, 1)
 	xlim_idxs = [int(len(Tt)*xlims[0]), int(len(Tt)*xlims[1])]
 	plot_range = range(xlim_idxs[0], xlim_idxs[1])
 	Tt = Tt[plot_range]
@@ -77,7 +79,8 @@ def plot_temporal_errors(data_flag, rates_to_plot=[0, 1], whiff_threshold=15):
 	signal = signal[plot_range]
 	if 'signal_trace_file_2' in list_dict['fixed_vars']:
 		signal_2 = signal_2[plot_range]
-	#success = success[plot_range,...]
+	if plot_errors == True:
+		success = success[plot_range,...]
 	
 	# Signal with whiffs highlighted
 	whiff_hits_array = 1.*(signal > whiff_threshold)
@@ -91,41 +94,43 @@ def plot_temporal_errors(data_flag, rates_to_plot=[0, 1], whiff_threshold=15):
 		whiff_begs = sp.hstack((Tt[0], whiff_begs))
 	
 	fig = fig_signal_trace()
-	fig.set_size_inches(18, 2.5)
-	plt.plot(Tt, signal, lw=2, color=plt.cm.Greens(0.9))
+	fig.set_size_inches(4, 2.5)
+	plt.plot(Tt, signal, lw=2, color=plt.cm.Greys(0.9))
 	if 'signal_trace_file_2' in list_dict['fixed_vars']:
 		plt.plot(Tt, signal_2, lw=3, color=plt.cm.Blues(0.9), linestyle='-')
-	#for nWhf in range(len(whiff_begs)):
-	#	plt.axvspan(whiff_begs[nWhf], whiff_ends[nWhf], alpha=0.15, color='r')
+	for nWhf in range(len(whiff_begs)):
+		plt.axvspan(whiff_begs[nWhf], whiff_ends[nWhf], alpha=0.15, color='r')
 	plt.xticks(sp.arange(0, 100, 10), fontsize=18)
 	plt.yticks(sp.arange(0, 1000, 100), fontsize=18)
 	plt.xlim(Tt[0], Tt[-1])
 	plt.ylim(0, 200)
 	save_fig('signal_with_whiffs', subdir=data_flag)
 	
-	adapt_rate_vals = iter_vars['temporal_adaptation_rate']
-	avg_success = sp.average(success, axis=2)*100.
-	std_success = sp.std(success, axis=2)*100.
 	
-	# Separate plots for each rate to visualize easier
-	for iR, iRate in enumerate(rates_to_plot):
-		fig = fig_signal_trace()
-		fig.set_size_inches(3.5, 2.5)
-		cmap = plt.cm.Greys
-		color = 0.6 + 0.4*iR/(len(rates_to_plot) - 1)
-		smoothed_avg = gaussian_filter(avg_success[:, iRate].T, sigma=2)
-		plt.plot(Tt, smoothed_avg, color=cmap(color), lw=2)
+	if plot_errors == True:
+		adapt_rate_vals = iter_vars['temporal_adaptation_rate']
+		avg_success = sp.average(success, axis=2)*100.
+		std_success = sp.std(success, axis=2)*100.
 		
-		# Plot whiff regions in each estimation plot
-		for nWhf in range(len(whiff_begs)):
-			plt.axvspan(whiff_begs[nWhf], whiff_ends[nWhf], alpha=0.15, 
-						color='r')
-		plt.xticks(sp.arange(0, 100, 1), fontsize=18)
-		plt.yticks(sp.arange(0, 101, 50), fontsize=18)
-		plt.xlim(Tt[0], Tt[-1])
-		plt.ylim(0, 101)
-		save_fig('errors_rates=%s' % iR, subdir=data_flag)
-		
+		# Separate plots for each rate to visualize easier
+		for iR, iRate in enumerate(rates_to_plot):
+			fig = fig_signal_trace()
+			fig.set_size_inches(3.5, 2.5)
+			cmap = plt.cm.Greys
+			color = 0.6 + 0.4*iR/(len(rates_to_plot) - 1)
+			smoothed_avg = gaussian_filter(avg_success[:, iRate].T, sigma=2)
+			plt.plot(Tt, smoothed_avg, color=cmap(color), lw=2)
+			
+			# Plot whiff regions in each estimation plot
+			for nWhf in range(len(whiff_begs)):
+				plt.axvspan(whiff_begs[nWhf], whiff_ends[nWhf], alpha=0.15, 
+							color='r')
+			plt.xticks(sp.arange(0, 100, 1), fontsize=18)
+			plt.yticks(sp.arange(0, 101, 50), fontsize=18)
+			plt.xlim(Tt[0], Tt[-1])
+			plt.ylim(0, 101)
+			save_fig('errors_rates=%s' % iR, subdir=data_flag)
+			
 	
 if __name__ == '__main__':
 	data_flag = get_flag()

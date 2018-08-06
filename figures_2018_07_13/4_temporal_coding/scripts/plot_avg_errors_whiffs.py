@@ -127,13 +127,13 @@ def plot_avg_errors(data_flags, whiff_threshold=10,
 			for iMult, int_window_rate_mult in enumerate(int_window_rate_mults):
 				
 				# Different values of color for each forgetting time
-				color_val = 0.3 + iMult*0.7/(len(int_window_rate_mults) - 1)
+				color_val = 0.3 + iMult*0.55/(len(int_window_rate_mults) - 1)
 				
 				# Fast adaptation in red, slow adaptation in blue
 				plt.plot(x_range, avg_whiff_errors[:, iMult, 1, Kk_1, Kk_2],
 							color=plt.cm.Reds(color_val), lw=3)
 				plt.plot(x_range, avg_whiff_errors[:, iMult, 0, Kk_1, Kk_2], 
-							color=plt.cm.Blues(color_val), lw=3)
+							color=plt.cm.Greens(color_val), lw=3)
 				plt.yticks([0, 50, 100])
 				plt.xscale('log')
 				plt.ylim(0, 100)
