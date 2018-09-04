@@ -67,8 +67,8 @@ S.~Gorur-Shandilya, M.~Demir, J.~Long, D.~A. Clark, and T.~Emonet, ``Olfactory
   intermittent odorant stimuli,'' {\em eLife}, vol.~6, p.~e27670, jun 2017.
 
 \bibitem{odor_backgrounds}
-``Olfactory signal coding in an odor background,'' {\em Biosystems}, vol.~136,
-  pp.~35 -- 45, 2015.
+M.~Renou, V.~Party, A.~Rouyar, and S.~Anton, ``Olfactory signal coding in an
+  odor background,'' {\em Biosystems}, vol.~136, pp.~35 -- 45, 2015.
 
 \bibitem{si2017invariances}
 G.~Si, J.~K. Kanwal, Y.~Hu, C.~J. Tabone, J.~Baron, M.~E. Berck, G.~Vignoud,
@@ -84,6 +84,11 @@ S.~A. Montague, D.~Mathew, and J.~R. Carlson, ``Similar odorants elicit
 C.~Martelli, J.~R. Carlson, and T.~Emonet, ``Intensity invariant dynamics and
   odor-specific latencies in olfactory receptor neuron response,'' {\em Journal
   of Neuroscience}, vol.~33, no.~15, pp.~6285--6297, 2013.
+
+\bibitem{lateral_inh_asahina}
+K.~Asahina, M.~Louis, S.~Piccinotti, and L.~Vosshall, ``A circuit supporting
+  concentration-invariant odor perception in \textit{Drosophila},'' {\em
+  Journal of Biology}, vol.~8, no.~1, p.~9, 2009.
 
 \bibitem{divisive_normalization}
 S.~R. Olsen, B.~Vikas, and R.~I. Wilson, ``Divisive normalization in olfactory
@@ -125,7 +130,16 @@ C.~D. Wilson, G.~O. Serrano, A.~A. Koulakov, and D.~Rinberg, ``A primacy code
 
 \bibitem{primacy_math}
 H.~Giaffar, D.~Rinberg, and A.~A. Koulakov, ``Primacy model and the evolution
-  of the olfactory receptor repertoire,'' 2018.
+  of the olfactory receptor repertoire,'' {\em biorxiv}, 2018.
+
+\bibitem{tsne}
+L.~{van der Maaten} and G.~Hinton, ``Visualizing high-dimensional data using
+  t-sne,'' {\em Journal of Machine Learning Research}, vol.~9, pp.~2579--2605,
+  2008.
+
+\bibitem{olfactory_sensory_map}
+L.~B. Vosshall, A.~M. Wong, and R.~Axel, ``An olfactory sensory map in the fly
+  brain,'' {\em Cell}, vol.~102, no.~2, pp.~147 -- 159, 2000.
 
 \bibitem{vijay_1}
 K.~Krishnamurthy, A.~M. Hermundstad, T.~Mora, A.~M. Walczak, and
@@ -147,15 +161,66 @@ S.~Ganguli and H.~Sompolinsky, ``Compressed sensing, sparsity, and
   dimensionality in neuronal information processing and data analysis,'' {\em
   Annual Review of Neuroscience}, vol.~35, no.~1, pp.~485--508, 2012.
 
+\bibitem{chlovskii_pevlavan}
+C.~Pehlevan, A.~Genkin, and D.~B. Chklovskii, ``A clustering neural network
+  model of insect olfaction,'' in {\em 2017 51st Asilomar Conference on
+  Signals, Systems, and Computers}, pp.~593--600, 2017.
+
 \bibitem{ESA}
 G.~Lan, P.~Sartori, S.~Neumann, V.~Sourjik, and Y.~Tu, ``The
   energy-speed-accuracy tradeoff in sensory adaptation,'' {\em Nature physics},
   vol.~8, no.~5, pp.~422--428, 2012.
 
-\bibitem{tu_shimizu_berg}
-Y.~Tu, T.~S. Shimizu, and H.~C. Berg, ``Modeling the chemotactic response of
-  {E}scherichia coli to time-varying stimuli,'' {\em Proceedings of the
-  National Academy of Sciences}, vol.~105, no.~39, pp.~14855--14860, 2008.
+\bibitem{lateral_inh}
+S.~R. Olsen and R.~I. Wilson, ``Lateral presynaptic inhibition mediates gain
+  control in an olfactory circuit,'' {\em Nature}, vol.~452, pp.~952--960,
+  2008.
+
+\bibitem{memory_review}
+A.~C. Keene and S.~Waddell, ``\textit{Drosophila} olfactory memory: single
+  genes to complex neural circuits,'' {\em Nature Reviews Neuroscience},
+  vol.~8, pp.~341--354, 2007.
+
+\bibitem{litwinkumar}
+A.~Litwin-Kumar, K.~D. Harris, R.~Axel, H.~Sompolinsky, and L.~Abbott,
+  ``Optimal degrees of synaptic connectivity,'' {\em Neuron}, vol.~93, no.~5,
+  pp.~1153 -- 1164.e7, 2017.
+
+\bibitem{abbott_axel}
+S.~Caron, V.~Ruta, L.~Abbott, and R.~Axel, ``Random convergence of olfactory
+  inputs in the \textit{Drosophila} mushroom body,'' {\em Nature}, vol.~497,
+  no.~4774, pp.~113--117, 2013.
+
+\bibitem{adaptation_fairhall}
+B.~Wark, B.~N. Lundstrom, and A.~Fairhall, ``Sensory adaptation,'' {\em Current
+  Opinion in Neurobiology}, vol.~17, no.~4, pp.~423--429, 2007.
+
+\bibitem{adaptation_nagel}
+K.~I. Nagel and A.~J. Doupe, ``Temporal processing and adaptation in the
+  songbird auditory forebrain,'' {\em Neuron}, vol.~51, no.~6, pp.~845 -- 859,
+  2006.
+
+\bibitem{laughlin}
+S.~B. Laughlin, ``A simple coding procedure enhances a neuron's information
+  capacity,'' {\em Zeitschrift f{\"u}r Naturforschung C}, vol.~36, no.~9-10,
+  pp.~910--912, 1981.
+
+\bibitem{deweese_adaptation}
+M.~DeWeese and A.~Zador, ``Asymmetric dynamics in optimal variance
+  adaptation,'' {\em Neural Computation}, vol.~10, pp.~1179--1202, 1998.
+
+\bibitem{information_theory_adaptation}
+I.~Nemenman, ``Information theory and adaptation,'' in {\em Quantitative
+  Biology: From Molecular to Cellular Systems} (M.~E. Wall, ed.), ch.~4,
+  pp.~73--91, USA: CRC Press, 2012.
+
+\bibitem{robustness_barkai}
+N.~Barkai and S.~Leibler, ``Robustness in simple biochemical networks,'' {\em
+  Nature}, vol.~387, pp.~913--917, 1997.
+
+\bibitem{robustness_alon}
+U.~Alon, M.~Surette, B.~N., and S.~Leibler, ``Robustness in bacterial
+  chemotaxis,'' {\em Nature}, vol.~397, pp.~168--171, 1999.
 
 \bibitem{Cao_Tu_WL}
 L.-H. Cao, D.~Yang, W.~Wu, X.~Zeng, B.-Y. Jing, M.-T. Li, S.~Qin, C.~Tang,
@@ -163,56 +228,29 @@ L.-H. Cao, D.~Yang, W.~Wu, X.~Zeng, B.-Y. Jing, M.-T. Li, S.~Qin, C.~Tang,
   drives olfactory perception in \emph{{D}rosophila},'' {\em Nature
   Communications}, vol.~8, no.~1, p.~1357, 2017.
 
-\bibitem{vijay_2}
-T.~Tesileanu, S.~Cocco, R.~Monasson, and V.~Balasubramanian, ``Environmental
-  adaptation of olfactory receptor distributions,'' {\em bioRxiv},
-  vol.~doi:10.1101/255547, 2018.
+\bibitem{reddy2017antagonism}
+G.~Reddy, J.~Zak, M.~Vergassola, and V.~N. Murthy, ``Antagonism in olfactory
+  receptor neurons and its implications for the perception of odor mixtures,''
+  {\em bioRxiv}, p.~204354, 2017.
 
-\bibitem{sharpee_zhang}
-Y.~Zhang and T.~O. Sharpee, ``A robust feedforward model of the olfactory
-  system,'' {\em PLOS Computational Biology}, vol.~12, no.~4, pp.~1--15, 2016.
-
-\bibitem{information_theory_adaptation}
-I.~Nemenman, ``Information theory and adaptation,'' {\em arXiv},
-  vol.~doi:[q-Bio]1011.5466, 2010.
+\bibitem{stopfer_temporal_model}
+B.~Raman, J.~Joseph, J.~Tang, and M.~Stopfer, ``Temporally diverse firing
+  patterns in olfactory receptor neurons underlie spatiotemporal neural codes
+  for odors,'' {\em Journal of Neuroscience}, vol.~30, no.~6, pp.~1994--2006,
+  2010.
 
 \bibitem{multiple_timescales_stopfer}
 N.~Gupta and M.~Stopfer, ``Insect olfactory coding and memory at multiple
   timescales,'' {\em Current Opinion in Neurobiology}, vol.~21, pp.~768--773,
   2011.
 
-\bibitem{olfactory_coding_latency}
-S.~Junek, E.~Kludt, F.~Wolf, and D.~Schild, ``Olfactory coding with patterns of
-  response latencies,'' {\em Neuron}, vol.~67, no.~5, pp.~872 -- 884, 2010.
+\bibitem{stopfer_nat_neuro}
+S.~L. Brown, J.~Joseph, and M.~Stopfer, ``Encoding a temporally structured
+  stimulus with a temporally structured neural representation,'' {\em Nature
+  Neuroscience}, vol.~8, pp.~1568--1576, 2005.
 
-\bibitem{chih-ying}
-C.-Y. Su, C.~Martelli, T.~Emonet, and J.~R. Carlson, ``Temporal coding of odor
-  mixtures in an olfactory receptor neuron,'' {\em Proceedings of the National
-  Academy of Sciences}, vol.~108, no.~12, pp.~5075--5080, 2011.
-
-\bibitem{odor_coding_rate_verhagen}
-D.~W. Wesson, R.~M. Carey, J.~V. Verhagen, and M.~Wachowiak, ``Rapid encoding
-  and perception of novel odors in the rat,'' {\em PLoS Biology}, vol.~6,
-  p.~e82, 2008.
-
-\bibitem{neural_network_temporal_coding}
-H.~Sanders, B.~E. Kolterman, R.~Shusterman, D.~Rinberg, A.~Koulakov, and
-  J.~Lisman, ``A network that performs brute-force conversion of a temporal
-  sequence to a spatial pattern: relevance to odor recognition,'' {\em
-  Frontiers in Computational Neuroscience}, vol.~8, p.~108, 2014.
-
-\bibitem{dweck}
-Y.~Seki, H.~K. Dweck, J.~Rybak, D.~Wicher, S.~Sachse, and B.~S. Hansson,
-  ``Olfactory coding from the periphery to higher brain centers in the
-  drosophila brain,'' {\em BMC Biology}, vol.~15, p.~56, 2017.
-
-\bibitem{mammalian_olfaction}
-B.~S. Hansson and M.~C. Stensmyr, ``Evolution of insect olfaction,'' {\em
-  Neuron}, vol.~72, no.~5, pp.~698 -- 711, 2011.
-
-\bibitem{evolution_insect_olfaction}
-M.~N. Andersson, C.~Löfstedt, and R.~D. Newcomb, ``Insect olfaction and the
-  evolution of receptor tuning,'' {\em Frontiers in Ecology and Evolution},
-  vol.~3, p.~53, 2015.
+\bibitem{stopfer_temporal_channel}
+N.~Gupta and M.~Stopfer, ``A temporal channel for information in sparse sensory
+  coding,'' {\em Neuron}, pp.~2247--2256, 2014.
 
 \end{thebibliography}
