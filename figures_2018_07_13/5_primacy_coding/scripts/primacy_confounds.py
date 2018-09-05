@@ -27,7 +27,7 @@ from load_specs import read_specs_file
 
 def primacy(data_flags, 
 			decoded_pct=75, 
-			primacy_sizes=sp.arange(1, 51, 1),
+			primacy_sizes=sp.arange(1, 21, 1),
 			rate_idx=0):
 	
 	assert len(data_flags) == 2, "Need exactly 2 data flags"
