@@ -237,4 +237,12 @@ def fig_classification_accuracy():
 		
 	return fig
 	
+def primacy_set_overlap():
+	"""
+	Figure showing % overlap of primacy sets.
+	"""
 	
+	fig = plt.figure()
+	fig.set_size_inches(3.5, 3.5)
+	
+	return fig
