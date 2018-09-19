@@ -177,7 +177,7 @@ Diversity among maximal odor-ORN response arises from the distribution of chemic
 
 %%%%%%%%%%%%		CODING CAPACITY FIGURE			%%%%%%%%%%%%%
 
-\begin{figure*}[!tb]
+\begin{figure}[!tb]
 	\centering
 	\begin{subfigure}[t]{\linewidth}
 		\includegraphics[width=\textwidth]{figures/2_coding_representation}
@@ -194,7 +194,7 @@ Diversity among maximal odor-ORN response arises from the distribution of chemic
 			\textbf{B}~To investigate abstract representations of odor identity in the ORN response, ORN responses are projected from 50 dimensions to 2 dimensions, using nonlinear dimensionality reduction. In the 2D space, distinct odors are plotted as points of distinct colors, and point size represents odor intensity. 
 			\textbf{C} In the adaptive system, responses cluster by identity more apparently for an adaptive system (bottom row), than a non-adaptive system (top row), shown here for 10 and 60 sparse odor identities for several concentrations each.}} % Mention that here K1 = 2, K2 = 5}}
 	\label{fig:coding}
-\end{figure*}
+\end{figure}
 
 To investigate the dependence of encoding capacity on odor concentration, we calculate the mutual information (MI) between odor signals $\mathbf s$ and responses $\mathbf A$ in two sensing systems, one with ORN adaptive feedback (via Eq.~\ref{eq:adaptation_dynamics}) and one without. We consider a simple situation, in which a step of odor A, $\textbf{s}_A$,  turns on at time~$t_1$, persists for some time, and then odor B, $\mathbf s_B$ (a distinct identity) turns on at some later time~$t_2$. For simplicity, we assume that both odors have similar intensities $s_0 = \langle s_i \rangle$ and calculate the MI between the ORN responses $\mathbf {r}_a$ and signals $\mathbf s_A + \mathbf s_B$ at various times after $t_1$, as a function of $s_0$. In the non-adaptive case, MI peaks around the region of maximum sensitivity ($\sim 10^2$ a.u.) after $t_1$ (Fig.~\ref{fig:coding_a}. ORNs are firing at an elevated rate, however, more susceptible to saturation with further odor onsets. Thus, following $t_2$, the maximum shifts leftward as odors of high intensities have saturated the system and cannot pass any more information.
 
@@ -209,16 +209,32 @@ Testing this both for a smaller odor repertoire (10 odor identities) and a large
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 
-\subsection{Front-end adaptation promotes odor decoding and discrimination accuracy amid potential confounds}
+\subsection{Front-end adaptation promotes odor discrimination accuracy in static and fluctuating environments}
 
-Next, we ask how front-end adaptive mechanisms can aid in accurate signal reconstruction from a repertoire of ORN response.  One potentially complicating factor in signal reconstruction is the disparity between measurement dimension and stimulus dimension: while \textit{Drosophila} only express $\sim 60$ olfactory receptor genes~\cite{olfactory_sensory_map}, the space of aromatic odorants is far greater~\cite{vijay_1}. However, many naturally-occurring odors are comprised of only a small subset of these volatile compounds -- they are sparse in the space of odorants~\cite{vijay_1}. This is suggestive as mathematical results in compressed sensing guarantee the reconstruction of these sparse signals, assuming a sufficiently random response~\cite{CS_donoho, CS_tao, CS_ganguli}. We emphasize that while at this stage of the analysis we use a compressed sensing framework to decode these sparse signals, there is no evidence that this algorithm is being implemented in the \textit{Drosophila} olfactory circuit~\cite{chlovskii_pevlavan}. Later, we show that similar conclusions follow for odor categorization via binary and multi-class classification.
+Next, we ask how the universal adaptive feedback might contribute to accurate signal reconstruction from ORN responses.  One potentially complicating factor is the disparity between sensor dimension and stimulus dimension: while \textit{Drosophila} only express $\sim 60$ olfactory receptor genes~\cite{olfactory_sensory_map}, the space of aromatic odorants is far greater~\cite{vijay_1}. However, many naturally-occurring odors are comprised of only a small subset of these volatile compounds -- they are sparse in the space of odorants~\cite{vijay_1}. This is suggestive as mathematical results in compressed sensing guarantee the reconstruction of these sparse signals, assuming a sufficiently random response~\cite{CS_donoho, CS_tao, CS_ganguli}. While at this stage of the analysis we use a compressed decoding framework, there is no evidence that this algorithm is being implemented in the \textit{Drosophila} olfactory circuit~\cite{chlovskii_pevlavan}, and we later verify our conclusions with other classification techniques. 
 
-To incorporate the linear framework of compressed sensing into our nonlinear encoding model, we treat the odor encoding process exactly, while approximating the decoding to first order. Specifically, we represent the nonzero components $s_i$ of a  sparse odor mixture as $s_i = s_0 + \Delta s_i$, where $s_0$ is the center of the linearization. The target of the decoding process are the `excess' odor signal components $\Delta s_i$, which are determined by enforcing signal sparsity and the measured ORN responses through constrained optimization. The cost function to be optimized and the linear constraints are:
-\begin{align}
-\hat {\mathbf s} &= \text{arg min} \sum |s_i| \\
-\Delta r_a &= {f}\left(\int h(\tau - t)\frac{dA_a}{ds_i}d \tau\right) \bigg |_{s_0} \Delta s_i
-\end{align}
-To assess the decoding performance, we denote an odor signal as accurately decoded if (i) the sparse odorant components are all estimated to within 25\% of their correct value and (ii) the components absent in the original signal (``zero" components) are all estimated as less than 10\% of the mean excess concentration, $\hat s_i \le \langle \Delta s_j \rangle$. 
+To incorporate the linear framework of compressed sensing into our nonlinear encoding model, we treat the odor encoding process exactly, while approximating the decoding to first order. We denote an odor signal as accurately decoded if both (i) the sparse components are all estimated within some tolerance of their true values, and (ii) the estimates of components not in the odor mixture (``zero" components) are sufficiently low (see Methods). 
+
+To gauge the impact of universal front-end feedback on odor discrimination, we apply this scheme to a static odor mixture containing two sparse odors, which we call the ``foreground" and ``background". We ask how well the foreground can be decoded in the presence of backgrounds of given intensity and molecular complexity. In the unadaptive system, accuracy in the regime of maximum sensitivity is maintained if the background concentration is low enough, but is  compromised as intensity increases (Fig.~\ref{fig:decoding_c}). For higher background concentrations, molecular complexity also has a more damaging effect on decoding accuracy. Finally, for sufficiently strong and complex backgrounds, the foreground is virtually undetectable (top right plot in Fig.~\ref{fig:decoding_c}). The adaptive system is substantially more robust (Fig.~\ref{fig:decoding_d}), although the minimum detectable concentration does increase with background intensity. 
+
+Realistic odor environments are highly variable, with odor concentrations and whiff durations that can span several orders in a short time~\cite{celani}. We next wondered whether a single OR/Orco adaptation timescale ($\tau_{A} \sim 250$ ms~\cite{srinivas_elife}) could promote whiff detection in such environments. We apply our coding framework to a recorded time trace from a photo-ionization detector placed downwind of an odor source (Fig.~\ref{fig:temporal_coding_b}). This trace serves as the odor intensity, to which we randomly assign a sparse identity from the $N$-dimensional odorant space. To investigate discrimination accuracy, we add to this a static background odor signal, and then calculate the percentage of decoded whiffs. Finally, we mimic a finite length of short-term memory, such that only changes in detected odor signal are remembered, and  only for $\tau_{\textup {F}}$ seconds in the past. 
+
+Without ORN adaptation, sufficiently strong backgrounds eliminate whiff-detection ability, irrespective of the complexity of either the foreground or background odor (Fig.~\ref{fig:temporal_coding_c}, green lines). In the adaptive system, this is substantially mitigated, (red lines in Fig.~\ref{fig:temporal_coding_c}) although accuracy does decrease in general with increasing background complexity. Further, accurate whiff detection requires $\tau_{\textup {F}}$ only on the order of $\tau_A$ (darker red lines), indicating that a universal timescale of ORN adaptation promotes detection of naturalistic odor signals amidst confounding backgrounds.
+
+
+%The signal magnitude was scaled linearly to values applicable to our model framework (a.u.), and we verified that the plume statistics agree with theoretical predictions {~\color{blue} TODO}. 
+%For simplicity, we assume that while the sensory response modulates in time, the decoding process itself is instantaneous. We also mimic a finite length of short-term memory, such that only changes in detected odor signal are remembered, and  only for up to $\tau_{\textup {F}}$ seconds in the past. If the signal is static, it will be decoded optimally between $\sim\tau_A$ and $\sim\tau_{\textup{F}}$. For fluctuating environments, we expect that $\tau_{\textup{F}}$ a few times as large as $\tau_A$ should be sufficient in detecting of whiffs of novel odors amid slowly fluctuating or static backgrounds.
+
+
+%The signal is composed of a series of intermittent whiffs, defined as contiguous regions at which the concentration is above a given value. 
+
+
+
+%We first consider the simple case of step stimuli. For shallow steps, odors are rapidly decoded, though slightly more quickly for smaller $\tau_A$ (Fig.~\ref{fig:temporal_coding_a}). This is attributed the recruitment of a sufficient number of ORNs beneath the point of response saturation, such that response adaptation has little effect. For larger steps, decoding accuracy improves gradually as the system adapts at its characteristic timescale. In all cases, the accuracy drops to zero after the forgetting time $\tau_{\textup{F}}$ (here set to $4\tau_A$). 
+
+%{\color {blue} whiffs duration whiffs were not detected or not?}
+
+
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%		SIGNAL DECODING FIGURE			%%%%%%%%%%%%%
@@ -230,7 +246,7 @@ To assess the decoding performance, we denote an odor signal as accurately decod
 \begin{figure*}[!tb]
 	\centering
 	\begin{subfigure}[t]{\linewidth}
-		\includegraphics[width=\textwidth]{figures/3_decoding_discimination}
+		\includegraphics[width=\textwidth]{figures/3_decoding_temporal}
 		\phantomsubcaption
 		\label{fig:decoding_a}
 	\end{subfigure}
@@ -255,9 +271,13 @@ To assess the decoding performance, we denote an odor signal as accurately decod
 \end{figure*}
 
 
-We apply this scheme to the ORN system described above, consisting of 50 Or/Orco complexes interacting with a 150-dimensional odorant space. We assume that number of nonzero odorants comprising the odor, $K$, is small. Note, however, that this still allows for a huge number of distinct odors, e.g. nearly 1 billion for $K= 7$. In the absence of ORN adaptation, signals are still correctly inferred in a particular regime of mean odor concentration (Fig.~\ref{fig:decoding_b}), corresponding to that of higher coding capacity in Fig.~\ref{fig:coding_a}.  Elsewhere, decoding accuracy is low. Conversely, enforcing Weber-Fechner scaling within the thresholds  $\epsilon_{\textup{L}, a}$ and $\epsilon_{\textup{H}, a}$, coding fidelity is  maintained over a several-fold change in odor intensity (Fig.~\ref{fig:decoding_b}).
 
-In natural odor environments, accurate olfactory sensing relies on the ability to discriminate multiple odors, which may differ in chemical makeup and intensity. Even if adaptation could preserve decoding accuracy of a single odor amid intensity changes, it is conceivable that a system which adapts to average concentrations alone may well fail for multiple odors of widely differing concentrations. Accordingly,  we next consider two sparse odors, which we call the ``foreground" and ``background", and ask how well foreground odors can be decoded in the presence of backgrounds of a given intensity and molecularly complexity. In the unadaptive system, decoding accuracy in the regime of maximum sensitivity is maintained if the background concentration is low enough, but is  compromised as concentration increases (Fig.~\ref{fig:decoding_c}). For higher background concentrations, molecular complexity also has a more damaging effect on decoding accuracy. Finally, for sufficiently strong and complex background odors, the foreground is virtually undetectable (top right plot in Fig.~\ref{fig:decoding_c}). The adaptive system is substantially more robust to  backgrounds (Fig.~\ref{fig:decoding_d}), although the minimum detectable concentration increases with background intensity. Taken together, these results indicate a universal mechanism of adaptive  feedback operating on the activity of Or/Orco complexes promotes odor identification  amid potential confounds in both identity and intensity.
+%In the absence of ORN adaptation, signals are still correctly inferred in a particular regime of mean odor concentration (Fig.~\ref{fig:decoding_b}), corresponding to that of higher coding capacity in Fig.~\ref{fig:coding_a}.  Elsewhere, decoding accuracy is low. Conversely, enforcing Weber-Fechner scaling within the thresholds  $\epsilon_{\textup{L}, a}$ and $\epsilon_{\textup{H}, a}$, coding fidelity is  maintained over a several-fold change in odor intensity (Fig.~\ref{fig:decoding_b}).
+
+%In natural odor environments, accurate olfactory sensing relies on the ability to discriminate multiple odors, which may differ in chemical makeup and intensity. Even if adaptation could preserve decoding accuracy of a single odor amid intensity changes, it is conceivable that a system which adapts to average concentrations alone may well fail for multiple odors of widely differing concentrations. 
+%We apply this scheme to the ORN system described above, consisting of 50 Or/Orco complexes interacting with a 150-dimensional odorant space. We assume that number of nonzero odorants comprising the odor, $K$, is small. Note, however, that this still allows for a huge number of distinct odors, e.g. nearly 1 billion for $K= 7$. 
+
+
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -266,49 +286,14 @@ In natural odor environments, accurate olfactory sensing relies on the ability t
 
 
 
-\subsection{Odor decoding in fluctuating odor environments}
-So far, we have assumed that odor signals are static in time, and that adaptation from the neural circuitry feeds back onto the receptor sensitivity instantly and perfectly. But realistic odor environments are highly intermittent and widely fluctuating, with odor concentrations that can span several orders~\cite{celani}. Further, metabolic constraints can limit adaptation speed and accuracy~\cite{ESA}. To account for temporal aspects in both the odor environment and sensing periphery, we set the timescale of adaptation in Eq.~\ref{eq:adaptation_dynamics} at $\tau_A = 250$ ms, in accordance with experimental estimates~\cite{srinivas_elife}. For simplicity, we assume that while the sensory response modulates in time, the decoding process itself is instantaneous. We also mimic a finite length of short-term memory, such that only changes in detected odor signal are remembered, and  only for up to $\tau_{\textup {F}}$ seconds in the past. If the signal is static, it will be decoded optimally between $\sim\tau_A$ and $\sim\tau_{\textup{F}}$. For fluctuating environments, we expect that $\tau_{\textup{F}}$ a few times as large as $\tau_A$ should be sufficient in detecting of whiffs of novel odors amid slowly fluctuating or static backgrounds.
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%%%%%%%%%%%	   	   TEMPORAL FIGURE                %%%%%%%%%%%
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-
-
-\begin{figure*}[!tb]
-	\begin{subfigure}[t]{\linewidth}
-		{\includegraphics[width=\linewidth]{figures/4_temporal_coding}}
-		\phantomsubcaption
-		\label{fig:temporal_coding_a}
-	\end{subfigure}
-	\begin{subfigure}[t]{0\linewidth}
-		\phantomsubcaption
-		\label{fig:temporal_coding_b}
-	\end{subfigure}
-	\begin{subfigure}[t]{0\linewidth}
-		\phantomsubcaption
-		\label{fig:temporal_coding_c}
-	\end{subfigure}
-	\caption{\footnotesize{Universal ORN adaptation operating at measured timescales aids the identification of individual odor whiffs in naturalistic odor environments.
-			\textbf{A}~Odor decoding accuracy before and after the onset of a step stimulus. Each plot shows the decoding accuracy in time for increasing adaptation time $\tau_A$; the plots are arranged in order of increasing step stimulus strength. 
-			\textbf{B}~Naturalistic odor signal measured with photo-ionization detector downwind of a source of apple cider vinegar. Whiffs are defined as contiguous regions in which the intensity is above 10 a.u.
-			\textbf{C}~Individual plots: whiff decoding accuracy as a function of background odor intensity; $\tau_A = 250$ ms in red and non-adaptive in green, light to dark for increasing $\tau_{\textup{F}}$. Rows: increasing complexity of the fluctuating odor; columns: increasing complexity of background odor. }}
-	\label{fig:temporal_coding}
-\end{figure*}
-
-We first consider the simple case of step stimuli. For shallow steps, odors are rapidly decoded, though slightly more quickly for smaller $\tau_A$ (Fig.~\ref{fig:temporal_coding_a}). This is attributed the recruitment of a sufficient number of ORNs beneath the point of response saturation, such that response adaptation has little effect. For larger steps, decoding accuracy improves gradually as the system adapts at its characteristic timescale. In all cases, the accuracy drops to zero after the forgetting time $\tau_{\textup{F}}$ (here set to $4\tau_A$). 
-
-{\color {blue} whiffs duration whiffs were not detected or not?}
-
-We next considered a naturalistic plume, using a recorded time trace from a photo-ionization detector placed downwind of an odor source (Fig.~\ref{fig:temporal_coding_b}). The signal magnitude was scaled linearly to values applicable to our model framework (a.u.), and we verified that the plume statistics agree with theoretical predictions {~\color{blue} TODO}. %The signal is composed of a series of intermittent whiffs, defined as contiguous regions at which the concentration is above a given value. 
-This signal serves as the intensity of the odor, to which we randomly assign a sparse identity from the $N$-dimensional odor space. To investigate discrimination on potentially confounding backgrounds, we add to this signal a static background odor of varying intensities and complexities, and calculate the percentage of correctly decoded odor whiffs. Without ORN adaptation, sufficiently strong backgrounds eliminate whiff-detection ability, irrespective of the complexity of either the foreground or background odor (Fig.~\ref{fig:temporal_coding_c}, green lines). In the adaptive system, this is substantially mitigated, (red lines in Fig.~\ref{fig:temporal_coding_c}) although accuracy does decrease in general with increasing background complexity. Further, accurate whiff detection requires $\tau_{\textup {F}}$ only on the order of $\tau_A$ (darker red lines). Together, this indicates that ORN adaptation acting at measured timescales  aids the detection of fluctuating odor signals amidst confounding backgrounds.
 
 \subsection{Relationship to primacy coding hypothesis}
 
 
-\begin{figure*}[!tb]
+\begin{figure}[!tb]
 	\begin{subfigure}[t]{\linewidth}
-		\includegraphics[width=\textwidth]{figures/5_primacy_coding}
+		\includegraphics[width=\textwidth]{figures/4_primacy_coding}
 		\phantomsubcaption
 		\label{fig:primacy_coding_a}	
 	\end{subfigure}
@@ -327,12 +312,11 @@ This signal serves as the intensity of the odor, to which we randomly assign a s
 	\caption{\footnotesize{\textbf{A} Primacy coding posits that only the first $p$ ($p < N$) active glomeruli are responsible for encoding odor identity. \textbf{B} Decoding accuracy as a function of the number of active ORNs (firing rate $>$ 15 Hz), for different odor complexities. \textbf{C} Number of active ORNs required to fully decode odor signals of varying odor intensity and complexity. \textbf{D} Shift in time to achieve accurate odor identification, as a function of the intensity of odor steps, for various odor complexities (various green-blue lines).
 	}}
 	\label{fig:primacy_coding}
-\end{figure*}
+\end{figure}
 
 
 
-An intriguing hypothesis emerging from recent experiments in vertebrates, ``primacy coding,"  posits that odor identity is encoded entirely by the set (but not temporal order) of the $p$ earliest responding glomeruli, known as ``primacy sets" of order $p$ (Fig.~\ref{fig:primacy_coding_a}). %By optogenetically masking odors at a certain point beyond the odor onset, behavioral response is completely preserved provided the mask latency  sufficiently long. Glomeruli active before mask onset are those that encode the odor identity (the primacy set), while those activating afterward confer no further information. 
-Such primacy sets would in principle comprise a concentration-invariant representation of odor identity. In our framework, odors are decoded via information passed simultaneously from all 50 ORNs. However, some of this information may be redundant, whereby a set of earliest active ORNs are sufficient for odor recognition; if so, our theory would generate predictions in agreement with primacy coding. To test this, we consider a steep sigmoidal stimulus with half-max slope of $1/50$ ms$^{-1}$, as in Fig.~\ref{fig:primacy_coding_a}. We calculate the decoding accuracy as a function of time, and plot in Fig.~\ref{fig:primacy_coding_b} the accuracy as a function of number of active ORNs, which increases monotonically as the signal rises (Fig.~\ref{fig:primacy_coding_a}). To illustrate how the recruitment of ORNs incrementally improves odor signal recognition, we allow for partial accuracy by calculating  the percentage of correctly decoded individual odor components.
+An intriguing emergent hypothesis, ``primacy coding,"  posits that odor identity is encoded entirely by the set (but not order) of the $p$ earliest responding glomeruli, called ``primacy sets" of order $p$ (Fig.~\ref{fig:primacy_coding_a}). Primacy sets would in principle comprise a concentration-invariant representation of odor identity. In our framework, odors are decoded via information passed simultaneously from all 50 ORNs. However, some of this information may be redundant, whereby a set of earliest active ORNs are sufficient for odor recognition; if so, our theory would generate predictions in agreement with primacy coding. To test this, we consider a steep sigmoidal stimulus with half-max slope of $1/50$ ms$^{-1}$, as in Fig.~\ref{fig:primacy_coding_a}. We calculate the decoding accuracy as a function of time, and plot in Fig.~\ref{fig:primacy_coding_b} the accuracy as a function of number of active ORNs, which increases monotonically as the signal rises (Fig.~\ref{fig:primacy_coding_a}). To illustrate how the recruitment of ORNs incrementally improves odor signal recognition, we allow for partial accuracy by calculating  the percentage of correctly decoded individual odor components.
 
 For sufficiently simple odors, our results are indeed in accordance with primacy coding: the set of earliest responding neurons fully account for the odor identity ($K=1, 3, 5$ plots in Fig.~\ref{fig:primacy_coding_b}). Though all ORNs eventually activate as the stimulus increases, the latter responders confer no further information in odor recognition. As expected, the active ORN subset comprising the primacy set is distinct for each odor,   {\color{blue} Show that recruited ORNs are all distinct}. We do find, however, that for more complex odor mixtures, the full ORN repertoire must be active for  accurate decoding ($K=7, 9$ plots in Fig.~\ref{fig:primacy_coding_b}), a result that holds across odor  odor concentrations (Fig.~\ref{fig:primacy_coding_c}). In this regime, there can  be no primacy code, since a primacy set consisting of the full ORN repertoire would encode only a single odor. Conversely, our framework can decode the odor for a maximal primacy set since it utilizes not just the identity of the active ORNs, but also their individual firing responses. Primacy coding also predicts that for stronger stimuli, behavioral responses shift earlier in time, since the primacy set is activated quicker. We calculate this time shift and find that it rises monotonically with odor intensity over a decade of concentrations.  %The timescale is on the same order as those measured (18 ms measured; here 60 ms), though the model organisms are different, so this may not be particularly meaningful. 
 
@@ -346,7 +330,7 @@ Together, these results suggest that front-end adaptation, in concert with the c
 
 \begin{figure*}[!tb]
 	\begin{subfigure}[t]{\linewidth}
-		\includegraphics[width=\textwidth]{figures/6_downstream}
+		\includegraphics[width=\textwidth]{figures/5_downstream}
 		\phantomsubcaption
 		\label{fig:downstream_a}	
 	\end{subfigure}

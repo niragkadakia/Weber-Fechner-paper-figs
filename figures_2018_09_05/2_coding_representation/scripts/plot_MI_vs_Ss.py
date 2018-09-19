@@ -19,7 +19,7 @@ import sys
 import matplotlib as mpl
 import matplotlib.pyplot as plt
 sys.path.append('../../shared_src')
-from save_load_figure_data import save_fig
+from save_load_figure_data import save_fig_no_whtspc
 from plot_formats import fig_MI_trace
 
 # The location of the source code for CS-variability-adaptation is listed
@@ -73,8 +73,8 @@ def plot_MI(data_flag, Kk_idxs=[4, 4], Tt_idxs=[0, 10, 20, 50,
 		plt.ylim(0, 7.01)
 		plt.xlim(1, 10**4)
 	
-		save_fig('MI_trace_%s_%s' % (Kk_idxs, Tt_idx), subdir=data_flag, 
-									tight_layout=False)
+		save_fig_no_whtspc('MI_trace_%s_%s' % (Kk_idxs, Tt_idx), 
+						   subdir=data_flag, no_ax=False)
 		
 				
 if __name__ == '__main__':

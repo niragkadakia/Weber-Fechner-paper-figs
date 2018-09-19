@@ -15,7 +15,7 @@ import matplotlib.pyplot as plt
 sys.path.append('../../shared_src')
 from plot_formats import fig_primacy_errors_num_active
 from save_load_figure_data import load_binary_errors, \
-									load_activities, save_fig
+									load_activities, save_fig_no_whtspc
 
 # The location of the source code for CS-variability-adaptation is listed
 # in the ../../shared_src/local_methods file within src_dir()
@@ -86,8 +86,9 @@ def accuracy_vs_num_active(data_flag, active_rate=20):
 		plt.plot(range(1, Mm + 1), errors_avg, marker='o', lw=2,
 					color=plt.cm.viridis(color_val))
 		plt.xlim(0, Mm)
-		save_fig('primacy_errors_vs_num_active_rate=%s_Kk=%s_intensity=%s' 
-					% (rate, Kk, intensity), subdir=data_flag)
+		save_fig_no_whtspc('primacy_errors_vs_num_active_rate=%s_Kk=%s_intensity=%s' 
+					% (rate, Kk, intensity), subdir=data_flag, 
+					no_ax=False)
 	
 		it.iternext()
 	

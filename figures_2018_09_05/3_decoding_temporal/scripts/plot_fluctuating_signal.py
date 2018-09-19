@@ -71,7 +71,7 @@ def plot_temporal_errors(data_flag, whiff_threshold=10):
 		whf_beg = sp.hstack((Tt[0], whf_beg))
 	
 	fig = fig_signal_trace()
-	fig.set_size_inches(16, 2.2)
+	fig.set_size_inches(12, 2.3)
 	plt.plot(Tt, signal, lw=2, color=plt.cm.Greys(0.9))
 	
 	# Bar above graph for each whiff

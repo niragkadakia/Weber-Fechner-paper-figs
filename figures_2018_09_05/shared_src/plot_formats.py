@@ -156,7 +156,7 @@ def fig_avg_whiff_errors():
 	"""
 	
 	fig = plt.figure()
-	fig.set_size_inches(4, 3)
+	fig.set_size_inches(3.2, 3)
 	
 	plt.xticks(fontsize=20)
 	plt.yticks(fontsize=20)
@@ -169,7 +169,7 @@ def fig_primacy_errors_num_active():
 	"""
 	
 	fig = plt.figure()
-	fig.set_size_inches(3.5, 2.5)
+	fig.set_size_inches(2.5, 2.5)
 	
 	plt.xticks(fontsize=16)
 	plt.yticks([0, 50, 100], fontsize=16)
@@ -213,7 +213,7 @@ def primacy_min_active_for_accurate_heatmap():
 		
 	fig = plt.figure()
 	
-	fig.set_size_inches(4, 3)
+	fig.set_size_inches(3, 2.3)
 	plt.xscale('log')
 	plt.xticks([1, 3, 10, 30, 100], ['1x', '3x', '10x', '30x', '100x'], fontsize=16)
 	plt.yticks(sp.arange(1, 15, 2), fontsize=16)

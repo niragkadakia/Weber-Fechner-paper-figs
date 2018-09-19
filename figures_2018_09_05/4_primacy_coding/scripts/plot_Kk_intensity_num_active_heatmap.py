@@ -106,7 +106,7 @@ def accuracy_vs_num_active(data_flag, active_rate=15, min_accurate_pct=75,
 	
 	# Separate figure for colorbar
 	fig = plt.figure()
-	fig.set_size_inches(1, 5)
+	fig.set_size_inches(1, 4)
 	ax1 = fig.add_axes([0.1, 0.1, 0.3, 0.7])
 	norm = mpl.colors.Normalize(vmin=0, vmax=Mm)
 	ticks = range(0, Mm + 1, 10)
