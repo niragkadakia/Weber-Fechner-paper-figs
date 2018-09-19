@@ -213,7 +213,7 @@ def primacy_min_active_for_accurate_heatmap():
 		
 	fig = plt.figure()
 	
-	fig.set_size_inches(3, 2.3)
+	fig.set_size_inches(2.8, 2.5)
 	plt.xscale('log')
 	plt.xticks([1, 3, 10, 30, 100], ['1x', '3x', '10x', '30x', '100x'], fontsize=16)
 	plt.yticks(sp.arange(1, 15, 2), fontsize=16)
@@ -243,6 +243,6 @@ def primacy_set_overlap():
 	"""
 	
 	fig = plt.figure()
-	fig.set_size_inches(3.5, 3.5)
+	fig.set_size_inches(2.5, 2.0)
 	
 	return fig

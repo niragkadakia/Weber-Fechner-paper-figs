@@ -27,13 +27,16 @@ from load_specs import read_specs_file
 
 def primacy(data_flags, 
 			decoded_pct=75, 
-			primacy_sizes=sp.arange(1, 21, 1),
+			primacy_sizes=sp.arange(1, 26, 1),
 			rate_idx=0):
+	"""
+	Will calculate overlaps between flag 0 and flags > 0
+	"""
 	
-	assert len(data_flags) == 2, "Need exactly 2 data flags"
-	
-	pct_overlap = sp.zeros(len(primacy_sizes))
-	
+	colors = ['purple', 'orange']
+	pct_overlap = sp.zeros((len(primacy_sizes), len(data_flags) -1))
+	fig = primacy_set_overlap()
+		
 	for nP, num_prim in enumerate(primacy_sizes):
 
 		prim_ORNs = None
@@ -89,24 +92,29 @@ def primacy(data_flags,
 				else:
 					prim_ORNs[idSs, :, iFlag] = sp.nan
 		
-		# For each primacy size, pct of receptor overlaps for each signal
-		good_signals = 0
-		for idSs in range(num_odors):
-			ORNs_lo = prim_ORNs[idSs, :, 0]
-			ORNs_hi = prim_ORNs[idSs, :, 1]
-			nans = sp.sum(sp.isnan(ORNs_lo*ORNs_hi))
-			if nans > 0:
-				continue
-			pct_overlap[nP] += len(sp.intersect1d(ORNs_lo, ORNs_hi))/num_prim
-			good_signals += 1
-		pct_overlap[nP] = 100.*pct_overlap[nP]/good_signals
-	
-	fig = primacy_set_overlap()
-	plt.plot(primacy_sizes, pct_overlap, c='k')
-	plt.xticks([primacy_sizes[0], primacy_sizes[-1]], fontsize=16)
-	plt.yticks([0, 50, 100], fontsize=16)
-	save_fig('primacy_set_overlaps_%s' % data_flags)
+		for iFlag in range(1, len(data_flags)):
 		
+			# For each primacy size, pct of receptor overlaps for each signal
+			good_signals = 0
+			pct = 0
+			for idSs in range(num_odors):
+				ORNs_lo = prim_ORNs[idSs, :, 0]
+				ORNs_hi = prim_ORNs[idSs, :, iFlag]
+				nans = sp.sum(sp.isnan(ORNs_lo*ORNs_hi))
+				if nans > 0:
+					continue
+				pct += len(sp.intersect1d(ORNs_lo, ORNs_hi))/num_prim
+				good_signals += 1
+			pct_overlap[nP, iFlag - 1] = 100.*pct/good_signals
+	
+	# For each combo of flag=0 and flag=iFlag, plot the % overlap
+	for iFlag in range(0, len(data_flags) - 1):
+		plt.plot(primacy_sizes, pct_overlap[:, iFlag], c=colors[iFlag - 1], lw=3)
+	plt.xticks([0, 10, 20], fontsize=16)
+	plt.yticks([0, 50, 100], fontsize=16)
+	plt.ylim(50, 100)
+	save_fig('primacy_set_overlaps_%s' % data_flags)
+	
 		
 			
 if __name__ == '__main__':
