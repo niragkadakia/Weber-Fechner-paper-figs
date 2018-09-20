@@ -1,4 +1,4 @@
-\begin{thebibliography}{53}
+\begin{thebibliography}{57}
 \providecommand{\natexlab}[1]{#1}
 \providecommand{\url}[1]{\texttt{#1}}
 \expandafter\ifx\csname urlstyle\endcsname\relax
@@ -17,11 +17,17 @@ Linda Buck and Richard Axel.
   basis for odor recognition.
 \newblock \emph{Cell}, 65\penalty0 (1):\penalty0 175--187, 1991.
 
-\bibitem[Malnic et~al.(1999)Malnic, Hirono, Sato, and
-  Buck]{malnic1999combinatorial}
-Bettina Malnic, Junzo Hirono, Takaaki Sato, and Linda~B Buck.
-\newblock Combinatorial receptor codes for odors.
-\newblock \emph{Cell}, 96\penalty0 (5):\penalty0 713--723, 1999.
+\bibitem[Friedrich and Korsching(1997)]{friedrich1997combinatorial}
+Rainer~W Friedrich and Sigrun~I Korsching.
+\newblock Combinatorial and chemotopic odorant coding in the zebrafish
+  olfactory bulb visualized by optical imaging.
+\newblock \emph{Neuron}, 18\penalty0 (5):\penalty0 737--752, 1997.
+
+\bibitem[Hallem and Carlson(2006)]{hallem_carlson}
+Elissa Hallem and John Carlson.
+\newblock Coding of odors by a receptor repertoire.
+\newblock \emph{Cell}, 125\penalty0 (1):\penalty0 143--160, 2006.
+\newblock \doi{10.1016/j.cell.2006.01.050}.
 
 \bibitem[Wang et~al.(2010)Wang, Carey, Carlson, and
   Zwiebel]{mosquito_combinatorial_coding}
@@ -34,18 +40,24 @@ Guirong Wang, Allison~F. Carey, John~R. Carlson, and Laurence~J. Zwiebel.
 \newblock \doi{10.1073/pnas.0913392107}.
 \newblock URL \url{http://www.pnas.org/content/107/9/4418}.
 
+\bibitem[Nara et~al.(2011)Nara, Saraiva, Ye, and Buck]{nara2011large}
+Kiyomitsu Nara, Luis~R Saraiva, Xiaolan Ye, and Linda~B Buck.
+\newblock A large-scale analysis of odor coding in the olfactory epithelium.
+\newblock \emph{Journal of Neuroscience}, 31\penalty0 (25):\penalty0
+  9179--9191, 2011.
+
+\bibitem[Malnic et~al.(1999)Malnic, Hirono, Sato, and
+  Buck]{malnic1999combinatorial}
+Bettina Malnic, Junzo Hirono, Takaaki Sato, and Linda~B Buck.
+\newblock Combinatorial receptor codes for odors.
+\newblock \emph{Cell}, 96\penalty0 (5):\penalty0 713--723, 1999.
+
 \bibitem[Hildebrand and Shepherd(1997)]{hildebrand1997mechanisms}
 John~G Hildebrand and Gordon~M Shepherd.
 \newblock Mechanisms of olfactory discrimination: converging evidence for
   common principles across phyla.
 \newblock \emph{Annual review of neuroscience}, 20\penalty0 (1):\penalty0
   595--631, 1997.
-
-\bibitem[Hallem and Carlson(2006)]{hallem_carlson}
-Elissa Hallem and John Carlson.
-\newblock Coding of odors by a receptor repertoire.
-\newblock \emph{Cell}, 125\penalty0 (1):\penalty0 143--160, 2006.
-\newblock \doi{10.1016/j.cell.2006.01.050}.
 
 \bibitem[de~Bruyne et~al.(2001)de~Bruyne, Foster, and
   Carlson]{debryune_odor_coding}
@@ -57,18 +69,17 @@ Marien de~Bruyne, Kara Foster, and John~R. Carlson.
 \newblock URL
   \url{http://www.sciencedirect.com/science/article/pii/S0896627301002896}.
 
-\bibitem[Friedrich and Korsching(1997)]{friedrich1997combinatorial}
-Rainer~W Friedrich and Sigrun~I Korsching.
-\newblock Combinatorial and chemotopic odorant coding in the zebrafish
-  olfactory bulb visualized by optical imaging.
-\newblock \emph{Neuron}, 18\penalty0 (5):\penalty0 737--752, 1997.
-
 \bibitem[Wilson(2013)]{early_olfactory_processing}
 Rachel~I. Wilson.
 \newblock Early olfactory processing in \emph{{D}rosophila}: mechanisms and
   principles.
 \newblock \emph{Annual Review of Neuroscience}, 36\penalty0 (1):\penalty0
   217--241, 2013.
+
+\bibitem[Renou et~al.(2015)Renou, Party, Rouyar, and Anton]{odor_backgrounds}
+M.~Renou, V.~Party, A.~Rouyar, and S.~Anton.
+\newblock Olfactory signal coding in an odor background.
+\newblock \emph{Biosystems}, 136:\penalty0 35 -- 45, 2015.
 
 \bibitem[Murlis(1992)]{murlis_odor_plumes}
 John Murlis.
@@ -107,17 +118,24 @@ Srinivas Gorur-Shandilya, Mahmut Demir, Junjiajia Long, Damon~A Clark, and
 \newblock \doi{10.7554/eLife.27670}.
 \newblock URL \url{https://doi.org/10.7554/eLife.27670}.
 
-\bibitem[Renou et~al.(2015)Renou, Party, Rouyar, and Anton]{odor_backgrounds}
-M.~Renou, V.~Party, A.~Rouyar, and S.~Anton.
-\newblock Olfactory signal coding in an odor background.
-\newblock \emph{Biosystems}, 136:\penalty0 35 -- 45, 2015.
-
 \bibitem[Si et~al.(2017)Si, Kanwal, Hu, Tabone, Baron, Berck, Vignoud, and
   Samuel]{si2017invariances}
 Guangwei Si, Jessleen~K Kanwal, Yu~Hu, Christopher~J Tabone, Jacob Baron,
   Matthew~E Berck, Gaetan Vignoud, and Aravinthan~DT Samuel.
 \newblock Invariances in a combinatorial olfactory receptor code.
 \newblock \emph{bioRxiv}, page 208538, 2017.
+
+\bibitem[Asahina et~al.(2009)Asahina, Louis, Piccinotti, and
+  Vosshall]{lateral_inh_asahina}
+K.~Asahina, M.~Louis, S.~Piccinotti, and L.~Vosshall.
+\newblock A circuit supporting concentration-invariant odor perception in
+  \textit{Drosophila}.
+\newblock \emph{Journal of Biology}, 8\penalty0 (1):\penalty0 9, 2009.
+
+\bibitem[Olsen et~al.(2010)Olsen, Vikas, and Wilson]{divisive_normalization}
+Shawn~R. Olsen, Bhandawat Vikas, and Rachel~I. Wilson.
+\newblock Divisive normalization in olfactory population codes.
+\newblock \emph{Neuron}, 66:\penalty0 287--299, 2010.
 
 \bibitem[Montague et~al.(2011)Montague, Mathew, and
   Carlson]{montague2011similar}
@@ -134,29 +152,15 @@ Carlotta Martelli, John~R. Carlson, and Thierry Emonet.
 \newblock \emph{Journal of Neuroscience}, 33\penalty0 (15):\penalty0
   6285--6297, 2013.
 
-\bibitem[Asahina et~al.(2009)Asahina, Louis, Piccinotti, and
-  Vosshall]{lateral_inh_asahina}
-K.~Asahina, M.~Louis, S.~Piccinotti, and L.~Vosshall.
-\newblock A circuit supporting concentration-invariant odor perception in
-  \textit{Drosophila}.
-\newblock \emph{Journal of Biology}, 8\penalty0 (1):\penalty0 9, 2009.
-
-\bibitem[Olsen et~al.(2010)Olsen, Vikas, and Wilson]{divisive_normalization}
-Shawn~R. Olsen, Bhandawat Vikas, and Rachel~I. Wilson.
-\newblock Divisive normalization in olfactory population codes.
-\newblock \emph{Neuron}, 66:\penalty0 287--299, 2010.
-
-\bibitem[Papadopoulou et~al.(2011)Papadopoulou, Cassenaer, Nowotny, and
-  Laurent]{giant_inhibitory_neuron}
-M.~Papadopoulou, S.~Cassenaer, T.~Nowotny, and G.~Laurent.
-\newblock Normalization for sparse encoding of odors by a wide-field
-  interneuron.
-\newblock \emph{Science}, 332\penalty0 (6030):\penalty0 721--725, 2011.
-
 \bibitem[Weber(1996)]{weber1996eh}
 Ernst~Heinrich Weber.
 \newblock \emph{EH Weber on the tactile senses}.
 \newblock Psychology Press, 1996.
+
+\bibitem[Fechner(2012)]{fechner2012elemente}
+G~Th Fechner.
+\newblock \emph{Elemente der psychophysik}, volume~2.
+\newblock Breitkopf und H{\"a}rtel, 2012.
 
 \bibitem[Cafaro(2016)]{cafaro_WL}
 Jon Cafaro.
@@ -174,6 +178,41 @@ Li-Hui Cao, Bi-Yang Jing, Dong Yang, Xiankun Zeng, Ying Shen, Yuhai Tu, and
   (7):\penalty0 E902--E911, 2016.
 \newblock \doi{10.1073/pnas.1518329113}.
 \newblock URL \url{http://www.pnas.org/content/113/7/E902}.
+
+\bibitem[Nagel and Wilson(2011)]{nagel_wilson_biophysical}
+KI~Nagel and RI~Wilson.
+\newblock Biophysical mechanisms underlying olfactory receptor neuron dynamics.
+\newblock \emph{Nature Neuroscience}, 14:\penalty0 208–216, 2011.
+\newblock \doi{10.1038/nn.2725}.
+
+\bibitem[Larsson et~al.(2004)Larsson, Domingos, Jones, Chiappe, Amrein, and
+  Vosshall]{Orco}
+Mattias~C. Larsson, Ana~I. Domingos, Walton~D. Jones, M.Eugenia Chiappe, Hubert
+  Amrein, and Leslie~B. Vosshall.
+\newblock Or83b encodes a broadly expressed odorant receptor essential for
+  drosophila olfaction.
+\newblock \emph{Neuron}, 43\penalty0 (5):\penalty0 703 -- 714, 2004.
+\newblock ISSN 0896-6273.
+\newblock \doi{https://doi.org/10.1016/j.neuron.2004.08.019}.
+\newblock URL
+  \url{http://www.sciencedirect.com/science/article/pii/S0896627304005264}.
+
+\bibitem[Getahun et~al.(2013)Getahun, Olsson, Lavista-Llanos, Hansson, and
+  Wicher]{getahun2013insect}
+Merid~N Getahun, Shannon~B Olsson, Sofia Lavista-Llanos, Bill~S Hansson, and
+  Dieter Wicher.
+\newblock Insect odorant response sensitivity is tuned by metabotropically
+  autoregulated olfactory receptors.
+\newblock \emph{PLoS One}, 8\penalty0 (3):\penalty0 e58889, 2013.
+
+\bibitem[Getahun et~al.(2016)Getahun, Thoma, Lavista-Llanos, Keesey, Fandino,
+  Knaden, Wicher, Olsson, and Hansson]{getahun2016intracellular}
+Merid~N Getahun, Michael Thoma, Sofia Lavista-Llanos, Ian Keesey, Richard~A
+  Fandino, Markus Knaden, Dieter Wicher, Shannon~B Olsson, and Bill~S Hansson.
+\newblock Intracellular regulation of the insect chemoreceptor complex impacts
+  odour localization in flying insects.
+\newblock \emph{Journal of Experimental Biology}, 219\penalty0 (21):\penalty0
+  3428--3438, 2016.
 
 \bibitem[Guo and Smith(2017)]{Guo_Smith_review}
 Hao Guo and Dean~P. Smith.
@@ -251,12 +290,6 @@ C.~Pehlevan, A.~Genkin, and D.~B. Chklovskii.
 \newblock A clustering neural network model of insect olfaction.
 \newblock In \emph{2017 51st Asilomar Conference on Signals, Systems, and
   Computers}, pages 593--600, 2017.
-
-\bibitem[Lan et~al.(2012)Lan, Sartori, Neumann, Sourjik, and Tu]{ESA}
-G.~Lan, P.~Sartori, S.~Neumann, V.~Sourjik, and Y.~Tu.
-\newblock The energy-speed-accuracy tradeoff in sensory adaptation.
-\newblock \emph{Nature physics}, 8\penalty0 (5):\penalty0 422--428, 2012.
-\newblock \doi{10.1038/nphys2276}.
 
 \bibitem[Olsen and Wilson(2008)]{lateral_inh}
 Shawn~R. Olsen and Rachel~I. Wilson.
