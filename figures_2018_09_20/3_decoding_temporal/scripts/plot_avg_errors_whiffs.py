@@ -25,10 +25,10 @@ from load_specs import read_specs_file
 from load_data import load_signal_trace_from_file
 
 
-def plot_avg_errors(data_flags, whiff_threshold=10, 
-					int_window_rate_mults=[0.1, 1, 5], 
-					bck_intensities=sp.array([10, 30, 100, 300]),
-					whiff_bkgrnd_factor=0.25, plot_x_shift=1./10):
+def plot_avg_errors(data_flags, whf_thresh=2,
+					int_window_rate_mults=[0.1, 1], 
+					bck_intensities=sp.array([0.3, 1, 3, 30]),#, 30, 100, 300]),
+					plot_x_shift=1./10):
 					
 	"""
 	Will only plot 2 rates (indices 0 and 1 for temporal_adaptation_rate
@@ -84,14 +84,11 @@ def plot_avg_errors(data_flags, whiff_threshold=10,
 			signal = signal[plot_range]
 			success = success[plot_range,...]
 			
-			# Set whiff_threshold as factor of background
-			whiff_threshold = bck_intensities[iFlag]*whiff_bkgrnd_factor
-			
 			# Get the whiff occurences
-			whf_bin = 1.*(signal > whiff_threshold)
+			whf_bin = 1.*(signal > whf_thresh)
 			whf_begs = Tt[sp.where(sp.diff(whf_bin) == 1)[0]]
 			whf_ends = Tt[sp.where(sp.diff(whf_bin) == -1)[0]]
-			if whf_bin[0] > whiff_threshold:
+			if whf_bin[0] == 1:
 				whf_begs = sp.hstack((sp.zeros(1), whf_begs))
 			if len(whf_begs) > len(whf_ends):
 				whf_ends = sp.hstack((whf_ends, Tt[-1]))
@@ -106,33 +103,36 @@ def plot_avg_errors(data_flags, whiff_threshold=10,
 			# For each whiff -- see max decoding accuracy during whiff
 			for nWhf in range(len(whf_begs)):
 				whf_range = range(whf_begs[nWhf], whf_ends[nWhf])
+				if len(whf_range)*0.002 < 0.05:
+					continue
 				cum_success += sp.amax(success[whf_range,...], axis=0)
 				num_whfs += 1
 			whf_success = 1.*cum_success/num_whfs
 			avg_whf_succ = sp.average(whf_success, axis=1)*100.0
 			avg_whf_errs[iFlag, iMult, ...] = avg_whf_succ
-		
+			print (num_whfs)
+			print (avg_whf_errs)
 	x_range = bck_intensities*plot_x_shift
 	
 	# Separate figure for each foreground/background complexity pair
 	for Kk_1 in range(iter_vars_dims[2]):
 		for Kk_2 in range(iter_vars_dims[2]):
 			
-			fig = fig_avg_whiff_errors()
-			
+			#fig = fig_avg_whiff_errors()
+			fig = plt.figure()
 			for iMult, int_window_rate_mult in enumerate(int_window_rate_mults):
 				
 				# Different values of color for each forgetting time
 				color_val = 0.3 + iMult*0.55/(len(int_window_rate_mults) - 1)
 				
-				# Fast adaptation in red, slow adaptation in blue
+				# Fast adaptation in red, slow adaptation in green
 				plt.plot(x_range, avg_whf_errs[:, iMult, 1, Kk_1, Kk_2],
 							color=plt.cm.Reds(color_val), lw=3)
 				plt.plot(x_range, avg_whf_errs[:, iMult, 0, Kk_1, Kk_2], 
 							color=plt.cm.Greens(color_val), lw=3)
 				plt.yticks([0, 50, 100])
 				plt.xscale('log')
-				plt.ylim(0, 100)
+				plt.ylim(-5, 105)
 			save_fig_no_whtspc('%s_Kk_1=%s_Kk_2=%s' % (bck_intensities, Kk_1, Kk_2),
 						subdir='avg_whf_errs', no_ax=False)
 		

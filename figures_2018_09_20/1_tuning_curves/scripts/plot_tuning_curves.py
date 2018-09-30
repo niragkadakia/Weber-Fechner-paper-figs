@@ -27,7 +27,7 @@ from four_state_receptor_CS import four_state_receptor_CS
 from encode_CS import single_encode_CS
 
 
-def plot_tuning_curves(data_flag, Ss0_to_plot=1e3, seed_to_plot=0):
+def plot_tuning_curves(data_flag, Ss0_to_plot=1e1, seed_to_plot=0):
 	"""
 	Plot tuning curves at a given stimulus intensity level.
 	"""

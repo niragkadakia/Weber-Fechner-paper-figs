@@ -27,7 +27,7 @@ from load_specs import read_specs_file
 
 def primacy(data_flags, 
 			decoded_pct=75, 
-			primacy_sizes=sp.arange(1, 26, 1),
+			primacy_sizes=sp.arange(1, 21, 1),
 			rate_idx=0):
 	"""
 	Will calculate overlaps between flag 0 and flags > 0
@@ -112,7 +112,8 @@ def primacy(data_flags,
 		plt.plot(primacy_sizes, pct_overlap[:, iFlag], c=colors[iFlag - 1], lw=3)
 	plt.xticks([0, 10, 20], fontsize=16)
 	plt.yticks([0, 50, 100], fontsize=16)
-	plt.ylim(50, 100)
+	plt.ylim(0, 100)
+	plt.xlim(0, 20)
 	save_fig('primacy_set_overlaps_%s' % data_flags)
 	
 		

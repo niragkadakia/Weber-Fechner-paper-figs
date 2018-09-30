@@ -39,7 +39,7 @@ from analysis import binary_errors_temporal_run, binary_success
 def calculate_temporal_errors(data_flag, nonzero_bounds=[0.7, 1.3], 
 							zero_bound=1./10., threshold_pct_nonzero=100, 
 							threshold_pct_zero=100, 
-							int_window_rate_mults=[0.1]):
+							int_window_rate_mults=[1, 5]):
 	"""
 	Calculate temporal errors from the aggregated data
 	finite_signal_window: use a forgetting timescale

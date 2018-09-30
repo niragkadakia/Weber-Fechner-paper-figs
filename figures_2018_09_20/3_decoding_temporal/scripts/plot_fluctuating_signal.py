@@ -29,7 +29,7 @@ from load_data import load_aggregated_temporal_objects, \
 						load_signal_trace_from_file
 
 
-def plot_temporal_errors(data_flag, whiff_threshold=10):
+def plot_temporal_errors(data_flag, whiff_threshold=3):
 
 	list_dict = read_specs_file(data_flag)
 	iter_vars_dims = []
@@ -63,7 +63,7 @@ def plot_temporal_errors(data_flag, whiff_threshold=10):
 	whf_beg = Tt[sp.where(sp.diff(whf_bin) == 1)[0]]
 	whf_end = Tt[sp.where(sp.diff(whf_bin) == -1)[0]]
 		
-	if whf_bin[0] > whiff_threshold:
+	if whf_bin[0] == 1:
 		whf_beg = sp.hstack((sp.zeros(1), whf_beg))
 	if len(whf_beg) > len(whf_end):
 		whf_end = sp.hstack((whf_end, Tt[-1]))
@@ -75,19 +75,22 @@ def plot_temporal_errors(data_flag, whiff_threshold=10):
 	plt.plot(Tt, signal, lw=2, color=plt.cm.Greys(0.9))
 	
 	# Bar above graph for each whiff
+	ylim = 20
 	for nWhf in range(len(whf_beg)):
 		width = whf_end[nWhf] - whf_beg[nWhf]
-		xy = (whf_beg[nWhf], 200)
-		rect = matplotlib.patches.Rectangle(xy, width, 25, 
+		if width < 0.1:
+			continue
+		xy = (whf_beg[nWhf], ylim)
+		rect = matplotlib.patches.Rectangle(xy, width, ylim/10., 
 				alpha=0.5, color='purple',  clip_on=False, lw=0)
 		ax = plt.gca()
 		ax.add_patch(rect)
 	ax.spines['right'].set_visible(False)
 	ax.spines['top'].set_visible(False)
 	plt.xticks(sp.arange(0, 100, 10), fontsize=18)
-	plt.yticks(sp.arange(0, 1000, 100), fontsize=18)
+	#plt.yticks(sp.arange(0, 1000, 100), fontsize=18)
 	plt.xlim(Tt[0], Tt[-1])
-	plt.ylim(0, 200)
+	plt.ylim(0, ylim)
 	
 	save_fig('signal_with_whiffs', subdir=data_flag)
 	
