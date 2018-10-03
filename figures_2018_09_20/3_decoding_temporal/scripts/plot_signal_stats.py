@@ -22,11 +22,11 @@ from local_methods import src_dir, def_data_dir
 sys.path.append(src_dir())
 
 
-def plot_signal_stats(sig_file, whf_thresh=1, sig_offset=0.0, sig_mult=100):
+def plot_signal_stats(sig_file, whf_thresh=5, sig_offset=1e-5, sig_mult=18):
 	"""
 	Signal multiplier should come from appropriate specs file. 
-	For manuscript, using jul18_power_law_EA_temporal_bkgrnd_step_mult=0.3.txt, 
-	for which the multiplier is 150
+	For manuscript, using jul18_power_law_EA_temporal_bkgrnd_step_EA_2_mult=1.txt, 
+	for which the multiplier is 18
 	"""
 		
 	data_dir = def_data_dir()
@@ -55,16 +55,16 @@ def plot_signal_stats(sig_file, whf_thresh=1, sig_offset=0.0, sig_mult=100):
 		width = whf_end[nWhf] - whf_beg[nWhf]
 		whf_durs.append(width)
 	print (len(whf_durs))
-	hist, bins = sp.histogram(sp.log(whf_durs)/sp.log(10), bins=50, density=1)
+	hist, bins = sp.histogram(sp.log(whf_durs)/sp.log(10), bins=15, density=1)
 	log_prob = sp.log(hist)/sp.log(10)
 	plt.scatter((bins[1:] + bins[:-1])/2., log_prob, marker='+')
 	
 	# -3/2 fit line
-	xr = sp.arange(-3.0, -1.25, 0.01)
-	yint = -3.4
+	xr = sp.arange(-1, -0.4, 0.01)
+	yint = -1
 	plt.plot(xr, xr*-1.5 + yint, color='r')
 	
-	plt.xlim(-3.5, -1.0)
+	#plt.xlim(-3.5, -1.0)
 	#plt.ylim(-3.0, -1.5)
 	plt.show()
 	

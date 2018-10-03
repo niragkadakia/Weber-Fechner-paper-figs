@@ -21,7 +21,7 @@ def src_dir():
 	data_dir = 'C:/Users/nk479/Documents/code/CS-variability-adaptation/src'
 	
 	return data_dir
-
+	
 def def_data_dir():
 	"""
 	Define a data directory here for all input and output.

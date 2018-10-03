@@ -29,7 +29,8 @@ from load_data import load_aggregated_temporal_objects, \
 						load_signal_trace_from_file
 
 
-def plot_temporal_errors(data_flag, whiff_threshold=3):
+def plot_temporal_errors(data_flag, whiff_threshold=6, ylim=20, 
+						 min_whf_dur=0.15):
 
 	list_dict = read_specs_file(data_flag)
 	iter_vars_dims = []
@@ -75,12 +76,11 @@ def plot_temporal_errors(data_flag, whiff_threshold=3):
 	plt.plot(Tt, signal, lw=2, color=plt.cm.Greys(0.9))
 	
 	# Bar above graph for each whiff
-	ylim = 20
 	for nWhf in range(len(whf_beg)):
 		width = whf_end[nWhf] - whf_beg[nWhf]
-		if width < 0.1:
-			continue
-		xy = (whf_beg[nWhf], ylim)
+		if width < min_whf_dur:
+			width = min_whf_dur
+		xy = (whf_beg[nWhf], ylim + 1)
 		rect = matplotlib.patches.Rectangle(xy, width, ylim/10., 
 				alpha=0.5, color='purple',  clip_on=False, lw=0)
 		ax = plt.gca()
@@ -88,7 +88,7 @@ def plot_temporal_errors(data_flag, whiff_threshold=3):
 	ax.spines['right'].set_visible(False)
 	ax.spines['top'].set_visible(False)
 	plt.xticks(sp.arange(0, 100, 10), fontsize=18)
-	#plt.yticks(sp.arange(0, 1000, 100), fontsize=18)
+	plt.yticks(sp.arange(0, 300, 10), fontsize=18)
 	plt.xlim(Tt[0], Tt[-1])
 	plt.ylim(0, ylim)
 	

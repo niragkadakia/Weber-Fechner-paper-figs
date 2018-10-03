@@ -35,7 +35,7 @@ from analysis import binary_errors_temporal_run, binary_success
 
 
 def calculate_temporal_errors(data_flags, nonzero_bounds=[0.7, 1.3], 
-							zero_bound=1./10., threshold_pct_nonzero=100, 
+							zero_bound=1./10., threshold_pct_nonzero=100,
 							threshold_pct_zero=100):
 	"""
 	Calculate temporal errors from the aggregated data
@@ -78,7 +78,7 @@ def calculate_temporal_errors(data_flags, nonzero_bounds=[0.7, 1.3],
 		
 		binary_error = binary_errors_temporal_run(init_CS_object, dSs, dSs_est, 
 						mu_dSs, nonzero_bounds=nonzero_bounds, 
-						zero_bound=zero_bound)
+						zero_bound=zero_bound, dual=True)
 		errors_nonzero[error_idxs] = binary_error['errors_nonzero']
 		errors_zero[error_idxs] = binary_error['errors_zero']
 		success[error_idxs] = binary_success(errors_nonzero[error_idxs], 
