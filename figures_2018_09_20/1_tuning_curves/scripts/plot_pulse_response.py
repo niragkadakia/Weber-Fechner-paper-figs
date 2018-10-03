@@ -30,17 +30,17 @@ from encode_CS import single_encode_CS
 dt = 1e-3
 pulse_beg = 0.25
 pulse_end = 0.75
-pulse_height = 50
-pulse_rnd = 0.025
+pulse_height = 300
+pulse_rnd = 0.005
 wind_len = 1.0
 num_odors = 20
-min_fA = 50
 
 data_flag = get_flag()
 iter_var_idxs = list(map(int, sys.argv[2:]))
 list_dict = read_specs_file(data_flag)
 vars_to_pass = compile_all_run_vars(list_dict, iter_var_idxs)
 obj = four_state_receptor_CS(**vars_to_pass)
+obj.temporal_run = True
 
 # Set signal manually: step from  pulse_beg to pulse_end, rounded by pulse_rnd
 Tt = sp.arange(0, wind_len, dt)
@@ -84,7 +84,7 @@ for seed in range(num_odors):
 
 	obj_arr[seed] = obj_list
 
-# Plot, for each receptor, all normalized responses, those w/ max > min_fA
+# Plot, for each receptor, all normalized responses
 for iM in range(obj.Mm):
 	num_plots = 0
 	fig = fig_tuning_curves_norm()
@@ -94,20 +94,19 @@ for iM in range(obj.Mm):
 		for obj in obj_list:
 			act.append(obj.Yy[iM])
 		
-		# Only can nomralize if response isn't too low
-		if max(act) < min_fA: 
+		# Only can normalize if response isn't too low
+		if max(act) < 1: 
 			continue
 		col_val = 0.2 + 0.7*seed/(num_odors - 1)
 		color=plt.cm.inferno(col_val)
-		lw = 2#0.6 + 2*seed/(num_odors - 1)
+		lw = 2
 		plt.plot(Tt, act/max(act), color=color, lw=lw, alpha=0.7)
 		num_plots += 1
 	
-	if num_plots > 1:
-		plt.ylim(-0.05, 1.1)
-		fig_name = '%s_int=%s_iM=%s_norm' % (iter_var_idxs, pulse_height, iM)
-		save_fig(fig_name, subdir=data_flag, clear_plot=True)
-	
+	plt.ylim(-0.05, 1.1)
+	fig_name = '%s_int=%s_iM=%s_norm' % (iter_var_idxs, pulse_height, iM)
+	save_fig(fig_name, subdir=data_flag, clear_plot=True)
+
 # Plot, for each receptor unnormalized responses
 for iM in range(obj.Mm):
 	fig = fig_tuning_curves_pulse()
@@ -117,7 +116,7 @@ for iM in range(obj.Mm):
 		for obj in obj_list:
 			act.append(obj.Yy[iM])
 		col_val = 0 + 0.8*seed/(num_odors - 1)
-		lw = 2# + 2*seed/(num_odors - 1)
+		lw = 2
 		color=plt.cm.inferno(col_val)
 		plt.plot(Tt, act, color=color, lw=lw, alpha=0.7)
 	
