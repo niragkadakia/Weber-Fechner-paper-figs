@@ -21,6 +21,15 @@ def src_dir():
 	data_dir = 'C:/Users/nk479/Documents/code/CS-variability-adaptation/src'
 	
 	return data_dir
+
+def scripts_dir():	
+	""" 
+	Define where the source code is for CS-variability-adaptation
+	"""
+	
+	data_dir = 'C:/Users/nk479/Documents/code/CS-variability-adaptation/scripts'
+	
+	return data_dir
 	
 def def_data_dir():
 	"""
@@ -42,4 +51,11 @@ def def_figure_analysis_data_dir():
 				"analysis_for_paper"
 
 	return data_dir
+	
+def def_analysis_dir():
+	"""
+	Only needed to satisfy some dependencies in temporal_CS_run.py
+	"""
+	
+	return None
 	

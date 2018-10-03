@@ -24,9 +24,9 @@ sys.path.append(src_dir())
 
 def plot_signal_stats(sig_file, whf_thresh=5, sig_offset=1e-5, sig_mult=18):
 	"""
-	Signal multiplier should come from appropriate specs file. 
-	For manuscript, using jul18_power_law_EA_temporal_bkgrnd_step_EA_2_mult=1.txt, 
-	for which the multiplier is 18
+	sig_mult should align with appropriate specs file. For manuscript, 
+	we use jul18_power_law_EA_temporal_bkgrnd_step_EA_2_mult=1.txt, 
+	for which the multiplier is 18.
 	"""
 		
 	data_dir = def_data_dir()
@@ -54,21 +54,29 @@ def plot_signal_stats(sig_file, whf_thresh=5, sig_offset=1e-5, sig_mult=18):
 	for nWhf in range(len(whf_beg)):
 		width = whf_end[nWhf] - whf_beg[nWhf]
 		whf_durs.append(width)
-	print (len(whf_durs))
-	hist, bins = sp.histogram(sp.log(whf_durs)/sp.log(10), bins=15, density=1)
+	print ("\nTotal number of whiffs = %s\n" % len(whf_durs))
+	bins = sp.arange(-1, 1.5, 0.1)
+	hist, bins = sp.histogram(sp.log(whf_durs)/sp.log(10), bins=bins, density=1)
+	
+	# These are zero elements
+	hist += 1e-1
+	
 	log_prob = sp.log(hist)/sp.log(10)
 	plt.scatter((bins[1:] + bins[:-1])/2., log_prob, marker='+')
 	
 	# -3/2 fit line
-	xr = sp.arange(-1, -0.4, 0.01)
-	yint = -1
+	xr = sp.arange(-0.85, 0.1, 0.01)
+	yint = -0.8
 	plt.plot(xr, xr*-1.5 + yint, color='r')
-	
-	#plt.xlim(-3.5, -1.0)
-	#plt.ylim(-3.0, -1.5)
-	plt.show()
-	
-	
+	plt.xlabel('Whiff duration (s)', fontsize=18)
+	plt.ylabel('Frequency', fontsize=18)
+	plt.xticks(fontsize=14)
+	plt.yticks(fontsize=14)
+	plt.xlim(-1.2, 0.2)
+	plt.ylim(-1.1, 0.6)
+	plt.annotate(r'$\sim t_w^{-3/2}$', xy=(-0.4, 0), xytext=(-0.4, 0), 
+				 color='r', fontsize=14)
+	save_fig('signal_stats_%s' % sig_file)
 	
 if __name__ == '__main__':
 	plot_signal_stats(sys.argv[1])

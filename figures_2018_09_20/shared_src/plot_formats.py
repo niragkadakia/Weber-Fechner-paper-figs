@@ -246,3 +246,45 @@ def primacy_set_overlap():
 	fig.set_size_inches(2.5, 2.0)
 	
 	return fig
+	
+def fig_tuning_curves_traces():
+	"""
+	Plot showing simple behavior in time (for tuning curves figures)
+	"""
+	
+	fig = plt.figure()
+	fig.set_size_inches(5, 3)
+	
+	plt.xticks([], fontsize=16)
+	plt.yticks([], fontsize=16)
+	plt.ylim(-5, 250)
+		
+	return fig
+	
+def fig_tuning_curves_pulse():
+	"""
+	Plot showing simple behavior in time (for tuning curves figures)
+	"""
+	
+	fig = plt.figure()
+	fig.set_size_inches(3, 3)
+	
+	plt.xticks([], fontsize=16)
+	plt.yticks([], fontsize=16)
+		
+	return fig
+	
+def fig_tuning_curves_norm():
+	"""
+	Plot showing simple behavior in time (for tuning curves figures)
+	"""
+	
+	fig = plt.figure()
+	fig.set_size_inches(3, 3)
+	
+	plt.xticks([], fontsize=16)
+	plt.yticks([], fontsize=16)
+		
+	return fig
+	
+	
