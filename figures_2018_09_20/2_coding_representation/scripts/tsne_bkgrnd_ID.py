@@ -1,8 +1,9 @@
 """
 Run a dimensionality reduction on the ORN respose to static values of 
-odors to attempt to cluster.
+odors to attempt to cluster. Use diff background identities but
+single concentration for both foreground and background.
 
-Created by Nirag Kadakia at 22:26 05-02-2018
+Created by Nirag Kadakia at 17:26 19-22-2018
 This work is licensed under the 
 Creative Commons Attribution-NonCommercial-ShareAlike 4.0 
 International License. 
@@ -28,6 +29,10 @@ from load_specs import read_specs_file, compile_all_run_vars
 from entropy import response_entropy
 
 def tsne(data_flag, cmap=plt.cm.inferno):
+
+	# RUN ON 
+	# jul18_tsne_rand_bkgrnd_WL
+	# jul18_tsne_rand_bkgrnd_no_WL
 
 	list_dict = read_specs_file(data_flag)
 	iter_vars = list_dict['iter_vars']
