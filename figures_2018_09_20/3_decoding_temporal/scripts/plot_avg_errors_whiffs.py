@@ -26,7 +26,7 @@ from load_specs import read_specs_file
 from load_data import load_signal_trace_from_file
 
 
-def plot_avg_errors(data_flags, whf_thresh=6,
+def plot_avg_errors(data_flags, whf_thresh=3,
 					int_window_rate_mults=[0.1, 1, 5], 
 					bck_intensities=sp.array([1, 15, 40, 100]),
 					plot_x_shift=1):

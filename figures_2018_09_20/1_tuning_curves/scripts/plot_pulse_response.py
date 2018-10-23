@@ -12,7 +12,6 @@ visit http://creativecommons.org/licenses/by-nc-sa/4.0/.
 import scipy as sp
 import sys
 import os
-import copy
 import matplotlib.pyplot as plt
 sys.path.append('../../shared_src')
 from plot_formats import fig_tuning_curves_pulse, fig_tuning_curves_norm
@@ -52,6 +51,7 @@ obj.signal_trace = signal
 
 # For each odor identity, generate time-traces of ORN responses
 obj_arr = [[] for i in range(num_odors)]
+Yy_arr = [[] for i in range(num_odors)]
 for seed in range(num_odors):
 		
 	# Set new odor identity and run
@@ -59,6 +59,7 @@ for seed in range(num_odors):
 	obj.seed_dSs = seed
 	
 	obj_list = []
+	Yy_list = []
 	for iT in range(len(Tt)):
 		
 		# Set estimation dSs values from signal trace -- mu_dSs must just 
@@ -79,20 +80,19 @@ for seed in range(num_odors):
 			obj.set_temporal_adapted_epsilon()
 			obj.set_measured_activity()
 			
-		# Deep copy to take all aspects of the object but not update it
-		obj_list.append(copy.deepcopy(obj))
+		Yy_list.append(obj.Yy)
 
-	obj_arr[seed] = obj_list
+	Yy_arr[seed] = Yy_list
 
 # Plot, for each receptor, all normalized responses
 for iM in range(obj.Mm):
 	num_plots = 0
 	fig = fig_tuning_curves_norm()
 	for seed in range(num_odors):
-		obj_list = obj_arr[seed]
+		Yy_list = Yy_arr[seed]
 		act = []
-		for obj in obj_list:
-			act.append(obj.Yy[iM])
+		for Yy in Yy_list:
+			act.append(Yy[iM])
 		
 		# Only can normalize if response isn't too low
 		if max(act) < 1: 
@@ -111,10 +111,10 @@ for iM in range(obj.Mm):
 for iM in range(obj.Mm):
 	fig = fig_tuning_curves_pulse()
 	for seed in range(num_odors):
-		obj_list = obj_arr[seed]
+		Yy_list = Yy_arr[seed]
 		act = []
-		for obj in obj_list:
-			act.append(obj.Yy[iM])
+		for Yy in Yy_list:
+			act.append(Yy[iM])
 		col_val = 0 + 0.8*seed/(num_odors - 1)
 		lw = 2
 		color=plt.cm.inferno(col_val)

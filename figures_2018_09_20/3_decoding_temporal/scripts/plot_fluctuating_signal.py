@@ -15,8 +15,7 @@ from scipy.ndimage.filters import gaussian_filter
 import matplotlib
 import matplotlib.pyplot as plt
 sys.path.append('../../shared_src')
-from save_load_figure_data import load_binary_errors, load_success_ratios, \
-									save_fig
+from save_load_figure_data import save_fig
 from plot_formats import fig_signal_trace
 
 # The location of the source code for CS-variability-adaptation is listed
@@ -29,7 +28,7 @@ from load_data import load_aggregated_temporal_objects, \
 						load_signal_trace_from_file
 
 
-def plot_temporal_errors(data_flag, whiff_threshold=6, ylim=20, 
+def plot_temporal_errors(data_flag, whiff_threshold=3, ylim=20, 
 						 min_whf_dur=0.15):
 
 	list_dict = read_specs_file(data_flag)

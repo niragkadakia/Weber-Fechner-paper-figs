@@ -31,7 +31,7 @@ from load_specs import read_specs_file
 from load_data import load_aggregated_temporal_objects
 
 
-def plot_MI(data_flag, Kk_idxs=[4, 4], Tt_idxs=[0, 10, 20, 50, 
+def plot_MI(data_flag, Kk_idxs=[4, 4], Tt_idxs=[0, 8, 25, 
 			80, 100, 140, 195]):
 	"""
 	Kk_idxs is a list of which of the iterated variables to plot
@@ -65,10 +65,10 @@ def plot_MI(data_flag, Kk_idxs=[4, 4], Tt_idxs=[0, 10, 20, 50,
 		data = CS_object_array['entropy'][Tt_idx, :, Kk_idxs[0], Kk_idxs[1], :]
 
 		fig = fig_MI_trace()
-		for iM in range(list_dict['params']['Mm']):
-			plt.plot(x, data[...,iM], lw=0.3, alpha=0.5,
-						color=colors[iTt], linestyle='-')
-		plt.plot(x, sp.average(data, axis=-1), lw=2,
+		min_MI = sp.amin(data, axis=-1)
+		max_MI = sp.amax(data, axis=-1)
+		plt.fill_between(x, min_MI, max_MI, color=colors[iTt], alpha=0.2)
+		plt.plot(x, sp.average(data, axis=-1), lw=5,
 					color=colors[iTt], linestyle='-')
 		plt.ylim(0, 7.01)
 		plt.xlim(1, 10**4)
