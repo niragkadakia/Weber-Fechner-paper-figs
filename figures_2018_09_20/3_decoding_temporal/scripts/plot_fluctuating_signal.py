@@ -28,8 +28,8 @@ from load_data import load_aggregated_temporal_objects, \
 						load_signal_trace_from_file
 
 
-def plot_temporal_errors(data_flag, whiff_threshold=3, ylim=20, 
-						 min_whf_dur=0.15):
+def plot_temporal_errors(data_flag, whiff_threshold=4, ylim=35, 
+						 min_whf_dur=0.13):
 
 	list_dict = read_specs_file(data_flag)
 	iter_vars_dims = []
@@ -86,8 +86,8 @@ def plot_temporal_errors(data_flag, whiff_threshold=3, ylim=20,
 		ax.add_patch(rect)
 	ax.spines['right'].set_visible(False)
 	ax.spines['top'].set_visible(False)
-	plt.xticks(sp.arange(0, 100, 10), fontsize=18)
-	plt.yticks(sp.arange(0, 300, 10), fontsize=18)
+	plt.xticks(sp.arange(0, 100, 10), fontsize=20)
+	plt.yticks(sp.arange(0, 300, 10), fontsize=20)
 	plt.xlim(Tt[0], Tt[-1])
 	plt.ylim(0, ylim)
 	
