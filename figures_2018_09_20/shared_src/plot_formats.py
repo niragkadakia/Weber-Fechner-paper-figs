@@ -246,6 +246,33 @@ def primacy_set_overlap():
 	fig.set_size_inches(2.5, 2.0)
 	
 	return fig
+
+def primacy_set_overlap_bckgrnd_ID():
+	"""
+	Figure showing % overlap of primacy sets.
+	"""
+	
+	fig = plt.figure()
+	fig.set_size_inches(3, 1)
+	plt.xlim(-0.02, 1.02)
+	plt.xticks(sp.arange(0, 1.01, 0.25), [])
+	plt.yticks([])
+	plt.ylim(-1, 1)
+	
+	return fig
+
+def primacy_set_overlap_bckgrnd_ID_consist():
+	"""
+	Figure showing % overlap of primacy sets.
+	"""
+	
+	fig = plt.figure()
+	fig.set_size_inches(1.5, 2)
+	plt.xticks(sp.arange(0, 50, 2), [])
+	plt.yticks(sp.arange(0, 1.01, 0.2), [])
+	plt.ylim(0, 1.0)
+	
+	return fig
 	
 def fig_tuning_curves_traces():
 	"""
