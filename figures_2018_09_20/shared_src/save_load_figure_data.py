@@ -303,3 +303,28 @@ def save_fig_no_whtspc(fig_name, subdir=None, clear_plot=True, no_ax=True):
 	if clear_plot == True:
 		plt.close()
 		
+def save_IHT_est(x_est_arr, x_true_arr, data_flag):
+	"""
+	Save the estimates from iterative hard tresholding algorithm.
+	"""
+	
+	out_dir = '%s/%s' % (FIGURE_ANALYSIS_DATA_DIR, data_flag)
+	if not os.path.exists(out_dir):
+		os.makedirs(out_dir)
+
+	filename = '%s/IHT_ests.npz' % out_dir
+	sp.savez(filename, x_est=x_est_arr, x_true=x_true_arr)
+	print ('IHT data saved to %s' % filename)
+	
+def load_IHT_est(data_flag):
+	"""
+	Load the estimates from iterative hard tresholding algorithm.
+	"""
+	
+	out_dir = '%s/%s' % (FIGURE_ANALYSIS_DATA_DIR, data_flag)
+	filename = '%s/IHT_ests.npz' % out_dir
+	data = sp.load(filename)
+	x_est = data['x_est']
+	x_true = data['x_true']
+	
+	return x_est, x_true

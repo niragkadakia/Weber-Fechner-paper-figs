@@ -86,7 +86,8 @@ for iK, Kk in enumerate(Kk_vals):
 			hist, _ = sp.histogram(eigs, bins=bins, normed=True)
 			plt.plot((bins[1:] + bins[:-1])/2.0, hist, color=colors[iFlag], 
 					 lw=lws[iFlag])
-			
-		subdir='IHT_eigs/%s' % data_flag
-		save_fig('Kk=%s_mu_Ss0=%s' % (Kk, mu_Ss0), subdir=subdir)
+		
+		for data_flag in data_flags:
+			subdir='%s' % data_flag
+			save_fig('Kk=%s_mu_Ss0=%s' % (Kk, mu_Ss0), subdir=subdir)
 
