@@ -53,7 +53,8 @@ def plot_avg_successes_vs_Kk(data_flag, zero_thresh=0.1, nonzero_thresh=[0.7, 1.
 		iter_vars_dims.append(len(list_dict['iter_vars'][iter_var]))	
 	
 	assert len(iter_vars) == 4, "Need 3 iter_vars"
-	iter_var_names = ['mu_Ss0', 'seed_dSs', 'Kk_1', 'Kk_2']
+	#iter_var_names = ['mu_Ss0', 'seed_dSs', 'Kk_1', 'Kk_2']
+	iter_var_names = ['mu_Ss0', 'seed_dSs_2', 'Kk_1', 'Kk_2']
 	for iName, name in enumerate(iter_var_names):
 		assert list(iter_vars.keys())[iName] == name, "%sth variable "\
 			"must have name %s" % (iName, name)
@@ -62,13 +63,15 @@ def plot_avg_successes_vs_Kk(data_flag, zero_thresh=0.1, nonzero_thresh=[0.7, 1.
 	Kk_2_vals = iter_vars['Kk_2']
 	Nn = list_dict['params']['Nn']
 	
-	x = mu_Ss0_vals
+	x = sp.log(mu_Ss0_vals)/sp.log(10)
 	y = Kk_1_vals
+	x = sp.hstack((x, [x[1] - x[0] + x[-1]]))
+	y = sp.hstack((y, [y[1] - y[0] + y[-1]]))
 	X, Y = sp.meshgrid(x, y)
 	successes = load_success_ratios(data_flag)
 	avg_successes = 100*sp.average(successes, axis=1)
 	
-	vminmax = [0, 100]
+	vminmax = [-1, 101]
 	ticks = [0, 50, 100]
 	tick_labels = ['0', '50', '100']
 	
@@ -79,11 +82,10 @@ def plot_avg_successes_vs_Kk(data_flag, zero_thresh=0.1, nonzero_thresh=[0.7, 1.
 	
 	for iKk_2, Kk_2 in enumerate(Kk_2_vals):
 		fig = fig_errors_vs_Kk()
-		plt.xlim(10**0, 10**4)
+		plt.xlim(0, 4)
 		plt.ylim(1, 5)
-		plt.xscale('log')
 		plt.pcolormesh(X, Y, avg_successes[...,iKk_2].T, cmap=plt.cm.hot,
-						rasterized=True, shading='gouraud', 
+						rasterized=True, #shading='gouraud', 
 						vmin=vminmax[0], vmax=vminmax[1])
 		save_fig_no_whtspc('avg_successes_bkgrnd_complexity=%s' % Kk_2, \
 							subdir=data_flag)
@@ -101,7 +103,6 @@ def plot_avg_successes_vs_Kk(data_flag, zero_thresh=0.1, nonzero_thresh=[0.7, 1.
 		save_fig('avg_successes_colorbar_bkgrnd_complexity=%s' % Kk_2, 
 					subdir=data_flag, tight_layout=False)
 		
-	
 			
 if __name__ == '__main__':
 	data_flag = get_flag()

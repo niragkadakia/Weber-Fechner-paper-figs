@@ -53,7 +53,8 @@ def plot_avg_successes_vs_Kk(data_flag, zero_thresh=0.1, nonzero_thresh=[0.7, 1.
 		iter_vars_dims.append(len(list_dict['iter_vars'][iter_var]))	
 	
 	assert len(iter_vars) == 4, "Need 3 iter_vars"
-	iter_var_names = ['mu_Ss0', 'seed_dSs', 'Kk_1', 'Kk_2']
+	#iter_var_names = ['mu_Ss0', 'seed_dSs', 'Kk_1', 'Kk_2']
+	iter_var_names = ['mu_Ss0', 'seed_dSs_2', 'Kk_1', 'Kk_2']
 	for iName, name in enumerate(iter_var_names):
 		assert list(iter_vars.keys())[iName] == name, "%sth variable "\
 			"must have name %s" % (iName, name)
@@ -83,7 +84,7 @@ def plot_avg_successes_vs_Kk(data_flag, zero_thresh=0.1, nonzero_thresh=[0.7, 1.
 		plt.ylim(1, 5)
 		plt.xscale('log')
 		plt.pcolormesh(X, Y, avg_successes[...,iKk_2].T, cmap=plt.cm.hot,
-						rasterized=True, shading='gouraud', 
+						rasterized=True, #shading='gouraud', 
 						vmin=vminmax[0], vmax=vminmax[1])
 		save_fig_no_whtspc('avg_successes_bkgrnd_complexity=%s' % Kk_2, \
 							subdir=data_flag)
