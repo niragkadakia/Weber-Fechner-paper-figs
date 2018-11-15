@@ -78,7 +78,7 @@ def tsne(data_flag, cmap=plt.cm.inferno):
 		Yys[idSs, :, :] = obj.Yy.T
 		
 	# Do the dimensionality reduction with TSNE
-	TSNE_func = TSNE()
+	TSNE_func = TSNE(random_state=0)
 	Yys_aggregated = Yys.reshape((-1, obj.Mm))
 	reduced_idxs = (num_intensities, num_signals, 2)
 	reduced_data = TSNE_func.fit_transform(Yys_aggregated).reshape(reduced_idxs)
@@ -87,6 +87,7 @@ def tsne(data_flag, cmap=plt.cm.inferno):
 	fig = fig_tnse()
 	color_range = sp.linspace(0.1, 0.9, num_signals)
 	marker_size_range = sp.linspace(15, 100, num_intensities)
+	print (marker_size_range)
 	for iOdor in range(Yys.shape[1]):
 		plt.scatter(reduced_data[:, iOdor, 0], reduced_data[:, iOdor, 1], 
 					color=cmap(color_range[iOdor]), s=marker_size_range, 

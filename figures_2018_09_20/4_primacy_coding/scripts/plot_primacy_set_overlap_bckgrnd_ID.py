@@ -33,7 +33,6 @@ def primacy(data_flag, decoded_pct=75, primacy_sizes=sp.arange(1, 21, 1),
 	different background odors
 	"""
 	
-	colors = ['purple']
 	prim_consist_pct = sp.zeros(len(primacy_sizes))
 	
 	for iP, num_prim in enumerate(primacy_sizes):
@@ -102,22 +101,29 @@ def primacy(data_flag, decoded_pct=75, primacy_sizes=sp.arange(1, 21, 1),
 		# To calculate % consistency for primacy set in this iP
 		pct = 0
 		
-		# Sort by most commonly in primacy set; color these orange
+		# Sort by most commonly in primacy set; color these purple
 		sort_idxs = sp.argsort(pct_in_primacy)[::-1]
 		sp.random.seed(iP)
 		for iM in range(Mm):
 			if iM in sort_idxs[:num_prim]:
-				col = 'purple'
+				col = 'orange'
 				shape = 'o'
+				s = 80
+				ec='purple'
 				pct += pct_in_primacy[iM]
 			else:
 				col = 'orange'
 				shape = 'o'
+				s = 40
+				ec = 'orange'
 			plt.scatter(pct_in_primacy[iM] + sp.random.normal
-						(0, (1 - pct_in_primacy[iM])*0.05), 
+						(0, (1 - pct_in_primacy[iM])*0.01), 
 						sp.random.normal(0, 0.4), color=col, 
-						alpha=0.3 + 0.7*(Mm - iM)/Mm, 
-						s=10+iM*2, lw=1, marker=shape)
+						#alpha=0.3 + 0.7*(Mm - iM)/Mm, 
+						#s=10+iM*2, lw=1, marker=shape)
+						alpha=0.7,
+						s=s, lw=2, marker=shape,
+						edgecolor=ec)
 		save_fig('pct_of_time_in_primacy_set_p=%s' % num_prim, subdir=data_flag)
 		
 		prim_consist_pct[iP] = pct/num_prim
