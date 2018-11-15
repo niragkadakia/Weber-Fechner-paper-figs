@@ -31,8 +31,9 @@ from load_specs import read_specs_file
 from load_data import load_aggregated_object_list
 
 
-def plot_avg_successes_vs_Kk(data_flag, zero_thresh=0.1, nonzero_thresh=[0.7, 1.3],
-							row_placement=[[1, 1], [1, 1], [1, 1]]):
+def plot_avg_successes_vs_Kk(data_flag, zero_thresh=0.1, 
+							 nonzero_thresh=[0.7, 1.3],
+							 row_placement=[[1, 1], [1, 1], [1, 1]]):
 	"""
 	Args:
 		data_flag: string; run identifier.
