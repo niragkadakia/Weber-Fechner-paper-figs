@@ -31,20 +31,8 @@ from load_specs import read_specs_file
 from load_data import load_aggregated_object_list
 
 
-def plot_avg_successes_vs_Kk(data_flag, zero_thresh=0.1, nonzero_thresh=[0.7, 1.3],
-							row_placement=[[1, 1], [1, 1], [1, 1]]):
-	"""
-	Args:
-		data_flag: string; run identifier.
-		zero_thresh: multiplier of mu_dSs for which to consider a false
-			negative or false positive for the estimated odor signal.
-		nonzero_thresh: 2-element list; range for which |s_est/s| is 
-			considered correctly intensity decoded
-		row_placement: 3-element list of 2-element lists. Entries are 
-			whether to draw tick labels for x and y-axes for intensity, 
-			identity, and full avg_successes plots.
-		
-	"""
+def plot_avg_successes_vs_Kk(data_flag):
+
 	
 	list_dict = read_specs_file(data_flag)
 	iter_vars = list_dict['iter_vars']
@@ -73,11 +61,6 @@ def plot_avg_successes_vs_Kk(data_flag, zero_thresh=0.1, nonzero_thresh=[0.7, 1.
 	vminmax = [-1, 101]
 	ticks = [0, 50, 100]
 	tick_labels = ['0', '50', '100']
-	
-	if row_placement[2][0] == 0:
-		plt.xticks([])
-	if row_placement[2][1] == 0:
-		plt.yticks([])
 	
 	for iKk_2, Kk_2 in enumerate(Kk_2_vals):
 		fig = fig_errors_vs_Kk()

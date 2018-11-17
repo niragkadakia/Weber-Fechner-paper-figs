@@ -25,7 +25,7 @@ from utils import get_flag
 from load_specs import read_specs_file
 
 
-def accuracy_vs_num_active(data_flag, active_rate=20):
+def accuracy_vs_num_active(data_flag, active_rate=15):
 	
 	binary_errors = load_binary_errors(data_flag)
 	errors_nonzero = binary_errors['errors_nonzero']

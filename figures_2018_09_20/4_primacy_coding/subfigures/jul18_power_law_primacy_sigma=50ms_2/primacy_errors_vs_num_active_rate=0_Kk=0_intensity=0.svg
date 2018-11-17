@@ -29,12 +29,12 @@ z
    <g id="matplotlib.axis_1"/>
    <g id="matplotlib.axis_2"/>
    <g id="line2d_1">
-    <path clip-path="url(#p06f311f876)" d="M 7.1 181.678244 
-L 10.7 181.022811 
-L 14.3 138.809914 
-L 17.9 64.616663 
-L 21.5 54.943953 
-L 25.1 7.062404 
+    <path clip-path="url(#p3623246a97)" d="M 7.1 181.678217 
+L 10.7 181.021124 
+L 14.3 120.381361 
+L 17.9 80.213196 
+L 21.5 70.44591 
+L 25.1 6.667894 
 L 28.7 16.554118 
 L 32.3 5.794434 
 " style="fill:none;stroke:#440154;stroke-linecap:square;stroke-width:2;"/>
@@ -49,17 +49,17 @@ C -2.683901 -1.55874 -3 -0.795609 -3 0
 C -3 0.795609 -2.683901 1.55874 -2.12132 2.12132 
 C -1.55874 2.683901 -0.795609 3 0 3 
 z
-" id="m97efc45917" style="stroke:#440154;"/>
+" id="m615214892e" style="stroke:#440154;"/>
     </defs>
-    <g clip-path="url(#p06f311f876)">
-     <use style="fill:#440154;stroke:#440154;" x="7.1" xlink:href="#m97efc45917" y="181.678244"/>
-     <use style="fill:#440154;stroke:#440154;" x="10.7" xlink:href="#m97efc45917" y="181.022811"/>
-     <use style="fill:#440154;stroke:#440154;" x="14.3" xlink:href="#m97efc45917" y="138.809914"/>
-     <use style="fill:#440154;stroke:#440154;" x="17.9" xlink:href="#m97efc45917" y="64.616663"/>
-     <use style="fill:#440154;stroke:#440154;" x="21.5" xlink:href="#m97efc45917" y="54.943953"/>
-     <use style="fill:#440154;stroke:#440154;" x="25.1" xlink:href="#m97efc45917" y="7.062404"/>
-     <use style="fill:#440154;stroke:#440154;" x="28.7" xlink:href="#m97efc45917" y="16.554118"/>
-     <use style="fill:#440154;stroke:#440154;" x="32.3" xlink:href="#m97efc45917" y="5.794434"/>
+    <g clip-path="url(#p3623246a97)">
+     <use style="fill:#440154;stroke:#440154;" x="7.1" xlink:href="#m615214892e" y="181.678217"/>
+     <use style="fill:#440154;stroke:#440154;" x="10.7" xlink:href="#m615214892e" y="181.021124"/>
+     <use style="fill:#440154;stroke:#440154;" x="14.3" xlink:href="#m615214892e" y="120.381361"/>
+     <use style="fill:#440154;stroke:#440154;" x="17.9" xlink:href="#m615214892e" y="80.213196"/>
+     <use style="fill:#440154;stroke:#440154;" x="21.5" xlink:href="#m615214892e" y="70.44591"/>
+     <use style="fill:#440154;stroke:#440154;" x="25.1" xlink:href="#m615214892e" y="6.667894"/>
+     <use style="fill:#440154;stroke:#440154;" x="28.7" xlink:href="#m615214892e" y="16.554118"/>
+     <use style="fill:#440154;stroke:#440154;" x="32.3" xlink:href="#m615214892e" y="5.794434"/>
     </g>
    </g>
    <g id="patch_3">
@@ -85,7 +85,7 @@ L 183.5 3.5
   </g>
  </g>
  <defs>
-  <clipPath id="p06f311f876">
+  <clipPath id="p3623246a97">
    <rect height="180" width="180" x="3.5" y="3.5"/>
   </clipPath>
  </defs>

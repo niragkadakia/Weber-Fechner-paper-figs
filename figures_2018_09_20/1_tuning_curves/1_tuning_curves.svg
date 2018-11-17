@@ -9114,16 +9114,16 @@
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
      inkscape:zoom="1.42"
-     inkscape:cx="239.55275"
+     inkscape:cx="149.05979"
      inkscape:cy="205.82978"
      inkscape:document-units="mm"
-     inkscape:current-layer="layer6"
+     inkscape:current-layer="layer4"
      showgrid="false"
      units="in"
      inkscape:window-width="1920"
-     inkscape:window-height="1027"
-     inkscape:window-x="-8"
-     inkscape:window-y="-8"
+     inkscape:window-height="1013"
+     inkscape:window-x="-9"
+     inkscape:window-y="-9"
      inkscape:window-maximized="1"
      objecttolerance="11"
      guidetolerance="9"
@@ -9147,8 +9147,7 @@
      id="layer4"
      inkscape:label="Notes"
      style="stroke-linecap:butt;stroke-linejoin:round"
-     transform="translate(0,-25.39998)"
-     sodipodi:insensitive="true">
+     transform="translate(0,-25.39998)">
     <flowRoot
        xml:space="preserve"
        id="flowRoot17018"
@@ -9163,55 +9162,45 @@
            y="60.048782"
            style="fill:#00000a;fill-opacity:1;stroke-linecap:butt;stroke-linejoin:round" /></flowRegion><flowPara
          style="fill:#00000a;fill-opacity:1;stroke-linecap:butt;stroke-linejoin:round"
-         id="flowPara13100">A_a(t) = \left(1 + e^{\epsilon_a(t)}\frac{1 + \sum^N_i s_i(t)/K_{ai}}{1 + \sum^N_i s_i(t)/K^*_{ai}}\right)^{-1}</flowPara><flowPara
+         id="flowPara19349">C/E: </flowPara><flowPara
          style="fill:#00000a;fill-opacity:1;stroke-linecap:butt;stroke-linejoin:round"
-         id="flowPara19817" /><flowPara
+         id="flowPara3263">   specs files used:</flowPara><flowPara
          style="fill:#00000a;fill-opacity:1;stroke-linecap:butt;stroke-linejoin:round"
-         id="flowPara19819" /><flowPara
+         id="flowPara3265">   jul18_power_law_no_WL</flowPara><flowPara
          style="fill:#00000a;fill-opacity:1;stroke-linecap:butt;stroke-linejoin:round"
-         id="flowPara19821">\frac{d\epsilon_a(t)}{dt} = \frac{A_{a0} - A_a(t)}{\tau_a}</flowPara><flowPara
+         id="flowPara3269" /><flowPara
          style="fill:#00000a;fill-opacity:1;stroke-linecap:butt;stroke-linejoin:round"
-         id="flowPara9271" /><flowPara
+         id="flowPara3271">   plot_Kk2.py (C)</flowPara><flowPara
          style="fill:#00000a;fill-opacity:1;stroke-linecap:butt;stroke-linejoin:round"
-         id="flowPara9273">r_a(t) = f\left(\int h(\tau - t)A_a(t)d\tau\right)</flowPara><flowPara
+         id="flowPara3275">   plot_tuning_curves.py (E)</flowPara><flowPara
          style="fill:#00000a;fill-opacity:1;stroke-linecap:butt;stroke-linejoin:round"
-         id="flowPara10675" /><flowPara
+         id="flowPara3279">       Ss0_to_plot = 13</flowPara><flowPara
          style="fill:#00000a;fill-opacity:1;stroke-linecap:butt;stroke-linejoin:round"
-         id="flowPara10677">filter and NL plots generated using jul18_power_law_no_WL</flowPara><flowPara
+         id="flowPara3281">       </flowPara><flowPara
          style="fill:#00000a;fill-opacity:1;stroke-linecap:butt;stroke-linejoin:round"
-         id="flowPara8219" /><flowPara
+         id="flowPara3255">D: specs file used:</flowPara><flowPara
          style="fill:#00000a;fill-opacity:1;stroke-linecap:butt;stroke-linejoin:round"
-         id="flowPara8221">time traces generated using plot_pulse_response.py and pulse.txt, with </flowPara><flowPara
+         id="flowPara3283">     jul18_tuning_curve_pulse</flowPara><flowPara
          style="fill:#00000a;fill-opacity:1;stroke-linecap:butt;stroke-linejoin:round"
-         id="flowPara8227">    pulse_rnd = 0.025</flowPara><flowPara
+         id="flowPara3285" /><flowPara
          style="fill:#00000a;fill-opacity:1;stroke-linecap:butt;stroke-linejoin:round"
-         id="flowPara8229">    Kk = 1</flowPara><flowPara
+         id="flowPara3287">    plot_pulse_response.py </flowPara><flowPara
          style="fill:#00000a;fill-opacity:1;stroke-linecap:butt;stroke-linejoin:round"
-         id="flowPara8857" /><flowPara
+         id="flowPara3289">        with params:</flowPara><flowPara
          style="fill:#00000a;fill-opacity:1;stroke-linecap:butt;stroke-linejoin:round"
-         id="flowPara8859">D: Kk=0,int=50,iM=5</flowPara><flowPara
+         id="flowPara3295">            dt = 1e-3</flowPara><flowPara
          style="fill:#00000a;fill-opacity:1;stroke-linecap:butt;stroke-linejoin:round"
-         id="flowPara8861">     Kk=0,int=50,iM=20</flowPara><flowPara
+         id="flowPara3297">            pulse_beg = 0.25</flowPara><flowPara
          style="fill:#00000a;fill-opacity:1;stroke-linecap:butt;stroke-linejoin:round"
-         id="flowPara8231">    </flowPara><flowPara
+         id="flowPara3299">            pulse_end = 0.75</flowPara><flowPara
          style="fill:#00000a;fill-opacity:1;stroke-linecap:butt;stroke-linejoin:round"
-         id="flowPara8225">    </flowPara><flowPara
+         id="flowPara3301">            pulse_height = 300</flowPara><flowPara
          style="fill:#00000a;fill-opacity:1;stroke-linecap:butt;stroke-linejoin:round"
-         id="flowPara10112" /><flowPara
+         id="flowPara3303">            pulse_rnd = 0.005</flowPara><flowPara
          style="fill:#00000a;fill-opacity:1;stroke-linecap:butt;stroke-linejoin:round"
-         id="flowPara10114" /><flowPara
+         id="flowPara3305">            wind_len = 1.0</flowPara><flowPara
          style="fill:#00000a;fill-opacity:1;stroke-linecap:butt;stroke-linejoin:round"
-         id="flowPara19823" /><flowPara
-         style="fill:#00000a;fill-opacity:1;stroke-linecap:butt;stroke-linejoin:round"
-         id="flowPara19825" /><flowPara
-         style="fill:#00000a;fill-opacity:1;stroke-linecap:butt;stroke-linejoin:round"
-         id="flowPara19827" /><flowPara
-         style="fill:#00000a;fill-opacity:1;stroke-linecap:butt;stroke-linejoin:round"
-         id="flowPara19829" /><flowPara
-         style="fill:#00000a;fill-opacity:1;stroke-linecap:butt;stroke-linejoin:round"
-         id="flowPara19347" /><flowPara
-         style="fill:#00000a;fill-opacity:1;stroke-linecap:butt;stroke-linejoin:round"
-         id="flowPara19349" /></flowRoot>    <flowRoot
+         id="flowPara3307">            num_odors = 20</flowPara></flowRoot>    <flowRoot
        xml:space="preserve"
        id="flowRoot28975"
        style="font-style:normal;font-weight:normal;font-size:8px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#00000a;fill-opacity:1;stroke:none;stroke-linecap:butt;stroke-linejoin:round"
@@ -14442,7 +14431,8 @@
      inkscape:groupmode="layer"
      id="layer6"
      inkscape:label="temporal"
-     style="stroke-linecap:butt;stroke-linejoin:round">
+     style="stroke-linecap:butt;stroke-linejoin:round"
+     sodipodi:insensitive="true">
     <flowRoot
        xml:space="preserve"
        id="flowRoot10659-5"
