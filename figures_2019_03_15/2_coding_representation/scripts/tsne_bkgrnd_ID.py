@@ -16,6 +16,7 @@ import matplotlib.pyplot as plt
 import sys
 from sklearn.manifold import TSNE
 from sklearn.decomposition import PCA
+from sklearn.metrics import silhouette_score
 sys.path.append('../../shared_src')
 from save_load_figure_data import save_fig
 from plot_formats import fig_tnse
@@ -83,15 +84,34 @@ def tsne(data_flag, cmap=plt.cm.inferno):
 	reduced_idxs = (num_intensities, num_signals, 2)
 	reduced_data = TSNE_func.fit_transform(Yys_aggregated).reshape(reduced_idxs)
 	
+	# Plot the distribution of the activities
+	fig = plt.figure(figsize=(2, 2))
+	ax = plt.subplot()
+	ax.violinplot(Yys_aggregated.flatten(), showextrema=False)
+	plt.ylim(0, 300)
+	plt.yticks([0, 150, 300])
+	ax.spines['right'].set_visible(False)
+	ax.spines['top'].set_visible(False)
+	save_fig('tsne_Yy_Kk_1=%s_Kk_2=%s_nOdors=%s' % (obj.Kk_1, obj.Kk_2, 
+			 num_signals), subdir=data_flag)
+	
 	# Project all points to 2D space; color by identity; size by intensity
 	fig = fig_tnse()
 	color_range = sp.linspace(0.1, 0.9, num_signals)
 	marker_size_range = sp.linspace(15, 100, num_intensities)
-	print (marker_size_range)
+	
 	for iOdor in range(Yys.shape[1]):
 		plt.scatter(reduced_data[:, iOdor, 0], reduced_data[:, iOdor, 1], 
 					color=cmap(color_range[iOdor]), s=marker_size_range, 
 					alpha=0.8)
+	
+	# Calculate silhouette score
+	vals = sp.reshape(reduced_data, (num_intensities*num_signals, 2), order='f')
+	labels = []
+	for iD in range(num_signals):
+		labels.extend([iD]*num_intensities)
+	score = silhouette_score(vals, labels=labels)
+	print ('Silhouette Score:', score)
 	
 	save_fig('tsne_Kk_1=%s_Kk_2=%s_nOdors=%s' % (obj.Kk_1, obj.Kk_2, 
 				num_signals), subdir=data_flag)

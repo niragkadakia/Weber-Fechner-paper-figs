@@ -32,8 +32,10 @@ from entropy import response_entropy
 
 def tsne(data_flag, cmap=plt.cm.inferno):
 
-	# RUN ON 
-	# tsne_ex
+	# Run on tsne_ex
+
+	num_bcks_to_plot = 3
+	num_ids_to_plot = 3
 	
 	list_dict = read_specs_file(data_flag)
 	iter_vars = list_dict['iter_vars']
@@ -84,11 +86,11 @@ def tsne(data_flag, cmap=plt.cm.inferno):
 	reduced_idxs = (num_intensities, num_signals, 2)
 	reduced_data = TSNE_func.fit_transform(Yys_aggregated).reshape(reduced_idxs)
 	
-	# Just plot for first 2 of the background identities
-	for iOdor in range(2):
-		for iBck in range(Yys.shape[0]):
-			dat = sp.asarray([Yys[iBck, iOdor, :]]*2).T
-			plt.imshow(dat, aspect=0.4, vmin=0, vmax=250, 
+	# Just plot for num_bcks_to_plot of the background identities
+	for iOdor in range(num_bcks_to_plot):
+		for iBck in range(num_ids_to_plot):
+			dat = sp.asarray([Yys[iBck, iOdor, :]]*num_bcks_to_plot).T
+			plt.imshow(dat, aspect=0.5, vmin=0, vmax=250, 
 						cmap=plt.cm.afmhot, interpolation='nearest')
 			plt.xticks([])
 			plt.yticks([])
@@ -108,9 +110,10 @@ def tsne(data_flag, cmap=plt.cm.inferno):
 
 	# Just project points from first 2 background identities to 2D space
 	fig = fig_tnse()
-	for iOdor in range(2):
-		plt.scatter(reduced_data[:, iOdor, 0], reduced_data[:, iOdor, 1], 
-					color='k', s=100, alpha=0.8)
+	for iOdor in range(num_bcks_to_plot):
+		plt.scatter(reduced_data[:num_ids_to_plot, iOdor, 0], 
+					reduced_data[:num_ids_to_plot, iOdor, 1], 
+					color='k', s=150, alpha=1.0)
 	save_fig('tsne_ex', subdir=data_flag)
 	
 

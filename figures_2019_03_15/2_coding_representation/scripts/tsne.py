@@ -15,6 +15,7 @@ import matplotlib.pyplot as plt
 import sys
 from sklearn.manifold import TSNE
 from sklearn.decomposition import PCA
+from sklearn.metrics import silhouette_score
 sys.path.append('../../shared_src')
 from save_load_figure_data import save_fig
 from plot_formats import fig_tnse
@@ -82,10 +83,19 @@ def tsne(data_flag, cmap=plt.cm.inferno):
 	fig = fig_tnse()
 	color_range = sp.linspace(0.1, 0.9, num_signals)
 	marker_size_range = sp.linspace(15, 100, num_intensities)
-	for iOdor in range(Yys.shape[1]):
+	
+	for iOdor in range(num_signals):
 		plt.scatter(reduced_data[:, iOdor, 0], reduced_data[:, iOdor, 1], 
 					color=cmap(color_range[iOdor]), s=marker_size_range, 
 					alpha=0.8)
+	
+	# Calculate silhouette score
+	vals = sp.reshape(reduced_data, (num_intensities*num_signals, 2), order='f')
+	labels = []
+	for iD in range(num_signals):
+		labels.extend([iD]*num_intensities)
+	score = silhouette_score(vals, labels=labels)
+	print ('silhouette score:', score)
 	
 	save_fig('tsne_Kk_1=%s_Kk_2=%s_nOdors=%s' % (obj.Kk_1, obj.Kk_2, 
 				num_signals), subdir=data_flag)
