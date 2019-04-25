@@ -294,8 +294,11 @@ def fig_tuning_curves_pulse():
 	"""
 	
 	fig = plt.figure()
-	fig.set_size_inches(3, 3)
-	
+	fig.set_size_inches(2.7, 3)
+	ax = plt.subplot(111)
+	ax.spines['right'].set_visible(False)
+	ax.spines['top'].set_visible(False)
+		
 	plt.xticks([], fontsize=16)
 	plt.yticks([], fontsize=16)
 		
