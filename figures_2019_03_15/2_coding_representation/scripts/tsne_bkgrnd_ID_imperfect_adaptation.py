@@ -52,6 +52,7 @@ def tsne(data_flag, cmap=plt.cm.inferno):
 		
 		# Struc for saved activities; order is odor intensity, odor ID, receptor ID
 		Yys = sp.zeros((num_intensities, num_signals, list_dict['params']['Mm']))
+		Yys_old = sp.zeros((num_intensities, num_signals, list_dict['params']['Mm']))
 			
 		for idSs, mu_dSs in enumerate(mu_dSs_vals):
 				
@@ -61,6 +62,24 @@ def tsne(data_flag, cmap=plt.cm.inferno):
 			
 			# Basic setting of Kk1, etc.; Ss, Yy, and eps will be overwritten below.
 			obj.encode_power_Kk()
+			
+			
+			# First, set the foreground to zero; get random background
+			# Store the fixed vals and seeds
+			tmp_mu_dSs = obj.mu_dSs
+			tmp_sigma_dSs = obj.sigma_dSs
+			tmp_seed_Ss0 = obj.seed_Ss0
+			obj.mu_dSs = 1e-5
+			obj.sigma_dSs = 0
+			sp.random.seed()
+			obj.seed_Ss0 = sp.random.randint(1e7)
+			obj.set_signal_array()
+			obj.set_adapted_free_energy()
+			obj.set_mean_response_array()
+			Yys_old[idSs, :, :] = obj.Yy.T
+			obj.mu_dSs = tmp_mu_dSs
+			obj.sigma_dSs = tmp_sigma_dSs
+			obj.seed_Ss0 = tmp_seed_Ss0
 			
 			# Set the signals and free energy, depending if adaptive or not.
 			if 'run_type' in list_dict['run_specs'].keys():
@@ -84,10 +103,11 @@ def tsne(data_flag, cmap=plt.cm.inferno):
 			# Calculate the receptor response and save to array
 			obj.set_mean_response_array()
 			Yys[idSs, :, :] = obj.Yy.T
-			
+		
 		# Do the dimensionality reduction with TSNE
 		TSNE_func = TSNE(random_state=0)
 		Yys_aggregated = Yys.reshape((-1, obj.Mm))
+		Yys_old_aggregated = Yys_old.reshape((-1, obj.Mm))
 		reduced_idxs = (num_intensities, num_signals, 2)
 		reduced_data = TSNE_func.fit_transform(Yys_aggregated).reshape(reduced_idxs)
 		
@@ -112,8 +132,27 @@ def tsne(data_flag, cmap=plt.cm.inferno):
 		save_fig('tsne_Kk_1=%s_Kk_2=%s_nOdors=%s_beta=%.2f' % (obj.Kk_1, obj.Kk_2, 
 						num_signals, beta), subdir=data_flag)
 
-		# Plot the distribution of the activities
+		
 		fig = plt.figure(figsize=(2, 2))
+		ax = plt.subplot()
+		v1 = ax.violinplot(Yys_old_aggregated.flatten(), showextrema=False)
+		for b in v1['bodies']:
+			m = sp.mean(b.get_paths()[0].vertices[:, 0])
+			b.get_paths()[0].vertices[:, 0] = sp.clip(b.get_paths()[0].vertices[:, 0], -sp.inf, m)
+		v2 = ax.violinplot(Yys_aggregated.flatten(), showextrema=False)
+		for b in v2['bodies']:
+			m = sp.mean(b.get_paths()[0].vertices[:, 0])
+			b.get_paths()[0].vertices[:, 0] = sp.clip(b.get_paths()[0].vertices[:, 0], m, sp.inf)
+		plt.ylim(0, 300)
+		plt.xticks([])
+		plt.yticks([0, 150, 300])
+		ax.spines['right'].set_visible(False)
+		ax.spines['top'].set_visible(False)
+		save_fig('tsne_Yy_both_Kk_1=%s_Kk_2=%s_nOdors=%s_beta=%.2f' % (obj.Kk_1, obj.Kk_2, 
+						num_signals, beta), subdir=data_flag)
+
+		# Plot the distribution of the activities
+		fig = plt.figure(figsize=(1.5, 2))
 		ax = plt.subplot()
 		ax.violinplot(Yys_aggregated.flatten(), showextrema=False)
 		plt.ylim(0, 300)
@@ -123,7 +162,20 @@ def tsne(data_flag, cmap=plt.cm.inferno):
 		ax.spines['top'].set_visible(False)
 		save_fig('tsne_Yy_Kk_1=%s_Kk_2=%s_nOdors=%s_beta=%.2f' % (obj.Kk_1, obj.Kk_2, 
 						num_signals, beta), subdir=data_flag)
+
+		# Plot the distribution of the activities
+		fig = plt.figure(figsize=(1.5, 2))
+		ax = plt.subplot()
+		ax.violinplot(Yys_old_aggregated.flatten(), showextrema=False)
+		plt.ylim(0, 300)
+		plt.xticks([])
+		plt.yticks([0, 150, 300])
+		ax.spines['right'].set_visible(False)
+		ax.spines['top'].set_visible(False)
+		save_fig('tsne_Yy_old_Kk_1=%s_Kk_2=%s_nOdors=%s_beta=%.2f' % (obj.Kk_1, obj.Kk_2, 
+						num_signals, beta), subdir=data_flag)
 				
+		
 		# Calculate silhouette score
 		vals = sp.reshape(reduced_data, (num_intensities*num_signals, 2), order='f')
 		labels = []
@@ -132,11 +184,9 @@ def tsne(data_flag, cmap=plt.cm.inferno):
 		scores.append(silhouette_score(vals, labels=labels))
 		
 		
-		
 	fig = fig_tnse()
 	fig.set_size_inches(6, 4)
-	plt.xlim(-0.2, betas[-1]*1.1)
-	plt.ylim(0, max(scores)*1.1)
+	plt.xlim(0, betas[-1]*1.05)
 	plt.plot(betas, scores, color='k', lw=2)
 	save_fig('tsne_Kk_1=%s_Kk_2=%s_nOdors=%s' % (obj.Kk_1, obj.Kk_2, 
 			 num_signals), subdir=data_flag)

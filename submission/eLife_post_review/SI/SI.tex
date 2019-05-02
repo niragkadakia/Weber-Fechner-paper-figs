@@ -366,22 +366,16 @@ Add a Methods subsection if you need to.
 
 %%% Each figure should be on its own page
 
-\iffalse
-\begin{figure}
-\centering
-\includegraphics[width=0.4\textwidth]{figures/1_tuning_curves_SI}
-\caption{Distribution of $K^{ai}$ is drawn from a a power law distribution with exponent $\alpha = 0.35$ as found in ~\cite{si2017invariances}.}
-\label{fig:SI_power_law}
-\end{figure}
-\fi
 
 \begin{figure}
 \centering
-\includegraphics[width=0.6\textwidth]{figures/2_coding_representation_SI}
+\includegraphics[width=\linewidth]{figures/2_coding_representation_SI}
 \caption{Front-end adaptive feedback preserves information capacity of the ORN sensing repertoire. Mutual information between signal $\mathbf s(t)=\mathbf s_A(t)+\mathbf s_B(t)$ and response $\mathbf r(t)$ is calculated at various points in time $t$ for an odor environment consisting of two step odors, A and B. 
 \textbf{A} Odor A, with concentration $\mathbf s_A(t)$, turns on at time $t_A$ and a odor B, with concentration $\mathbf s_B(t)$, turns on at some later time $t_B$. Both odors have similar intensities $\sim s_0$ and similar molecular complexity ($k = 4$). 
 \textbf{B} Mutual information as a function of $s_0$ for the non-adaptive system, respectively, at different time points after $t_A$, corresponding to the dots in A. The mutual information carried by distinct ORNs is represented by the shaded region; their average is plotted by the heavy line. In the non-adaptive system, the mutual information peaks in the regime of high sensitivity after the arrival of odor A (purple, blue), and shifts leftward with the onset of odor B (teal, green). The leftward shifts occurs since stronger signals are more prone to response saturation (compromising information transfer) as odor B arrives. 
 \textbf{C} Same as B, now for the adaptive system. The MI mimics the non-adaptive case at the onset of odor A, before adaptation has kicked in (purple). As the system adapts and responses decrease toward baseline, previously saturating signal intensities now cross the regime of maximal sensitivity, which therefore shifts rightward to higher $s_0$ (dark blue). Much later, but before the arrival of odor B, the ORNs that responded now fire at a similar  adapted firing rate $\sim 30$ Hz, irrespective of odor identity, so the mutual information drops to zero. However, having now adjusted its sensitivity to the presence of odor A, the system can respond appropriately to odor B: the MI at $t_B$ is nearly 6 bits across decades of concentration immediately following $t_B$ (green). 
+\textbf{D}  Comparison of how closely t-SNE projections cluster by odor identity, for systems in which Weber’s Law scaling has been weakly broken for all ORNs in the same way (similar to main text Fig.~2d-e, except $\beta_a = \beta$ is same for all ORNs). Silhouette score quantifies the degree of clustering (1 highly clustered; 0 not clustered). 
+\textbf{E} Distribution of ORN responses and t-SNE projections for $\beta = 0, 0.6, 1.2, 3.0$ in D.
 }
 \label{fig:SI_MI}
 \end{figure}
