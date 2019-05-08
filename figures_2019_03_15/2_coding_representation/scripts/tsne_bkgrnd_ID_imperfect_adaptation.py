@@ -29,40 +29,45 @@ from utils import get_flag
 from load_specs import read_specs_file, compile_all_run_vars
 from entropy import response_entropy
 
-def tsne(data_flag, cmap=plt.cm.inferno):
+iterations_per_beta = 10
+cmap=plt.cm.inferno
 
-	# RUN ON 
-	# jul18_tsne_rand_bkgrnd_WL
-	# jul18_tsne_rand_bkgrnd_no_WL
+data_flag = get_flag()
+list_dict = read_specs_file(data_flag)
+iter_vars = list_dict['iter_vars']
+assert (len(iter_vars.keys()) == 2) and (list(iter_vars.keys())[0] 
+	== 'mu_dSs') and (list(iter_vars.keys())[1] == 'adaptive_beta_scaling_max'), \
+	"Only 2 iter vars; must be `mu_dSs` and `adaptive_beta_scaling_max`"
+mu_dSs_vals = iter_vars['mu_dSs']
+betas = iter_vars['adaptive_beta_scaling_max']
+num_dSs = len(mu_dSs_vals)
+num_signals = list_dict['params']['num_signals']
 
-	list_dict = read_specs_file(data_flag)
-	iter_vars = list_dict['iter_vars']
-	assert (len(iter_vars.keys()) == 2) and (list(iter_vars.keys())[0] 
-		== 'mu_dSs') and (list(iter_vars.keys())[1] == 'imperfect_A0_mult_max'), \
-		"Only 2 iter vars; must be `mu_dSs` and `imperfect_A0_mult_max`"
-	mu_dSs_vals = iter_vars['mu_dSs']
-	betas = iter_vars['imperfect_A0_mult_max']
-	num_intensities = len(mu_dSs_vals)
-	num_signals = list_dict['params']['num_signals']
-	
+scores_beta = []
+
+for iB, beta in enumerate(betas):
 	
 	scores = []
 	
-	for iB, beta in enumerate(betas):
+	for iT in range(iterations_per_beta):
 		
 		# Struc for saved activities; order is odor intensity, odor ID, receptor ID
-		Yys = sp.zeros((num_intensities, num_signals, list_dict['params']['Mm']))
-		Yys_old = sp.zeros((num_intensities, num_signals, list_dict['params']['Mm']))
-			
+		Yys = sp.zeros((num_dSs, num_signals, list_dict['params']['Mm']))
+		Yys_old = sp.zeros((num_dSs, num_signals, list_dict['params']['Mm']))
+		
 		for idSs, mu_dSs in enumerate(mu_dSs_vals):
 				
 			iter_var_idxs = [idSs, iB]	
 			vars_to_pass = compile_all_run_vars(list_dict, iter_var_idxs)
 			obj = response_entropy(**vars_to_pass)
 			
+			# For each iT run, new signal seeds for both fore and back
+			if idSs == 0:
+				obj.seed_dSs = sp.random.seed(iT)
+				obj.seed_dSs_2 = sp.random.seed(iT + 1000)
+			
 			# Basic setting of Kk1, etc.; Ss, Yy, and eps will be overwritten below.
 			obj.encode_power_Kk()
-			
 			
 			# First, set the foreground to zero; get random background
 			# Store the fixed vals and seeds
@@ -93,105 +98,86 @@ def tsne(data_flag, cmap=plt.cm.inferno):
 				elif val[0] == 'entropy_calc_adapted_rand_bkgrnd':
 					obj.encode_entropy_calc_adapted_rand_bkgrnd()
 				else:
-					print ('`%s` run type not accepted for tsne calculation' % val[0])
+					print ('`%s` run type not accepted for tsne' % val[0])
 					quit()
 			else:
-				print ('No entropy calculation run type specified, proceeding with' \
-						'unadapted entropy calculation')
+				print ('No entropy calculation run type specified, '\
+						'proceeding with unadapted entropy calculation')
 				obj.encode_entropy_calc()
 			
 			# Calculate the receptor response and save to array
 			obj.set_mean_response_array()
 			Yys[idSs, :, :] = obj.Yy.T
 		
+		print ('scores for this beta:', scores)
+		print ('aggregated scores:', scores_beta)
+		
 		# Do the dimensionality reduction with TSNE
 		TSNE_func = TSNE(random_state=0)
 		Yys_aggregated = Yys.reshape((-1, obj.Mm))
 		Yys_old_aggregated = Yys_old.reshape((-1, obj.Mm))
-		reduced_idxs = (num_intensities, num_signals, 2)
+		reduced_idxs = (num_dSs, num_signals, 2)
 		reduced_data = TSNE_func.fit_transform(Yys_aggregated).reshape(reduced_idxs)
 		
-		# Project all points to 2D space; color by identity; size by intensity
-		color_range = sp.linspace(0.1, 0.9, num_signals)
-		marker_size_range = sp.linspace(15, 100, num_intensities)
-	
-		fig = fig_tnse()
-		ax = plt.subplot()
-		plt.xticks([])
-		ax.set_xticks([])
-		plt.yticks([])
-		ax.set_yticks([])
-		ax.spines['right'].set_visible(False)
-		ax.spines['top'].set_visible(False)
-		ax.spines['bottom'].set_visible(False)
-		ax.spines['left'].set_visible(False)
-		for iOdor in range(Yys.shape[1]):
-			plt.scatter(reduced_data[:, iOdor, 0], reduced_data[:, iOdor, 1], 
-						color=cmap(color_range[iOdor]), s=marker_size_range, 
-						alpha=0.8)
-		save_fig('tsne_Kk_1=%s_Kk_2=%s_nOdors=%s_beta=%.2f' % (obj.Kk_1, obj.Kk_2, 
-						num_signals, beta), subdir=data_flag)
-
+		if iT == 0:
 		
-		fig = plt.figure(figsize=(2, 2))
-		ax = plt.subplot()
-		v1 = ax.violinplot(Yys_old_aggregated.flatten(), showextrema=False)
-		for b in v1['bodies']:
-			m = sp.mean(b.get_paths()[0].vertices[:, 0])
-			b.get_paths()[0].vertices[:, 0] = sp.clip(b.get_paths()[0].vertices[:, 0], -sp.inf, m)
-		v2 = ax.violinplot(Yys_aggregated.flatten(), showextrema=False)
-		for b in v2['bodies']:
-			m = sp.mean(b.get_paths()[0].vertices[:, 0])
-			b.get_paths()[0].vertices[:, 0] = sp.clip(b.get_paths()[0].vertices[:, 0], m, sp.inf)
-		plt.ylim(0, 300)
-		plt.xticks([])
-		plt.yticks([0, 150, 300])
-		ax.spines['right'].set_visible(False)
-		ax.spines['top'].set_visible(False)
-		save_fig('tsne_Yy_both_Kk_1=%s_Kk_2=%s_nOdors=%s_beta=%.2f' % (obj.Kk_1, obj.Kk_2, 
-						num_signals, beta), subdir=data_flag)
+			# Color by identity; size by intensity
+			color_range = sp.linspace(0.1, 0.9, num_signals)
+			marker_size_range = sp.linspace(15, 100, num_dSs)
 
-		# Plot the distribution of the activities
-		fig = plt.figure(figsize=(1.5, 2))
-		ax = plt.subplot()
-		ax.violinplot(Yys_aggregated.flatten(), showextrema=False)
-		plt.ylim(0, 300)
-		plt.xticks([])
-		plt.yticks([0, 150, 300])
-		ax.spines['right'].set_visible(False)
-		ax.spines['top'].set_visible(False)
-		save_fig('tsne_Yy_Kk_1=%s_Kk_2=%s_nOdors=%s_beta=%.2f' % (obj.Kk_1, obj.Kk_2, 
-						num_signals, beta), subdir=data_flag)
+			fig = fig_tnse()
+			ax = plt.subplot()
+			plt.xticks([])
+			ax.set_xticks([])
+			plt.yticks([])
+			ax.set_yticks([])
+			ax.spines['right'].set_visible(False)
+			ax.spines['top'].set_visible(False)
+			ax.spines['bottom'].set_visible(False)
+			ax.spines['left'].set_visible(False)
+			for iOdor in range(Yys.shape[1]):
+				plt.scatter(reduced_data[:, iOdor, 0], reduced_data[:, iOdor, 1], 
+							color=cmap(color_range[iOdor]), s=marker_size_range, 
+							alpha=0.8)
+			save_fig('tsne_Kk_1=%s_Kk_2=%s_nOdors=%s_beta=%.2f' % 
+						(obj.Kk_1, obj.Kk_2, num_signals, beta), subdir=data_flag)
 
-		# Plot the distribution of the activities
-		fig = plt.figure(figsize=(1.5, 2))
-		ax = plt.subplot()
-		ax.violinplot(Yys_old_aggregated.flatten(), showextrema=False)
-		plt.ylim(0, 300)
-		plt.xticks([])
-		plt.yticks([0, 150, 300])
-		ax.spines['right'].set_visible(False)
-		ax.spines['top'].set_visible(False)
-		save_fig('tsne_Yy_old_Kk_1=%s_Kk_2=%s_nOdors=%s_beta=%.2f' % (obj.Kk_1, obj.Kk_2, 
-						num_signals, beta), subdir=data_flag)
-				
-		
+			
+			fig = plt.figure(figsize=(2, 2))
+			ax = plt.subplot()
+			v1 = ax.violinplot(Yys_old_aggregated.flatten(), showextrema=False)
+			for b in v1['bodies']:
+				m = sp.mean(b.get_paths()[0].vertices[:, 0])
+				b.get_paths()[0].vertices[:, 0] = \
+					sp.clip(b.get_paths()[0].vertices[:, 0], -sp.inf, m)
+			v2 = ax.violinplot(Yys_aggregated.flatten(), showextrema=False)
+			for b in v2['bodies']:
+				m = sp.mean(b.get_paths()[0].vertices[:, 0])
+				b.get_paths()[0].vertices[:, 0] = \
+					sp.clip(b.get_paths()[0].vertices[:, 0], m, sp.inf)
+			plt.ylim(0, 300)
+			plt.xticks([])
+			plt.yticks([0, 150, 300])
+			ax.spines['right'].set_visible(False)
+			ax.spines['top'].set_visible(False)
+			save_fig('tsne_Yy_both_Kk_1=%s_Kk_2=%s_nOdors=%s_beta=%.2f' % 
+						(obj.Kk_1, obj.Kk_2, num_signals, beta), subdir=data_flag)
+
+			
 		# Calculate silhouette score
-		vals = sp.reshape(reduced_data, (num_intensities*num_signals, 2), order='f')
+		vals = sp.reshape(reduced_data, (num_dSs*num_signals, 2), order='f')
 		labels = []
 		for iD in range(num_signals):
-			labels.extend([iD]*num_intensities)
+			labels.extend([iD]*num_dSs)
 		scores.append(silhouette_score(vals, labels=labels))
 		
-		
-	fig = fig_tnse()
-	fig.set_size_inches(6, 4)
-	plt.xlim(0, betas[-1]*1.05)
-	plt.plot(betas, scores, color='k', lw=2)
-	save_fig('tsne_Kk_1=%s_Kk_2=%s_nOdors=%s' % (obj.Kk_1, obj.Kk_2, 
-			 num_signals), subdir=data_flag)
+	scores_beta.append(sp.mean(scores))
 
-	
-if __name__ == '__main__':
-	data_flag = get_flag()
-	tsne(data_flag)
+print (sp.mean(scores_beta))
+
+fig = fig_tnse()
+fig.set_size_inches(6, 4)
+plt.xlim(0, betas[-1]*1.05)
+plt.plot(betas, scores_beta, color='k', lw=2)
+save_fig('tsne_Kk_1=%s_Kk_2=%s_nOdors=%s' % (obj.Kk_1, obj.Kk_2, 
+		 num_signals), subdir=data_flag)
